@@ -4,12 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
 public class LSY_PlayerController : MonoBehaviourPun
 {
     [SerializeField] Camera camera;
     [SerializeField] AudioListener audioListener;
     [SerializeField] TrackedPoseDriver trackedPoseDriver;
+
+    [SerializeField] ActionBasedControllerManager leftControllerManager;
+    [SerializeField] ActionBasedControllerManager rightControllerManager;
     [SerializeField] ActionBasedController leftController;
     [SerializeField] ActionBasedController rightController;
 
@@ -22,6 +26,8 @@ public class LSY_PlayerController : MonoBehaviourPun
             trackedPoseDriver.enabled = false;
             leftController.enabled = false;
             rightController.enabled = false;
+            leftControllerManager.enabled = false;
+            rightControllerManager.enabled = false;
         }
     }
 }
