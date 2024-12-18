@@ -1,0 +1,34 @@
+{
+    "name": "LSY_Controller",
+    "maps": [
+        {
+            "name": "LSY",
+            "id": "4047760b-0ef9-499c-bc46-af4e18d25831",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "b0b4d573-f395-415c-b602-cfa7e0d553aa",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f3e73146-f15f-41cd-ad02-30b36a64a26d",
+                    "path": "<XRController>{RightHand}/primary2DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
