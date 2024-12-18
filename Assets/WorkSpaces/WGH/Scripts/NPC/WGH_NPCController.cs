@@ -1,5 +1,5 @@
+using Photon.Pun;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -17,7 +17,7 @@ public enum E_NpcType
     ENnpcType_MAX
 }
 
-public class WGH_NPCController : MonoBehaviour
+public class WGH_NPCController : MonoBehaviourPun
 {
     [SerializeField] private E_NpcType npcType;
     [SerializeField] private INPCState curState;
@@ -40,7 +40,7 @@ public class WGH_NPCController : MonoBehaviour
     public Vector3 PassPos { get { return passPos; } }
 
     [SerializeField] private Vector3 explorePos1;                                   // explore 위치 1
-    public Vector3 ExplorePos1 { get {  return explorePos1; } }
+    public Vector3 ExplorePos1 { get { return explorePos1; } }
 
     [SerializeField] private Vector3 explorePos2;                                   // explore 위치 2
     public Vector3 ExplorePos2 { get { return explorePos2; } }
@@ -49,14 +49,14 @@ public class WGH_NPCController : MonoBehaviour
     public Vector3 Counter { get { return counter; } }
 
     [SerializeField] private Collider interactionArea;                              // 시향 콜라이더
-    public Collider InteractionArea { get {  return interactionArea; } }
+    public Collider InteractionArea { get { return interactionArea; } }
 
     [SerializeField] private Image best;                                            // Best 이미지
     public Image Best { get { return best; } }
 
     [SerializeField] private Image good;                                            // Good 이미지
     public Image Good { get { return good; } }
-    
+
     [SerializeField] private Image bad;                                             // Bad 이미지
     public Image Bad { get { return bad; } }
 
@@ -74,14 +74,14 @@ public class WGH_NPCController : MonoBehaviour
         enterState = new WGH_NPCEnter(this, agent);
         exploreState = new WGH_NPCExplore(this, agent);
         goToCouterState = new WGH_NPCGoToCounter(this, agent);
-        exitState = new WGH_NPCExit(this, agent);
         wait = new WGH_NPCWait(this);
         purchase = new WGH_NPCPurchase(this);
+        exitState = new WGH_NPCExit(this, agent);
     }
 
     private void Start()
     {
-        ChangeState(passState, E_NpcType.PASS);
+        ChangeStateNetwork((int)E_NpcType.PASS);
     }
 
     private void Update()
@@ -89,16 +89,55 @@ public class WGH_NPCController : MonoBehaviour
         curState?.OnUpdate();
     }
 
-    public void ChangeState(INPCState newState, E_NpcType type)
+    /// <summary>
+    /// RPC 함수(npc 상태 동기화)
+    /// </summary>
+    [PunRPC]
+    public void ChangeState(E_NpcType type)
     {
+        INPCState newState = FindStateType((int)type);
         curState?.Exit();
         curState = newState;
         npcType = type;
         curState.Enter();
         // explore 상태에 진입할 경우에만 진행하는 코루틴
-        if(npcType == E_NpcType.EXPLORE)
+        if (npcType == E_NpcType.EXPLORE)
         {
             StartCoroutine(ExploreRoutine());
+        }
+    }
+
+    /// <summary>
+    /// RPC 함수 호출
+    /// </summary>
+    public void ChangeStateNetwork(int type)
+    {
+        photonView.RPC("ChangeState", RpcTarget.AllBuffered, type);
+    }
+
+    /// <summary>
+    /// int 값을 대입하면 그에 맞는 상태 클래스를 찾아주는 함수
+    /// </summary>
+    public INPCState FindStateType(int type)
+    {
+        switch (type)
+        {
+            case 1:
+                return new WGH_NPCPass(this, Agent);
+            case 2:
+                return new WGH_NPCEnter(this, Agent);
+            case 3:
+                return new WGH_NPCExplore(this, Agent);
+            case 4:
+                return new WGH_NPCGoToCounter(this, Agent);
+            case 5:
+                return new WGH_NPCWait(this);
+            case 6:
+                return new WGH_NPCPurchase(this);
+            case 7:
+                return new WGH_NPCExit(this, Agent);
+            default:
+                return null;
         }
     }
 

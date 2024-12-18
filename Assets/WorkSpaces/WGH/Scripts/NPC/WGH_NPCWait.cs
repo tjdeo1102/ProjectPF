@@ -43,7 +43,8 @@ public class WGH_NPCWait : INPCState
 
         if(smellCount >= 3)
         {
-            controller.ChangeState(new WGH_NPCPurchase(controller), E_NpcType.PURCHASE);
+            //controller.ChangeState(new WGH_NPCPurchase(controller), E_NpcType.PURCHASE);
+            controller.ChangeStateNetwork((int)E_NpcType.PURCHASE);
         }
     }
 

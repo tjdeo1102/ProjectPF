@@ -14,7 +14,7 @@ public class WGH_NPCPurchase : INPCState
 
     public void Enter()
     {
-        Debug.Log("Wait 상태");
+        Debug.Log("Purchase 상태");
     }
 
     public void OnUpdate()

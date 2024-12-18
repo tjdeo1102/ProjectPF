@@ -23,7 +23,8 @@ public class WGH_NPCPass : INPCState
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            controller.ChangeState(new WGH_NPCEnter(controller, controller.Agent), E_NpcType.ENTER);
+            //controller.ChangeState(new WGH_NPCEnter(controller, controller.Agent), E_NpcType.ENTER);
+            controller.ChangeStateNetwork((int)E_NpcType.ENTER);
         }
     }
 

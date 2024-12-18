@@ -25,7 +25,8 @@ public class WGH_NPCGoToCounter : INPCState
     {
         if(agent.remainingDistance < agent.stoppingDistance && agent.pathPending == false)
         {
-            controller.ChangeState(new WGH_NPCWait(controller), E_NpcType.WAIT);
+            //controller.ChangeState(new WGH_NPCWait(controller), E_NpcType.WAIT);
+            controller.ChangeStateNetwork((int)E_NpcType.WAIT);
         }
     }
 
