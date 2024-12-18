@@ -8,8 +8,6 @@ public class PTK_TestGameScene : MonoBehaviourPunCallbacks
 {
     public const string RoomName = "TestRoomPTK";
 
-    public GameObject PlayerPrefab;
-
     private void Start()
     {
         PhotonNetwork.LocalPlayer.NickName = $"Player {Random.Range(1000, 10000)}";
@@ -46,6 +44,6 @@ public class PTK_TestGameScene : MonoBehaviourPunCallbacks
     private void PlayerSpawn()
     {
         Vector3 randomPos = new Vector3(Random.Range(-5f, 5f), 0, Random.Range(-5, 5f));
-        GameObject player = PhotonNetwork.Instantiate(PlayerPrefab.name, randomPos, Quaternion.identity);
+        GameObject player = PhotonNetwork.Instantiate("Player", randomPos, Quaternion.identity);
     }
 }
