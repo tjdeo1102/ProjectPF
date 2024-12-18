@@ -28,9 +28,11 @@ public class LSY_ItemManager : MonoBehaviour
 
         foreach (var item in items)
         {
+            float prefabHight = itemPanelPrefab.gameObject.GetComponent<RectTransform>().rect.height;
+
             // 아이템이 늘어나면 Content의 Hight 높이도 늘어나도록 해줌
             RectTransform rectTransform = uiParent.gameObject.GetComponent<RectTransform>();
-            rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y + 155);
+            rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y + prefabHight + 5 );
 
             // 아이템 패널 프리팹을 Content의 자식오브젝트로 생성해줌
             GameObject itemPanel = Instantiate(itemPanelPrefab, uiParent);
