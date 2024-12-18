@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class WGH_NPCExit : INPCState
 {
-    private E_NpcType npcType;
     private WGH_NPCController controller;
 
     private NavMeshAgent agent;

@@ -4,7 +4,6 @@ using UnityEngine.AI;
 
 public class WGH_NPCExplore : INPCState
 {
-    private E_NpcType npcType;
     private WGH_NPCController controller;
 
     private NavMeshAgent agent;

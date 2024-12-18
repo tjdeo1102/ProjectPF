@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class WGH_NPCGoToCounter : INPCState
 {
-    private E_NpcType npcType;
     private WGH_NPCController controller;
 
     private NavMeshAgent agent;
@@ -21,7 +20,10 @@ public class WGH_NPCGoToCounter : INPCState
         agent.SetDestination(controller.Counter);
     }
 
-    public void OnUpdate() { }
+    public void OnUpdate() 
+    {
+
+    }
 
     public void Exit() { }
 }
