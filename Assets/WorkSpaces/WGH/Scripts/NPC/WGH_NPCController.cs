@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public enum E_NpcType
 {
@@ -32,26 +33,43 @@ public class WGH_NPCController : MonoBehaviour
     private NavMeshAgent agent;
     public NavMeshAgent Agent { get { return agent; } }
 
-    [SerializeField] private Vector3 entrance;                                     // 입구 Vector
+    [SerializeField] private Vector3 entrance;                                      // 입구 Vector
     public Vector3 Entrance { get { return entrance; } }
 
-    [SerializeField] private Vector3 passPos;                                      // pass 루트 Vector
+    [SerializeField] private Vector3 passPos;                                       // pass 루트 Vector
     public Vector3 PassPos { get { return passPos; } }
 
-    [SerializeField] private Vector3 explorePos1;                                  // explore 위치 1
+    [SerializeField] private Vector3 explorePos1;                                   // explore 위치 1
     public Vector3 ExplorePos1 { get {  return explorePos1; } }
 
-    [SerializeField] private Vector3 explorePos2;                                  // explore 위치 2
+    [SerializeField] private Vector3 explorePos2;                                   // explore 위치 2
     public Vector3 ExplorePos2 { get { return explorePos2; } }
 
-    [SerializeField] private Vector3 counter;                                      // counter 위치
+    [SerializeField] private Vector3 counter;                                       // counter 위치
     public Vector3 Counter { get { return counter; } }
+
+    [SerializeField] private Collider interactionArea;                              // 시향 콜라이더
+    public Collider InteractionArea { get {  return interactionArea; } }
+
+    [SerializeField] private Image best;                                            // Best 이미지
+    public Image Best { get { return best; } }
+
+    [SerializeField] private Image good;                                            // Good 이미지
+    public Image Good { get { return good; } }
+    
+    [SerializeField] private Image bad;                                             // Bad 이미지
+    public Image Bad { get { return bad; } }
 
     private void Awake()
     {
         npcType = E_NpcType.NONE;
 
         agent = GetComponent<NavMeshAgent>();
+        interactionArea = GetComponentInChildren<CapsuleCollider>();
+        best = transform.GetChild(0).GetChild(0).GetComponent<Image>();
+        good = transform.GetChild(0).GetChild(1).GetComponent<Image>();
+        bad = transform.GetChild(0).GetChild(2).GetComponent<Image>();
+
         passState = new WGH_NPCPass(this, agent);
         enterState = new WGH_NPCEnter(this, agent);
         exploreState = new WGH_NPCExplore(this, agent);
