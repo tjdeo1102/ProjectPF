@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Photon.Pun;
 using System;
 using System.Collections;
@@ -12,6 +13,7 @@ public class KSD_EnvironmentManager : MonoBehaviourPun
     [SerializeField] private Transform directLight;
     [SerializeField] private float minLightRotation;
     [SerializeField] private float lightRotationLengh;
+    [SerializeField] private float rotationTime;
 
     private void Start()
     {
@@ -47,7 +49,7 @@ public class KSD_EnvironmentManager : MonoBehaviourPun
         // 클리어한 손님 수에 따라, 점점 밤으로 바뀌도록 구성
         var lightRot = minLightRotation + ((float)currentCount / (float)maxCount) * lightRotationLengh;
 
-        directLight.eulerAngles = new Vector3(lightRot, directLight.rotation.y, directLight.rotation.z);
+        directLight.DORotate(new Vector3(lightRot, directLight.rotation.y, directLight.rotation.z), rotationTime, RotateMode.Fast);
     }
 
 }
