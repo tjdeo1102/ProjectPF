@@ -8,6 +8,8 @@ public class WGH_TestGameScene : MonoBehaviourPunCallbacks
 {
     public const string RoomName = "TestRoom";
 
+    [SerializeField] private Vector3 spawnPos;
+
     private void Start()
     {
         PhotonNetwork.LocalPlayer.NickName = $"Player {Random.Range(100, 1000)}";
@@ -29,8 +31,7 @@ public class WGH_TestGameScene : MonoBehaviourPunCallbacks
 
     void SpawnPlayer()
     {
-        Vector3 randomPos = new Vector3(Random.Range(-3f, 3f), 0, Random.Range(-3, 3));
-        PhotonNetwork.Instantiate("Player", randomPos, Quaternion.identity);
+        PhotonNetwork.Instantiate("Player", spawnPos, Quaternion.identity);
     }
 }
 
