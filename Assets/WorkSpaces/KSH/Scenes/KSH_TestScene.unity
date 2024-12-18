@@ -642,6 +642,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sliceNormal: {x: 0, y: 1, z: 0}
+  sliceCooldown: 0.3
+  swingThreshold: 2
 --- !u!1 &201501418
 GameObject:
   m_ObjectHideFlags: 0
@@ -2675,7 +2677,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sliceOptions:
     enableReslicing: 1
-    maxResliceCount: 3
+    maxResliceCount: 2
     detectFloatingFragments: 0
     insideMaterial: {fileID: 2100000, guid: 409bf720e9924426b9f253cf037a8f4e, type: 2}
     textureScale: {x: 1, y: 1}
@@ -2703,7 +2705,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 36
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!65 &855536235
 BoxCollider:
