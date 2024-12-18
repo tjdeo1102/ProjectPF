@@ -16,7 +16,7 @@ public class WGH_NPCExplore : INPCState
 
     public void Enter()
     {
-        Debug.Log("Explore상태");
+        Debug.Log("Explore 상태");
         randomNum = Random.Range(1, 3);
     }
 

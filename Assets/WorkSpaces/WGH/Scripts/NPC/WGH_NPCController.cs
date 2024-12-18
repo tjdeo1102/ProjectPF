@@ -6,12 +6,13 @@ using UnityEngine.AI;
 public enum E_NpcType
 {
     NONE,
-    PASS,
-    ENTER,
-    EXPLORE,
-    COUNTER,
-    PURCHASE,
-    EXIT,
+    PASS,                                                                         // 가게 밖 이동 상태
+    ENTER,                                                                        // 가게 입장
+    EXPLORE,                                                                      // 가게 둘러보기
+    COUNTER,                                                                      // 카운터로 가는 상태
+    WAIT,                                                                         // 카운터에서 대기 + 시향 + 리액션
+    PURCHASE,                                                                     // 시향 후 병 타입 제시 + 수령할때까지 대기 상태
+    EXIT,                                                                         // 퇴장
     ENnpcType_MAX
 }
 
@@ -25,6 +26,8 @@ public class WGH_NPCController : MonoBehaviour
     private WGH_NPCExplore exploreState;
     private WGH_NPCGoToCounter goToCouterState;
     private WGH_NPCExit exitState;
+    private WGH_NPCWait wait;
+    private WGH_NPCPurchase purchase;
 
     private NavMeshAgent agent;
     public NavMeshAgent Agent { get { return agent; } }
@@ -54,6 +57,8 @@ public class WGH_NPCController : MonoBehaviour
         exploreState = new WGH_NPCExplore(this, agent);
         goToCouterState = new WGH_NPCGoToCounter(this, agent);
         exitState = new WGH_NPCExit(this, agent);
+        wait = new WGH_NPCWait(this);
+        purchase = new WGH_NPCPurchase(this);
     }
 
     private void Start()

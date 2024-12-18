@@ -14,7 +14,7 @@ public class WGH_NPCPass : INPCState
 
     public void Enter()
     {
-        Debug.Log("pass상태");
+        Debug.Log("pass 상태");
         // TODO : Enter상태가 되는 조건 추가
         agent.SetDestination(controller.PassPos);
     }

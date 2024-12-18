@@ -16,7 +16,7 @@ public class WGH_NPCEnter : INPCState
 
     public void Enter()
     {
-        Debug.Log("Enter상태 진입");
+        Debug.Log("Enter 상태 진입");
         agent.SetDestination(controller.Entrance);
         randomNum = Random.Range(1, 3);
     }
