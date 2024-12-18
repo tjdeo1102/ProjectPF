@@ -62,8 +62,6 @@ public class WGH_NPCController : MonoBehaviourPun
 
     private void Awake()
     {
-        npcType = E_NpcType.NONE;
-
         agent = GetComponent<NavMeshAgent>();
         interactionArea = GetComponentInChildren<CapsuleCollider>();
         best = transform.GetChild(0).GetChild(0).GetComponent<Image>();
@@ -139,6 +137,37 @@ public class WGH_NPCController : MonoBehaviourPun
             default:
                 return null;
         }
+    }
+
+    /// <summary>
+    /// 리액션 UI 활성/비활성화 함수
+    /// </summary>
+    [PunRPC]
+    public void SelectReactUI(int uiType)
+    {
+        switch (uiType)
+        {
+            case 0:
+                best.gameObject.SetActive(true);
+                good.gameObject.SetActive(false);
+                bad.gameObject.SetActive(false);
+                break;
+            case 1:
+                best.gameObject.SetActive(false);
+                good.gameObject.SetActive(true);
+                bad.gameObject.SetActive(false);
+                break;
+            case 2:
+                best.gameObject.SetActive(false);
+                good.gameObject.SetActive(false);
+                bad.gameObject.SetActive(true);
+                break;
+        }
+    }
+
+    public void SelectReactUINetwork(int uiType)
+    {
+        photonView.RPC("SelectReactUI", RpcTarget.All, uiType);
     }
 
     IEnumerator ExploreRoutine()

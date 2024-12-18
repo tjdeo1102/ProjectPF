@@ -2,7 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Photon.Pun;
 
+public enum E_ReactUiType
+{
+    BEST,
+    GOOD,
+    BAD
+}
 public class WGH_NPCWait : INPCState
 {
     private WGH_NPCController controller;
@@ -21,23 +28,17 @@ public class WGH_NPCWait : INPCState
     {
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
-            controller.Best.gameObject.SetActive(true);
-            controller.Good.gameObject.SetActive(false);
-            controller.Bad.gameObject.SetActive(false);
+            controller.SelectReactUINetwork((int)E_ReactUiType.BEST);
             smellCount++;
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            controller.Best.gameObject.SetActive(false);
-            controller.Good.gameObject.SetActive(true);
-            controller.Bad.gameObject.SetActive(false);
+            controller.SelectReactUINetwork((int)E_ReactUiType.GOOD);
             smellCount++;
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            controller.Best.gameObject.SetActive(false);
-            controller.Good.gameObject.SetActive(false);
-            controller.Bad.gameObject.SetActive(true);
+            controller.SelectReactUINetwork((int)E_ReactUiType.BAD);
             smellCount++;
         }
 
@@ -50,8 +51,6 @@ public class WGH_NPCWait : INPCState
 
     public void Exit() 
     {
-        controller.Best.gameObject.SetActive(false);
-        controller.Good.gameObject.SetActive(false);
-        controller.Bad.gameObject.SetActive(false);
+
     }
 }
