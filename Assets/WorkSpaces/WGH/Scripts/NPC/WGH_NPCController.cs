@@ -148,19 +148,13 @@ public class WGH_NPCController : MonoBehaviourPun
         switch (uiType)
         {
             case 0:
-                best.gameObject.SetActive(true);
-                good.gameObject.SetActive(false);
-                bad.gameObject.SetActive(false);
+                StartCoroutine(FloatBestRoutine());
                 break;
             case 1:
-                best.gameObject.SetActive(false);
-                good.gameObject.SetActive(true);
-                bad.gameObject.SetActive(false);
+                StartCoroutine(FloatGoodRoutine());
                 break;
             case 2:
-                best.gameObject.SetActive(false);
-                good.gameObject.SetActive(false);
-                bad.gameObject.SetActive(true);
+                StartCoroutine(FloatBadRoutine());
                 break;
         }
     }
@@ -183,5 +177,36 @@ public class WGH_NPCController : MonoBehaviourPun
                 yield break;
             }
         }
+    }
+
+    IEnumerator FloatBestRoutine()
+    {
+        best.gameObject.SetActive(true);
+        good.gameObject.SetActive(false);
+        bad.gameObject.SetActive(false);
+        yield return new WaitForSeconds(1);
+        best.gameObject.SetActive(false);
+        ChangeStateNetwork((int)E_NpcType.PURCHASE);
+        yield break;
+    }
+
+    IEnumerator FloatGoodRoutine()
+    {
+        best.gameObject.SetActive(false);
+        good.gameObject.SetActive(true);
+        bad.gameObject.SetActive(false);
+        yield return new WaitForSeconds(1);
+        good.gameObject.SetActive(false);
+        yield break;
+    }
+
+    IEnumerator FloatBadRoutine()
+    {
+        best.gameObject.SetActive(false);
+        good.gameObject.SetActive(false);
+        bad.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1);
+        bad.gameObject.SetActive(false);
+        yield break;
     }
 }
