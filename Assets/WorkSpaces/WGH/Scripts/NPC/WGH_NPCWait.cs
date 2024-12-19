@@ -10,6 +10,16 @@ public enum E_ReactUiType
     GOOD,
     BAD
 }
+
+public enum E_BottleType
+{
+    a,
+    b,
+    c,
+    d,
+    e
+}
+
 public class WGH_NPCWait : INPCState
 {
     private WGH_NPCController controller;
