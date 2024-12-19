@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,11 +16,12 @@ public class LSY_ItemPanel : MonoBehaviour
     [SerializeField] TextMeshProUGUI itemPriceText;
     [SerializeField] TextMeshProUGUI itemCountText;
     [SerializeField] TextMeshProUGUI totalItemPriceText;
-    [SerializeField] TextMeshProUGUI allItemPriceText;
+
+    public delegate void ItemAdded(int price);
+    public event ItemAdded OnItemAdded;
 
     int itemCount;
     int totalItemPrice;
-    int allItemPrice;
 
     private void Start()
     {
@@ -36,22 +35,32 @@ public class LSY_ItemPanel : MonoBehaviour
         itemCount = 0;
         itemCountText.text = itemCount.ToString();
 
+        TotalPrice();
+    }
+
+    public void SetItemInfo(string name, int price)
+    {
+        itemName = name;
+        itemPrice = price;
+
+        itemNameText.text = itemName;
         itemPriceText.text = itemPrice.ToString() + "$";
 
+        itemCount = 0;
+        itemCountText.text = itemCount.ToString();
         TotalPrice();
     }
 
     private void AddItem()
     {
-        LSY_TotalPrice.Price += totalItemPrice;
-        allItemPrice = LSY_TotalPrice.Price;
-        allItemPriceText.text = allItemPrice.ToString() + "$";
+        totalItemPrice = itemPrice * itemCount;
+
+        OnItemAdded?.Invoke(totalItemPrice);
 
         itemCount = 0;
         itemCountText.text = itemCount.ToString();
         totalItemPrice = 0;
-        totalItemPriceText.text = totalItemPrice.ToString();
-
+        totalItemPriceText.text = totalItemPrice.ToString() + "$";
     }
 
     private void MinusCount()
