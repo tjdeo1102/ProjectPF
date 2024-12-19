@@ -14,7 +14,7 @@ public class WGH_NPCPass : INPCState
 
     public void Enter()
     {
-        Debug.Log("pass상태");
+        Debug.Log("pass 상태");
         // TODO : Enter상태가 되는 조건 추가
         agent.SetDestination(controller.PassPos);
     }
@@ -23,7 +23,8 @@ public class WGH_NPCPass : INPCState
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            controller.ChangeState(new WGH_NPCEnter(controller, controller.Agent), E_NpcType.ENTER);
+            //controller.ChangeState(new WGH_NPCEnter(controller, controller.Agent), E_NpcType.ENTER);
+            controller.ChangeStateNetwork((int)E_NpcType.ENTER);
         }
     }
 

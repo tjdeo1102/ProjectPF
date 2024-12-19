@@ -17,6 +17,7 @@ public class WGH_NPCExit : INPCState
 
     public void Enter() 
     {
+        Debug.Log("exit ป๓ลย");
         agent.SetDestination(controller.PassPos);
     }
 

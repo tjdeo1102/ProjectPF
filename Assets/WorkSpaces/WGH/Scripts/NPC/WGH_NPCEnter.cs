@@ -16,7 +16,7 @@ public class WGH_NPCEnter : INPCState
 
     public void Enter()
     {
-        Debug.Log("Enter상태 진입");
+        Debug.Log("Enter 상태 진입");
         agent.SetDestination(controller.Entrance);
         randomNum = Random.Range(1, 3);
     }
@@ -28,11 +28,13 @@ public class WGH_NPCEnter : INPCState
             switch (randomNum)
             {
                 case 1:
-                    controller.ChangeState(new WGH_NPCGoToCounter(controller, controller.Agent), E_NpcType.COUNTER);
+                    //controller.ChangeState(new WGH_NPCGoToCounter(controller, controller.Agent), E_NpcType.COUNTER);
+                    controller.ChangeStateNetwork((int)E_NpcType.COUNTER);
                     break;
 
                 case 2:
-                    controller.ChangeState(new WGH_NPCExplore(controller, controller.Agent), E_NpcType.EXPLORE);
+                    //controller.ChangeState(new WGH_NPCExplore(controller, controller.Agent), E_NpcType.EXPLORE);
+                    controller.ChangeStateNetwork((int)E_NpcType.EXPLORE);
                     break;
             }
             
