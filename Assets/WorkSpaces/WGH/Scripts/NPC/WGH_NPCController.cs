@@ -4,23 +4,23 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-public enum E_NpcType
+public enum E_StateType
 {
     NONE,
     PASS,                                                                         // 가게 밖 이동 상태
     ENTER,                                                                        // 가게 입장
     EXPLORE,                                                                      // 가게 둘러보기
     COUNTER,                                                                      // 카운터로 가는 상태
-    WAIT,                                                                         // 카운터에서 대기 + 시향 + 리액션
-    PURCHASE,                                                                     // 시향 후 병 타입 제시 + 수령할때까지 대기 상태
+    WAIT,                                                                         // 카운터에서 대기 + 시향 + 리액션 + 병 타입 제시
+    PURCHASE,                                                                     // 수령할때까지 대기 상태
     EXIT,                                                                         // 퇴장
     ENnpcType_MAX
 }
 
 public class WGH_NPCController : MonoBehaviourPun
 {
-    [SerializeField] private E_NpcType npcType;
-    [SerializeField] private INPCState curState;
+    [SerializeField, Tooltip("현재 상태")] private E_StateType stateType;
+    private INPCState curState;
 
     private WGH_NPCPass passState;
     private WGH_NPCEnter enterState;
@@ -33,32 +33,33 @@ public class WGH_NPCController : MonoBehaviourPun
     private NavMeshAgent agent;
     public NavMeshAgent Agent { get { return agent; } }
 
-    [SerializeField] private Vector3 entrance;                                      // 입구 Vector
+    [SerializeField, Tooltip("입구 위치")] private Vector3 entrance;                                    // 입구 Vector
     public Vector3 Entrance { get { return entrance; } }
 
-    [SerializeField] private Vector3 passPos;                                       // pass 루트 Vector
+    [SerializeField, Tooltip("가게를 지나칠때의 도착 위치")] private Vector3 passPos;                     // pass 루트 Vector
     public Vector3 PassPos { get { return passPos; } }
 
-    [SerializeField] private Vector3 explorePos1;                                   // explore 위치 1
-    public Vector3 ExplorePos1 { get { return explorePos1; } }
+    [SerializeField, Tooltip("가게 내부 탐색위치 1")] private Vector3 explorePos1;                       // explore 위치 1
 
-    [SerializeField] private Vector3 explorePos2;                                   // explore 위치 2
+    [SerializeField, Tooltip("가게 내부 탐색위치 2")] private Vector3 explorePos2;                       // explore 위치 2
     public Vector3 ExplorePos2 { get { return explorePos2; } }
 
-    [SerializeField] private Vector3 counter;                                       // counter 위치
+    [SerializeField, Tooltip("카운터 위치")] private Vector3 counter;                                    // counter 위치
     public Vector3 Counter { get { return counter; } }
 
-    [SerializeField] private Collider interactionArea;                              // 시향 콜라이더
+    [SerializeField, Tooltip("시향 콜라이더")] private Collider interactionArea;                         // 시향 콜라이더
+
     public Collider InteractionArea { get { return interactionArea; } }
 
-    [SerializeField] private Image best;                                            // Best 이미지
-    public Image Best { get { return best; } }
+    private Image best;                                                                                 // Best 이미지
 
-    [SerializeField] private Image good;                                            // Good 이미지
-    public Image Good { get { return good; } }
+    private Image good;                                                                                 // Good 이미지
 
-    [SerializeField] private Image bad;                                             // Bad 이미지
-    public Image Bad { get { return bad; } }
+    private Image bad;                                                                                  // Bad 이미지
+
+    [Tooltip("병 UI 목록")] public Sprite[] bottleUI;
+
+    [Tooltip("병 UI")] public Image purchaseUI;
 
     private void Awake()
     {
@@ -79,7 +80,7 @@ public class WGH_NPCController : MonoBehaviourPun
 
     private void Start()
     {
-        ChangeStateNetwork((int)E_NpcType.PASS);
+        ChangeStateNetwork((int)E_StateType.PASS);
     }
 
     private void Update()
@@ -91,15 +92,15 @@ public class WGH_NPCController : MonoBehaviourPun
     /// RPC 함수(npc 상태 동기화)
     /// </summary>
     [PunRPC]
-    public void ChangeState(E_NpcType type)
+    public void ChangeState(E_StateType type)
     {
         INPCState newState = FindStateType((int)type);
         curState?.Exit();
         curState = newState;
-        npcType = type;
+        stateType = type;
         curState.Enter();
         // explore 상태에 진입할 경우에만 진행하는 코루틴
-        if (npcType == E_NpcType.EXPLORE)
+        if (stateType == E_StateType.EXPLORE)
         {
             StartCoroutine(ExploreRoutine());
         }
@@ -148,19 +149,13 @@ public class WGH_NPCController : MonoBehaviourPun
         switch (uiType)
         {
             case 0:
-                best.gameObject.SetActive(true);
-                good.gameObject.SetActive(false);
-                bad.gameObject.SetActive(false);
+                StartCoroutine(FloatBestRoutine());
                 break;
             case 1:
-                best.gameObject.SetActive(false);
-                good.gameObject.SetActive(true);
-                bad.gameObject.SetActive(false);
+                StartCoroutine(FloatGoodRoutine());
                 break;
             case 2:
-                best.gameObject.SetActive(false);
-                good.gameObject.SetActive(false);
-                bad.gameObject.SetActive(true);
+                StartCoroutine(FloatBadRoutine());
                 break;
         }
     }
@@ -168,6 +163,17 @@ public class WGH_NPCController : MonoBehaviourPun
     public void SelectReactUINetwork(int uiType)
     {
         photonView.RPC("SelectReactUI", RpcTarget.All, uiType);
+    }
+
+    [PunRPC]
+    public void SelectBottleUI(int bottleType)
+    {
+        purchaseUI.sprite = bottleUI[bottleType];
+    }
+
+    public void SelectBottleUINetwork(int bottleType)
+    {
+
     }
 
     IEnumerator ExploreRoutine()
@@ -183,5 +189,36 @@ public class WGH_NPCController : MonoBehaviourPun
                 yield break;
             }
         }
+    }
+
+    IEnumerator FloatBestRoutine()
+    {
+        best.gameObject.SetActive(true);
+        good.gameObject.SetActive(false);
+        bad.gameObject.SetActive(false);
+        yield return new WaitForSeconds(1);
+        best.gameObject.SetActive(false);
+        ChangeStateNetwork((int)E_StateType.PURCHASE);
+        yield break;
+    }
+
+    IEnumerator FloatGoodRoutine()
+    {
+        best.gameObject.SetActive(false);
+        good.gameObject.SetActive(true);
+        bad.gameObject.SetActive(false);
+        yield return new WaitForSeconds(1);
+        good.gameObject.SetActive(false);
+        yield break;
+    }
+
+    IEnumerator FloatBadRoutine()
+    {
+        best.gameObject.SetActive(false);
+        good.gameObject.SetActive(false);
+        bad.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1);
+        bad.gameObject.SetActive(false);
+        yield break;
     }
 }

@@ -27,12 +27,10 @@ public class WGH_NPCExplore : INPCState
             switch(randomNum)
             {
                 case 1:
-                    //controller.ChangeState(new WGH_NPCGoToCounter(controller, controller.Agent), E_NpcType.COUNTER);
-                    controller.ChangeStateNetwork((int)E_NpcType.COUNTER);
+                    controller.ChangeStateNetwork((int)E_StateType.COUNTER);
                     break;
                 case 2:
-                    //controller.ChangeState(new WGH_NPCExit(controller, controller.Agent), E_NpcType.EXIT);
-                    controller.ChangeStateNetwork((int)E_NpcType.EXIT);
+                    controller.ChangeStateNetwork((int)E_StateType.EXIT);
                     break;
             }
         }
