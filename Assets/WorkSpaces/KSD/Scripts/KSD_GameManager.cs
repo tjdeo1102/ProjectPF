@@ -7,16 +7,37 @@ using WebSocketSharp;
 
 public class KSD_GameManager : MonoBehaviourPun
 {
+    [Header("싱글톤")]
+    public static KSD_GameManager Instance;
+
     [Header("기본 설정")]
     [SerializeField] private int maxCustomerCount;
     [SerializeField] private int currentStageID;
     [SerializeField] private int returnSceneIndex;
+    [SerializeField] private Transform player;
+
+    [Header("상점 위치")]
+    [SerializeField] private Transform storePosition;
+    [SerializeField] private Transform stagePosition;
 
     [Header("게임 매니저 구성 요소")]
     [SerializeField] KSD_EnvironmentManager environmentManager;
 
     [Header("현재 스테이지 정보")]
     public KSD_StageInfo CurrentStageInfo;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            // 해당 씬에서만 존재할 싱글톤이므로, 씬전환시 삭제가능하도록 구현
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -86,6 +107,7 @@ public class KSD_GameManager : MonoBehaviourPun
             // 스테이지 상승
             CurrentStageInfo.StageLevel++;
             CurrentStageInfo.FinishPlayerCount = 0;
+            player.transform.position = storePosition.position;
         }
         UpdateEnvironment();
     }
@@ -131,5 +153,10 @@ public class KSD_GameManager : MonoBehaviourPun
         {
             environmentManager.ChangeLight(CurrentStageInfo.FinishPlayerCount, maxCustomerCount);
         }
+    }
+
+    public void ReturnStage()
+    {
+        player.position = stagePosition.position;
     }
 }
