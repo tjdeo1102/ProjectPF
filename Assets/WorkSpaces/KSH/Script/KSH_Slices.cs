@@ -6,7 +6,7 @@ public class KSH_Slices : MonoBehaviour
 {
     [SerializeField] private Vector3 sliceNormal = Vector3.up; // 슬라이싱 평면 방향
     [SerializeField] private float sliceCooldown = 0.3f; // 슬라이싱 쿨타임 (초)
-    [SerializeField] private float swingThreshold = 2f; // 휘두르기 감지 임계값 (속도)
+    [SerializeField] private float swingThreshold; // 휘두르기 감지 임계값 (속도)
 
     private float lastSliceTime = 0f; // 마지막 슬라이싱 시간
     private Vector3 lastPosition; // 마지막 프레임의 위치
