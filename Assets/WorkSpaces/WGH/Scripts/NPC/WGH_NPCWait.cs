@@ -23,6 +23,7 @@ public enum E_BottleType
 public class WGH_NPCWait : INPCState
 {
     private WGH_NPCController controller;
+    private int randomNum;
     public WGH_NPCWait(WGH_NPCController controller)
     {
         this.controller = controller;
@@ -30,6 +31,11 @@ public class WGH_NPCWait : INPCState
 
     public void Enter()
     {
+        randomNum = Random.Range(0, 5);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            controller.SelectBottleUINetwork(randomNum);
+        }
         Debug.Log("Wait ป๓ลย");
     }
 

@@ -168,12 +168,18 @@ public class WGH_NPCController : MonoBehaviourPun
     [PunRPC]
     public void SelectBottleUI(int bottleType)
     {
+        if(purchaseUI.gameObject.activeSelf == false)
+        {
+            purchaseUI.gameObject.SetActive(true);
+        }
+       
         purchaseUI.sprite = bottleUI[bottleType];
+        
     }
 
     public void SelectBottleUINetwork(int bottleType)
     {
-
+        photonView.RPC("SelectBottleUI", RpcTarget.All, bottleType);
     }
 
     IEnumerator ExploreRoutine()
