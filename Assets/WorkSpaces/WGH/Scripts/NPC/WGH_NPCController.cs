@@ -21,6 +21,10 @@ public class WGH_NPCController : MonoBehaviourPun
 {
     [SerializeField, Tooltip("현재 상태")] private E_StateType stateType;
     private INPCState curState;
+    public E_WGH_PerfumeType PerfumeType;
+    public E_WGH_PerfumeMaterialType BestMaterial;
+    public E_WGH_PerfumeMaterialType LikeMaterial;
+    public E_WGH_PerfumeMaterialType QuestionMaterial;
 
     private WGH_NPCPass passState;
     private WGH_NPCEnter enterState;
@@ -57,6 +61,14 @@ public class WGH_NPCController : MonoBehaviourPun
 
     private Image bad;                                                                                  // Bad 이미지
 
+    [SerializeField] private ParticleSystem bestEmotion;
+
+    [SerializeField] private ParticleSystem likeEmotion;
+
+    [SerializeField] private ParticleSystem questionEmotion;
+
+    [SerializeField] private ParticleSystem despairEmotion;
+
     [Tooltip("병 UI 목록")] public Sprite[] bottleUI;
 
     [Tooltip("병 UI")] public Image purchaseUI;
@@ -81,11 +93,40 @@ public class WGH_NPCController : MonoBehaviourPun
     private void Start()
     {
         ChangeStateNetwork((int)E_StateType.PASS);
+        SelectPerfumeType();
     }
 
     private void Update()
     {
         curState?.OnUpdate();
+    }
+
+    /// <summary>
+    /// 선호 '향수/향수원액' 결정
+    /// </summary>
+    private void SelectPerfumeType()
+    {
+        int randNum = Random.Range(0, (int)E_WGH_PerfumeType.E_PERFUMETYPE_MAX);
+        PerfumeType = (E_WGH_PerfumeType)randNum;
+
+        if (PerfumeType == E_WGH_PerfumeType.SPICY)
+        {
+            BestMaterial = E_WGH_PerfumeMaterialType.SPICY;
+            LikeMaterial = E_WGH_PerfumeMaterialType.HOT;
+            QuestionMaterial = E_WGH_PerfumeMaterialType.None;
+        }
+        else if (PerfumeType == E_WGH_PerfumeType.COOL)
+        {
+            BestMaterial = E_WGH_PerfumeMaterialType.COOL;
+            LikeMaterial = E_WGH_PerfumeMaterialType.COMFORTABLE;
+            QuestionMaterial = E_WGH_PerfumeMaterialType.None;
+        }
+        else if (PerfumeType == E_WGH_PerfumeType.COMFORTABLE)
+        {
+            BestMaterial = E_WGH_PerfumeMaterialType.COMFORTABLE;
+            LikeMaterial = E_WGH_PerfumeMaterialType.HOT;
+            QuestionMaterial = E_WGH_PerfumeMaterialType.None;
+        }
     }
 
     /// <summary>
@@ -149,13 +190,16 @@ public class WGH_NPCController : MonoBehaviourPun
         switch (uiType)
         {
             case 0:
-                StartCoroutine(FloatBestRoutine());
+                StartCoroutine(FloatBestEmotionRoutine());
                 break;
             case 1:
-                StartCoroutine(FloatGoodRoutine());
+                StartCoroutine(FloatLikeEmotionRoutine());
                 break;
             case 2:
-                StartCoroutine(FloatBadRoutine());
+                StartCoroutine(FloatQuestionEmotionRoutine());
+                break;
+            case 3:
+                StartCoroutine(FloatDespairEmotionRoutine());
                 break;
         }
     }
@@ -168,12 +212,18 @@ public class WGH_NPCController : MonoBehaviourPun
     [PunRPC]
     public void SelectBottleUI(int bottleType)
     {
+        if(purchaseUI.gameObject.activeSelf == false)
+        {
+            purchaseUI.gameObject.SetActive(true);
+        }
+       
         purchaseUI.sprite = bottleUI[bottleType];
+        
     }
 
     public void SelectBottleUINetwork(int bottleType)
     {
-
+        photonView.RPC("SelectBottleUI", RpcTarget.All, bottleType);
     }
 
     IEnumerator ExploreRoutine()
@@ -191,34 +241,51 @@ public class WGH_NPCController : MonoBehaviourPun
         }
     }
 
-    IEnumerator FloatBestRoutine()
+    IEnumerator FloatBestEmotionRoutine()
     {
-        best.gameObject.SetActive(true);
-        good.gameObject.SetActive(false);
-        bad.gameObject.SetActive(false);
-        yield return new WaitForSeconds(1);
-        best.gameObject.SetActive(false);
-        ChangeStateNetwork((int)E_StateType.PURCHASE);
+        bestEmotion.gameObject.SetActive(true);
+        // 이모지를 활용할 경우 주석 제거
+        //best.gameObject.SetActive(true);
+        //good.gameObject.SetActive(false);
+        //bad.gameObject.SetActive(false);
+        yield return new WaitForSeconds(3);
+        bestEmotion.gameObject.SetActive(false);
+        //best.gameObject.SetActive(false);
+        //ChangeStateNetwork((int)E_StateType.PURCHASE);
         yield break;
     }
 
-    IEnumerator FloatGoodRoutine()
+    IEnumerator FloatLikeEmotionRoutine()
     {
-        best.gameObject.SetActive(false);
-        good.gameObject.SetActive(true);
-        bad.gameObject.SetActive(false);
-        yield return new WaitForSeconds(1);
-        good.gameObject.SetActive(false);
+        likeEmotion.gameObject.SetActive(true);
+        // 이모지를 활용할 경우 주석 제거
+        //best.gameObject.SetActive(false);
+        //good.gameObject.SetActive(true);
+        //bad.gameObject.SetActive(false);
+        yield return new WaitForSeconds(2);
+        likeEmotion.gameObject.SetActive(false);
+        //good.gameObject.SetActive(false);
         yield break;
     }
 
-    IEnumerator FloatBadRoutine()
+    IEnumerator FloatQuestionEmotionRoutine()
     {
-        best.gameObject.SetActive(false);
-        good.gameObject.SetActive(false);
-        bad.gameObject.SetActive(true);
-        yield return new WaitForSeconds(1);
-        bad.gameObject.SetActive(false);
+        questionEmotion.gameObject.SetActive(true);
+        // 이모지를 활용할 경우 주석 제거
+        //best.gameObject.SetActive(false);
+        //good.gameObject.SetActive(false);
+        //bad.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2);
+        questionEmotion.gameObject.SetActive(false);
+        //bad.gameObject.SetActive(false);
+        yield break;
+    }
+
+    IEnumerator FloatDespairEmotionRoutine()
+    {
+        despairEmotion.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2);
+        despairEmotion.gameObject.SetActive(false);
         yield break;
     }
 }
