@@ -7,8 +7,9 @@ using Photon.Pun;
 public enum E_ReactUiType
 {
     BEST,
-    GOOD,
-    BAD
+    LIKE,
+    QUESTION,
+    DESPAIR
 }
 
 public enum E_BottleType
@@ -47,11 +48,15 @@ public class WGH_NPCWait : INPCState
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            controller.SelectReactUINetwork((int)E_ReactUiType.GOOD);
+            controller.SelectReactUINetwork((int)E_ReactUiType.LIKE);
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            controller.SelectReactUINetwork((int)E_ReactUiType.BAD);
+            controller.SelectReactUINetwork((int)E_ReactUiType.QUESTION);
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha4)) 
+        {
+            controller.SelectReactUINetwork((int)E_ReactUiType.DESPAIR);
         }
     }
 
