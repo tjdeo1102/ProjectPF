@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.CullingGroup;
 
-public class UIController : MonoBehaviour
+public class LSY_UIController : MonoBehaviour
 {
     [SerializeField] InputActionProperty rightJoystickInput;
     [SerializeField] InputActionAsset inputActions;
