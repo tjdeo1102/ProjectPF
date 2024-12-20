@@ -21,6 +21,10 @@ public class WGH_NPCController : MonoBehaviourPun
 {
     [SerializeField, Tooltip("현재 상태")] private E_StateType stateType;
     private INPCState curState;
+    public E_WGH_PerfumeType PerfumeType;
+    public E_WGH_PerfumeMaterialType BestMaterial;
+    public E_WGH_PerfumeMaterialType LikeMaterial;
+    public E_WGH_PerfumeMaterialType QuestionMaterial;
 
     private WGH_NPCPass passState;
     private WGH_NPCEnter enterState;
@@ -89,11 +93,40 @@ public class WGH_NPCController : MonoBehaviourPun
     private void Start()
     {
         ChangeStateNetwork((int)E_StateType.PASS);
+        SelectPerfumeType();
     }
 
     private void Update()
     {
         curState?.OnUpdate();
+    }
+
+    /// <summary>
+    /// 선호 '향수/향수원액' 결정
+    /// </summary>
+    private void SelectPerfumeType()
+    {
+        int randNum = Random.Range(0, (int)E_WGH_PerfumeType.E_PERFUMETYPE_MAX);
+        PerfumeType = (E_WGH_PerfumeType)randNum;
+
+        if (PerfumeType == E_WGH_PerfumeType.SPICY)
+        {
+            BestMaterial = E_WGH_PerfumeMaterialType.SPICY;
+            LikeMaterial = E_WGH_PerfumeMaterialType.HOT;
+            QuestionMaterial = E_WGH_PerfumeMaterialType.None;
+        }
+        else if (PerfumeType == E_WGH_PerfumeType.COOL)
+        {
+            BestMaterial = E_WGH_PerfumeMaterialType.COOL;
+            LikeMaterial = E_WGH_PerfumeMaterialType.COMFORTABLE;
+            QuestionMaterial = E_WGH_PerfumeMaterialType.None;
+        }
+        else if (PerfumeType == E_WGH_PerfumeType.COMFORTABLE)
+        {
+            BestMaterial = E_WGH_PerfumeMaterialType.COMFORTABLE;
+            LikeMaterial = E_WGH_PerfumeMaterialType.HOT;
+            QuestionMaterial = E_WGH_PerfumeMaterialType.None;
+        }
     }
 
     /// <summary>
