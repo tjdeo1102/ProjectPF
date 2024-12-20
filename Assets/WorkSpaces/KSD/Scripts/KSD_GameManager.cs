@@ -3,6 +3,7 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using WebSocketSharp;
 
 public class KSD_GameManager : MonoBehaviourPun
@@ -14,17 +15,24 @@ public class KSD_GameManager : MonoBehaviourPun
     [SerializeField] private int maxCustomerCount;
     [SerializeField] private int currentStageID;
     [SerializeField] private int returnSceneIndex;
-    [SerializeField] private Transform player;
 
-    [Header("상점 위치")]
-    [SerializeField] private Transform storePosition;
-    [SerializeField] private Transform stagePosition;
+    [Header("네트워크 안정화")]
+    [SerializeField] private float networkDelay;
+
+    [Header("플레이어 스폰 설정")]
+    [SerializeField] private string playerPrefabPath;
+    [SerializeField] private Transform spawnPosition;
+    [SerializeField] private float randomSpawnLength;
+
+    private GameObject player;
 
     [Header("게임 매니저 구성 요소")]
     [SerializeField] KSD_EnvironmentManager environmentManager;
 
-    [Header("현재 스테이지 정보")]
+    [Header("현재 스테이지 정보 설정 및 갱신")]
     public KSD_StageInfo CurrentStageInfo;
+    public UnityEvent OnChangeStageInfo;                            // 스테이지 정보가 바뀔 때 호출할 이벤트
+    public UnityEvent OnExitStage;                                  // 스테이지가 종료되었을 때(손님 카운트가 다 채워졌을 때), 호출할 이벤트
 
     private void Awake()
     {
@@ -39,9 +47,25 @@ public class KSD_GameManager : MonoBehaviourPun
         }
     }
 
+    private void OnEnable()
+    {
+        OnExitStage.AddListener(SampleExitStageHandle);
+    }
+
+    private void OnDisable()
+    {
+        OnExitStage.RemoveListener(SampleExitStageHandle);
+    }
+
     void Start()
     {
         // 각 클라이언트의 맵정보가 동기화되도록 RPC호출
+        InitStage();
+    }
+
+    private IEnumerator NetworkInit()
+    {
+        yield return new WaitForSeconds(networkDelay);
         InitStage();
     }
 
@@ -85,6 +109,8 @@ public class KSD_GameManager : MonoBehaviourPun
                         CurrentStageInfo = task.Result;
                     }
                     UpdateEnvironment();
+                    InitPlayer();
+                    OnChangeStageInfo?.Invoke();
                 }
             });
         }
@@ -96,29 +122,42 @@ public class KSD_GameManager : MonoBehaviourPun
         }
     }
 
+    private void InitPlayer()
+    {
+        var spawnPos = new Vector3(Random.Range(-randomSpawnLength, randomSpawnLength) + spawnPosition.position.x,
+                                   spawnPosition.position.y,
+                                   Random.Range(-randomSpawnLength, randomSpawnLength) + spawnPosition.position.z);
+        player = PhotonNetwork.Instantiate(playerPrefabPath, spawnPos, Quaternion.identity);
+
+
+    }
+
     [PunRPC]
-    private void ChangeFinishPlayerCountRPC(int changeCount)
+    private void AddFinishPlayerCountRPC(int addCount)
     {
 
-        CurrentStageInfo.FinishPlayerCount += changeCount;
+        CurrentStageInfo.FinishPlayerCount += addCount;
 
         if (CurrentStageInfo.FinishPlayerCount >= maxCustomerCount)
         {
             // 스테이지 상승
             CurrentStageInfo.StageLevel++;
             CurrentStageInfo.FinishPlayerCount = 0;
-            player.transform.position = storePosition.position;
+            // 스테이지 종료 관련 이벤트 호출
+            OnExitStage?.Invoke();
         }
+        OnChangeStageInfo?.Invoke();
+
         UpdateEnvironment();
     }
 
     /// <summary>
     /// 현재 완료된 플레이어의 카운트를 변경하는 함수
     /// </summary>
-    /// <param name="changeCount"> 추가되거나 감소될 카운트 </param>
-    public void ChangeFinishPlayerCount(int changeCount)
+    /// <param name="addCount"> 추가되거나 감소될 카운트 </param>
+    public void AddFinishPlayerCount(int addCount)
     {
-        photonView.RPC("ChangeFinishPlayerCountRPC", RpcTarget.All, changeCount);
+        photonView.RPC("AddFinishPlayerCountRPC", RpcTarget.All, addCount);
     }
 
 
@@ -155,8 +194,8 @@ public class KSD_GameManager : MonoBehaviourPun
         }
     }
 
-    public void ReturnStage()
+    public void SampleExitStageHandle()
     {
-        player.position = stagePosition.position;
+        Debug.Log("<color=green> 스테이지 종료 함수 호출 (추후, 스테이지 종료시 필요한 기능에 따라 상세 구현 필요) </color>");
     }
 }
