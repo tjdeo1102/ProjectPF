@@ -5,7 +5,7 @@ using TMPro;
 using UnityEditor.XR;
 using UnityEngine;
 
-public class KSD_TestGameManager : MonoBehaviourPunCallbacks
+public class KSD_TestRoomManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private TMP_InputField nicknameInputField;
     private const string roomName = "test";
