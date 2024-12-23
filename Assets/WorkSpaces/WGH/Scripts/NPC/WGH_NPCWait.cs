@@ -49,22 +49,7 @@ public class WGH_NPCWait : INPCState
 
     public void OnUpdate()
     {
-        //if(Input.GetKeyDown(KeyCode.Alpha1))
-        //{
-        //    controller.SelectReactUINetwork((int)E_ReactUiType.BEST);
-        //}
-        //if (Input.GetKeyDown(KeyCode.Alpha2))
-        //{
-        //    controller.SelectReactUINetwork((int)E_ReactUiType.LIKE);
-        //}
-        //if (Input.GetKeyDown(KeyCode.Alpha3))
-        //{
-        //    controller.SelectReactUINetwork((int)E_ReactUiType.QUESTION);
-        //}
-        //if(Input.GetKeyDown(KeyCode.Alpha4)) 
-        //{
-        //    controller.SelectReactUINetwork((int)E_ReactUiType.DESPAIR);
-        //}
+        
     }
 
     private void BestEmotion()

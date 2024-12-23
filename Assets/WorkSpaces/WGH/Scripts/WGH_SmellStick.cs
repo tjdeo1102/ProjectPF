@@ -3,17 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Photon.Pun;
+using Unity.VisualScripting;
 
-public class WGH_SmellStick : MonoBehaviour
+public class WGH_SmellStick : MonoBehaviourPun
 {
     [SerializeField] private GameObject customer;
     [SerializeField] private float interactionDist;
-    public E_WGH_PerfumeMaterialType PerfumeMaterialType;
+    public E_WGH_NoteType NoteType;
     public event Action OnBestInteract;
     public event Action OnLikeInteract;
     public event Action OnQuestionInteract;
     public event Action OnDespairInteract;
-    
+
+    private float interactTime;
+    [SerializeField] private float needTime;
+
+    private Coroutine timeRoutine;
     public void Interact()
     {
         StartCoroutine(InteractRoutine());
@@ -26,15 +32,15 @@ public class WGH_SmellStick : MonoBehaviour
         if (Vector3.Distance(transform.position, customer.transform.position) < interactionDist)
         {
             Debug.Log("상호작용");
-            if(PerfumeMaterialType == customer.GetComponent<WGH_NPCController>().BestMaterial)
+            if(NoteType == customer.GetComponent<WGH_NPCController>().BestMaterial)
             {
                 OnBestInteract?.Invoke();
             }
-            else if(PerfumeMaterialType == customer.GetComponent<WGH_NPCController>().LikeMaterial)
+            else if(NoteType == customer.GetComponent<WGH_NPCController>().LikeMaterial || NoteType == customer.GetComponent<WGH_NPCController>().LikeMaterial2)
             {
                 OnLikeInteract?.Invoke();
             }
-            else if (PerfumeMaterialType == customer.GetComponent<WGH_NPCController>().QuestionMaterial)
+            else if (NoteType == customer.GetComponent<WGH_NPCController>().QuestionMaterial || NoteType == customer.GetComponent<WGH_NPCController>().QuestionMaterial2)
             {
                 OnQuestionInteract?.Invoke();
             }
@@ -49,9 +55,34 @@ public class WGH_SmellStick : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.TryGetComponent(out WGH_TestPerfumeMaterial perfume))
+        if (other.gameObject.TryGetComponent(out WGH_InteractArea interactArea) && timeRoutine == null)
         {
-            PerfumeMaterialType = perfume.PerfumeMaterialType;
+            interactTime = 0f;
+            timeRoutine = StartCoroutine(TimeRoutine());
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.TryGetComponent(out WGH_InteractArea interactArea))
+        {
+            StopCoroutine(timeRoutine);
+        }
+    }
+
+    IEnumerator TimeRoutine()
+    {
+        while (true)
+        {
+            Debug.Log(interactTime);
+            interactTime += Time.deltaTime;
+            if(interactTime >= needTime)
+            {
+                StartCoroutine(InteractRoutine());
+                interactTime = 0f;
+                yield break;
+            }
+            yield return null;
         }
     }
 }

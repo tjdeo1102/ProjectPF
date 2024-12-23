@@ -21,10 +21,14 @@ public class WGH_NPCController : MonoBehaviourPun
 {
     [SerializeField, Tooltip("현재 상태")] private E_StateType stateType;
     private INPCState curState;
+
+    [SerializeField]private WGH_NPCNote npcNote;
     public E_WGH_PerfumeType PerfumeType;
-    public E_WGH_PerfumeMaterialType BestMaterial;
-    public E_WGH_PerfumeMaterialType LikeMaterial;
-    public E_WGH_PerfumeMaterialType QuestionMaterial;
+    public E_WGH_NoteType BestMaterial;
+    public E_WGH_NoteType LikeMaterial;
+    public E_WGH_NoteType LikeMaterial2;
+    public E_WGH_NoteType QuestionMaterial;
+    public E_WGH_NoteType QuestionMaterial2;
 
     private WGH_NPCPass passState;
     private WGH_NPCEnter enterState;
@@ -55,12 +59,6 @@ public class WGH_NPCController : MonoBehaviourPun
 
     public Collider InteractionArea { get { return interactionArea; } }
 
-    private Image best;                                                                                 // Best 이미지
-
-    private Image good;                                                                                 // Good 이미지
-
-    private Image bad;                                                                                  // Bad 이미지
-
     [SerializeField] private ParticleSystem bestEmotion;
 
     [SerializeField] private ParticleSystem likeEmotion;
@@ -75,11 +73,9 @@ public class WGH_NPCController : MonoBehaviourPun
 
     private void Awake()
     {
+        npcNote = GetComponent<WGH_NPCNote>();
         agent = GetComponent<NavMeshAgent>();
         interactionArea = GetComponentInChildren<CapsuleCollider>();
-        best = transform.GetChild(0).GetChild(0).GetComponent<Image>();
-        good = transform.GetChild(0).GetChild(1).GetComponent<Image>();
-        bad = transform.GetChild(0).GetChild(2).GetComponent<Image>();
 
         passState = new WGH_NPCPass(this, agent);
         enterState = new WGH_NPCEnter(this, agent);
@@ -92,8 +88,13 @@ public class WGH_NPCController : MonoBehaviourPun
 
     private void Start()
     {
+        PerfumeType = npcNote.PerfumeType;
+        BestMaterial = npcNote.BestMaterial;
+        LikeMaterial = npcNote.LikeMaterial;
+        LikeMaterial2 = npcNote.LikeMaterial2;
+        QuestionMaterial = npcNote.QuestionMaterial;
+        QuestionMaterial2 = npcNote.QuestionMaterial2;
         ChangeStateNetwork((int)E_StateType.PASS);
-        SelectPerfumeType();
     }
 
     private void Update()
@@ -101,33 +102,6 @@ public class WGH_NPCController : MonoBehaviourPun
         curState?.OnUpdate();
     }
 
-    /// <summary>
-    /// 선호 '향수/향수원액' 결정
-    /// </summary>
-    private void SelectPerfumeType()
-    {
-        int randNum = Random.Range(0, (int)E_WGH_PerfumeType.E_PERFUMETYPE_MAX);
-        PerfumeType = (E_WGH_PerfumeType)randNum;
-
-        if (PerfumeType == E_WGH_PerfumeType.SPICY)
-        {
-            BestMaterial = E_WGH_PerfumeMaterialType.SPICY;
-            LikeMaterial = E_WGH_PerfumeMaterialType.HOT;
-            QuestionMaterial = E_WGH_PerfumeMaterialType.None;
-        }
-        else if (PerfumeType == E_WGH_PerfumeType.COOL)
-        {
-            BestMaterial = E_WGH_PerfumeMaterialType.COOL;
-            LikeMaterial = E_WGH_PerfumeMaterialType.COMFORTABLE;
-            QuestionMaterial = E_WGH_PerfumeMaterialType.None;
-        }
-        else if (PerfumeType == E_WGH_PerfumeType.COMFORTABLE)
-        {
-            BestMaterial = E_WGH_PerfumeMaterialType.COMFORTABLE;
-            LikeMaterial = E_WGH_PerfumeMaterialType.HOT;
-            QuestionMaterial = E_WGH_PerfumeMaterialType.None;
-        }
-    }
 
     /// <summary>
     /// RPC 함수(npc 상태 동기화)
@@ -244,40 +218,24 @@ public class WGH_NPCController : MonoBehaviourPun
     IEnumerator FloatBestEmotionRoutine()
     {
         bestEmotion.gameObject.SetActive(true);
-        // 이모지를 활용할 경우 주석 제거
-        //best.gameObject.SetActive(true);
-        //good.gameObject.SetActive(false);
-        //bad.gameObject.SetActive(false);
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
         bestEmotion.gameObject.SetActive(false);
-        //best.gameObject.SetActive(false);
-        //ChangeStateNetwork((int)E_StateType.PURCHASE);
         yield break;
     }
 
     IEnumerator FloatLikeEmotionRoutine()
     {
         likeEmotion.gameObject.SetActive(true);
-        // 이모지를 활용할 경우 주석 제거
-        //best.gameObject.SetActive(false);
-        //good.gameObject.SetActive(true);
-        //bad.gameObject.SetActive(false);
         yield return new WaitForSeconds(2);
         likeEmotion.gameObject.SetActive(false);
-        //good.gameObject.SetActive(false);
         yield break;
     }
 
     IEnumerator FloatQuestionEmotionRoutine()
     {
         questionEmotion.gameObject.SetActive(true);
-        // 이모지를 활용할 경우 주석 제거
-        //best.gameObject.SetActive(false);
-        //good.gameObject.SetActive(false);
-        //bad.gameObject.SetActive(true);
         yield return new WaitForSeconds(2);
         questionEmotion.gameObject.SetActive(false);
-        //bad.gameObject.SetActive(false);
         yield break;
     }
 
