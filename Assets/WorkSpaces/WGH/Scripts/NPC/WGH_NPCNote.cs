@@ -1,90 +1,114 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using UnityEngine.AI;
 
-public class WGH_NPCNote : MonoBehaviour
+public class WGH_NPCNote : MonoBehaviourPun
 {
-    public E_WGH_PerfumeType PerfumeType;
-    public E_WGH_NoteType BestMaterial;
-    public E_WGH_NoteType LikeMaterial;
-    public E_WGH_NoteType LikeMaterial2;
-    public E_WGH_NoteType QuestionMaterial;
-    public E_WGH_NoteType QuestionMaterial2;
+    WGH_NPCController controller;
+    private E_WGH_PerfumeType PerfumeType;
+    private E_WGH_NoteType BestMaterial;
+    private E_WGH_NoteType LikeMaterial;
+    private E_WGH_NoteType LikeMaterial2;
+    private E_WGH_NoteType QuestionMaterial;
+    private E_WGH_NoteType QuestionMaterial2;
 
     private void Awake()
     {
-        SelectPerfumeType();
+        controller = GetComponent<WGH_NPCController>();
     }
 
-    private void SelectPerfumeType()
+    private void Start()
     {
+        if (PhotonNetwork.IsMasterClient == false)
+            return;
         int randNum = Random.Range(1, (int)E_WGH_PerfumeType.E_PERFUMETYPE_MAX - 1);
         PerfumeType = (E_WGH_PerfumeType)randNum;
+        SetPerfumeTypeRPC((int)PerfumeType);
+    }
 
+    private void SetPerfumeTypeRPC(int randNum)
+    {
+        photonView.RPC("SetPerfumeType", RpcTarget.All, randNum);
+    }
+
+    [PunRPC]
+    private void SetPerfumeType(int randNum)
+    {
         switch (randNum)
         {
             case 1:
-                BestMaterial = E_WGH_NoteType.FLORAL;
-                LikeMaterial = E_WGH_NoteType.NONE;
-                LikeMaterial2 = E_WGH_NoteType.NONE;
-                QuestionMaterial = E_WGH_NoteType.CITRUS;
-                QuestionMaterial2 = E_WGH_NoteType.GREEN;
+                controller.PerfumeType = (E_WGH_PerfumeType)randNum;
+                controller.BestMaterial = E_WGH_NoteType.FLORAL;
+                controller.LikeMaterial = E_WGH_NoteType.NONE;
+                controller.LikeMaterial2 = E_WGH_NoteType.NONE;
+                controller.QuestionMaterial = E_WGH_NoteType.CITRUS;
+                controller.QuestionMaterial2 = E_WGH_NoteType.GREEN;
                 break;
             case 2:
-                BestMaterial = E_WGH_NoteType.WOODY;
-                LikeMaterial = E_WGH_NoteType.GREEN;
-                LikeMaterial2 = E_WGH_NoteType.NONE;
-                QuestionMaterial = E_WGH_NoteType.NONE;
-                QuestionMaterial2 = E_WGH_NoteType.NONE;
+                controller.PerfumeType = (E_WGH_PerfumeType)randNum;
+                controller.BestMaterial = E_WGH_NoteType.WOODY;
+                controller.LikeMaterial = E_WGH_NoteType.GREEN;
+                controller.LikeMaterial2 = E_WGH_NoteType.NONE;
+                controller.QuestionMaterial = E_WGH_NoteType.NONE;
+                controller.QuestionMaterial2 = E_WGH_NoteType.NONE;
                 break;
             case 3:
-                BestMaterial = E_WGH_NoteType.FRUITY;
-                LikeMaterial = E_WGH_NoteType.NONE;
-                LikeMaterial2 = E_WGH_NoteType.NONE;
-                QuestionMaterial = E_WGH_NoteType.CITRUS;
-                QuestionMaterial2 = E_WGH_NoteType.GREEN;
+                controller.PerfumeType = (E_WGH_PerfumeType)randNum;
+                controller.BestMaterial = E_WGH_NoteType.FRUITY;
+                controller.LikeMaterial = E_WGH_NoteType.NONE;
+                controller.LikeMaterial2 = E_WGH_NoteType.NONE;
+                controller.QuestionMaterial = E_WGH_NoteType.CITRUS;
+                controller.QuestionMaterial2 = E_WGH_NoteType.GREEN;
                 break;
             case 4:
-                BestMaterial = E_WGH_NoteType.GREEN;
-                LikeMaterial = E_WGH_NoteType.NONE;
-                LikeMaterial2 = E_WGH_NoteType.NONE;
-                QuestionMaterial = E_WGH_NoteType.WOODY;
-                QuestionMaterial2 = E_WGH_NoteType.FLORAL;
+                controller.PerfumeType = (E_WGH_PerfumeType)randNum;
+                controller.BestMaterial = E_WGH_NoteType.GREEN;
+                controller.LikeMaterial = E_WGH_NoteType.NONE;
+                controller.LikeMaterial2 = E_WGH_NoteType.NONE;
+                controller.QuestionMaterial = E_WGH_NoteType.WOODY;
+                controller.QuestionMaterial2 = E_WGH_NoteType.FLORAL;
                 break;
             case 5:
-                BestMaterial = E_WGH_NoteType.CITRUS;
-                LikeMaterial = E_WGH_NoteType.GREEN;
-                LikeMaterial2 = E_WGH_NoteType.NONE;
-                QuestionMaterial = E_WGH_NoteType.NONE;
-                QuestionMaterial2 = E_WGH_NoteType.NONE;
+                controller.PerfumeType = (E_WGH_PerfumeType)randNum;
+                controller.BestMaterial = E_WGH_NoteType.CITRUS;
+                controller.LikeMaterial = E_WGH_NoteType.GREEN;
+                controller.LikeMaterial2 = E_WGH_NoteType.NONE;
+                controller.QuestionMaterial = E_WGH_NoteType.NONE;
+                controller.QuestionMaterial2 = E_WGH_NoteType.NONE;
                 break;
             case 6:
-                BestMaterial = E_WGH_NoteType.NONE;
-                LikeMaterial = E_WGH_NoteType.WOODY;
-                LikeMaterial2 = E_WGH_NoteType.FLORAL;
-                QuestionMaterial = E_WGH_NoteType.CITRUS;
-                QuestionMaterial2 = E_WGH_NoteType.NONE;
+                controller.PerfumeType = (E_WGH_PerfumeType)randNum;
+                controller.BestMaterial = E_WGH_NoteType.NONE;
+                controller.LikeMaterial = E_WGH_NoteType.WOODY;
+                controller.LikeMaterial2 = E_WGH_NoteType.FLORAL;
+                controller.QuestionMaterial = E_WGH_NoteType.CITRUS;
+                controller.QuestionMaterial2 = E_WGH_NoteType.NONE;
                 break;
             case 7:
-                BestMaterial = E_WGH_NoteType.NONE;
-                LikeMaterial = E_WGH_NoteType.FRUITY;
-                LikeMaterial2 = E_WGH_NoteType.FLORAL;
-                QuestionMaterial = E_WGH_NoteType.GREEN;
-                QuestionMaterial2 = E_WGH_NoteType.NONE;
+                controller.PerfumeType = (E_WGH_PerfumeType)randNum;
+                controller.BestMaterial = E_WGH_NoteType.NONE;
+                controller.LikeMaterial = E_WGH_NoteType.FRUITY;
+                controller.LikeMaterial2 = E_WGH_NoteType.FLORAL;
+                controller.QuestionMaterial = E_WGH_NoteType.GREEN;
+                controller.QuestionMaterial2 = E_WGH_NoteType.NONE;
                 break;
             case 8:
-                BestMaterial = E_WGH_NoteType.NONE;
-                LikeMaterial = E_WGH_NoteType.FRUITY;
-                LikeMaterial2 = E_WGH_NoteType.CITRUS;
-                QuestionMaterial = E_WGH_NoteType.FLORAL;
-                QuestionMaterial2 = E_WGH_NoteType.NONE;
+                controller.PerfumeType = (E_WGH_PerfumeType)randNum;
+                controller.BestMaterial = E_WGH_NoteType.NONE;
+                controller.LikeMaterial = E_WGH_NoteType.FRUITY;
+                controller.LikeMaterial2 = E_WGH_NoteType.CITRUS;
+                controller.QuestionMaterial = E_WGH_NoteType.FLORAL;
+                controller.QuestionMaterial2 = E_WGH_NoteType.NONE;
                 break;
             case 9:
-                BestMaterial = E_WGH_NoteType.NONE;
-                LikeMaterial = E_WGH_NoteType.WOODY;
-                LikeMaterial2 = E_WGH_NoteType.GREEN;
-                QuestionMaterial = E_WGH_NoteType.FRUITY;
-                QuestionMaterial2 = E_WGH_NoteType.NONE;
+                controller.PerfumeType = (E_WGH_PerfumeType)randNum;
+                controller.BestMaterial = E_WGH_NoteType.NONE;
+                controller.LikeMaterial = E_WGH_NoteType.WOODY;
+                controller.LikeMaterial2 = E_WGH_NoteType.GREEN;
+                controller.QuestionMaterial = E_WGH_NoteType.FRUITY;
+                controller.QuestionMaterial2 = E_WGH_NoteType.NONE;
                 break;
         }
     }

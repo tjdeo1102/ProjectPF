@@ -73,7 +73,6 @@ public class WGH_NPCController : MonoBehaviourPun
 
     private void Awake()
     {
-        npcNote = GetComponent<WGH_NPCNote>();
         agent = GetComponent<NavMeshAgent>();
         interactionArea = GetComponentInChildren<CapsuleCollider>();
 
@@ -88,12 +87,6 @@ public class WGH_NPCController : MonoBehaviourPun
 
     private void Start()
     {
-        PerfumeType = npcNote.PerfumeType;
-        BestMaterial = npcNote.BestMaterial;
-        LikeMaterial = npcNote.LikeMaterial;
-        LikeMaterial2 = npcNote.LikeMaterial2;
-        QuestionMaterial = npcNote.QuestionMaterial;
-        QuestionMaterial2 = npcNote.QuestionMaterial2;
         ChangeStateNetwork((int)E_StateType.PASS);
     }
 
