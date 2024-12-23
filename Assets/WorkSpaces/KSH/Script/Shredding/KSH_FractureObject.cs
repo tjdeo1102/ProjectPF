@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Photon.Pun;
 using System.Collections;
 using UnityEngine;
 
@@ -114,11 +115,12 @@ public class KSH_FractureObject : MonoBehaviour
         // 알파 값 조정
         mainMaterial.DOFade(0, fadeDuration).OnComplete(() =>
         {
-            gameObject.SetActive(false); // 사라진 후 비활성화
+            KSH_EffectManager.Instance.PlayEffect(KSH_EffectManager.Effect.Fire, transform.position);
+            PhotonNetwork.Instantiate("KSH_TEST", Vector3.zero, Quaternion.identity);
+            Destroy(gameObject, 1);
         });
 
     }
-
 
 
     // 특정 파편 오브젝트를 활성화하고 자식 Rigidbody들의 isKinematic을 false로 설정
