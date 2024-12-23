@@ -6,7 +6,7 @@ public class WGH_InteractArea : MonoBehaviour
 {
     [SerializeField] WGH_NPCController controller;
     [SerializeField, Tooltip("실패기준 횟수")] int maxCount;
-    private int count;
+    private int curCount;
 
     private void Awake()
     {
@@ -15,7 +15,7 @@ public class WGH_InteractArea : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.TryGetComponent(out WGH_PerfumeRecipe perfume))
+        if (other.gameObject.TryGetComponent(out WGH_PerfumeRecipe perfume) && curCount < maxCount)
         {
             if (perfume.PerfumeType == controller.PerfumeType)
             {
@@ -26,8 +26,8 @@ public class WGH_InteractArea : MonoBehaviour
             {
                 // 실패하면 절망 감정표현 후 실패횟수 1회 추가
                 controller.SelectReactUINetwork((int)E_ReactUiType.DESPAIR);
-                count++;
-                if (count >= maxCount)
+                curCount++;
+                if (curCount >= maxCount)
                 {
                     // 실패횟수가 설정된 수에 도달하면 퇴장
                     StartCoroutine(FailRoutine());
