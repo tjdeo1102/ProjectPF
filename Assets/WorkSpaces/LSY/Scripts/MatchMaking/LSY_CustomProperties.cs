@@ -10,6 +10,8 @@ public static class LSY_CustomProperties
     private static PhotonHashtable customProperty = new PhotonHashtable();
 
     public const string READY = "Ready";
+    public const string ROOM_PASSWORD = "RoomPassword";
+    public const string IS_PASSWORD_PROTECTED = "IsPasswordProtected";
 
     public static void SetReady(this Player player, bool ready)
     {
@@ -60,5 +62,49 @@ public static class LSY_CustomProperties
         {
             return false;
         }
+    }
+
+    public static void SetRoomPassword(this Room room, string password)
+    {
+        customProperty.Clear();
+        customProperty[ROOM_PASSWORD] = password;
+        room.SetCustomProperties(customProperty);
+    }
+
+    public static string GetRoomPassword(this Room room)
+    {
+        PhotonHashtable customProperty = room.CustomProperties;
+        if (customProperty.ContainsKey(ROOM_PASSWORD))
+        {
+            return (string)customProperty[ROOM_PASSWORD];
+        }
+        return string.Empty; 
+    }
+
+    public static void SetIsPasswordProtected(this Room room, bool isProtected)
+    {
+        customProperty.Clear();
+        customProperty[IS_PASSWORD_PROTECTED] = isProtected;
+        room.SetCustomProperties(customProperty);
+    }
+
+    public static bool GetIsPasswordProtected(this Room room)
+    {
+        PhotonHashtable customProperty = room.CustomProperties;
+        if (customProperty.ContainsKey(IS_PASSWORD_PROTECTED))
+        {
+            return (bool)customProperty[IS_PASSWORD_PROTECTED];
+        }
+        return false; 
+    }
+
+    public static bool CheckRoomPassword(this Room room, string inputPassword)
+    {
+        if (room.GetIsPasswordProtected())  
+        {
+            string roomPassword = room.GetRoomPassword();
+            return roomPassword == inputPassword;
+        }
+        return true;  
     }
 }
