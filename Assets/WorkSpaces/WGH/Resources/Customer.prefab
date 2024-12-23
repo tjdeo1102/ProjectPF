@@ -5263,6 +5263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateType: 0
+  npcNote: {fileID: 0}
   PerfumeType: 0
   BestMaterial: 0
   LikeMaterial: 0
@@ -5298,12 +5299,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 896acc10de8f7d940bf11568614573c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PerfumeType: 0
-  BestMaterial: 0
-  LikeMaterial: 0
-  LikeMaterial2: 0
-  QuestionMaterial: 0
-  QuestionMaterial2: 0
 --- !u!195 &2638730907818175235
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5499,6 +5494,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4a8659d5cb53f64aa4177e8455620bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: {fileID: 0}
+  maxCount: 2
 --- !u!1 &2638730908909019810
 GameObject:
   m_ObjectHideFlags: 0

@@ -55,7 +55,7 @@ public class WGH_SmellStick : MonoBehaviourPun
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.TryGetComponent(out WGH_InteractArea interactArea) && timeRoutine == null)
+        if (other.gameObject.TryGetComponent(out WGH_InteractArea interactArea))
         {
             interactTime = 0f;
             timeRoutine = StartCoroutine(TimeRoutine());
