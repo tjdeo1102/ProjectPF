@@ -20,7 +20,7 @@ public class KSH_TestGameScene : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        //PlayerSpawn();
+        // PlayerSpawn();
     }
 
     public void PlayerSpawn()
