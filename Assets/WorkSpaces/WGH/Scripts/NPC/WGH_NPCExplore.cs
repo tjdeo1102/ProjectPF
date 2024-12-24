@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -17,26 +16,24 @@ public class WGH_NPCExplore : INPCState
     public void Enter()
     {
         Debug.Log("Explore ป๓ลย");
-        randomNum = Random.Range(1, 3);
+        randomNum = Random.Range(1, controller.ExploreDenominatorNum + 1);
     }
 
     public void OnUpdate()
     {
-        if(Vector3.Distance(controller.gameObject.transform.position, controller.ExplorePos2) < 0.1f && agent.pathPending == false)
+        if (Vector3.Distance(controller.gameObject.transform.position, controller.ExplorePos2) < 0.1f && agent.pathPending == false)
         {
-            switch(randomNum)
+            if (randomNum <= controller.ExploreNumeratorNum)
             {
-                case 1:
-                    controller.ChangeStateNetwork((int)E_StateType.COUNTER);
-                    break;
-                case 2:
-                    controller.ChangeStateNetwork((int)E_StateType.EXIT);
-                    break;
+
+                controller.ChangeStateNetwork((int)E_StateType.COUNTER);
+            }
+            else
+            {
+                controller.ChangeStateNetwork((int)E_StateType.EXIT);
             }
         }
     }
 
     public void Exit() { }
-
-    
 }

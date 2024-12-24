@@ -5263,15 +5263,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateType: 0
-  npcNote: {fileID: 0}
   PerfumeType: 0
   BestMaterial: 0
   LikeMaterial: 0
   LikeMaterial2: 0
   QuestionMaterial: 0
   QuestionMaterial2: 0
-  entrance: {x: 0, y: 0, z: 5}
+  passDenominatorNum: 3
+  passNumeratorNum: 2
+  exploreDenominatorNum: 3
+  exploreNumeratorNum: 2
   PassPos: {x: 0, y: 0, z: 0}
+  entrance: {x: 0, y: 0, z: 5}
   explorePos1: {x: 5, y: 0, z: 8}
   explorePos2: {x: -5, y: 0, z: 8}
   counter: {x: 0, y: 0, z: 11}
@@ -10409,7 +10412,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3179692164685876786
 RectTransform:
   m_ObjectHideFlags: 0

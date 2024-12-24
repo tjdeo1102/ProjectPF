@@ -4,17 +4,32 @@ using UnityEngine;
 
 public class WGH_NPCCreator : MonoBehaviour
 {
+    public static WGH_NPCCreator Instance;
+
     [SerializeField] private float spawnTime;
     [SerializeField] private float curTime;
     [SerializeField] private Vector3 spawnLeftPos;
     [SerializeField] private Vector3 spawnRightPos;
 
     private bool isLeftSpawn;
+    public bool isEntered;
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+    }
 
     private void Start()
     {
         spawnTime = 10f;                        // 임시 시간 배정
-        curTime = 7f;                          // 임시 시간 배정
+        curTime = 7f;                           // 임시 시간 배정
     }
 
     private void Update()
