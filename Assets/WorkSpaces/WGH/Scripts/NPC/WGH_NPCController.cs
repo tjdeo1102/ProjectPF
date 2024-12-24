@@ -31,6 +31,7 @@ public class WGH_NPCController : MonoBehaviourPun
     private WGH_NPCPurchase purchase;
     private NavMeshAgent agent;
     public NavMeshAgent Agent { get { return agent; } }
+    public WGH_SmellStick SmellStick;
 
     [Header("¼±È£µµ")]
     private WGH_NPCNote npcNote;
@@ -88,7 +89,7 @@ public class WGH_NPCController : MonoBehaviourPun
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        interactionArea = GetComponentInChildren<CapsuleCollider>();
+        interactionArea = GetComponentInChildren<SphereCollider>();
 
         passState = new WGH_NPCPass(this, agent);
         enterState = new WGH_NPCEnter(this, agent);
