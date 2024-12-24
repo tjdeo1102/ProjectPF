@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
+[RequireComponent(typeof(PhotonView))]
 public class KSD_NetworkGrabInteractable : XRGrabInteractable
 {
     //[Header("네트워크 설정")]

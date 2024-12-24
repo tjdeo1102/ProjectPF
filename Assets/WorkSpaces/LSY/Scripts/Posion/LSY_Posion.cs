@@ -80,7 +80,7 @@ public class LSY_Posion : MonoBehaviour
 
             if (receiverCount == 2)
             {
-                Debug.Log("µŒ ∞≥¿« PotionReceiver∏¶ √£¿Ω");
+                Debug.Log("Îëê Í∞úÏùò PotionReceiverÎ•º Ï∞æÏùå");
 
                 LSY_PosionReceiver receiver = receivers[0];
                 receiver.ReceivePotion(potionColor, linePotionColor);
@@ -88,7 +88,7 @@ public class LSY_Posion : MonoBehaviour
             }
             else
             {
-                Debug.Log("PotionReceiver∞° µŒ ∞≥ ¿Ã«œ");
+                Debug.Log("PotionReceiverÍ∞Ä Îëê Í∞ú Ïù¥Ìïò");
             }
 
 
