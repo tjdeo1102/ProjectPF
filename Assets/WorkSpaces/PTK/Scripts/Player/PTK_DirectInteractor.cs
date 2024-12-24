@@ -12,8 +12,6 @@ public class PTK_DirectInteractor : XRDirectInteractor
     {
         base.OnSelectEntered(args);
 
-        // 잡은 사실을 네트워크를 통해서 전달
-        // 잡은 플레이어가 잡은 사실을 네트워크를 통해 전달
         PhotonView interactablePV = args.interactableObject.transform.GetComponent<PhotonView>();
         //interactablePV.RequestOwnership();
     }
@@ -22,7 +20,6 @@ public class PTK_DirectInteractor : XRDirectInteractor
     {
         base.OnSelectExited(args);
 
-        // 놓은 플레이어가 잡은 물체의 소유권을 방장에게 다시 주기
         PhotonView interactablePV = args.interactableObject.transform.GetComponent<PhotonView>();
         //interactablePV.TransferOwnership(PhotonNetwork.MasterClient);
     }
