@@ -1,80 +1,113 @@
 using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
-using System.Buffers.Text;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using PhotonHashtable = ExitGames.Client.Photon.Hashtable;
 
 public class LSY_PlayerEntry : LSY_BaseUI
 {
-    [SerializeField] private TMP_Text _readyText;
-    [SerializeField] private TMP_Text _nameText;
-    private bool _isCheck;
+    [SerializeField] private TMP_Text readyText;       
+    [SerializeField] private Button readyButton;       
+    [SerializeField] private TMP_Text nameText;        
+    [SerializeField] private GameObject hostImage;      
+
+    Color normalColor;    
+    Color pressedColor;      
+    private bool _isCheck;                              
     public bool _isReady;
+
+    private void Start()
+    {
+        hostImage.SetActive(false);
+        pressedColor = new Color(0.372549f, 0.7137255f, 0.2509804f, 1);
+        normalColor = new Color(0.8490566f, 0.8490566f, 0.8490566f, 1);
+    }
 
     private void Update()
     {
-        if (_isCheck == true && Input.GetKeyDown(KeyCode.F5))
-        {
-            Ready();
-        }
+        readyButton.onClick.AddListener(ReadyButton);
+    }
+
+    // 레디 버튼 클릭 시 호출되는 함수
+    public void ReadyButton()
+    {
+        _isReady = !_isReady;  
+        UpdateButtonState();    
+        Ready();               
     }
 
     public void SetPlayer(Player player)
     {
+
         if (player.IsMasterClient)
         {
-            _nameText.text = player.NickName;
-            _nameText.color = Color.yellow;
+            nameText.text = player.NickName;
+            hostImage.SetActive(true);
         }
         else
         {
-            _nameText.text = player.NickName;
-            _nameText.color = Color.black;
+            nameText.text = player.NickName;
+            hostImage.SetActive(false);
         }
 
-        if (PhotonNetwork.LocalPlayer.NickName == _nameText.text)
+        if (PhotonNetwork.LocalPlayer.NickName == nameText.text)
         {
             _isCheck = true;
         }
-        /*_readyButton.gameObject.SetActive(true);
-        _readyButton.interactable = player == PhotonNetwork.LocalPlayer;*/
+
+        readyButton.gameObject.SetActive(true);
+        readyButton.interactable = player == PhotonNetwork.LocalPlayer;
 
         if (player.GetReady())
         {
-            _readyText.text = "Ready";
+            readyText.text = "준비 완료";
+            readyButton.GetComponent<Image>().color = pressedColor;
         }
         else
         {
-            _readyText.text = "";
+            readyText.text = "준비";
+            readyButton.GetComponent<Image>().color = normalColor;
         }
     }
 
     public void SetEmpty()
     {
-        _nameText.text = "";
-        _readyText.text = "";
+        nameText.text = "";
+        readyText.text = "";
+        readyButton.gameObject.SetActive(false);
+        hostImage.SetActive(false);
     }
 
     public void Ready()
     {
-        // 레디가 아니었으면 레디시키기
-        // 레디가 맞았으면 레디 풀어주기
         bool ready = PhotonNetwork.LocalPlayer.GetReady();
 
         if (ready)
         {
             PhotonNetwork.LocalPlayer.SetReady(false);
-
         }
         else
         {
             PhotonNetwork.LocalPlayer.SetReady(true);
+        }
+
+        UpdateButtonState();  
+    }
+
+    private void UpdateButtonState()
+    {
+        if (_isReady)
+        {
+            readyText.text = "준비 완료";
+            readyButton.GetComponent<Image>().color = pressedColor;
+        }
+        else
+        {
+            readyText.text = "준비";
+            readyButton.GetComponent<Image>().color = normalColor;
         }
     }
 }

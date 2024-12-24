@@ -9,11 +9,12 @@ using PhotonHashtable = ExitGames.Client.Photon.Hashtable;
 
 public class LSY_LobbyPanel : LSY_BaseUI
 {
-    public const string lsy_RoomName = "TestRoomlsy";
+    public const string lsy_RoomName = "LSY_TestRoom";
     public TMP_InputField nickName;
 
     private void Start()
     {
+        isPasswordProtected = false;
         BindAll();
         PhotonNetwork.LocalPlayer.NickName = $"Player {Random.Range(1000, 10000)}";
         PhotonNetwork.ConnectUsingSettings();
@@ -71,6 +72,12 @@ public class LSY_LobbyPanel : LSY_BaseUI
             return;
         }
 
+        if (password.Length < 2)
+        {
+            Debug.Log("비밀번호는 두자리 이상이여야 합니다");
+            return;
+        }
+
         RoomOptions options = new RoomOptions
         {
             MaxPlayers = 2,
@@ -90,6 +97,7 @@ public class LSY_LobbyPanel : LSY_BaseUI
 
         PhotonNetwork.CreateRoom(roomName, options);
         Debug.Log("방 생성 완료");
+        GetUI("CreateRoomPanel").gameObject.SetActive(false);
     }
 
 
