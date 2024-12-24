@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -35,6 +36,10 @@ public class WGH_NPCPass : INPCState
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             controller.ChangeStateNetwork((int)E_StateType.ENTER);
+        }
+        if(Vector3.Distance(controller.transform.position, controller.PassPos) < 0.1f)
+        {
+            PhotonNetwork.Destroy(agent.gameObject);
         }
     }
 
