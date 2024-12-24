@@ -21,7 +21,6 @@ public class LSY_Posion : MonoBehaviour
     bool m_Breakable;
     float m_StartingFillAmount;
 
-    private PotionReceiver currentReceiver = null;
 
     public Color potionColor;
     public Color linePotionColor;
