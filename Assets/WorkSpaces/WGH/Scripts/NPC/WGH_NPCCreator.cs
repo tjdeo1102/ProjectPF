@@ -6,12 +6,15 @@ public class WGH_NPCCreator : MonoBehaviour
 {
     [SerializeField] private float spawnTime;
     [SerializeField] private float curTime;
-    [SerializeField] private Vector3 spawnPos;
+    [SerializeField] private Vector3 spawnLeftPos;
+    [SerializeField] private Vector3 spawnRightPos;
+
+    private bool isLeftSpawn;
 
     private void Start()
     {
-        spawnTime = 60f;                        // 임시 시간 배정
-        curTime = 57f;                          // 임시 시간 배정
+        spawnTime = 10f;                        // 임시 시간 배정
+        curTime = 7f;                          // 임시 시간 배정
     }
 
     private void Update()
@@ -24,9 +27,20 @@ public class WGH_NPCCreator : MonoBehaviour
     public void CountTime()
     {
         curTime += Time.deltaTime;
-        if (curTime >= spawnTime)
+        if (curTime >= spawnTime && isLeftSpawn == false)
         {
-            PhotonNetwork.Instantiate("Customer", spawnPos, Quaternion.identity);
+            isLeftSpawn = true;
+            GameObject obj = PhotonNetwork.Instantiate("Customer", spawnLeftPos, Quaternion.identity);
+            WGH_NPCController controller = obj.GetComponent<WGH_NPCController>();
+            controller.PassPos = new Vector3(-spawnLeftPos.x, spawnLeftPos.y, spawnLeftPos.z);
+            curTime = 0f;
+        }
+        else if(curTime >= spawnTime && isLeftSpawn == true)
+        {
+            isLeftSpawn = false;
+            GameObject obj = PhotonNetwork.Instantiate("Customer", spawnRightPos, Quaternion.identity);
+            WGH_NPCController controller = obj.GetComponent<WGH_NPCController>();
+            controller.PassPos = new Vector3(-spawnRightPos.x, spawnRightPos.y, spawnRightPos.z);
             curTime = 0f;
         }
     }

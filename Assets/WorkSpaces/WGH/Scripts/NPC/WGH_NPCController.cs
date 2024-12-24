@@ -44,8 +44,7 @@ public class WGH_NPCController : MonoBehaviourPun
     [SerializeField, Tooltip("입구 위치")] private Vector3 entrance;                                    // 입구 Vector
     public Vector3 Entrance { get { return entrance; } }
 
-    [SerializeField, Tooltip("가게를 지나칠때의 도착 위치")] private Vector3 passPos;                     // pass 루트 Vector
-    public Vector3 PassPos { get { return passPos; } }
+    [Tooltip("가게를 지나칠때의 도착 위치")] public Vector3 PassPos;                                     // pass 루트 Vector
 
     [SerializeField, Tooltip("가게 내부 탐색위치 1")] private Vector3 explorePos1;                       // explore 위치 1
 
