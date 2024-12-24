@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LSY_Posion : MonoBehaviour
+public class LSY_Potion : MonoBehaviour
 {
     static int NextFreeUniqueId = 3000;
 
@@ -66,11 +66,11 @@ public class LSY_Posion : MonoBehaviour
             RaycastHit[] hits = Physics.RaycastAll(particleSystemLiquid.transform.position, Vector3.down, 50.0f, ~0, QueryTriggerInteraction.Collide);
 
             int receiverCount = 0;
-            LSY_PosionReceiver[] receivers = new LSY_PosionReceiver[hits.Length];
+            LSY_PotionReceiver[] receivers = new LSY_PotionReceiver[hits.Length];
 
             foreach (RaycastHit hit in hits)
             {
-                LSY_PosionReceiver receiver = hit.collider.GetComponent<LSY_PosionReceiver>();
+                LSY_PotionReceiver receiver = hit.collider.GetComponent<LSY_PotionReceiver>();
                 if (receiver != null)
                 {
                     receivers[receiverCount] = receiver;
@@ -80,15 +80,15 @@ public class LSY_Posion : MonoBehaviour
 
             if (receiverCount == 2)
             {
-                Debug.Log("Îëê Í∞úÏùò PotionReceiverÎ•º Ï∞æÏùå");
+                Debug.Log("µŒ ∞≥¿« PotionReceiver∏¶ √£¿Ω");
 
-                LSY_PosionReceiver receiver = receivers[0];
+                LSY_PotionReceiver receiver = receivers[0];
                 receiver.ReceivePotion(potionColor, linePotionColor);
                 
             }
             else
             {
-                Debug.Log("PotionReceiverÍ∞Ä Îëê Í∞ú Ïù¥Ìïò");
+                Debug.Log("PotionReceiver∞° µŒ ∞≥ ¿Ã«œ");
             }
 
 

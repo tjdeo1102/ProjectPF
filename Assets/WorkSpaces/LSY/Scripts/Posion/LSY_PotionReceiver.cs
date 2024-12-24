@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LSY_PosionReceiver : MonoBehaviour
+public class LSY_PotionReceiver : MonoBehaviour
 {
     public float maxLiquidFill = 1.0f;
     public float fillAmount = 0.0f;
