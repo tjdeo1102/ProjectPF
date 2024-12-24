@@ -1,11 +1,19 @@
 using DG.Tweening;
+using Photon.Pun;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 // FractureObject 클래스는 특정 오브젝트가 충돌 시 파괴되고 
 // 파편 효과를 생성하며, 멀티플레이어 환경에서 이 동작을 동기화하는 역할을 합니다.
 public class KSH_FractureObject : MonoBehaviour
 {
+    private PhotonView photonView;
+    private Vector3 position;
+    // 생성할 오브젝트
+    [SerializeField] private GameObject powderRawMaterials;
+    [SerializeField] private string powderRawMaterialsName;
+
     // 메인 오브젝트의 메터리얼
     [SerializeField] private Material mainMaterial;
     private Material[] parentMaterials;
@@ -41,9 +49,17 @@ public class KSH_FractureObject : MonoBehaviour
     [SerializeField] private float fadeDuration = 2.0f; // 사라지는 시간
     private bool isFadingOut = false;
 
+    private void Start()
+    {
+        powderRawMaterialsName = powderRawMaterials.name;
+        position = transform.position;
+    }
+
     // Awake: 컴포넌트와 자식 오브젝트 초기화
     private void Awake()
     {
+        photonView = GetComponent<PhotonView>();
+
         // 메인 오브젝트의 MeshRenderer를 가져옵니다.
         meshRenderer = GetComponent<MeshRenderer>();
 
@@ -58,6 +74,7 @@ public class KSH_FractureObject : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.gameObject.name);
         // 충돌한 오브젝트의 태그가 "TestBat"인지 확인
         if (other.gameObject.CompareTag("TestBat"))
         {
@@ -101,24 +118,28 @@ public class KSH_FractureObject : MonoBehaviour
                 // 모든 파괴 오브젝트가 활성화되었는지 확인하고 페이드아웃 시작
                 if (currentFragIndex == frags.Length && !isFadingOut)
                 {
-                    StartFadeOut();
+                    photonView.RPC(nameof(StartFadeOut), RpcTarget.All, position);
                 }
             }
         }
     }
 
     // 모든 파괴 오브젝트를 서서히 사라지게 함
-    private void StartFadeOut()
+    [PunRPC]
+    private void StartFadeOut(Vector3 pos)
     {
         isFadingOut = true;
         // 알파 값 조정
         mainMaterial.DOFade(0, fadeDuration).OnComplete(() =>
         {
-            gameObject.SetActive(false); // 사라진 후 비활성화
+            // KSH_EffectManager.Instance.PlayEffect(KSH_EffectManager.Effect.Fire, transform.position);
+            PhotonNetwork.Instantiate(powderRawMaterialsName, pos, Quaternion.identity);
+
+            DOVirtual.DelayedCall(1f, () => {
+                PhotonNetwork.Destroy(gameObject);
+            });
         });
-
     }
-
 
 
     // 특정 파편 오브젝트를 활성화하고 자식 Rigidbody들의 isKinematic을 false로 설정
