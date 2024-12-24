@@ -40,6 +40,7 @@ public class WGH_NPCWait : INPCState
             controller.SelectBottleUINetwork(randomNum);
         }
         Debug.Log("Wait 상태");
+        // 상호작용 콜라이더에 시향지가 들어와서 시향지 변수에 배정될때 그 시향지의 스크립트의 이벤트에 함수를 등록하기
         controller.InteractionArea.GetComponent<WGH_InteractArea>().OnChangedSmellStick += FindSmellStick;
     }
 
@@ -48,9 +49,11 @@ public class WGH_NPCWait : INPCState
         
     }
 
+    /// <summary>
+    /// 리액션 이벤트 등록 함수
+    /// </summary>
     private void FindSmellStick()
     {
-        // 시향지가 배정될때 되도록 이벤트
         controller.SmellStick.OnBestInteract += BestEmotion;
         controller.SmellStick.OnLikeInteract += LikeEmotion;
         controller.SmellStick.OnQuestionInteract += QuestionEmotion;
