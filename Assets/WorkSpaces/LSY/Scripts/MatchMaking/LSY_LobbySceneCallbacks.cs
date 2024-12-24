@@ -8,15 +8,18 @@ using PhotonHashtable = ExitGames.Client.Photon.Hashtable;
 
 public class LSY_LobbySceneCallbacks : MonoBehaviourPunCallbacks
 {
-    public enum Panel { Main, Lobby ,Room }      // 각 패널을 열거형으로 분류
+    public enum Panel { Main, Lobby ,Room }
 
-    // 각 패널 클래스
+    [Header("Panel Script")]
     [SerializeField] private LSY_RoomPanel roomPanel;
     [SerializeField] private LSY_LobbyPanel lsy_lobbyPanel;
+
+    [Header("Panel GameObject")]
     [SerializeField] private GameObject mainPanel;
     [SerializeField] private GameObject lobbyPanel;
     [SerializeField] private GameObject RoomPanel;
 
+    [Header("Room Option")]
     [SerializeField] TMP_Text roomPlayerNameText;
     [SerializeField] TMP_Text passwordText;
     [SerializeField] TMP_Text playerCountText;
@@ -163,5 +166,11 @@ public class LSY_LobbySceneCallbacks : MonoBehaviourPunCallbacks
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         playerCountText.text = "참가자 " + PhotonNetwork.CurrentRoom.PlayerCount + " / " + PhotonNetwork.CurrentRoom.MaxPlayers;
+    }
+
+
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        roomPanel.UpdataPlayers();
     }
 }

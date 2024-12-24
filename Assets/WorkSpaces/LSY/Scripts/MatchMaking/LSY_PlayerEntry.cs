@@ -1,9 +1,11 @@
 using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
+using Photon.Voice.Unity.Demos;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,50 +14,83 @@ public class LSY_PlayerEntry : LSY_BaseUI
     [SerializeField] private TMP_Text readyText;       
     [SerializeField] private Button readyButton;       
     [SerializeField] private TMP_Text nameText;        
-    [SerializeField] private GameObject hostImage;      
+    [SerializeField] private GameObject hostImage;
+    [SerializeField] private LSY_RoomPopUp roomPopUp;
+    [SerializeField] private Button playerButton;
 
     Color normalColor;    
     Color pressedColor;      
     private bool _isCheck;                              
     public bool _isReady;
 
+    public Player player;  
+
+    public void Init(Player player)
+    {
+        this.player = player;
+    }
+
+    public void PlayerClick()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if (player != null)
+            {
+                roomPopUp.TogglePopup(player);
+                Debug.Log("Player: " + player.NickName);
+            }
+            else
+            {
+                Debug.LogError("플레이어 없음");
+            }
+        }
+    }
+
+
     private void Start()
     {
         hostImage.SetActive(false);
         pressedColor = new Color(0.372549f, 0.7137255f, 0.2509804f, 1);
         normalColor = new Color(0.8490566f, 0.8490566f, 0.8490566f, 1);
-    }
-
-    private void Update()
-    {
         readyButton.onClick.AddListener(ReadyButton);
     }
 
     // 레디 버튼 클릭 시 호출되는 함수
     public void ReadyButton()
     {
-        _isReady = !_isReady;  
-        UpdateButtonState();    
+        _isReady = !_isReady;   
         Ready();               
     }
 
     public void SetPlayer(Player player)
     {
+        roomPopUp.HidePopup();
+        Init(player);
 
         if (player.IsMasterClient)
         {
             nameText.text = player.NickName;
             hostImage.SetActive(true);
+            playerButton.interactable = true;
+            if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
+            {
+                playerButton.interactable = false;
+            }
         }
         else
         {
+            playerButton.interactable = false;
             nameText.text = player.NickName;
             hostImage.SetActive(false);
         }
 
-        if (PhotonNetwork.LocalPlayer.NickName == nameText.text)
+        if (PhotonNetwork.LocalPlayer == player)
         {
-            _isCheck = true;
+            nameText.color = Color.yellow;
+        }
+        else
+        {
+            nameText.color = Color.white;
         }
 
         readyButton.gameObject.SetActive(true);
