@@ -19,10 +19,9 @@ public class WGH_NPCPass : INPCState
     {
         randNum = Random.Range(1, controller.PassDenominatorNum + 1);
         Debug.Log("pass 상태");
-        // TODO : Enter상태가 되는 조건 추가
-        if(WGH_NPCCreator.Instance.isEntered == false && randNum <= controller.PassNumeratorNum)
+        
+        if((WGH_NPCCreator.Instance.isExplore == false || WGH_NPCCreator.Instance.isCounter == false) && randNum <= controller.PassNumeratorNum)
         {
-            WGH_NPCCreator.Instance.isEntered = true;
             controller.ChangeStateNetwork((int)E_StateType.ENTER);
         }
         else
@@ -33,10 +32,6 @@ public class WGH_NPCPass : INPCState
 
     public void OnUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            controller.ChangeStateNetwork((int)E_StateType.ENTER);
-        }
         if(Vector3.Distance(controller.transform.position, controller.PassPos) < 0.1f)
         {
             PhotonNetwork.Destroy(agent.gameObject);

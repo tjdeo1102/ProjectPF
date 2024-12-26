@@ -17,14 +17,17 @@ public class WGH_NPCWait : INPCState
 {
     private WGH_NPCController controller;
     private int randomNum;
+    private NavMeshAgent agent;
     [SerializeField] private WGH_SmellStick smellStick;
-    public WGH_NPCWait(WGH_NPCController controller)
+    public WGH_NPCWait(WGH_NPCController controller, NavMeshAgent agent)
     {
         this.controller = controller;
+        this.agent = agent;
     }
 
     public void Enter()
     {
+        agent.isStopped = true;
         randomNum = Random.Range(0, (int)E_BottleType.E_BottleType_MAX);
         if (PhotonNetwork.IsMasterClient)
         {
@@ -37,7 +40,7 @@ public class WGH_NPCWait : INPCState
 
     public void OnUpdate()
     {
-        
+
     }
 
     /// <summary>

@@ -12,7 +12,8 @@ public class WGH_NPCCreator : MonoBehaviour
     [SerializeField] private Vector3 spawnRightPos;
 
     private bool isLeftSpawn;
-    public bool isEntered;
+    public bool isCounter;
+    public bool isExplore;
     private void Awake()
     {
         if (Instance == null)

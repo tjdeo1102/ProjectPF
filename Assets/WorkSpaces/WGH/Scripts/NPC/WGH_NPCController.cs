@@ -21,7 +21,7 @@ public class WGH_NPCController : MonoBehaviourPun
 {
     [Header("상태")]
     [SerializeField, Tooltip("현재 상태")] private E_StateType stateType;
-    private INPCState curState;
+    public INPCState curState;
     private WGH_NPCPass passState;
     private WGH_NPCEnter enterState;
     private WGH_NPCExplore exploreState;
@@ -72,6 +72,10 @@ public class WGH_NPCController : MonoBehaviourPun
     [SerializeField, Tooltip("카운터 위치")] private Vector3 counter;                                    // counter 위치
     public Vector3 Counter { get { return counter; } }
 
+    [Header("종업원 위치")]
+    [SerializeField, Tooltip("카운터 위치")] private Vector3 playerPos;                                  // playerPos 위치
+    public Vector3 PlayerPos { get { return playerPos; } }
+
     [Header("NPC 상호작용 콜라이더")]
 
     [SerializeField, Tooltip("시향 콜라이더")] private Collider interactionArea;                         // 시향 콜라이더
@@ -100,7 +104,7 @@ public class WGH_NPCController : MonoBehaviourPun
         enterState = new WGH_NPCEnter(this, agent);
         exploreState = new WGH_NPCExplore(this, agent);
         goToCouterState = new WGH_NPCGoToCounter(this, agent);
-        wait = new WGH_NPCWait(this);
+        wait = new WGH_NPCWait(this, agent);
         purchase = new WGH_NPCPurchase(this);
         exitState = new WGH_NPCExit(this, agent);
     }
@@ -158,7 +162,7 @@ public class WGH_NPCController : MonoBehaviourPun
             case 4:
                 return new WGH_NPCGoToCounter(this, Agent);
             case 5:
-                return new WGH_NPCWait(this);
+                return new WGH_NPCWait(this, Agent);
             case 6:
                 return new WGH_NPCPurchase(this);
             case 7:
@@ -217,17 +221,18 @@ public class WGH_NPCController : MonoBehaviourPun
 
     IEnumerator ExploreRoutine()
     {
-        agent.SetDestination(explorePos1);
+        int randomSec = Random.Range(1, 11);
+        int randomSec2 = Random.Range(1, 11);
+        int randomSec3 = Random.Range(1, 11);
 
-        while (true)
-        {
-            yield return new WaitForSeconds(1);
-            if (Vector3.Distance(gameObject.transform.position, explorePos1) < agent.stoppingDistance)
-            {
-                agent.SetDestination(explorePos2);
-                yield break;
-            }
-        }
+        agent.SetDestination(explorePos1);
+        yield return new WaitForSeconds(randomSec);
+        agent.SetDestination(explorePos2);
+        yield return new WaitForSeconds(randomSec2);
+        agent.SetDestination(explorePos1);
+        yield return new WaitForSeconds(randomSec3);
+        agent.SetDestination(explorePos2);
+        yield break;
     }
 
     IEnumerator FloatBestEmotionRoutine()

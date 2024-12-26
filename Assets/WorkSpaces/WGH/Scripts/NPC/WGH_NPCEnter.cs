@@ -16,6 +16,7 @@ public class WGH_NPCEnter : INPCState
 
     public void Enter()
     {
+        WGH_NPCCreator.Instance.isExplore = true;
         Debug.Log("Enter 상태 진입");
         agent.SetDestination(controller.Entrance);
         randomNum = Random.Range(1, 3);
@@ -23,7 +24,8 @@ public class WGH_NPCEnter : INPCState
 
     public void OnUpdate()
     {
-        if (agent.remainingDistance < agent.stoppingDistance && agent.pathPending == false)
+        //TODO : 조건에 맞춰서 수정
+        if (agent.remainingDistance < agent.stoppingDistance)
         {
             switch (randomNum)
             {
