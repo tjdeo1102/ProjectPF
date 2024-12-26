@@ -3299,10 +3299,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1286301116}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1286301120}
+        m_TargetAssemblyTypeName: LSY_OptionPanel, Assembly-CSharp
+        m_MethodName: HomeButton
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5675,6 +5675,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 596060628}
+        m_TargetAssemblyTypeName: LSY_LobbyPanel, Assembly-CSharp
+        m_MethodName: RoomPanelInit
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -10167,6 +10179,7 @@ GameObject:
   - component: {fileID: 1286301117}
   - component: {fileID: 1286301119}
   - component: {fileID: 1286301118}
+  - component: {fileID: 1286301120}
   m_Layer: 5
   m_Name: OptionPanel
   m_TagString: Untagged
@@ -10237,6 +10250,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1286301116}
   m_CullTransparentMesh: 1
+--- !u!114 &1286301120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286301116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f93f86c1b2d6774fbe14bc34d4b5869, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  optionPanel: {fileID: 1286301116}
+  informationPanel: {fileID: 35603366}
+  soundPanel: {fileID: 1735347439}
+  controlPanel: {fileID: 1854054300}
+  homeButton: {fileID: 1966127696}
+  informationButton: {fileID: 1868246622}
+  soundButton: {fileID: 1951674177}
+  controlButton: {fileID: 1355905482}
 --- !u!1 &1289500070
 GameObject:
   m_ObjectHideFlags: 0
@@ -11229,7 +11262,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1355905483}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1854054300}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1355905483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12940,7 +12985,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 596060628}
         m_TargetAssemblyTypeName: LSY_LobbyPanel, Assembly-CSharp
         m_MethodName: QuitGame
         m_Mode: 1
@@ -16106,7 +16151,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1868246623}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 35603366}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1868246623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16729,7 +16786,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1951674178}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1735347439}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1951674178
 MonoBehaviour:
   m_ObjectHideFlags: 0

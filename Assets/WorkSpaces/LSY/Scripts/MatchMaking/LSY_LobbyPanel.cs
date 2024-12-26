@@ -164,6 +164,7 @@ public class LSY_LobbyPanel : LSY_BaseUI
         PhotonNetwork.CreateRoom(roomName, options);
         Debug.Log("방 생성 완료");
         GetUI("CreateRoomPanel").gameObject.SetActive(false);
+        RoomPanelInit();
     }
 
     IEnumerator ErrorTextRoutine(string text)
@@ -172,6 +173,14 @@ public class LSY_LobbyPanel : LSY_BaseUI
         errorText.gameObject.SetActive(true);
         yield return new WaitForSeconds(1);
         errorText.gameObject.SetActive(false);
+    }
+
+    public void RoomPanelInit()
+    {
+        isPasswordProtected = false;
+        passwordInputField.text = "";
+        passwordInputField.gameObject.SetActive(false);
+        checkImage.gameObject.SetActive(false);
     }
     #endregion
 
