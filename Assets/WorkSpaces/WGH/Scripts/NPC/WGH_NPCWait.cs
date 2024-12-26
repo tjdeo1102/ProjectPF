@@ -12,15 +12,6 @@ public enum E_ReactUiType
     DESPAIR
 }
 
-public enum E_BottleType // 플로팅 되는 병 이미지
-{
-    a,
-    b,
-    c,
-    d,
-    e,
-    E_BottleType_MAX
-}
 
 public class WGH_NPCWait : INPCState
 {

@@ -36,6 +36,7 @@ public class WGH_NPCController : MonoBehaviourPun
     [Header("¼±È£µµ")]
     private WGH_NPCNote npcNote;
     public E_WGH_PerfumeType PerfumeType;
+    public E_BottleType BottleType;
     public E_WGH_NoteType BestMaterial;
     public E_WGH_NoteType LikeMaterial;
     public E_WGH_NoteType LikeMaterial2;
@@ -206,7 +207,7 @@ public class WGH_NPCController : MonoBehaviourPun
        
         BottleUI.sprite = BottleUis[bottleType];
         PerfumeUI.sprite = PerfumeUis[perfumeType];
-        
+        BottleType = (E_BottleType)bottleType;
     }
 
     public void SelectOrderUINetwork(int bottleType, int perfumeType)

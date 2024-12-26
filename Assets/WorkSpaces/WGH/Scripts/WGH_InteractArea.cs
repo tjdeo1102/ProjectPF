@@ -26,7 +26,7 @@ public class WGH_InteractArea : MonoBehaviour
         }
         if (other.gameObject.TryGetComponent(out WGH_PerfumeRecipe perfume) && curCount < maxCount)
         {
-            if (perfume.PerfumeType == controller.PerfumeType)
+            if (perfume.PerfumeType == controller.PerfumeType && perfume.BottleType == controller.BottleType)
             {
                 // 성공하면 성공 감정표현 후 퇴장
                 StartCoroutine(PurchaseRoutine());
