@@ -1,4 +1,5 @@
 using Photon.Pun;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -36,6 +37,7 @@ public class WGH_NPCController : MonoBehaviourPun
     [Header("선호도")]
     private WGH_NPCNote npcNote;
     public E_WGH_PerfumeType PerfumeType;
+    public E_BottleType BottleType;
     public E_WGH_NoteType BestMaterial;
     public E_WGH_NoteType LikeMaterial;
     public E_WGH_NoteType LikeMaterial2;
@@ -85,6 +87,8 @@ public class WGH_NPCController : MonoBehaviourPun
     [Header("UI")]
     [Tooltip("병 UI 목록")] public Sprite[] bottleUI;
     [Tooltip("병 UI")] public Image purchaseUI;
+
+    public event Action OnSelectBottle;
 
     private void Awake()
     {
@@ -200,7 +204,7 @@ public class WGH_NPCController : MonoBehaviourPun
         }
        
         purchaseUI.sprite = bottleUI[bottleType];
-        
+        BottleType = (E_BottleType)bottleType;
     }
 
     public void SelectBottleUINetwork(int bottleType)

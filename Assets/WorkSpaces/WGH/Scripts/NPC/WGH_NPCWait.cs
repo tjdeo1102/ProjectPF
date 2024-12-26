@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Photon.Pun;
+using UnityEngine.Events;
 
 public enum E_ReactUiType
 {
@@ -10,16 +11,6 @@ public enum E_ReactUiType
     LIKE,
     QUESTION,
     DESPAIR
-}
-
-public enum E_BottleType // 플로팅 되는 병 이미지
-{
-    a,
-    b,
-    c,
-    d,
-    e,
-    E_BottleType_MAX
 }
 
 public class WGH_NPCWait : INPCState
@@ -34,7 +25,7 @@ public class WGH_NPCWait : INPCState
 
     public void Enter()
     {
-        randomNum = Random.Range(0, (int)E_BottleType.E_BottleType_MAX);
+        randomNum =  Random.Range(0, (int)E_BottleType.E_BottleType_MAX);
         if (PhotonNetwork.IsMasterClient)
         {
             controller.SelectBottleUINetwork(randomNum);
