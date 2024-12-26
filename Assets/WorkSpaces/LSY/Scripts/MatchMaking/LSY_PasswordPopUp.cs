@@ -11,6 +11,7 @@ public class LSY_PasswordPopUp : MonoBehaviour
     [SerializeField] private Button submitButton;
     [SerializeField] private Button cancelButton;
     [SerializeField] private TMP_Text notPasswordText;
+    [SerializeField] private Image joinRoomImage;
 
     public delegate void OnPasswordSubmitDelegate(string password);
     public event OnPasswordSubmitDelegate OnPasswordSubmitEvent;
@@ -22,6 +23,7 @@ public class LSY_PasswordPopUp : MonoBehaviour
     {
         submitButton.onClick.AddListener(OnSubmit);
         cancelButton.onClick.AddListener(OnCancel);
+        joinRoomImage.GetComponent<Outline>().enabled = false;
     }
 
     private void OnSubmit()
@@ -50,8 +52,10 @@ public class LSY_PasswordPopUp : MonoBehaviour
 
     IEnumerator NotPasswordRoutine()
     {
+        joinRoomImage.GetComponent<Outline>().enabled = true;
         notPasswordText.gameObject.SetActive(true);
         yield return new WaitForSeconds(1);
+        joinRoomImage.GetComponent<Outline>().enabled = false;
         notPasswordText.gameObject.SetActive(false);
     }
 }

@@ -59,11 +59,6 @@ public class LSY_RoomPanel : MonoBehaviour
         {
             startButton.interactable = false;
         }
-
-
-        if (PhotonNetwork.LocalPlayer.IsMasterClient && CheckAllReady())
-        {
-        }
     }
 
     // 새로운 플레이어가 방에 들어왔을 때
@@ -102,10 +97,6 @@ public class LSY_RoomPanel : MonoBehaviour
         return true;
     }
 
-    public void SetRoomPanel()
-    {
-
-    }
 
     public void StartGame()
     {
@@ -114,10 +105,6 @@ public class LSY_RoomPanel : MonoBehaviour
             //PhotonNetwork.LoadLevel("GameScene");
             Debug.Log("게임시작");
             PhotonNetwork.CurrentRoom.IsOpen = false;
-        }
-        else
-        {
-            Debug.Log("모두 레디가 안되어있음");
         }
 
     }
