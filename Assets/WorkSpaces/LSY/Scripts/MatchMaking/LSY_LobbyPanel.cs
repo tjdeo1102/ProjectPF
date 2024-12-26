@@ -20,18 +20,23 @@ public class LSY_LobbyPanel : LSY_BaseUI
     [SerializeField] RectTransform roomContent;
     [SerializeField] LSY_RoomEntry roomEntryPrefab;
 
+    [Header("닉네임 변경")]
+    [SerializeField] TMP_InputField nickName;
+    [SerializeField] TMP_Text warningText;
+    [SerializeField] TMP_Text confirmText;
+
     private Dictionary<string, LSY_RoomEntry> roomDictionay = new Dictionary<string, LSY_RoomEntry>();
     private bool isPasswordProtected = false;
 
 
     public const string lsy_RoomName = "LSY_TestRoom";
-    public TMP_InputField nickName;
 
     private void Start()
     {
         isPasswordProtected = false;
         BindAll();
-        PhotonNetwork.LocalPlayer.NickName = $"Player {Random.Range(1000, 10000)}";
+        PhotonNetwork.LocalPlayer.NickName = $"Player{Random.Range(1000, 10000)}";
+        nickName.text = PhotonNetwork.LocalPlayer.NickName;
         PhotonNetwork.ConnectUsingSettings();
         PhotonNetwork.EnableCloseConnection = true;
     }
@@ -42,18 +47,33 @@ public class LSY_LobbyPanel : LSY_BaseUI
         Application.Quit();
     }
 
-    public void CheckGuestNickname()
+    public void NicknameChange()
     {
         string nickname = nickName.text;
 
-        if (nickname == "")
+        if (nickname.Length < 2 || nickname.Length > 10)
         {
-            Debug.LogWarning("닉네임을 입력해주세요");
+            StartCoroutine(WarningTextRoutine());
             return;
         }
 
         PhotonNetwork.LocalPlayer.NickName = nickname;
-        Debug.Log($"닉네임: {PhotonNetwork.LocalPlayer.NickName}");
+        StartCoroutine(ConfirmTextRoutine());
+        nickName.text = PhotonNetwork.LocalPlayer.NickName;
+    }
+
+    IEnumerator WarningTextRoutine()
+    {
+        warningText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1);
+        warningText.gameObject.SetActive(false);
+    }
+
+    IEnumerator ConfirmTextRoutine()
+    {
+        confirmText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1);
+        confirmText.gameObject.SetActive(false);
     }
 
 
