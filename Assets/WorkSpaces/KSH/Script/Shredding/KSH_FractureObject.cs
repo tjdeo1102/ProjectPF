@@ -19,10 +19,10 @@ public class KSH_FractureObject : MonoBehaviour
     private Material[] parentMaterials;
 
     // 메인 오브젝트의 MeshRenderer
-    MeshRenderer meshRenderer;
+    private MeshRenderer meshRenderer;
 
     // 자식 오브젝트들의 MeshRenderer 배열
-    MeshRenderer[] meshRenderers;
+    private MeshRenderer[] meshRenderers;
 
     // 자식 오브젝트들의 Rigidbody 배열 (파편 효과에 사용)
     [SerializeField] Rigidbody[] rigidbodies;
