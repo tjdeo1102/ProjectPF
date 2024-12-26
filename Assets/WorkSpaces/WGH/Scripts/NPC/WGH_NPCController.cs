@@ -83,13 +83,17 @@ public class WGH_NPCController : MonoBehaviourPun
     [SerializeField] private ParticleSystem despairEmotion;
 
     [Header("UI")]
-    [Tooltip("병 UI 목록")] public Sprite[] bottleUI;
-    [Tooltip("병 UI")] public Image purchaseUI;
+    [Tooltip("병 UI 목록")] public Sprite[] PerfumeUis;
+    [Tooltip("병 UI 목록")] public Sprite[] BottleUis;
+    [Tooltip("병 UI")] public Image PerfumeUI;
+    [Tooltip("병 UI")] public Image BottleUI;
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         interactionArea = GetComponentInChildren<SphereCollider>();
+        PerfumeUI = transform.GetChild(0).GetChild(0).GetComponent<Image>();
+        BottleUI = transform.GetChild(0).GetChild(1).GetComponent<Image>();
 
         passState = new WGH_NPCPass(this, agent);
         enterState = new WGH_NPCEnter(this, agent);
@@ -192,20 +196,22 @@ public class WGH_NPCController : MonoBehaviourPun
     }
 
     [PunRPC]
-    public void SelectBottleUI(int bottleType)
+    public void SelectOrderUI(int bottleType, int perfumeType)
     {
-        if(purchaseUI.gameObject.activeSelf == false)
+        if(BottleUI.gameObject.activeSelf == false)
         {
-            purchaseUI.gameObject.SetActive(true);
+            BottleUI.gameObject.SetActive(true);
+            PerfumeUI.gameObject.SetActive(true);
         }
        
-        purchaseUI.sprite = bottleUI[bottleType];
+        BottleUI.sprite = BottleUis[bottleType];
+        PerfumeUI.sprite = PerfumeUis[perfumeType];
         
     }
 
-    public void SelectBottleUINetwork(int bottleType)
+    public void SelectOrderUINetwork(int bottleType, int perfumeType)
     {
-        photonView.RPC("SelectBottleUI", RpcTarget.All, bottleType);
+        photonView.RPC("SelectOrderUI", RpcTarget.All, bottleType, perfumeType);
     }
 
     IEnumerator ExploreRoutine()
