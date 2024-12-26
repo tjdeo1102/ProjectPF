@@ -1,22 +1,28 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class PTK_Box : MonoBehaviour
+public class PTK_Box : MonoBehaviourPun
 {
     [SerializeField] private PTK_Handle knobEvent;
-    [SerializeField] private GameObject prefabToSpawn;
     [SerializeField] private Transform spawnPoint;
 
     void Start()
     {
-        knobEvent.MixDone.AddListener(SpawnObject);
+        knobEvent.mixDone.AddListener(SpawnObject);
     }
 
     private void SpawnObject()
     {
-        Vector3 spawnPosition = spawnPoint != null ? spawnPoint.position : Vector3.zero;
-        Quaternion spawnRotation = spawnPoint != null ? spawnPoint.rotation : Quaternion.identity;
-        Instantiate(prefabToSpawn, spawnPosition, spawnRotation);
+        photonView.RPC("RPC_SpawnObject", RpcTarget.All);
+    }
+
+    [PunRPC]
+    private void RPC_SpawnObject()
+    {
+        Vector3 spawnPosition = spawnPoint.position;
+        GameObject resultFruit = PhotonNetwork.Instantiate("PTK_Fruit", spawnPosition, Quaternion.identity);
     }
 }
