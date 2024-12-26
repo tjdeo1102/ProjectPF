@@ -33,6 +33,7 @@ public class LSY_LobbyPanel : LSY_BaseUI
         BindAll();
         PhotonNetwork.LocalPlayer.NickName = $"Player {Random.Range(1000, 10000)}";
         PhotonNetwork.ConnectUsingSettings();
+        PhotonNetwork.EnableCloseConnection = true;
     }
 
     public void QuitGame()

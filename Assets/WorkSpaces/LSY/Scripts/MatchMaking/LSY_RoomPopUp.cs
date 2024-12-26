@@ -11,7 +11,7 @@ public class LSY_RoomPopUp : MonoBehaviour
     [SerializeField] private Button kickButton;    
     [SerializeField] private Button transferButton;
     private Player selectedPlayer;                  
-    [SerializeField] LSY_PlayerEntry[] lSY_PlayerEntries;
+
     void Start()
     {
         kickButton.onClick.AddListener(KickPlayer);
@@ -33,19 +33,24 @@ public class LSY_RoomPopUp : MonoBehaviour
 
     public void KickPlayer()
     {
-        Debug.Log("추방");
+        PhotonNetwork.EnableCloseConnection = true;
+
+
         if (PhotonNetwork.IsMasterClient)
         {
+            if (selectedPlayer == null)
+            {
+                Debug.LogError("선택된 플레이어 없음");
+                return;
+            }
+
             PhotonNetwork.CloseConnection(selectedPlayer);
+
             HidePopup();
             Debug.Log("마스터가 추방");
         }
-        else
-        {
-            Debug.Log(selectedPlayer);
-            Debug.Log("마스터가 아님");
-        }
     }
+
 
     public void TransferHost()
     {
