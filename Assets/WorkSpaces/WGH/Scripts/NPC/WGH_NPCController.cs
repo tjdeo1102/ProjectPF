@@ -19,17 +19,9 @@ public enum E_StateType
 
 public class WGH_NPCController : MonoBehaviourPun
 {
+    [Header("상태")]
     [SerializeField, Tooltip("현재 상태")] private E_StateType stateType;
     private INPCState curState;
-
-    [SerializeField]private WGH_NPCNote npcNote;
-    public E_WGH_PerfumeType PerfumeType;
-    public E_WGH_NoteType BestMaterial;
-    public E_WGH_NoteType LikeMaterial;
-    public E_WGH_NoteType LikeMaterial2;
-    public E_WGH_NoteType QuestionMaterial;
-    public E_WGH_NoteType QuestionMaterial2;
-
     private WGH_NPCPass passState;
     private WGH_NPCEnter enterState;
     private WGH_NPCExplore exploreState;
@@ -37,44 +29,67 @@ public class WGH_NPCController : MonoBehaviourPun
     private WGH_NPCExit exitState;
     private WGH_NPCWait wait;
     private WGH_NPCPurchase purchase;
-
     private NavMeshAgent agent;
     public NavMeshAgent Agent { get { return agent; } }
+    public WGH_SmellStick SmellStick;
 
-    [SerializeField, Tooltip("입구 위치")] private Vector3 entrance;                                    // 입구 Vector
+    [Header("선호도")]
+    private WGH_NPCNote npcNote;
+    public E_WGH_PerfumeType PerfumeType;
+    public E_WGH_NoteType BestMaterial;
+    public E_WGH_NoteType LikeMaterial;
+    public E_WGH_NoteType LikeMaterial2;
+    public E_WGH_NoteType QuestionMaterial;
+    public E_WGH_NoteType QuestionMaterial2;
+
+    [Header("가게로 입장할지에 대한 난수")]
+    [SerializeField] int passDenominatorNum;
+    public int PassDenominatorNum { get { return passDenominatorNum; } }
+    [SerializeField] int passNumeratorNum;
+    public int PassNumeratorNum { get { return passNumeratorNum; } }
+    [Header("탐색하고 난 뒤 행동에 대한 난수")]
+    [SerializeField] int exploreDenominatorNum;
+    public int ExploreDenominatorNum { get { return exploreDenominatorNum; } }
+    [SerializeField] int exploreNumeratorNum;
+    public int ExploreNumeratorNum { get { return exploreNumeratorNum; } }
+
+
+
+    [HideInInspector] public Vector3 PassPos;                                                           // pass 루트 Vector
+
+    [Header("입구 위치")]
+    [SerializeField] private Vector3 entrance;                                                          // 입구 Vector
     public Vector3 Entrance { get { return entrance; } }
-
-    [SerializeField, Tooltip("가게를 지나칠때의 도착 위치")] private Vector3 passPos;                     // pass 루트 Vector
-    public Vector3 PassPos { get { return passPos; } }
-
+    
+    [Header("탐색 위치")]
     [SerializeField, Tooltip("가게 내부 탐색위치 1")] private Vector3 explorePos1;                       // explore 위치 1
-
     [SerializeField, Tooltip("가게 내부 탐색위치 2")] private Vector3 explorePos2;                       // explore 위치 2
     public Vector3 ExplorePos2 { get { return explorePos2; } }
+
+    [Header("카운터 위치")]
 
     [SerializeField, Tooltip("카운터 위치")] private Vector3 counter;                                    // counter 위치
     public Vector3 Counter { get { return counter; } }
 
+    [Header("NPC 상호작용 콜라이더")]
+
     [SerializeField, Tooltip("시향 콜라이더")] private Collider interactionArea;                         // 시향 콜라이더
 
     public Collider InteractionArea { get { return interactionArea; } }
-
+    [Header("리액션 이펙트")]
     [SerializeField] private ParticleSystem bestEmotion;
-
     [SerializeField] private ParticleSystem likeEmotion;
-
     [SerializeField] private ParticleSystem questionEmotion;
-
     [SerializeField] private ParticleSystem despairEmotion;
 
+    [Header("UI")]
     [Tooltip("병 UI 목록")] public Sprite[] bottleUI;
-
     [Tooltip("병 UI")] public Image purchaseUI;
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        interactionArea = GetComponentInChildren<CapsuleCollider>();
+        interactionArea = GetComponentInChildren<SphereCollider>();
 
         passState = new WGH_NPCPass(this, agent);
         enterState = new WGH_NPCEnter(this, agent);

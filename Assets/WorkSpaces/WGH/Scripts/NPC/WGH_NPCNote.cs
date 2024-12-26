@@ -23,7 +23,7 @@ public class WGH_NPCNote : MonoBehaviourPun
     {
         if (PhotonNetwork.IsMasterClient == false)
             return;
-        int randNum = Random.Range(1, (int)E_WGH_PerfumeType.E_PERFUMETYPE_MAX - 1);
+        int randNum = Random.Range(1, (int)E_WGH_PerfumeType.E_PERFUMETYPE_MAX);
         PerfumeType = (E_WGH_PerfumeType)randNum;
         SetPerfumeTypeRPC((int)PerfumeType);
     }

@@ -18,7 +18,8 @@ public enum E_BottleType // 플로팅 되는 병 이미지
     b,
     c,
     d,
-    e
+    e,
+    E_BottleType_MAX
 }
 
 public class WGH_NPCWait : INPCState
@@ -33,23 +34,30 @@ public class WGH_NPCWait : INPCState
 
     public void Enter()
     {
-        smellStick = GameObject.FindGameObjectWithTag("SmellStick").GetComponent<WGH_SmellStick>();
-        randomNum = Random.Range(0, 5);
+        randomNum = Random.Range(0, (int)E_BottleType.E_BottleType_MAX);
         if (PhotonNetwork.IsMasterClient)
         {
             controller.SelectBottleUINetwork(randomNum);
         }
         Debug.Log("Wait 상태");
-
-        smellStick.OnBestInteract += BestEmotion;
-        smellStick.OnLikeInteract += LikeEmotion;
-        smellStick.OnQuestionInteract += QuestionEmotion;
-        smellStick.OnDespairInteract += DespairEmotion;
+        // 상호작용 콜라이더에 시향지가 들어와서 시향지 변수에 배정될때 그 시향지의 스크립트의 이벤트에 함수를 등록하기
+        controller.InteractionArea.GetComponent<WGH_InteractArea>().OnChangedSmellStick += FindSmellStick;
     }
 
     public void OnUpdate()
     {
         
+    }
+
+    /// <summary>
+    /// 리액션 이벤트 등록 함수
+    /// </summary>
+    private void FindSmellStick()
+    {
+        controller.SmellStick.OnBestInteract += BestEmotion;
+        controller.SmellStick.OnLikeInteract += LikeEmotion;
+        controller.SmellStick.OnQuestionInteract += QuestionEmotion;
+        controller.SmellStick.OnDespairInteract += DespairEmotion;
     }
 
     private void BestEmotion()
@@ -74,6 +82,6 @@ public class WGH_NPCWait : INPCState
 
     public void Exit() 
     {
-        
+        controller.InteractionArea.GetComponent<WGH_InteractArea>().OnChangedSmellStick -= FindSmellStick;
     }
 }

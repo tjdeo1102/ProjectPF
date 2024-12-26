@@ -27,7 +27,6 @@ public class WGH_SmellStick : MonoBehaviourPun
     
     IEnumerator InteractRoutine()
     {
-        customer = GameObject.FindGameObjectWithTag("Customer");
         yield return new WaitForSeconds(1);
         if (Vector3.Distance(transform.position, customer.transform.position) < interactionDist)
         {
@@ -57,6 +56,7 @@ public class WGH_SmellStick : MonoBehaviourPun
     {
         if (other.gameObject.TryGetComponent(out WGH_InteractArea interactArea))
         {
+            customer = interactArea.GetComponentInParent<WGH_NPCController>().gameObject;
             interactTime = 0f;
             timeRoutine = StartCoroutine(TimeRoutine());
         }
@@ -66,6 +66,11 @@ public class WGH_SmellStick : MonoBehaviourPun
     {
         if (other.gameObject.TryGetComponent(out WGH_InteractArea interactArea))
         {
+            customer = null;
+            OnBestInteract = null;
+            OnLikeInteract = null;
+            OnQuestionInteract = null;
+            OnDespairInteract = null;
             StopCoroutine(timeRoutine);
         }
     }
