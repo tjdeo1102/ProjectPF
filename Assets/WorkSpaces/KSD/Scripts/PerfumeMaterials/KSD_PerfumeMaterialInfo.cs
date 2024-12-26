@@ -32,6 +32,6 @@ public class KSD_PerfumeMaterialInfo
     public PerfumeMaterialType Type;
     public PerfumeMaterialState State;
 
-    [Header("현재 해당 재료 수량")]
+    [Header("현재 상태")]
     public int MaterialCount = 0;
 }

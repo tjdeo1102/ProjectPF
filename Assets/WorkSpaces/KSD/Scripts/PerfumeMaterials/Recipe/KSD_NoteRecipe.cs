@@ -7,7 +7,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Note Recipe Data", menuName = "Scriptable Object/Note Recipe")]
 public class KSD_NoteRecipe: ScriptableObject
 {
+    [Header("필요 재료")]
     public List<KSD_PerfumeNoteInfo> NeedConcentrates;
+
+    [Header("결과물")]
+    public KSD_PerfumeNoteInfo ResultNote;
 
     private void OnValidate()
     {
