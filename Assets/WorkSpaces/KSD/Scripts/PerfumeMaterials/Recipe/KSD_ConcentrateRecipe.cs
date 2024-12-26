@@ -6,7 +6,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Concentrate Recipe Data", menuName = "Scriptable Object/Concentrate Recipe")]
 public class KSD_ConcentrateRecipe:ScriptableObject
 {
+    [Header("필요 재료")]
     public List<KSD_PerfumeMaterialInfo> NeedMaterials;
+
+    [Header("결과물")]
+    public KSD_PerfumeNoteInfo ResultConcentrate;
 
     private void OnValidate()
     {

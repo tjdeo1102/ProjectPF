@@ -23,6 +23,6 @@ public class KSD_PerfumeNoteInfo
     public PerfumeNoteName Name;
     public PerfumeNoteState State = PerfumeNoteState.Concentrate;
 
-    [Header("현재 해당 노트 수량")]
+    [Header("현재 상태")]
     public int NoteCount = 0;
 }
