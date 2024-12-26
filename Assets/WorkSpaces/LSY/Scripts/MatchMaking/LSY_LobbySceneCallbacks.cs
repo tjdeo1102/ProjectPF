@@ -2,18 +2,27 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using PhotonHashtable = ExitGames.Client.Photon.Hashtable;
 
 public class LSY_LobbySceneCallbacks : MonoBehaviourPunCallbacks
 {
-    public enum Panel { Main, Room }      // 각 패널을 열거형으로 분류
+    public enum Panel { Main, Lobby ,Room }
 
-    // 각 패널 클래스
-    [SerializeField] private LSY_RoomUpdate roomUpdate;
+    [Header("Panel Script")]
+    [SerializeField] private LSY_RoomPanel roomPanel;
     [SerializeField] private LSY_LobbyPanel lsy_lobbyPanel;
+
+    [Header("Panel GameObject")]
     [SerializeField] private GameObject mainPanel;
+    [SerializeField] private GameObject lobbyPanel;
     [SerializeField] private GameObject RoomPanel;
+
+    [Header("Room Option")]
+    [SerializeField] TMP_Text roomPlayerNameText;
+    [SerializeField] TMP_Text passwordText;
+    [SerializeField] TMP_Text playerCountText;
 
     private void Start()
     {
@@ -30,10 +39,7 @@ public class LSY_LobbySceneCallbacks : MonoBehaviourPunCallbacks
     // 로그인 성공 시 MenuPanel로 전환
     public override void OnConnectedToMaster()
     {
-        Debug.Log("<color=yellow>메인방면 연결 콜백</color>");
-
         Debug.Log("Login Success!");
-        //SetActivePanel(Panel.Lobby);
         PhotonNetwork.JoinLobby();
     }
 
@@ -41,9 +47,6 @@ public class LSY_LobbySceneCallbacks : MonoBehaviourPunCallbacks
     // 로그로 로그아웃 사유 표시
     public override void OnDisconnected(DisconnectCause cause)
     {
-
-        Debug.Log("<color=yellow>메인방면 연결 해제 콜백</color>");
-
         Debug.Log($"Logout! (Cause : {cause})");
         SetActivePanel(Panel.Main);
         PhotonNetwork.LeaveLobby();
@@ -52,8 +55,23 @@ public class LSY_LobbySceneCallbacks : MonoBehaviourPunCallbacks
     // 방생성 성공 로그 출력
     public override void OnCreatedRoom()
     {
-        Debug.Log("Create Room complete!");
+        roomPlayerNameText.text = PhotonNetwork.CurrentRoom.Name;
+        playerCountText.text = "참가자 "+ PhotonNetwork.CurrentRoom.PlayerCount + " / " + PhotonNetwork.CurrentRoom.MaxPlayers;
+
+        if ((bool)PhotonNetwork.CurrentRoom.CustomProperties["IsPasswordProtected"] == true)
+        {
+            string password = (string)PhotonNetwork.CurrentRoom.CustomProperties["RoomPassword"];
+            passwordText.text = "비밀번호: " + password;
+            Debug.Log("비밀번호 존재하는 방");
+        }
+        else
+        {
+            passwordText.text = "";
+            Debug.Log("비밀번호 없는 방");
+        }
     }
+
+
 
     // 방 생성 실패 실패 사유가 적힌 로그 출력
     public override void OnCreateRoomFailed(short returnCode, string message)
@@ -64,20 +82,29 @@ public class LSY_LobbySceneCallbacks : MonoBehaviourPunCallbacks
     // 방 참여에 성공했을 때 RoomPanel로 전환
     public override void OnJoinedRoom()
     {
-        Debug.Log("Room Enter Success!");
         SetActivePanel(Panel.Room);
-        if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("IsPasswordProtected"))
+
+        playerCountText.text = "참가자 " + PhotonNetwork.CurrentRoom.PlayerCount + " / " + PhotonNetwork.CurrentRoom.MaxPlayers;
+
+        roomPlayerNameText.text = PhotonNetwork.CurrentRoom.Name;
+
+        if ((bool)PhotonNetwork.CurrentRoom.CustomProperties["IsPasswordProtected"] == true)
         {
-            bool isPasswordProtected = (bool)PhotonNetwork.CurrentRoom.CustomProperties["IsPasswordProtected"];
-            Debug.Log("Is Password Protected: " + isPasswordProtected);
+            string password = (string)PhotonNetwork.CurrentRoom.CustomProperties["RoomPassword"];
+            passwordText.text = "비밀번호: " + password;
         }
+        else
+        {
+            passwordText.text = "";
+        } 
+
     }
 
-    // 방에 입장한 플레이어의 프로퍼티를 변경
-    //public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
-    //{
-    //    _roomUpdate.UpdatePlayerProperty(targetPlayer, changedProps);
-    //}
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, PhotonHashtable changedProps)
+    {
+        roomPanel.UpdatePlayerProperty(targetPlayer, changedProps);
+    }
+
     // 방 입장 실패 시 실패 사유가 적힌 로그 출력
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
@@ -88,19 +115,16 @@ public class LSY_LobbySceneCallbacks : MonoBehaviourPunCallbacks
     // 방에서 퇴장 시 MenuPanel로 전환
     public override void OnLeftRoom()
     {
-        Debug.Log("Left Room Success!");
         SetActivePanel(Panel.Main);
-    }
 
-    // 랜덤매칭 실패 시 실패 사유가 적힌 로그 출력
-    public override void OnJoinRandomFailed(short returnCode, string message)
-    {
-        Debug.LogWarning($"Random Match Failed! (Cause : {message}");
-
-        string name = $"Room {Random.Range(1000, 10000)}";                              // 방 이름을 랜덤으로 설정
-        RoomOptions options = new RoomOptions() { MaxPlayers = 10 };                     // 방 최대 인원 수를 8로 설정
-        PhotonNetwork.CreateRoom(name, options);
-
+        if (PhotonNetwork.CurrentRoom != null)
+        {
+            playerCountText.text = "참가자 " + PhotonNetwork.CurrentRoom.PlayerCount + " / " + PhotonNetwork.CurrentRoom.MaxPlayers;
+        }
+        else
+        {
+            playerCountText.text = "참가자 0 / 0"; 
+        }
     }
 
     public override void OnJoinedLobby()
@@ -129,8 +153,24 @@ public class LSY_LobbySceneCallbacks : MonoBehaviourPunCallbacks
     private void SetActivePanel(Panel panel)
     {
         mainPanel.SetActive(panel == Panel.Main);
-
+        lobbyPanel.SetActive(panel == Panel.Lobby);
         RoomPanel.SetActive(panel == Panel.Room);
 
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        playerCountText.text = "참가자 " + PhotonNetwork.CurrentRoom.PlayerCount + " / " + PhotonNetwork.CurrentRoom.MaxPlayers;
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        playerCountText.text = "참가자 " + PhotonNetwork.CurrentRoom.PlayerCount + " / " + PhotonNetwork.CurrentRoom.MaxPlayers;
+    }
+
+
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        roomPanel.UpdataPlayers();
     }
 }

@@ -90,6 +90,7 @@ public class LSY_RoomEntry : MonoBehaviour
             {
                 passwordPopupScript.OnPasswordSubmitEvent += OnPasswordSubmit;
                 passwordPopupScript.OnPasswordCancelEvent += OnPasswordCancel;
+                passwordPopupScript.roomNameText.text = _roomName.text;
             }
         }
 
@@ -107,7 +108,6 @@ public class LSY_RoomEntry : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Incorrect password!");
             var passwordPopupScript = passwordPopUpInstance.GetComponent<LSY_PasswordPopUp>();
             if (passwordPopupScript != null)
             {

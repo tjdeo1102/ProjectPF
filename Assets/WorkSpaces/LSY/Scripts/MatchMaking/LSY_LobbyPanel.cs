@@ -1,5 +1,6 @@
 using Photon.Pun;
 using Photon.Realtime;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEditor.Rendering;
@@ -9,14 +10,30 @@ using PhotonHashtable = ExitGames.Client.Photon.Hashtable;
 
 public class LSY_LobbyPanel : LSY_BaseUI
 {
-    public const string lsy_RoomName = "TestRoomlsy";
+    [Header("CreateRoomPanel")]
+    [SerializeField] private TMP_InputField roomNameInputField;
+    [SerializeField] private TMP_InputField passwordInputField;
+    [SerializeField] private GameObject checkImage;
+    [SerializeField] TMP_Text errorText;
+
+    [Header("RoomPanel")]
+    [SerializeField] RectTransform roomContent;
+    [SerializeField] LSY_RoomEntry roomEntryPrefab;
+
+    private Dictionary<string, LSY_RoomEntry> roomDictionay = new Dictionary<string, LSY_RoomEntry>();
+    private bool isPasswordProtected = false;
+
+
+    public const string lsy_RoomName = "LSY_TestRoom";
     public TMP_InputField nickName;
 
     private void Start()
     {
+        isPasswordProtected = false;
         BindAll();
         PhotonNetwork.LocalPlayer.NickName = $"Player {Random.Range(1000, 10000)}";
         PhotonNetwork.ConnectUsingSettings();
+        PhotonNetwork.EnableCloseConnection = true;
     }
 
     public void QuitGame()
@@ -39,10 +56,6 @@ public class LSY_LobbyPanel : LSY_BaseUI
         Debug.Log($"닉네임: {PhotonNetwork.LocalPlayer.NickName}");
     }
 
-    [SerializeField] private TMP_InputField roomNameInputField;
-    [SerializeField] private TMP_InputField passwordInputField;
-    [SerializeField] private GameObject checkImage;            
-    private bool isPasswordProtected = false;
 
     public void CreateRoomMenu()
     {
@@ -67,7 +80,7 @@ public class LSY_LobbyPanel : LSY_BaseUI
 
         if (string.IsNullOrEmpty(roomName))
         {
-            Debug.LogWarning("방 이름을 입력하세요.");
+            StartCoroutine(ErrorTextRoutine("방 이름을 입력해주세요"));
             return;
         }
 
@@ -86,19 +99,26 @@ public class LSY_LobbyPanel : LSY_BaseUI
         options.CustomRoomProperties = customProperties;
 
         // CustomRoomPropertiesForLobby: 로비에서 표시할 속성
-        options.CustomRoomPropertiesForLobby = new string[] { "IsPasswordProtected", "RoomPassword" }; 
+        options.CustomRoomPropertiesForLobby = new string[] { "IsPasswordProtected", "RoomPassword" };
+
+        if (password.Length < 2 && isPasswordProtected)
+        {
+            StartCoroutine(ErrorTextRoutine("비밀번호는 두자리 이상이여야 합니다"));
+            return;
+        }
 
         PhotonNetwork.CreateRoom(roomName, options);
         Debug.Log("방 생성 완료");
+        GetUI("CreateRoomPanel").gameObject.SetActive(false);
     }
 
-
-
-
-    [SerializeField] RectTransform roomContent;
-    [SerializeField] LSY_RoomEntry roomEntryPrefab;
-
-    private Dictionary<string, LSY_RoomEntry> roomDictionay = new Dictionary<string, LSY_RoomEntry>();
+    IEnumerator ErrorTextRoutine(string text)
+    {
+        errorText.text = text;
+        errorText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1);
+        errorText.gameObject.SetActive(false);
+    }
 
     public void LeaveLobby()
     {
