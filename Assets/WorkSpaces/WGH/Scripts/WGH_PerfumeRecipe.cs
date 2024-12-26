@@ -28,20 +28,9 @@ public enum E_WGH_NoteType
     E_WGH_PERFUMEMATERIAL_MAX
 }
 
-public enum E_BottleType // 플로팅 되는 병 이미지
-{
-    a,
-    b,
-    c,
-    d,
-    e,
-    E_BottleType_MAX
-}
-
 public class WGH_PerfumeRecipe : MonoBehaviour
 {
     public E_WGH_PerfumeType PerfumeType;               // 향수별로 미리 설정 필요
-    public E_BottleType BottleType;                     // 병 타입 미리 설정 필요
 
     public E_WGH_NoteType BestMaterial;               // 최고 재료
     public E_WGH_NoteType LikeMaterial;               // 선호 재료

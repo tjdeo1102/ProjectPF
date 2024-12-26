@@ -3,8 +3,6 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
-
-
 // 상호작용 콜라이더 탐지용 클래스
 public class WGH_InteractArea : MonoBehaviour
 {
@@ -21,16 +19,14 @@ public class WGH_InteractArea : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // 시향지 컴포넌트가 있다면
         if (other.gameObject.TryGetComponent(out WGH_SmellStick smellStick))
         {
             controller.SmellStick = smellStick;
             OnChangedSmellStick?.Invoke();
         }
-        // 향수 컴포넌트가 있다면 && 상호작용 횟수가 최대 횟수보다 적을 때
         if (other.gameObject.TryGetComponent(out WGH_PerfumeRecipe perfume) && curCount < maxCount)
         {
-            if (perfume.PerfumeType == controller.PerfumeType && perfume.BottleType == controller.BottleType)
+            if (perfume.PerfumeType == controller.PerfumeType)
             {
                 // 성공하면 성공 감정표현 후 퇴장
                 StartCoroutine(PurchaseRoutine());
