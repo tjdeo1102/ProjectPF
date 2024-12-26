@@ -25,27 +25,59 @@ public class LSY_LobbyPanel : LSY_BaseUI
     [SerializeField] TMP_Text warningText;
     [SerializeField] TMP_Text confirmText;
 
+    [Header("검색 패널")]
+    [SerializeField] private TMP_InputField searchInputField;
+
     private Dictionary<string, LSY_RoomEntry> roomDictionay = new Dictionary<string, LSY_RoomEntry>();
     private bool isPasswordProtected = false;
-
 
     public const string lsy_RoomName = "LSY_TestRoom";
 
     private void Start()
     {
-        isPasswordProtected = false;
         BindAll();
+
+        isPasswordProtected = false;
+
         PhotonNetwork.LocalPlayer.NickName = $"Player{Random.Range(1000, 10000)}";
         nickName.text = PhotonNetwork.LocalPlayer.NickName;
+
         PhotonNetwork.ConnectUsingSettings();
-        PhotonNetwork.EnableCloseConnection = true;
+        PhotonNetwork.EnableCloseConnection = true; // 플레이어 퇴장 기능 활성화
+
+        searchInputField.onValueChanged.AddListener(OnSearchRoom); 
     }
 
+    #region 게임 종료
     public void QuitGame()
     {
         UnityEditor.EditorApplication.isPlaying = false;
         Application.Quit();
     }
+    #endregion
+
+    #region 방 검색하기 기능
+    public void OnSearchRoom(string searchText)
+    {
+        if (string.IsNullOrEmpty(searchText)) return;
+        SearchRoomText(searchText.ToLower());
+    }
+
+    public void SearchRoomText(string searchText)
+    {
+        // KeyValuePair: 딕셔너리의 각 항목의 키와 값을 동시에 다룰 수 있는 구조체
+        foreach (KeyValuePair<string, LSY_RoomEntry> roomEntry in roomDictionay)
+        {
+            string roomName = roomEntry.Key.ToLower(); // 방 이름
+            LSY_RoomEntry entry = roomEntry.Value; // 방을 나타내는 UI
+
+            entry.gameObject.SetActive(roomName.Contains(searchText)); // 방 이름에 검색한 글자가 포함될 경우 해당 UI를 활성화 시켜줌
+        }
+    }
+
+    #endregion
+
+    #region 닉네임 변경 기능
 
     public void NicknameChange()
     {
@@ -76,7 +108,9 @@ public class LSY_LobbyPanel : LSY_BaseUI
         confirmText.gameObject.SetActive(false);
     }
 
+    #endregion
 
+    #region 방 생성하기
     public void CreateRoomMenu()
     {
         GetUI("CreateRoomPanel").SetActive(true);
@@ -139,13 +173,9 @@ public class LSY_LobbyPanel : LSY_BaseUI
         yield return new WaitForSeconds(1);
         errorText.gameObject.SetActive(false);
     }
+    #endregion
 
-    public void LeaveLobby()
-    {
-        Debug.Log("로비 퇴장 요청");
-        PhotonNetwork.LeaveLobby();
-    }
-
+    #region 방 업데이트
     public void UpdateRoomList(List<RoomInfo> roomlist)
     {
         foreach (RoomInfo room in roomlist)
@@ -172,6 +202,8 @@ public class LSY_LobbyPanel : LSY_BaseUI
                 roomEntry.SetRoomInfo(room);
             }
         }
+
+        SearchRoomText(searchInputField.text.ToLower());
     }
 
 
@@ -183,4 +215,5 @@ public class LSY_LobbyPanel : LSY_BaseUI
         }
         roomDictionay.Clear();
     }
+    #endregion
 }
