@@ -29,8 +29,8 @@ public class WGH_NPCCreator : MonoBehaviour
 
     private void Start()
     {
-        spawnTime = 10f;                        // 임시 시간 배정
-        curTime = 7f;                           // 임시 시간 배정
+        spawnTime = 8f;                        // 임시 시간 배정
+        curTime = 6f;                           // 임시 시간 배정
     }
 
     private void Update()
