@@ -20,43 +20,97 @@ public class LSY_LobbyPanel : LSY_BaseUI
     [SerializeField] RectTransform roomContent;
     [SerializeField] LSY_RoomEntry roomEntryPrefab;
 
+    [Header("닉네임 변경")]
+    [SerializeField] TMP_InputField nickName;
+    [SerializeField] TMP_Text warningText;
+    [SerializeField] TMP_Text confirmText;
+
+    [Header("검색 패널")]
+    [SerializeField] private TMP_InputField searchInputField;
+
     private Dictionary<string, LSY_RoomEntry> roomDictionay = new Dictionary<string, LSY_RoomEntry>();
     private bool isPasswordProtected = false;
 
-
     public const string lsy_RoomName = "LSY_TestRoom";
-    public TMP_InputField nickName;
 
     private void Start()
     {
-        isPasswordProtected = false;
         BindAll();
-        PhotonNetwork.LocalPlayer.NickName = $"Player {Random.Range(1000, 10000)}";
+
+        isPasswordProtected = false;
+
+        PhotonNetwork.LocalPlayer.NickName = $"Player{Random.Range(1000, 10000)}";
+        nickName.text = PhotonNetwork.LocalPlayer.NickName;
+
         PhotonNetwork.ConnectUsingSettings();
-        PhotonNetwork.EnableCloseConnection = true;
+        PhotonNetwork.EnableCloseConnection = true; // 플레이어 퇴장 기능 활성화
+
+        searchInputField.onValueChanged.AddListener(OnSearchRoom); 
     }
 
+    #region 게임 종료
     public void QuitGame()
     {
         UnityEditor.EditorApplication.isPlaying = false;
         Application.Quit();
     }
+    #endregion
 
-    public void CheckGuestNickname()
+    #region 방 검색하기 기능
+    public void OnSearchRoom(string searchText)
+    {
+        if (string.IsNullOrEmpty(searchText)) return;
+        SearchRoomText(searchText.ToLower());
+    }
+
+    public void SearchRoomText(string searchText)
+    {
+        // KeyValuePair: 딕셔너리의 각 항목의 키와 값을 동시에 다룰 수 있는 구조체
+        foreach (KeyValuePair<string, LSY_RoomEntry> roomEntry in roomDictionay)
+        {
+            string roomName = roomEntry.Key.ToLower(); // 방 이름
+            LSY_RoomEntry entry = roomEntry.Value; // 방을 나타내는 UI
+
+            entry.gameObject.SetActive(roomName.Contains(searchText)); // 방 이름에 검색한 글자가 포함될 경우 해당 UI를 활성화 시켜줌
+        }
+    }
+
+    #endregion
+
+    #region 닉네임 변경 기능
+
+    public void NicknameChange()
     {
         string nickname = nickName.text;
 
-        if (nickname == "")
+        if (nickname.Length < 2 || nickname.Length > 10)
         {
-            Debug.LogWarning("닉네임을 입력해주세요");
+            StartCoroutine(WarningTextRoutine());
             return;
         }
 
         PhotonNetwork.LocalPlayer.NickName = nickname;
-        Debug.Log($"닉네임: {PhotonNetwork.LocalPlayer.NickName}");
+        StartCoroutine(ConfirmTextRoutine());
+        nickName.text = PhotonNetwork.LocalPlayer.NickName;
     }
 
+    IEnumerator WarningTextRoutine()
+    {
+        warningText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1);
+        warningText.gameObject.SetActive(false);
+    }
 
+    IEnumerator ConfirmTextRoutine()
+    {
+        confirmText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1);
+        confirmText.gameObject.SetActive(false);
+    }
+
+    #endregion
+
+    #region 방 생성하기
     public void CreateRoomMenu()
     {
         GetUI("CreateRoomPanel").SetActive(true);
@@ -110,6 +164,7 @@ public class LSY_LobbyPanel : LSY_BaseUI
         PhotonNetwork.CreateRoom(roomName, options);
         Debug.Log("방 생성 완료");
         GetUI("CreateRoomPanel").gameObject.SetActive(false);
+        RoomPanelInit();
     }
 
     IEnumerator ErrorTextRoutine(string text)
@@ -120,12 +175,16 @@ public class LSY_LobbyPanel : LSY_BaseUI
         errorText.gameObject.SetActive(false);
     }
 
-    public void LeaveLobby()
+    public void RoomPanelInit()
     {
-        Debug.Log("로비 퇴장 요청");
-        PhotonNetwork.LeaveLobby();
+        isPasswordProtected = false;
+        passwordInputField.text = "";
+        passwordInputField.gameObject.SetActive(false);
+        checkImage.gameObject.SetActive(false);
     }
+    #endregion
 
+    #region 방 업데이트
     public void UpdateRoomList(List<RoomInfo> roomlist)
     {
         foreach (RoomInfo room in roomlist)
@@ -152,6 +211,8 @@ public class LSY_LobbyPanel : LSY_BaseUI
                 roomEntry.SetRoomInfo(room);
             }
         }
+
+        SearchRoomText(searchInputField.text.ToLower());
     }
 
 
@@ -163,4 +224,5 @@ public class LSY_LobbyPanel : LSY_BaseUI
         }
         roomDictionay.Clear();
     }
+    #endregion
 }

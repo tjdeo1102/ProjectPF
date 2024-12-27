@@ -11,6 +11,7 @@ public class LSY_RoomEntry : MonoBehaviour
     [SerializeField] private TMP_Text _roomName;
     [SerializeField] private TMP_Text _currentPlayer;
     [SerializeField] private Button _joinRoomButton;
+    [SerializeField] private TMP_Text joinRoomText;
     [SerializeField] private Image lockImage;
 
     private bool isLock;
@@ -33,6 +34,19 @@ public class LSY_RoomEntry : MonoBehaviour
 
         _roomName.text = info.Name;
         _currentPlayer.text = $"{info.PlayerCount}/{info.MaxPlayers}";
+
+        if (info.PlayerCount == info.MaxPlayers)
+        {
+            _joinRoomButton.GetComponent<Image>().color = Color.red;
+            joinRoomText.text = "참여불가";
+        }
+        else
+        {
+            _joinRoomButton.GetComponent<Image>().color = Color.green;
+            joinRoomText.text = "참가하기";
+        }
+
+
         _joinRoomButton.interactable = info.PlayerCount < info.MaxPlayers;
 
         if (info.CustomProperties != null && info.CustomProperties.ContainsKey("IsPasswordProtected"))

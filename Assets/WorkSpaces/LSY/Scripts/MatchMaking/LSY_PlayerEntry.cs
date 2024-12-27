@@ -11,16 +11,23 @@ using UnityEngine.UI;
 
 public class LSY_PlayerEntry : LSY_BaseUI
 {
+    [Header("룸 플레이어 세팅")]
     [SerializeField] private TMP_Text readyText;       
-    [SerializeField] private Button readyButton;       
     [SerializeField] private TMP_Text nameText;        
-    [SerializeField] private GameObject hostImage;
-    [SerializeField] private LSY_RoomPopUp roomPopUp;
+    [SerializeField] private Button readyButton;
+
+    [Header("다른 플레이어 버튼")]
     [SerializeField] private Button playerButton;
 
+    [Header("방장 이미지")]
+    [SerializeField] private GameObject hostImage;
+
+    [Header("추방&방장위임 팝업")]
+    [SerializeField] private LSY_RoomPopUp roomPopUp;
+
     Color normalColor;    
-    Color pressedColor;      
-    private bool _isCheck;                              
+    Color pressedColor;   
+    
     public bool _isReady;
 
     public Player player;  
@@ -38,10 +45,6 @@ public class LSY_PlayerEntry : LSY_BaseUI
             {
                 roomPopUp.TogglePopup(player);
                 Debug.Log("Player: " + player.NickName);
-            }
-            else
-            {
-                Debug.LogError("플레이어 없음");
             }
         }
     }

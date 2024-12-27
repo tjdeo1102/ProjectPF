@@ -59,11 +59,6 @@ public class LSY_RoomPanel : MonoBehaviour
         {
             startButton.interactable = false;
         }
-
-
-        if (PhotonNetwork.LocalPlayer.IsMasterClient && CheckAllReady())
-        {
-        }
     }
 
     // 새로운 플레이어가 방에 들어왔을 때
@@ -83,12 +78,7 @@ public class LSY_RoomPanel : MonoBehaviour
     // 플레이어의 상태가 변경됐을 때 ex) Ready 같은 상황 변경 감지
     public void UpdatePlayerProperty(Player targetPlayer, PhotonHashtable properties)
     {
-        // 레디 커스텀 프로퍼티를 가지고 있어야 상태가 변경될 수 있기 때문에 if문을 해줌
-        if (properties.ContainsKey(LSY_CustomProperties.READY))
-        {
-            // 플레이어의 상태가 변경되면 다시 업데이트해줘서 변경사항 반영해줌
-            UpdataPlayers();
-        }
+        UpdataPlayers();
     }
 
     private bool CheckAllReady()
@@ -102,10 +92,6 @@ public class LSY_RoomPanel : MonoBehaviour
         return true;
     }
 
-    public void SetRoomPanel()
-    {
-
-    }
 
     public void StartGame()
     {
@@ -114,10 +100,6 @@ public class LSY_RoomPanel : MonoBehaviour
             //PhotonNetwork.LoadLevel("GameScene");
             Debug.Log("게임시작");
             PhotonNetwork.CurrentRoom.IsOpen = false;
-        }
-        else
-        {
-            Debug.Log("모두 레디가 안되어있음");
         }
 
     }
