@@ -11,14 +11,12 @@ public class LSY_OptionPanel : MonoBehaviour
     [SerializeField] GameObject soundPanel;
     [SerializeField] GameObject controlPanel;
 
-    [SerializeField] Button homeButton;
     [SerializeField] Button informationButton;
     [SerializeField] Button soundButton;
     [SerializeField] Button controlButton;
 
     private void Start()
     {
-        homeButton.onClick.AddListener(HomeButton);
         informationButton.onClick.AddListener(InformationButton);
         soundButton.onClick.AddListener(SoundButton);
         controlButton.onClick.AddListener(ControlButton);
@@ -31,7 +29,7 @@ public class LSY_OptionPanel : MonoBehaviour
         controlPanel.SetActive(panel == Panel.Control);
     }
 
-    public void HomeButton()
+    public void CloseButton()
     {
         SetActivePanel(Panel.Information);
         optionPanel.SetActive(false);
