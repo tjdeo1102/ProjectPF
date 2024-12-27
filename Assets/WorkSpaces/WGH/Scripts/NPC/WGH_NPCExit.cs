@@ -1,6 +1,4 @@
 using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,20 +14,16 @@ public class WGH_NPCExit : INPCState
         this.agent = agent;
     }
 
-    public void Enter() 
+    public void Enter()
     {
         Debug.Log("exit ป๓ลย");
         agent.SetDestination(controller.PassPos);
-        WGH_NPCCreator.Instance.isEntered = false;
     }
 
-    public void OnUpdate() 
+    public void OnUpdate()
     {
-        if(agent.remainingDistance < agent.stoppingDistance && agent.pathPending == false)
-        {
-            PhotonNetwork.Destroy(agent.gameObject);
-        }
+        
     }
-
+    
     public void Exit() { }
 }

@@ -17,6 +17,7 @@ public class WGH_NPCGoToCounter : INPCState
 
     public void Enter() 
     {
+        WGH_NPCCreator.Instance.isCounter = true;
         Debug.Log("go counter ป๓ลย");
         agent.SetDestination(controller.Counter);
     }
@@ -25,7 +26,6 @@ public class WGH_NPCGoToCounter : INPCState
     {
         if(agent.remainingDistance < agent.stoppingDistance && agent.pathPending == false)
         {
-            //controller.ChangeState(new WGH_NPCWait(controller), E_NpcType.WAIT);
             controller.ChangeStateNetwork((int)E_StateType.WAIT);
         }
     }

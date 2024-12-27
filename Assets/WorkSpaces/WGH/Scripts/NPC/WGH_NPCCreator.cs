@@ -12,7 +12,8 @@ public class WGH_NPCCreator : MonoBehaviour
     [SerializeField] private Vector3 spawnRightPos;
 
     private bool isLeftSpawn;
-    public bool isEntered;
+    public bool isCounter;
+    public bool isExplore;
     private void Awake()
     {
         if (Instance == null)
@@ -28,8 +29,8 @@ public class WGH_NPCCreator : MonoBehaviour
 
     private void Start()
     {
-        spawnTime = 10f;                        // 임시 시간 배정
-        curTime = 7f;                           // 임시 시간 배정
+        spawnTime = 5f;                        // 임시 시간 배정
+        curTime = 3f;                          // 임시 시간 배정
     }
 
     private void Update()
