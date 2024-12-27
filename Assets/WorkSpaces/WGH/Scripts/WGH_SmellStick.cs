@@ -20,6 +20,7 @@ public class WGH_SmellStick : MonoBehaviourPun
     private float curTime;                              // 현재 시간
     [SerializeField] private float needTime;            // 시향에 필요한 시간
     private bool isAbsorbed;
+    private bool isRoutine;
 
     private Coroutine timeRoutine;
     public void Interact()
@@ -52,7 +53,12 @@ public class WGH_SmellStick : MonoBehaviourPun
             OnLikeInteract = null;
             OnQuestionInteract = null;
             OnDespairInteract = null;
-            StopCoroutine(timeRoutine);
+            if(isRoutine)
+            {
+                StopCoroutine(timeRoutine);
+                isRoutine = false;
+            }
+            
         }
     }
 
@@ -60,6 +66,7 @@ public class WGH_SmellStick : MonoBehaviourPun
     {
         while (true)
         {
+            isRoutine = true;
             Debug.Log(curTime);
             curTime += Time.deltaTime;
             if(curTime >= needTime)

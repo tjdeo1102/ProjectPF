@@ -27,7 +27,6 @@ public class WGH_NPCWait : INPCState
 
     public void Enter()
     {
-        agent.isStopped = true;
         randomNum = Random.Range(0, (int)E_BottleType.E_BottleType_MAX);
         if (PhotonNetwork.IsMasterClient)
         {
@@ -77,5 +76,6 @@ public class WGH_NPCWait : INPCState
     public void Exit() 
     {
         controller.InteractionArea.GetComponent<WGH_InteractArea>().OnChangedSmellStick -= FindSmellStick;
+        WGH_NPCCreator.Instance.isCounter = false;
     }
 }

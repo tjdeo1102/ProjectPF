@@ -16,10 +16,8 @@ public class WGH_NPCEnter : INPCState
 
     public void Enter()
     {
-        WGH_NPCCreator.Instance.isExplore = true;
         Debug.Log("Enter 상태 진입");
         agent.SetDestination(controller.Entrance);
-        randomNum = Random.Range(1, 3);
     }
 
     public void OnUpdate()
@@ -27,17 +25,27 @@ public class WGH_NPCEnter : INPCState
         //TODO : 조건에 맞춰서 수정
         if (agent.remainingDistance < agent.stoppingDistance)
         {
-            switch (randomNum)
+            if (WGH_NPCCreator.Instance.isExplore == false && WGH_NPCCreator.Instance.isCounter == true)
             {
-                case 1:
-                    controller.ChangeStateNetwork((int)E_StateType.COUNTER);
-                    break;
-
-                case 2:
-                    controller.ChangeStateNetwork((int)E_StateType.EXPLORE);
-                    break;
+                controller.ChangeStateNetwork((int)E_StateType.EXPLORE);
             }
-            
+            else if(WGH_NPCCreator.Instance.isExplore == false && WGH_NPCCreator.Instance.isCounter == false)
+            {
+                int randomNum = Random.Range(1, 3);
+                switch(randomNum)
+                {
+                    case 1:
+                        controller.ChangeStateNetwork((int)E_StateType.COUNTER);
+                        break;
+                    case 2:
+                        controller.ChangeStateNetwork((int)E_StateType.EXPLORE);
+                        break;
+                }
+            }
+            else if(WGH_NPCCreator.Instance.isExplore == true && WGH_NPCCreator.Instance.isCounter == false)
+            {
+                controller.ChangeStateNetwork((int)E_StateType.COUNTER);
+            }
         }
     }
 

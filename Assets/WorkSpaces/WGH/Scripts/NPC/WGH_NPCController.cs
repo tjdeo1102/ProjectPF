@@ -93,6 +93,8 @@ public class WGH_NPCController : MonoBehaviourPun
     [Tooltip("병 UI")] public Image PerfumeUI;
     [Tooltip("병 UI")] public Image BottleUI;
 
+    private Coroutine exploreRoutine;
+    public bool isExplore;
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -117,6 +119,16 @@ public class WGH_NPCController : MonoBehaviourPun
     private void Update()
     {
         curState?.OnUpdate();
+        if(stateType == E_StateType.EXIT)
+        {
+            if (agent.remainingDistance < agent.stoppingDistance && agent.pathPending == false)
+            {
+                if (PhotonNetwork.IsMasterClient == true)
+                {
+                    PhotonNetwork.Destroy(gameObject);
+                }
+            }
+        }
     }
 
 
@@ -134,7 +146,16 @@ public class WGH_NPCController : MonoBehaviourPun
         // explore 상태에 진입할 경우에만 진행하는 코루틴
         if (stateType == E_StateType.EXPLORE)
         {
-            StartCoroutine(ExploreRoutine());
+            exploreRoutine = StartCoroutine(ExploreRoutine());
+            isExplore = true;
+        }
+        else if(stateType == E_StateType.COUNTER || stateType == E_StateType.EXIT) 
+        {
+            if(isExplore && PhotonNetwork.IsMasterClient)
+            {
+                StopCoroutine(exploreRoutine);
+                isExplore = false;
+            }
         }
     }
 
@@ -221,17 +242,30 @@ public class WGH_NPCController : MonoBehaviourPun
 
     IEnumerator ExploreRoutine()
     {
-        int randomSec = Random.Range(1, 11);
-        int randomSec2 = Random.Range(1, 11);
-        int randomSec3 = Random.Range(1, 11);
+        if (!PhotonNetwork.IsMasterClient)
+            yield break;
+        int randomCount = Random.Range(1, 4);
+        int randomSec = Random.Range(3, 11);
+        int randomSec2 = Random.Range(3, 11);
+        int randomSec3 = Random.Range(3, 11);
 
-        agent.SetDestination(explorePos1);
-        yield return new WaitForSeconds(randomSec);
-        agent.SetDestination(explorePos2);
-        yield return new WaitForSeconds(randomSec2);
-        agent.SetDestination(explorePos1);
-        yield return new WaitForSeconds(randomSec3);
-        agent.SetDestination(explorePos2);
+        bool exploreLeft = false;
+        for(int i = 1; i <= randomCount; i++)
+        {
+            if(!exploreLeft)
+            {
+                exploreLeft = true;
+                agent.SetDestination(explorePos2);
+                yield return new WaitForSeconds(randomSec);
+            }
+            else
+            {
+                exploreLeft = false;
+                agent.SetDestination(explorePos1);
+                yield return new WaitForSeconds(randomSec2);
+            }
+        }
+        isExplore = false;
         yield break;
     }
 
