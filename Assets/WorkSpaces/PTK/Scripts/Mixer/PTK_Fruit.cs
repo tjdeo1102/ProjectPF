@@ -5,33 +5,40 @@ using UnityEngine;
 
 public class PTK_Fruit : MonoBehaviourPun
 {
-    KSD_MaterialObject fruit;
+    public KSD_PerfumeMaterialInfo fruitInfo;
 
-    public KSD_PerfumeMaterialInfo data;
-
-    void OnCollisionEnter(Collision collision)
+    private void Awake()
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if(photonView.InstantiationData != null)
         {
-            Debug.Log("Fruit");
-
-            photonView.RPC("RPC_DestroyObjects", RpcTarget.All, collision.gameObject.GetPhotonView().ViewID, photonView.ViewID);
+            fruitInfo.Name = (PerfumeMaterialName)(byte)photonView.InstantiationData[0];
+            fruitInfo.Type = (PerfumeMaterialType)(byte)photonView.InstantiationData[1];
+            fruitInfo.State = (PerfumeMaterialState)(byte)photonView.InstantiationData[2];
         }
+    }
+
+    private void Start()
+    {
+        if (fruitInfo == null)
+        {
+            fruitInfo = new KSD_PerfumeMaterialInfo
+            {
+                Name = PerfumeMaterialName.Cherry,
+                Type = PerfumeMaterialType.Small,
+                State = PerfumeMaterialState.Raw
+            };
+        }
+    }
+
+    public void SetState(PerfumeMaterialState newState)
+    {
+        photonView.RPC("RPC_SetState", RpcTarget.All, (byte)newState);
     }
 
     [PunRPC]
-    private void RPC_DestroyObjects(int playerViewID, int fruitViewID)
+    private void RPC_SetState(byte newState)
     {
-        PhotonView playerPhotonView = PhotonView.Find(playerViewID);
-        if (playerPhotonView != null)
-        {
-            Destroy(playerPhotonView.gameObject);
-        }
-
-        PhotonView fruitPhotonView = PhotonView.Find(fruitViewID);
-        if (fruitPhotonView != null)
-        {
-            Destroy(fruitPhotonView.gameObject);
-        }
+        fruitInfo.State = (PerfumeMaterialState)newState;
     }
+
 }
