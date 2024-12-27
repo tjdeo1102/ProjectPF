@@ -7,10 +7,15 @@ using UnityEngine.UI;
 
 public class LSY_RoomPopUp : MonoBehaviour
 {
-    [SerializeField] private GameObject popupPanel; 
-    [SerializeField] private Button kickButton;    
+    [Header("팝업 패널")]
+    [SerializeField] private GameObject popupPanel;
+    [Header("방장위임 버튼")]
     [SerializeField] private Button transferButton;
-    private Player selectedPlayer;                  
+    [Header("추방 버튼")]
+    [SerializeField] private Button kickButton;
+    [Header("추방 되었을 때 팝업")]
+
+    private Player selectedPlayer;              
 
     void Start()
     {
@@ -33,21 +38,10 @@ public class LSY_RoomPopUp : MonoBehaviour
 
     public void KickPlayer()
     {
-        PhotonNetwork.EnableCloseConnection = true;
-
-
         if (PhotonNetwork.IsMasterClient)
         {
-            if (selectedPlayer == null)
-            {
-                Debug.LogError("선택된 플레이어 없음");
-                return;
-            }
-
             PhotonNetwork.CloseConnection(selectedPlayer);
-
             HidePopup();
-            Debug.Log("마스터가 추방");
         }
     }
 
@@ -58,8 +52,6 @@ public class LSY_RoomPopUp : MonoBehaviour
         {
             PhotonNetwork.SetMasterClient(selectedPlayer);
             HidePopup();
-            Debug.Log("마스터가 방장넘김");
         }
-        Debug.Log("방장넘김");
     }
 }

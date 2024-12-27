@@ -21,7 +21,7 @@ public class WGH_NPCController : MonoBehaviourPun
 {
     [Header("상태")]
     [SerializeField, Tooltip("현재 상태")] private E_StateType stateType;
-    private INPCState curState;
+    public INPCState curState;
     private WGH_NPCPass passState;
     private WGH_NPCEnter enterState;
     private WGH_NPCExplore exploreState;
@@ -36,6 +36,7 @@ public class WGH_NPCController : MonoBehaviourPun
     [Header("선호도")]
     private WGH_NPCNote npcNote;
     public E_WGH_PerfumeType PerfumeType;
+    public E_BottleType BottleType;
     public E_WGH_NoteType BestMaterial;
     public E_WGH_NoteType LikeMaterial;
     public E_WGH_NoteType LikeMaterial2;
@@ -71,6 +72,10 @@ public class WGH_NPCController : MonoBehaviourPun
     [SerializeField, Tooltip("카운터 위치")] private Vector3 counter;                                    // counter 위치
     public Vector3 Counter { get { return counter; } }
 
+    [Header("종업원 위치")]
+    [SerializeField, Tooltip("카운터 위치")] private Vector3 playerPos;                                  // playerPos 위치
+    public Vector3 PlayerPos { get { return playerPos; } }
+
     [Header("NPC 상호작용 콜라이더")]
 
     [SerializeField, Tooltip("시향 콜라이더")] private Collider interactionArea;                         // 시향 콜라이더
@@ -83,19 +88,25 @@ public class WGH_NPCController : MonoBehaviourPun
     [SerializeField] private ParticleSystem despairEmotion;
 
     [Header("UI")]
-    [Tooltip("병 UI 목록")] public Sprite[] bottleUI;
-    [Tooltip("병 UI")] public Image purchaseUI;
+    [Tooltip("병 UI 목록")] public Sprite[] PerfumeUis;
+    [Tooltip("병 UI 목록")] public Sprite[] BottleUis;
+    [Tooltip("병 UI")] public Image PerfumeUI;
+    [Tooltip("병 UI")] public Image BottleUI;
 
+    private Coroutine exploreRoutine;
+    public bool isExplore;
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         interactionArea = GetComponentInChildren<SphereCollider>();
+        PerfumeUI = transform.GetChild(0).GetChild(0).GetComponent<Image>();
+        BottleUI = transform.GetChild(0).GetChild(1).GetComponent<Image>();
 
         passState = new WGH_NPCPass(this, agent);
         enterState = new WGH_NPCEnter(this, agent);
         exploreState = new WGH_NPCExplore(this, agent);
         goToCouterState = new WGH_NPCGoToCounter(this, agent);
-        wait = new WGH_NPCWait(this);
+        wait = new WGH_NPCWait(this, agent);
         purchase = new WGH_NPCPurchase(this);
         exitState = new WGH_NPCExit(this, agent);
     }
@@ -108,6 +119,16 @@ public class WGH_NPCController : MonoBehaviourPun
     private void Update()
     {
         curState?.OnUpdate();
+        if(stateType == E_StateType.EXIT)
+        {
+            if (agent.remainingDistance < agent.stoppingDistance && agent.pathPending == false)
+            {
+                if (PhotonNetwork.IsMasterClient == true)
+                {
+                    PhotonNetwork.Destroy(gameObject);
+                }
+            }
+        }
     }
 
 
@@ -125,7 +146,16 @@ public class WGH_NPCController : MonoBehaviourPun
         // explore 상태에 진입할 경우에만 진행하는 코루틴
         if (stateType == E_StateType.EXPLORE)
         {
-            StartCoroutine(ExploreRoutine());
+            exploreRoutine = StartCoroutine(ExploreRoutine());
+            isExplore = true;
+        }
+        else if(stateType == E_StateType.COUNTER || stateType == E_StateType.EXIT) 
+        {
+            if(isExplore && PhotonNetwork.IsMasterClient)
+            {
+                StopCoroutine(exploreRoutine);
+                isExplore = false;
+            }
         }
     }
 
@@ -153,7 +183,7 @@ public class WGH_NPCController : MonoBehaviourPun
             case 4:
                 return new WGH_NPCGoToCounter(this, Agent);
             case 5:
-                return new WGH_NPCWait(this);
+                return new WGH_NPCWait(this, Agent);
             case 6:
                 return new WGH_NPCPurchase(this);
             case 7:
@@ -192,35 +222,51 @@ public class WGH_NPCController : MonoBehaviourPun
     }
 
     [PunRPC]
-    public void SelectBottleUI(int bottleType)
+    public void SelectOrderUI(int bottleType, int perfumeType)
     {
-        if(purchaseUI.gameObject.activeSelf == false)
+        if(BottleUI.gameObject.activeSelf == false)
         {
-            purchaseUI.gameObject.SetActive(true);
+            BottleUI.gameObject.SetActive(true);
+            PerfumeUI.gameObject.SetActive(true);
         }
        
-        purchaseUI.sprite = bottleUI[bottleType];
-        
+        BottleUI.sprite = BottleUis[bottleType];
+        PerfumeUI.sprite = PerfumeUis[perfumeType];
+        BottleType = (E_BottleType)bottleType;
     }
 
-    public void SelectBottleUINetwork(int bottleType)
+    public void SelectOrderUINetwork(int bottleType, int perfumeType)
     {
-        photonView.RPC("SelectBottleUI", RpcTarget.All, bottleType);
+        photonView.RPC("SelectOrderUI", RpcTarget.All, bottleType, perfumeType);
     }
 
     IEnumerator ExploreRoutine()
     {
-        agent.SetDestination(explorePos1);
+        if (!PhotonNetwork.IsMasterClient)
+            yield break;
+        int randomCount = Random.Range(1, 4);
+        int randomSec = Random.Range(3, 11);
+        int randomSec2 = Random.Range(3, 11);
+        int randomSec3 = Random.Range(3, 11);
 
-        while (true)
+        bool exploreLeft = false;
+        for(int i = 1; i <= randomCount; i++)
         {
-            yield return new WaitForSeconds(1);
-            if (Vector3.Distance(gameObject.transform.position, explorePos1) < agent.stoppingDistance)
+            if(!exploreLeft)
             {
+                exploreLeft = true;
                 agent.SetDestination(explorePos2);
-                yield break;
+                yield return new WaitForSeconds(randomSec);
+            }
+            else
+            {
+                exploreLeft = false;
+                agent.SetDestination(explorePos1);
+                yield return new WaitForSeconds(randomSec2);
             }
         }
+        isExplore = false;
+        yield break;
     }
 
     IEnumerator FloatBestEmotionRoutine()

@@ -12,24 +12,17 @@ public enum E_ReactUiType
     DESPAIR
 }
 
-public enum E_BottleType // 플로팅 되는 병 이미지
-{
-    a,
-    b,
-    c,
-    d,
-    e,
-    E_BottleType_MAX
-}
 
 public class WGH_NPCWait : INPCState
 {
     private WGH_NPCController controller;
     private int randomNum;
+    private NavMeshAgent agent;
     [SerializeField] private WGH_SmellStick smellStick;
-    public WGH_NPCWait(WGH_NPCController controller)
+    public WGH_NPCWait(WGH_NPCController controller, NavMeshAgent agent)
     {
         this.controller = controller;
+        this.agent = agent;
     }
 
     public void Enter()
@@ -37,7 +30,7 @@ public class WGH_NPCWait : INPCState
         randomNum = Random.Range(0, (int)E_BottleType.E_BottleType_MAX);
         if (PhotonNetwork.IsMasterClient)
         {
-            controller.SelectBottleUINetwork(randomNum);
+            controller.SelectOrderUINetwork(randomNum, (int)controller.PerfumeType - 1);
         }
         Debug.Log("Wait 상태");
         // 상호작용 콜라이더에 시향지가 들어와서 시향지 변수에 배정될때 그 시향지의 스크립트의 이벤트에 함수를 등록하기
@@ -46,7 +39,7 @@ public class WGH_NPCWait : INPCState
 
     public void OnUpdate()
     {
-        
+
     }
 
     /// <summary>
@@ -83,5 +76,6 @@ public class WGH_NPCWait : INPCState
     public void Exit() 
     {
         controller.InteractionArea.GetComponent<WGH_InteractArea>().OnChangedSmellStick -= FindSmellStick;
+        WGH_NPCCreator.Instance.isCounter = false;
     }
 }

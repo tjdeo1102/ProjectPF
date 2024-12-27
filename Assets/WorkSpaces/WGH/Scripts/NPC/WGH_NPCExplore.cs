@@ -17,13 +17,14 @@ public class WGH_NPCExplore : INPCState
     {
         Debug.Log("Explore ป๓ลย");
         randomNum = Random.Range(1, controller.ExploreDenominatorNum + 1);
+        WGH_NPCCreator.Instance.isExplore = true;
     }
 
     public void OnUpdate()
     {
-        if (Vector3.Distance(controller.gameObject.transform.position, controller.ExplorePos2) < 0.1f && agent.pathPending == false)
+        if (agent.pathPending == false && controller.isExplore == false)
         {
-            if (randomNum <= controller.ExploreNumeratorNum)
+            if (randomNum <= controller.ExploreNumeratorNum && WGH_NPCCreator.Instance.isCounter == false)
             {
 
                 controller.ChangeStateNetwork((int)E_StateType.COUNTER);
@@ -35,5 +36,8 @@ public class WGH_NPCExplore : INPCState
         }
     }
 
-    public void Exit() { }
+    public void Exit() 
+    {
+        WGH_NPCCreator.Instance.isExplore = false;
+    }
 }

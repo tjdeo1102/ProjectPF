@@ -362,8 +362,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -520,8 +520,9 @@ MonoBehaviour:
   _roomName: {fileID: 6931396228594859768}
   _currentPlayer: {fileID: 8600906230667594330}
   _joinRoomButton: {fileID: 8600906231690306001}
+  joinRoomText: {fileID: 8600906230151186626}
   lockImage: {fileID: 3867952289727626041}
-  passwordPopUpPrefab: {fileID: 6616269009969840623, guid: a9f2e7668f39a7043919d4a3eb57e295, type: 3}
+  passwordPopUpPrefab: {fileID: 3693280189258451222, guid: a9f2e7668f39a7043919d4a3eb57e295, type: 3}
 --- !u!1 &8600906230426359441
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,7 +558,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -662, y: 0}
+  m_AnchoredPosition: {x: -656, y: 0}
   m_SizeDelta: {x: 356.5, y: 90.95}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8600906230426359444
@@ -770,7 +771,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 666, y: -3.9000092}
+  m_AnchoredPosition: {x: 695, y: 0}
   m_SizeDelta: {x: 200, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8600906231690306007
@@ -794,7 +795,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.22272359, g: 0.78867924, b: 0.21279456, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
