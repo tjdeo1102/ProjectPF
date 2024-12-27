@@ -6,13 +6,13 @@ using UnityEngine.Events;
 using UnityEngine.XR.Content.Interaction;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class PTK_Handle : MonoBehaviour
+public class PTK_Handle : MonoBehaviourPun
 {
     [SerializeField] private XRKnob knob;
     [SerializeField] private float turnResult = 10f;
     private float lastValue;
 
-    public UnityEvent MixDone;
+    public UnityEvent mixDone;
 
     void Start()
     {
@@ -28,9 +28,15 @@ public class PTK_Handle : MonoBehaviour
 
             if (delta >= turnResult)
             {
-                MixDone?.Invoke();
+                photonView.RPC("RPC_MixDone", RpcTarget.All);
                 lastValue = currentValue;
             }
         }
+    }
+
+    [PunRPC]
+    private void RPC_MixDone()
+    {
+        mixDone.Invoke();
     }
 }
