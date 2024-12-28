@@ -718,6 +718,17 @@ MonoBehaviour:
   aura: {fileID: 1133060712}
   NoteType: 1
   needTime: 2
+--- !u!114 &183363590 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2521882749599467478, guid: 1d4b9472a073f344f89b6c69f6fe732f, type: 3}
+  m_PrefabInstance: {fileID: 2521882749845886934}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3a0ccb7512cd66449e673230811bc62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &190032523
 GameObject:
   m_ObjectHideFlags: 0
@@ -801,7 +812,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 190032526}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 183363590}
+        m_TargetAssemblyTypeName: WGH_NPCCreator, Assembly-CSharp
+        m_MethodName: OnCheat
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &190032526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31793,6 +31816,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2521882749599467478, guid: 1d4b9472a073f344f89b6c69f6fe732f, type: 3}
+      propertyPath: spawnTime
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 2521882749599467479, guid: 1d4b9472a073f344f89b6c69f6fe732f, type: 3}
       propertyPath: m_RootOrder
       value: 4

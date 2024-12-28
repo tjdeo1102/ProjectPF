@@ -14,6 +14,7 @@ public class WGH_NPCCreator : MonoBehaviour
     private bool isLeftSpawn;
     public bool isCounter;
     public bool isExplore;
+    public bool isCheat;
     private void Awake()
     {
         if (Instance == null)
@@ -27,17 +28,26 @@ public class WGH_NPCCreator : MonoBehaviour
 
     }
 
-    private void Start()
-    {
-        spawnTime = 5f;                        // 임시 시간 배정
-        curTime = 3f;                          // 임시 시간 배정
-    }
-
     private void Update()
     {
-        if (PhotonNetwork.IsMasterClient == false)
+        if (PhotonNetwork.IsMasterClient == false && !isCheat)
             return;
         CountTime();
+    }
+
+    public void OnCheat()
+    {
+        StartCoroutine(CheatRoutine());
+    }
+
+    IEnumerator CheatRoutine()
+    {
+        isCheat = true;
+        GameObject obj = PhotonNetwork.Instantiate("Customer", spawnLeftPos, Quaternion.identity);
+        WGH_NPCController controller = obj.GetComponent<WGH_NPCController>();
+        yield return new WaitForSeconds(0.1f);
+        controller.ChangeStateNetwork((int)E_StateType.COUNTER);
+        isCheat = false;
     }
 
     public void CountTime()

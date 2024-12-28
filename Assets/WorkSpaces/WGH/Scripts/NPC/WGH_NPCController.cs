@@ -20,7 +20,7 @@ public enum E_StateType
 public class WGH_NPCController : MonoBehaviourPun
 {
     [Header("상태")]
-    [SerializeField, Tooltip("현재 상태")] private E_StateType stateType;
+    [Tooltip("현재 상태")] public E_StateType stateType;
     public INPCState curState;
     private WGH_NPCPass passState;
     private WGH_NPCEnter enterState;
