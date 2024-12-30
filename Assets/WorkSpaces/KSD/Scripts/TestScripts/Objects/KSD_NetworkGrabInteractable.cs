@@ -8,8 +8,14 @@ using UnityEngine.XR.Interaction.Toolkit;
 [RequireComponent(typeof(PhotonView))]
 public class KSD_NetworkGrabInteractable : XRGrabInteractable
 {
-    //[Header("네트워크 설정")]
     private bool isGrabInNetwork;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        movementType = MovementType.VelocityTracking;
+    }
+
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
         var interactable = args.interactableObject.transform.GetComponent<PhotonView>();
@@ -20,7 +26,7 @@ public class KSD_NetworkGrabInteractable : XRGrabInteractable
             base.OnSelectEntered(args);
 
             interactable.TransferOwnership(PhotonNetwork.LocalPlayer);
-            print("소유권 양도");
+            //print("소유권 양도");
             interactable.RPC("ChangeRigidbodySetting", RpcTarget.AllViaServer, true);
         }
     }

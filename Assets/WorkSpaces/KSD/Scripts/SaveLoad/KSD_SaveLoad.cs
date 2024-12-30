@@ -1,12 +1,16 @@
 using Firebase.Database;
 using Firebase.Extensions;
+using Photon.Pun;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using UnityEditor;
 using UnityEngine;
 
 public class KSD_SaveLoad : MonoBehaviour
 {
     public static KSD_SaveLoad Instance { get; private set; }
+
     private void Awake()
     {
         SetSIngleton();
@@ -34,16 +38,19 @@ public class KSD_SaveLoad : MonoBehaviour
     {
         try
         {
-            DatabaseReference root = KSD_BackendManager.Database.RootReference;
-            if (root == null)
+            DatabaseReference root = LSY_BackendManager.Database.RootReference;
+            if (LSY_BackendManager.Database == null || root == null)
             {
-                Debug.LogError("Database.RootReference가 null입니다.");
+                Debug.LogError("Database가 null입니다.");
                 return false;
             }
 
             var data = root.Child(playerName).Child(stageInfo.StageID.ToString());
+            stageInfo.StageDate = DateTime.Now.ToString();
+
             // 스테이지 정보를 JSON으로 저장
             string json = JsonUtility.ToJson(stageInfo);
+
             return await data.SetRawJsonValueAsync(json).ContinueWithOnMainThread(task =>
             {
                 if (task.IsFaulted)
@@ -65,14 +72,15 @@ public class KSD_SaveLoad : MonoBehaviour
         }
     }
 
-    public async Task<KSD_StageInfo> LoadToDatabase(string playerName, int stageID)
+
+    public async Task<List<KSD_StageInfo>> LoadGameListToDatabase(string playerName)
     {
         try
         {
-            DatabaseReference root = KSD_BackendManager.Database.RootReference;
-            if (root == null)
+            DatabaseReference root = LSY_BackendManager.Database.RootReference;
+            if (LSY_BackendManager.Database == null || root == null)
             {
-                Debug.LogError("Database.RootReference가 null입니다.");
+                Debug.LogError("Database가 null입니다.");
                 return null;
             }
 
@@ -83,18 +91,16 @@ public class KSD_SaveLoad : MonoBehaviour
                 return null;
             }
 
-            var stageData = playerData.Child(stageID.ToString());
-            if (stageData == null)
-            {
-                Debug.LogError("데이터베이스에 스테이지 ID가 존재하지 않습니다.");
-                return null;
-            }
-
-            DataSnapshot snapshot = await stageData.GetValueAsync();
+            DataSnapshot snapshot = await playerData.GetValueAsync();
             if (snapshot.Exists)
             {
-                Debug.Log($"스테이지 데이터 로드 성공");
-                return JsonUtility.FromJson<KSD_StageInfo>(snapshot.GetRawJsonValue());
+                Debug.Log($"{playerName}의 게임 데이터 로드 성공");
+                var resultList = new List<KSD_StageInfo>();
+                foreach (var data in snapshot.Children)
+                {
+                    resultList.Add(JsonUtility.FromJson<KSD_StageInfo>(data.GetRawJsonValue()));
+                }
+                return resultList;
             }
             else
             {
@@ -108,4 +114,6 @@ public class KSD_SaveLoad : MonoBehaviour
             return null;
         }
     }
+
+
 }
