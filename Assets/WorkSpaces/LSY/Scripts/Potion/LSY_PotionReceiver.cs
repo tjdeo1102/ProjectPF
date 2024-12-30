@@ -53,6 +53,11 @@ public class LSY_PotionReceiver : MonoBehaviour
                 fillAmount += 0.3f;
                 m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
             }
+            else
+            {
+                fillAmount = 1f;
+                m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
+            }
 
             if (liquidMeshRenderer != null)
                 liquidMeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
