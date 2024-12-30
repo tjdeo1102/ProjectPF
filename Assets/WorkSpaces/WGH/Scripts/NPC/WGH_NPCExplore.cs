@@ -26,8 +26,7 @@ public class WGH_NPCExplore : INPCState
         {
             if (randomNum <= controller.ExploreNumeratorNum && WGH_NPCCreator.Instance.isCounter == false)
             {
-
-                controller.ChangeStateNetwork((int)E_StateType.COUNTER);
+                controller.ChangeStateNetwork((int)E_StateType.CENTER);
             }
             else
             {

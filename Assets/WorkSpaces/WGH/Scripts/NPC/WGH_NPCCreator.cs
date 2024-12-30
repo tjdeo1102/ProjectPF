@@ -8,8 +8,13 @@ public class WGH_NPCCreator : MonoBehaviour
 
     [SerializeField] private float spawnTime;
     [SerializeField] private float curTime;
-    [SerializeField] private Vector3 spawnLeftPos;
-    [SerializeField] private Vector3 spawnRightPos;
+    [SerializeField] private Transform spawnLeftPos;
+    [SerializeField] private Transform spawnRightPos;
+    [SerializeField] private Transform enterancePos;
+    [SerializeField] private Transform leftExplorePos;
+    [SerializeField] private Transform rightExplorePos;
+    [SerializeField] private Transform storeCenterPos;
+    [SerializeField] private Transform CounterPos;
 
     private bool isLeftSpawn;
     public bool isCounter;
@@ -41,17 +46,27 @@ public class WGH_NPCCreator : MonoBehaviour
         if (curTime >= spawnTime && isLeftSpawn == false)
         {
             isLeftSpawn = true;
-            GameObject obj = PhotonNetwork.Instantiate("Customer", spawnLeftPos, Quaternion.identity);
+            GameObject obj = PhotonNetwork.Instantiate("Customer", spawnLeftPos.position, Quaternion.identity);
             WGH_NPCController controller = obj.GetComponent<WGH_NPCController>();
-            controller.PassPos = new Vector3(-spawnLeftPos.x, spawnLeftPos.y, spawnLeftPos.z);
+            controller.PassPos = new Vector3(-spawnLeftPos.position.x, spawnLeftPos.position.y, spawnLeftPos.position.z);
+            controller.Entrance = enterancePos.position;
+            controller.ExplorePos1 = leftExplorePos.position;
+            controller.ExplorePos2 = rightExplorePos.position;
+            controller.StoreCenter = storeCenterPos.position;
+            controller.Counter = CounterPos.position;
             curTime = 0f;
         }
         else if(curTime >= spawnTime && isLeftSpawn == true)
         {
             isLeftSpawn = false;
-            GameObject obj = PhotonNetwork.Instantiate("Customer", spawnRightPos, Quaternion.identity);
+            GameObject obj = PhotonNetwork.Instantiate("Customer", spawnRightPos.position, Quaternion.identity);
             WGH_NPCController controller = obj.GetComponent<WGH_NPCController>();
-            controller.PassPos = new Vector3(-spawnRightPos.x, spawnRightPos.y, spawnRightPos.z);
+            controller.PassPos = new Vector3(-spawnRightPos.position.x, spawnRightPos.position.y, spawnRightPos.position.z);
+            controller.Entrance = enterancePos.position;
+            controller.ExplorePos1 = leftExplorePos.position;
+            controller.ExplorePos2 = rightExplorePos.position;
+            controller.StoreCenter = storeCenterPos.position;
+            controller.Counter = CounterPos.position;
             curTime = 0f;
         }
     }
@@ -70,7 +85,7 @@ public class WGH_NPCCreator : MonoBehaviour
     IEnumerator CheatRoutine()
     {
         isCheat = true;
-        GameObject obj = PhotonNetwork.Instantiate("Customer", spawnLeftPos, Quaternion.identity);
+        GameObject obj = PhotonNetwork.Instantiate("Customer", spawnLeftPos.position, Quaternion.identity);
         WGH_NPCController controller = obj.GetComponent<WGH_NPCController>();
         yield return new WaitForSeconds(0.1f);
         controller.ChangeStateNetwork((int)E_StateType.COUNTER);
