@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using WebSocketSharp;
 
-public class KSD_GameManager : MonoBehaviourPun
+public class KSD_GameManager : MonoBehaviourPunCallbacks
 {
     [Header("싱글톤")]
     public static KSD_GameManager Instance;
@@ -47,20 +47,20 @@ public class KSD_GameManager : MonoBehaviourPun
         }
     }
 
-    private void OnEnable()
+    public override void OnEnable()
     {
         OnExitStage.AddListener(SampleExitStageHandle);
     }
 
-    private void OnDisable()
+    public override void OnDisable()
     {
         OnExitStage.RemoveListener(SampleExitStageHandle);
     }
 
     void Start()
     {
-        // 각 클라이언트의 맵정보가 동기화되도록 RPC호출
-        InitStage();
+        // 각 클라이언트의 맵 로드 대기
+        StartCoroutine(NetworkInit());
     }
 
     private IEnumerator NetworkInit()
@@ -70,55 +70,21 @@ public class KSD_GameManager : MonoBehaviourPun
     }
 
     /// <summary>
-    /// 클라이언트의 맵 정보를 초기화하는 함수
+    /// 클라이언트의 초기 세팅
     /// </summary>
     public void InitStage()
     {
-        string MapOwnerName = null;
-        if (PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue("MapOwnerName", out object mapOwnerIDObj))
+        if (PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue("CurrentMapData", out object currentMapData))
         {
-            MapOwnerName = (string)mapOwnerIDObj;
+            CurrentStageInfo = JsonUtility.FromJson<KSD_StageInfo>((string)currentMapData);
+            UpdateEnvironment();
+            InitPlayer();
+            OnChangeStageInfo?.Invoke();
+            Debug.Log("맵 데이터가 로드되었습니다.");
         }
         else
         {
-            Debug.Log("MapOwnerName가 설정되지 않았습니다.");
-        }
-
-        // 방안에 방장이 있는 경우, 방장의 고유 ID정보를 통해, 스테이지 정보를 불러옴
-        if (MapOwnerName.IsNullOrEmpty() == false)
-        {
-            KSD_SaveLoad.Instance.LoadToDatabase(MapOwnerName, currentStageID).ContinueWithOnMainThread(task =>
-            {
-                if (task.IsFaulted)
-                {
-                    Debug.LogError($"맵을 로드하는 데 문제가 발생했습니다. 로비로 복귀합니다. \n Error: {task.Exception}");
-                    // TODO: 로비로 복귀하는 코드 필요
-                    PhotonNetwork.LoadLevel(returnSceneIndex);
-                }
-                else
-                {
-                    if (task.Result == null)
-                    {
-                        Debug.LogWarning("맵 데이터가 없으므로 새로운 맵 데이터를 생성합니다.");
-                        CurrentStageInfo = new KSD_StageInfo();
-                        CurrentStageInfo.StageID = currentStageID;
-                    }
-                    else
-                    {
-                        Debug.Log("정상적으로 맵 로딩 성공");
-                        CurrentStageInfo = task.Result;
-                    }
-                    UpdateEnvironment();
-                    InitPlayer();
-                    OnChangeStageInfo?.Invoke();
-                }
-            });
-        }
-        else
-        {
-            Debug.LogError("비정상적인 mapOwnerID. 로비로 복귀합니다.");
-            // TODO: 로비로 복귀하는 코드 필요
-            PhotonNetwork.LoadLevel(returnSceneIndex);
+            Debug.Log("맵 데이터가 로드 실패");
         }
     }
 
@@ -128,8 +94,6 @@ public class KSD_GameManager : MonoBehaviourPun
                                    spawnPosition.position.y,
                                    Random.Range(-randomSpawnLength, randomSpawnLength) + spawnPosition.position.z);
         player = PhotonNetwork.Instantiate(playerPrefabPath, spawnPos, Quaternion.identity);
-
-
     }
 
     [PunRPC]
@@ -163,6 +127,7 @@ public class KSD_GameManager : MonoBehaviourPun
 
     public void SaveAndQuitGame()
     {
+        PhotonNetwork.LeaveRoom();
         KSD_SaveLoad.Instance.SaveToDatabase(PhotonNetwork.LocalPlayer.NickName, CurrentStageInfo).ContinueWithOnMainThread(task =>
         {
             if (task.IsFaulted)
