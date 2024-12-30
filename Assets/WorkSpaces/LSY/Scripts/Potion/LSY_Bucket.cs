@@ -1,18 +1,15 @@
+using System.Collections;
 using UnityEngine;
 
-public class LSY_Potion : MonoBehaviour
+public class LSY_Bucket : MonoBehaviour
 {
     static int NextFreeUniqueId = 3000;
 
-    public GameObject plugObj;
     public ParticleSystem particleSystemLiquid;
-    public ParticleSystem particleSystemSplash;
     public float fillAmount = 0.8f;
-    public GameObject popVFX;
     public MeshRenderer MeshRenderer;
+    public GameObject fillGameObject;
 
-    bool m_PlugIn = true;
-    Rigidbody m_PlugRb;
     MaterialPropertyBlock m_MaterialPropertyBlock;
     Rigidbody m_RbPotion;
 
@@ -20,15 +17,15 @@ public class LSY_Potion : MonoBehaviour
     bool m_Breakable;
     float m_StartingFillAmount;
 
+    public float targetFillAmount = 1f;
+    private bool isFilling = false;
+
     public Color potionColor;
     public Color linePotionColor;
 
     void OnEnable()
     {
         particleSystemLiquid.Stop();
-        if (particleSystemSplash)
-            particleSystemSplash.Stop();
-
         m_MaterialPropertyBlock = new MaterialPropertyBlock();
 
         m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
@@ -36,9 +33,6 @@ public class LSY_Potion : MonoBehaviour
         m_MaterialPropertyBlock.SetColor("Color_FDA61C50", linePotionColor);
 
         MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
-
-        m_PlugRb = plugObj.GetComponent<Rigidbody>();
-        popVFX.SetActive(false);
 
         m_RbPotion = GetComponent<Rigidbody>();
         m_StartingFillAmount = fillAmount;
@@ -52,7 +46,7 @@ public class LSY_Potion : MonoBehaviour
 
     void Update()
     {
-        if (Vector3.Dot(transform.up, Vector3.down) > 0 && fillAmount > 0 && m_PlugIn == false)
+        if (Vector3.Dot(transform.up, Vector3.down) > 0 && fillAmount > 0 )
         {
             if (particleSystemLiquid.isStopped)
             {
@@ -61,7 +55,7 @@ public class LSY_Potion : MonoBehaviour
 
             fillAmount -= 0.1f * Time.deltaTime;
 
-            Debug.DrawRay(particleSystemLiquid.transform.position, Vector3.down, Color.red);
+
             RaycastHit[] hits = Physics.RaycastAll(particleSystemLiquid.transform.position, Vector3.down, 50.0f, ~0, QueryTriggerInteraction.Collide);
 
             int receiverCount = 0;
@@ -83,7 +77,7 @@ public class LSY_Potion : MonoBehaviour
 
                 LSY_PotionReceiver receiver = receivers[0];
                 receiver.ReceivePotion(potionColor, linePotionColor);
-                
+
             }
             else
             {
@@ -99,55 +93,50 @@ public class LSY_Potion : MonoBehaviour
         {
             particleSystemLiquid.Stop();
         }
-    }
 
-    public void PlugOff()
-    {
-        if (m_PlugIn)
+        if (fillAmount < 0)
         {
-            m_PlugIn = false;
-            m_PlugRb.transform.SetParent(null);
-            m_PlugRb.isKinematic = false;
-            m_PlugRb.AddRelativeForce(new Vector3(0, 0, 120));
+            fillAmount = 0;
+            m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
+            fillGameObject.gameObject.SetActive(false);
         }
-    }
-
-    public void ToggleBreakable(bool breakable)
-    {
-        m_Breakable = breakable;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (m_Breakable && m_RbPotion.velocity.magnitude > 1.35)
+        if (collision.gameObject.CompareTag("Cauldron") && !isFilling)
         {
+            fillGameObject.gameObject.SetActive(true);
 
-            if (m_PlugIn)
-            {
-                m_PlugRb.isKinematic = false;
-                plugObj.transform.parent = null;
-
-                Collider c;
-                if (plugObj.TryGetComponent(out c))
-                    c.enabled = true;
-
-                Destroy(plugObj, 4.0f);
-            }
-
-            foreach (Transform child in transform)
-            {
-                child.gameObject.SetActive(false);
-            }
-
-            if (particleSystemSplash != null)
-            {
-                particleSystemSplash.gameObject.SetActive(true);
-                if (fillAmount > 0)
-                {
-                    particleSystemSplash.Play();
-                }
-            }
-            Destroy(this);
         }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Cauldron") && !isFilling)
+        {
+            StartCoroutine(FillBucket());
+        }
+    }
+
+    private IEnumerator FillBucket()
+    {
+        isFilling = true;  
+        float startTime = Time.time;  
+
+        float initialFillAmount = fillAmount;  
+
+        while (Time.time - startTime < 3f)
+        {
+            fillAmount = Mathf.Lerp(initialFillAmount, targetFillAmount, (Time.time - startTime) / 3f);
+            m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
+            MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
+            yield return null;  
+        }
+
+        fillAmount = targetFillAmount;
+        m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
+        MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
+        isFilling = false;
     }
 }
