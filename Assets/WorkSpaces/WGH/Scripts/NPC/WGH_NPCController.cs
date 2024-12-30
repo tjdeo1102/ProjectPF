@@ -10,9 +10,9 @@ public enum E_StateType
     PASS,                                                                         // 가게 밖 이동 상태
     ENTER,                                                                        // 가게 입장
     EXPLORE,                                                                      // 가게 둘러보기
+    CENTER,                                                                       // 가게 중앙으로 이동
     COUNTER,                                                                      // 카운터로 가는 상태
     WAIT,                                                                         // 카운터에서 대기 + 시향 + 리액션 + 병 타입 제시
-    PURCHASE,                                                                     // 수령할때까지 대기 상태
     EXIT,                                                                         // 퇴장
     ENnpcType_MAX
 }
@@ -20,15 +20,16 @@ public enum E_StateType
 public class WGH_NPCController : MonoBehaviourPun
 {
     [Header("상태")]
-    [SerializeField, Tooltip("현재 상태")] private E_StateType stateType;
+    [Tooltip("현재 상태")] public E_StateType stateType;
     public INPCState curState;
     private WGH_NPCPass passState;
     private WGH_NPCEnter enterState;
     private WGH_NPCExplore exploreState;
+    private WGH_NPCCenter center;
     private WGH_NPCGoToCounter goToCouterState;
-    private WGH_NPCExit exitState;
     private WGH_NPCWait wait;
-    private WGH_NPCPurchase purchase;
+    private WGH_NPCExit exitState;
+    
     private NavMeshAgent agent;
     public NavMeshAgent Agent { get { return agent; } }
     public WGH_SmellStick SmellStick;
@@ -56,31 +57,17 @@ public class WGH_NPCController : MonoBehaviourPun
 
 
 
-    [HideInInspector] public Vector3 PassPos;                                                           // pass 루트 Vector
-
-    [Header("입구 위치")]
-    [SerializeField] private Vector3 entrance;                                                          // 입구 Vector
-    public Vector3 Entrance { get { return entrance; } }
-    
-    [Header("탐색 위치")]
-    [SerializeField, Tooltip("가게 내부 탐색위치 1")] private Vector3 explorePos1;                       // explore 위치 1
-    [SerializeField, Tooltip("가게 내부 탐색위치 2")] private Vector3 explorePos2;                       // explore 위치 2
-    public Vector3 ExplorePos2 { get { return explorePos2; } }
-
-    [Header("카운터 위치")]
-
-    [SerializeField, Tooltip("카운터 위치")] private Vector3 counter;                                    // counter 위치
-    public Vector3 Counter { get { return counter; } }
-
-    [Header("종업원 위치")]
-    [SerializeField, Tooltip("카운터 위치")] private Vector3 playerPos;                                  // playerPos 위치
-    public Vector3 PlayerPos { get { return playerPos; } }
+    public Vector3 PassPos;                                                           // pass 루트 Vector
+    public Vector3 Entrance;
+    public Vector3 ExplorePos1;                                                       // explore 위치 1
+    public Vector3 ExplorePos2;                                                       // explore 위치 2
+    public Vector3 StoreCenter;
+    public Vector3 Counter;
 
     [Header("NPC 상호작용 콜라이더")]
-
     [SerializeField, Tooltip("시향 콜라이더")] private Collider interactionArea;                         // 시향 콜라이더
-
     public Collider InteractionArea { get { return interactionArea; } }
+
     [Header("리액션 이펙트")]
     [SerializeField] private ParticleSystem bestEmotion;
     [SerializeField] private ParticleSystem likeEmotion;
@@ -107,7 +94,7 @@ public class WGH_NPCController : MonoBehaviourPun
         exploreState = new WGH_NPCExplore(this, agent);
         goToCouterState = new WGH_NPCGoToCounter(this, agent);
         wait = new WGH_NPCWait(this, agent);
-        purchase = new WGH_NPCPurchase(this);
+        center = new WGH_NPCCenter(this, agent);
         exitState = new WGH_NPCExit(this, agent);
     }
 
@@ -181,11 +168,11 @@ public class WGH_NPCController : MonoBehaviourPun
             case 3:
                 return new WGH_NPCExplore(this, Agent);
             case 4:
-                return new WGH_NPCGoToCounter(this, Agent);
+                return new WGH_NPCCenter(this, Agent);
             case 5:
-                return new WGH_NPCWait(this, Agent);
+                return new WGH_NPCGoToCounter(this, Agent);
             case 6:
-                return new WGH_NPCPurchase(this);
+                return new WGH_NPCWait(this, Agent);
             case 7:
                 return new WGH_NPCExit(this, Agent);
             default:
@@ -255,13 +242,13 @@ public class WGH_NPCController : MonoBehaviourPun
             if(!exploreLeft)
             {
                 exploreLeft = true;
-                agent.SetDestination(explorePos2);
+                agent.SetDestination(ExplorePos2);
                 yield return new WaitForSeconds(randomSec);
             }
             else
             {
                 exploreLeft = false;
-                agent.SetDestination(explorePos1);
+                agent.SetDestination(ExplorePos1);
                 yield return new WaitForSeconds(randomSec2);
             }
         }

@@ -3,30 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class WGH_NPCGoToCounter : INPCState
+public class WGH_NPCCenter : INPCState
 {
     private WGH_NPCController controller;
-
     private NavMeshAgent agent;
 
-    public WGH_NPCGoToCounter(WGH_NPCController controller, NavMeshAgent agent)
+    public WGH_NPCCenter(WGH_NPCController controller, NavMeshAgent agent)
     {
         this.controller = controller;
         this.agent = agent;
     }
 
-    public void Enter() 
+    public void Enter()
     {
-        Debug.Log("go counter 상태");
+        Debug.Log("Center 상태");
         WGH_NPCCreator.Instance.isCounter = true;
-        agent.SetDestination(controller.Counter);
+        agent.SetDestination(controller.StoreCenter);
     }
 
-    public void OnUpdate() 
+    public void OnUpdate()
     {
         if(agent.remainingDistance < agent.stoppingDistance && agent.pathPending == false)
         {
-            controller.ChangeStateNetwork((int)E_StateType.WAIT);
+            controller.ChangeStateNetwork((int)E_StateType.COUNTER);
         }
     }
 

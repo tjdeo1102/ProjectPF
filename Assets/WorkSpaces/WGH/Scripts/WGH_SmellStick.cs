@@ -11,31 +11,77 @@ public class WGH_SmellStick : MonoBehaviourPun
     [SerializeField] private GameObject customer;
     [SerializeField] private float interactionDist;     // 상호작용 거리
     [SerializeField] private ParticleSystem aura;
+
+    private float curTime;                              // 현재 시간
+    [SerializeField] private float needTime;            // 시향에 필요한 시간
+    [SerializeField] private float returnDistance;      // 멀어졌을 때 원래위치로 돌아오는 거리
     public E_WGH_NoteType NoteType;
     public event Action OnBestInteract;
     public event Action OnLikeInteract;
     public event Action OnQuestionInteract;
     public event Action OnDespairInteract;
 
-    private float curTime;                              // 현재 시간
-    [SerializeField] private float needTime;            // 시향에 필요한 시간
+    
+
+    
     private bool isAbsorbed;
     private bool isRoutine;
-
+    private Rigidbody rigid;
+    private Vector3 startPos;
     private Coroutine timeRoutine;
+
+    private void Awake()
+    {
+        rigid = GetComponent<Rigidbody>();
+    }
+
+    private void Start()
+    {
+        startPos = transform.position;
+    }
+
+    private void FixedUpdate()
+    {
+        if(Vector3.Distance(startPos, transform.position) >= returnDistance)
+        {
+            StartCoroutine(KinematickRoutine());
+        }
+    }
+
+    IEnumerator KinematickRoutine()
+    {
+        transform.position = startPos;
+        rigid.isKinematic = true;
+        yield return null;
+        rigid.isKinematic = false;
+    }
     public void Interact()
     {
         StartCoroutine(InteractRoutine());
     }
+    /// <summary>
+    /// 시향노트에서 빠졌을 때 이펙트 On
+    /// </summary>
+    public void OnEffect()
+    {
+        aura.gameObject.SetActive(true);
+        isAbsorbed = true;
+    }
+
+    public void OffEffect()
+    {
+        aura.gameObject.SetActive(false);
+        isAbsorbed = false;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.TryGetComponent(out WGH_InteractionNote testNote) && NoteType == testNote.NoteType)
-        {
-            Debug.Log("이펙트");
-            aura.gameObject.SetActive(true);
-            isAbsorbed = true;
-        }
+        //if(other.gameObject.TryGetComponent(out WGH_InteractionNote testNote) && NoteType == testNote.NoteType)
+        //{
+        //    Debug.Log("이펙트");
+        //    aura.gameObject.SetActive(true);
+        //    isAbsorbed = true;
+        //}
         if (other.gameObject.TryGetComponent(out WGH_InteractArea interactArea) && isAbsorbed == true)
         {
             customer = interactArea.GetComponentInParent<WGH_NPCController>().gameObject;

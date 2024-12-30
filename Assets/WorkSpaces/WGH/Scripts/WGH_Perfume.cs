@@ -39,16 +39,16 @@ public enum E_BottleType // 플로팅 되는 병 이미지
 }
 
 
-public class WGH_PerfumeRecipe : MonoBehaviour
+public class WGH_Perfume : MonoBehaviour
 {
     public E_WGH_PerfumeType PerfumeType;               // 향수별로 미리 설정 필요
     public E_BottleType BottleType;                     // 향수별로 미리 설정 필요
 
-    public E_WGH_NoteType BestMaterial;               // 최고 재료
-    public E_WGH_NoteType LikeMaterial;               // 선호 재료
-    public E_WGH_NoteType LikeMaterial2;               // 선호 재료2
-    public E_WGH_NoteType QuestionMaterial;           // 의문 재료
-    public E_WGH_NoteType QuestionMaterial2;           // 의문 재료2
+    public E_WGH_NoteType BestMaterial;                 // 최고 재료
+    public E_WGH_NoteType LikeMaterial;                 // 선호 재료
+    public E_WGH_NoteType LikeMaterial2;                // 선호 재료2
+    public E_WGH_NoteType QuestionMaterial;             // 의문 재료
+    public E_WGH_NoteType QuestionMaterial2;            // 의문 재료2
 
     private void Start()
     {
