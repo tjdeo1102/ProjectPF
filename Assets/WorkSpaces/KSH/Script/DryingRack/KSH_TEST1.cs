@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -16,28 +15,23 @@ public class KSH_TEST1 : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // 트리거된 객체의 부모를 가져옵니다.
-        Transform parent = other.transform.parent;
-        Debug.Log(parent);
-        if (parent == null) return; // 부모가 없으면 종료
+        // 트리거에 감지된 오브젝트가 XRGrabInteractable인지 확인
+        XRGrabInteractable interactable = other.GetComponent<XRGrabInteractable>();
+        if (interactable == null) return; // XRGrabInteractable이 아닌 경우 무시
 
-        // 부모 객체 내에서 XRGrabInteractable 컴포넌트를 가진 자식 오브젝트들을 가져옵니다.
-        XRGrabInteractable[] interactables = parent.GetComponentsInChildren<XRGrabInteractable>(true);
-
-        // 빈 소켓들을 리스트로 관리
+        // 빈 소켓을 가져옴
         Queue<XRSocketInteractor> emptySockets = GetEmptySockets();
 
         // 빈 소켓이 없으면 처리 중단
-        if (emptySockets.Count == 0) return;
-
-        // 각 XRGrabInteractable을 빈 소켓에 할당
-        foreach (XRGrabInteractable interactable in interactables)
+        if (emptySockets.Count == 0)
         {
-            if (emptySockets.Count == 0) break; // 소켓이 더 이상 없으면 중단
-
-            XRSocketInteractor socket = emptySockets.Dequeue();
-            AssignInteractableToSocket(socket, interactable); // 소켓에 오브젝트를 할당
+            Debug.Log("빈 소켓이 없습니다.");
+            return;
         }
+
+        // 빈 소켓에 오브젝트를 할당
+        XRSocketInteractor socket = emptySockets.Dequeue();
+        AssignInteractableToSocket(socket, interactable);
     }
 
     // 비어 있는 소켓을 Queue로 반환하는 메서드

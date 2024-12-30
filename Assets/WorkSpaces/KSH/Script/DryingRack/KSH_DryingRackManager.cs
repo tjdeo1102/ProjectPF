@@ -1,23 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class KSH_DryingRackManager : MonoBehaviour
 {
     [Header("건조시간")]
-    [SerializeField] public int Times;
+    [SerializeField] private int times;
 
     public static KSH_DryingRackManager Instance;
+
+    public Action<int> OnTimesChanged;
+
     private void Awake()
     {
-        // 싱글턴 패턴 구현
         if (Instance == null)
         {
             Instance = this;
         }
         else
         {
-            Destroy(gameObject); // 기존 인스턴스가 존재하면 현재 게임 오브젝트 삭제
+            Destroy(gameObject);
+        }
+    }
+
+    public int Times
+    {
+        get => times;
+        set
+        {
+            if (times != value)
+            {
+                times = value;
+                OnTimesChanged?.Invoke(times); // 값 변경 이벤트 호출
+            }
         }
     }
 }
