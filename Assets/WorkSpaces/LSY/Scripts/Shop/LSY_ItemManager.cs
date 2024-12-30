@@ -1,0 +1,167 @@
+using ExitGames.Client.Photon;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+using System.Collections.Generic;
+using System.Collections;
+
+public class LSY_ItemManager : MonoBehaviour
+{
+    [SerializeField] TMP_Text basketCount;
+    [SerializeField] TMP_Text basketPanelCount;
+    int basketIndex = 0;
+
+    [Header("아이템 목록")]
+    [SerializeField] GameObject[] decorationPrefabs;
+    [SerializeField] GameObject[] furniturePrefabs;
+
+    [Header("버튼")]
+    [SerializeField] Button OrderButton;
+
+    [Header("프리팹")]
+    [SerializeField] GameObject basketPanelPrefab;
+
+    [Header("Content")]
+    [SerializeField] Transform basketContent;
+
+    [Header("패널 및 최종가격 텍스트")]
+    [SerializeField] GameObject basketPanel;
+    [SerializeField] TextMeshProUGUI allItemPriceText;
+
+    [Header("구매 후 팝업창")]
+    [SerializeField] GameObject buyPopUp;
+    [SerializeField] TMP_Text playerMoney;
+    [SerializeField] TMP_Text buyPrice;
+    [SerializeField] TMP_Text totalPlayerMoney;
+
+    bool isBasketPanelActive = false;
+    float totalPrice = 0;
+
+    private List<LSY_BasketItem> basketItems = new List<LSY_BasketItem>();
+
+    private void Start()
+    {
+        basketIndex = 0;
+        basketCount.text = basketIndex.ToString();
+
+        foreach (var itemPrefab in decorationPrefabs)
+        {
+            LSY_ItemPanel itemPanelScript = itemPrefab.GetComponent<LSY_ItemPanel>();
+            itemPanelScript.OnItemAdded += UpdateTotalPrice;
+            itemPanelScript.OnItemAddedBasket += UpdateItemAddBasket;
+        }
+
+        foreach (var itemPrefab in furniturePrefabs)
+        {
+            LSY_ItemPanel itemPanelScript = itemPrefab.GetComponent<LSY_ItemPanel>();
+            itemPanelScript.OnItemAdded += UpdateTotalPrice;
+            itemPanelScript.OnItemAddedBasket += UpdateItemAddBasket;
+        }
+
+        OrderButton.onClick.AddListener(Order);
+    }
+
+    private void UpdateItemDelete(float price)
+    {
+        totalPrice -= price;
+        allItemPriceText.text = totalPrice.ToString() + "$";
+
+        basketIndex--;
+        basketCount.text = basketIndex.ToString();
+        basketPanelCount.text = basketIndex.ToString();
+    }
+
+    private void UpdateItemAddBasket(string name, float price, string explain, Sprite sprite, GameObject itemPrefab)
+    {
+        GameObject basketPanel = Instantiate(basketPanelPrefab, basketContent);
+        LSY_BasketPanel basketPanelScript = basketPanel.GetComponent<LSY_BasketPanel>();
+        basketPanelScript.SetItemInfo(name, price, explain, sprite, itemPrefab);
+
+        basketPanelScript.OnItemDelete += UpdateItemDelete;
+        basketPanelScript.OnItemAdded += UpdateTotalPrice;
+
+        basketIndex++;
+        basketCount.text = basketIndex.ToString();
+        basketPanelCount.text = basketIndex.ToString();
+
+        basketItems.Add(new LSY_BasketItem(name, price, explain, sprite, itemPrefab));
+    }
+
+    private void UpdateTotalPrice(float addedPrice)
+    {
+        totalPrice += addedPrice;
+        allItemPriceText.text = totalPrice.ToString() + "$";
+    }
+
+    private void Order()
+    {
+        if (basketItems.Count > 0)
+        {
+            StartCoroutine(BuyRoutine());
+
+            foreach (var item in basketItems)
+            {
+                GameObject itemPrefab = item.ItemPrefab;
+                Instantiate(itemPrefab, new Vector3(0, 3, 0), Quaternion.identity);
+                Debug.Log($"주문한 아이템: {item.ItemName}, 가격: {item.ItemPrice}$");
+            }
+
+            Debug.Log("주문이 완료되었습니다.");
+        }
+        else
+        {
+            Debug.Log("장바구니에 아이템이 없습니다.");
+        }
+    }
+
+    private void ClearBasket()
+    {
+        foreach (Transform child in basketContent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        basketItems.Clear();
+        basketIndex = 0;
+        basketCount.text = basketIndex.ToString();
+        basketPanelCount.text = basketIndex.ToString();
+        totalPrice = 0;
+        allItemPriceText.text = totalPrice.ToString() + "$";
+    }
+
+    IEnumerator BuyRoutine()
+    {
+        buyPopUp.gameObject.SetActive(true);
+
+        yield return null;
+        playerMoney.text = "소지금: $" + "플레이어돈"; 
+        yield return new WaitForSeconds(0.5f);
+
+        buyPrice.text = "구매 금액: $" + totalPrice;
+        yield return new WaitForSeconds(0.5f);
+
+        totalPlayerMoney.text = "구매 후 금액: $" + ("플레이어돈 - " + totalPrice); 
+        yield return new WaitForSeconds(5);
+
+        buyPopUp.gameObject.SetActive(false);
+        ClearBasket();
+    }
+}
+
+public class LSY_BasketItem
+{
+    public string ItemName { get; private set; }
+    public float ItemPrice { get; private set; }
+    public string ItemExplain { get; private set; }
+    public Sprite ItemSprite { get; private set; }
+    public GameObject ItemPrefab { get; private set; }
+
+    public LSY_BasketItem(string name, float price, string explain, Sprite sprite, GameObject prefab)
+    {
+        ItemName = name;
+        ItemPrice = price;
+        ItemExplain = explain;
+        ItemSprite = sprite;
+        ItemPrefab = prefab;
+    }
+}

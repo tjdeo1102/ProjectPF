@@ -5,48 +5,49 @@ using UnityEngine.UI;
 
 public class LSY_ShopPanel : MonoBehaviour
 {
-    public enum Panel { Information, Sound, Control }
-    [SerializeField] GameObject optionPanel;
-    [SerializeField] GameObject informationPanel;
-    [SerializeField] GameObject soundPanel;
-    [SerializeField] GameObject controlPanel;
+    public enum Panel { Decoration, Furniture, Basket }
+    [SerializeField] GameObject decorationPanel;
+    [SerializeField] GameObject furniturePanel;
+    [SerializeField] GameObject basketPanel;
 
-    [SerializeField] Button informationButton;
-    [SerializeField] Button soundButton;
-    [SerializeField] Button controlButton;
+    [SerializeField] Button decorationButton;
+    [SerializeField] Button furnitureButton;
+    [SerializeField] Button basketButton;
+    [SerializeField] Button closeButton;
 
     private void Start()
-    {
-        informationButton.onClick.AddListener(InformationButton);
-        soundButton.onClick.AddListener(SoundButton);
-        controlButton.onClick.AddListener(ControlButton);
+    { 
+        decorationButton.onClick.AddListener(DecorationButton);
+        furnitureButton.onClick.AddListener(FurnitureButton);
+        basketButton.onClick.AddListener(BasketButton);
+        closeButton.onClick.AddListener(CloseButton);
     }
 
     private void SetActivePanel(Panel panel)
     {
-        informationPanel.SetActive(panel == Panel.Information);
-        soundPanel.SetActive(panel == Panel.Sound);
-        controlPanel.SetActive(panel == Panel.Control);
+        decorationPanel.SetActive(panel == Panel.Decoration);
+        furniturePanel.SetActive(panel == Panel.Furniture);
+        basketPanel.SetActive(panel == Panel.Basket);
     }
 
     public void CloseButton()
     {
-        SetActivePanel(Panel.Information);
-        optionPanel.SetActive(false);
+        SetActivePanel(Panel.Decoration);
+        decorationPanel.SetActive(false);
     }
 
-    public void InformationButton()
+    public void DecorationButton()
     {
-        SetActivePanel(Panel.Information);
+        SetActivePanel(Panel.Decoration);
     }
 
-    public void SoundButton()
+    public void FurnitureButton()
     {
-        SetActivePanel(Panel.Sound);
+        SetActivePanel(Panel.Furniture);
     }
 
-    public void ControlButton()
+    public void BasketButton()
     {
-        SetActivePanel(Panel.Control);
+        SetActivePanel(Panel.Basket);
     }
 }

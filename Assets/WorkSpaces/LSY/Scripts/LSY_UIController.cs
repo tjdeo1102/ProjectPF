@@ -18,7 +18,7 @@ public class LSY_UIController : MonoBehaviour
     private void Update()
     {
         var input = inputActions.actionMaps[0].actions[0].ReadValue<Vector2>().x;
-        Debug.Log(input);
+
         if (Mathf.Abs(input) > 0)
         {
             // ¹°°ÇÀÇ °¹¼ö ´Ã¾î³²
