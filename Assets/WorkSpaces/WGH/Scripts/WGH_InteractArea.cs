@@ -24,7 +24,7 @@ public class WGH_InteractArea : MonoBehaviour
             controller.SmellStick = smellStick;
             OnChangedSmellStick?.Invoke();
         }
-        if (other.gameObject.TryGetComponent(out WGH_PerfumeRecipe perfume) && curCount < maxCount)
+        if (other.gameObject.TryGetComponent(out WGH_Perfume perfume) && curCount < maxCount)
         {
             if (perfume.PerfumeType == controller.PerfumeType && perfume.BottleType == controller.BottleType)
             {

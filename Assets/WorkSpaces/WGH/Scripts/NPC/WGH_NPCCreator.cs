@@ -35,21 +35,6 @@ public class WGH_NPCCreator : MonoBehaviour
         CountTime();
     }
 
-    public void OnCheat()
-    {
-        StartCoroutine(CheatRoutine());
-    }
-
-    IEnumerator CheatRoutine()
-    {
-        isCheat = true;
-        GameObject obj = PhotonNetwork.Instantiate("Customer", spawnLeftPos, Quaternion.identity);
-        WGH_NPCController controller = obj.GetComponent<WGH_NPCController>();
-        yield return new WaitForSeconds(0.1f);
-        controller.ChangeStateNetwork((int)E_StateType.COUNTER);
-        isCheat = false;
-    }
-
     public void CountTime()
     {
         curTime += Time.deltaTime;
@@ -69,5 +54,26 @@ public class WGH_NPCCreator : MonoBehaviour
             controller.PassPos = new Vector3(-spawnRightPos.x, spawnRightPos.y, spawnRightPos.z);
             curTime = 0f;
         }
+    }
+
+    /// <summary>
+    /// 치트키 함수 : 바로 카운터로 손님을 오게 만드는 치트키
+    /// </summary>
+    public void OnCheat()
+    {
+        StartCoroutine(CheatRoutine());
+    }
+    /// <summary>
+    /// 치트키 코루틴
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator CheatRoutine()
+    {
+        isCheat = true;
+        GameObject obj = PhotonNetwork.Instantiate("Customer", spawnLeftPos, Quaternion.identity);
+        WGH_NPCController controller = obj.GetComponent<WGH_NPCController>();
+        yield return new WaitForSeconds(0.1f);
+        controller.ChangeStateNetwork((int)E_StateType.COUNTER);
+        isCheat = false;
     }
 }

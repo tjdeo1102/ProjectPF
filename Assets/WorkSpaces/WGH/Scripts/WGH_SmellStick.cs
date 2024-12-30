@@ -27,15 +27,29 @@ public class WGH_SmellStick : MonoBehaviourPun
     {
         StartCoroutine(InteractRoutine());
     }
+    /// <summary>
+    /// 시향노트에서 빠졌을 때 이펙트 On
+    /// </summary>
+    public void OnEffect()
+    {
+        aura.gameObject.SetActive(true);
+        isAbsorbed = true;
+    }
+
+    public void OffEffect()
+    {
+        aura.gameObject.SetActive(false);
+        isAbsorbed = false;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.TryGetComponent(out WGH_InteractionNote testNote) && NoteType == testNote.NoteType)
-        {
-            Debug.Log("이펙트");
-            aura.gameObject.SetActive(true);
-            isAbsorbed = true;
-        }
+        //if(other.gameObject.TryGetComponent(out WGH_InteractionNote testNote) && NoteType == testNote.NoteType)
+        //{
+        //    Debug.Log("이펙트");
+        //    aura.gameObject.SetActive(true);
+        //    isAbsorbed = true;
+        //}
         if (other.gameObject.TryGetComponent(out WGH_InteractArea interactArea) && isAbsorbed == true)
         {
             customer = interactArea.GetComponentInParent<WGH_NPCController>().gameObject;
