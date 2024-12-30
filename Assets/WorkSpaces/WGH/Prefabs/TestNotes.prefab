@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8600253459251292069}
   - component: {fileID: 8600253459251292068}
   - component: {fileID: 8600253459251292071}
+  - component: {fileID: 2077907414}
   m_Layer: 0
   m_Name: FloralTestNote
   m_TagString: Untagged
@@ -133,6 +134,20 @@ MonoBehaviour:
   m_SocketScaleMode: 0
   m_FixedScale: {x: 1, y: 1, z: 1}
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
+--- !u!136 &2077907414
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8600253459251292070}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8600253459283772510
 GameObject:
   m_ObjectHideFlags: 0
@@ -5246,6 +5261,7 @@ GameObject:
   - component: {fileID: 8600253459579430947}
   - component: {fileID: 8600253459579430946}
   - component: {fileID: 8600253459579430949}
+  - component: {fileID: 2050246114}
   m_Layer: 0
   m_Name: GreenTestNote
   m_TagString: Untagged
@@ -5368,6 +5384,20 @@ MonoBehaviour:
   m_SocketScaleMode: 0
   m_FixedScale: {x: 1, y: 1, z: 1}
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
+--- !u!136 &2050246114
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8600253459579430948}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8600253459642975665
 GameObject:
   m_ObjectHideFlags: 0
@@ -15582,7 +15612,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8600253459905001603}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.02000004, y: 0.78, z: 12.7}
   m_LocalScale: {x: 0.15147, y: 0.15147, z: 0.15147}
   m_ConstrainProportionsScale: 0
@@ -15637,6 +15667,7 @@ GameObject:
   - component: {fileID: 8600253459909837751}
   - component: {fileID: 8600253459909837750}
   - component: {fileID: 8600253459909837737}
+  - component: {fileID: 497329265}
   m_Layer: 0
   m_Name: CitrusTestNote
   m_TagString: Untagged
@@ -15759,6 +15790,20 @@ MonoBehaviour:
   m_SocketScaleMode: 0
   m_FixedScale: {x: 1, y: 1, z: 1}
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
+--- !u!136 &497329265
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8600253459909837736}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8600253459993664664
 GameObject:
   m_ObjectHideFlags: 0
@@ -21684,6 +21729,7 @@ GameObject:
   - component: {fileID: 8600253460925038772}
   - component: {fileID: 8600253460925038775}
   - component: {fileID: 8600253460925038774}
+  - component: {fileID: 1583059247}
   m_Layer: 0
   m_Name: WoodyTestNote
   m_TagString: Untagged
@@ -21806,6 +21852,20 @@ MonoBehaviour:
   m_SocketScaleMode: 0
   m_FixedScale: {x: 1, y: 1, z: 1}
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
+--- !u!136 &1583059247
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8600253460925038761}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8600253460994794473
 GameObject:
   m_ObjectHideFlags: 0
@@ -22415,6 +22475,7 @@ GameObject:
   - component: {fileID: 8600253461230067614}
   - component: {fileID: 8600253461230067601}
   - component: {fileID: 8600253461230067600}
+  - component: {fileID: 1873898695}
   m_Layer: 0
   m_Name: FruityTestNote
   m_TagString: Untagged
@@ -22537,6 +22598,20 @@ MonoBehaviour:
   m_SocketScaleMode: 0
   m_FixedScale: {x: 1, y: 1, z: 1}
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
+--- !u!136 &1873898695
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8600253461230067603}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8600253461260654262
 GameObject:
   m_ObjectHideFlags: 0
