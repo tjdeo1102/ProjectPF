@@ -23,7 +23,7 @@ public class LSY_BasketPanel : MonoBehaviour
     [SerializeField] TextMeshProUGUI itemPriceText;
     [SerializeField] TextMeshProUGUI itemExplainText;
 
-    public delegate void ItemDelete(float totalPrice);
+    public delegate void ItemDelete(float price, string itemName);
     public event ItemDelete OnItemDelete;
 
     public delegate void ItemAdded(float price);
@@ -62,7 +62,7 @@ public class LSY_BasketPanel : MonoBehaviour
 
     private void Delete()
     {
-        OnItemDelete?.Invoke(itemPrice);
+        OnItemDelete?.Invoke(itemPrice, itemName);
         Destroy(gameObject);
     }
 }

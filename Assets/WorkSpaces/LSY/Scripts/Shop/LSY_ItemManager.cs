@@ -7,6 +7,7 @@ using System.Collections;
 
 public class LSY_ItemManager : MonoBehaviour
 {
+    [Header("장바구니 아이템 개수")]
     [SerializeField] TMP_Text basketCount;
     [SerializeField] TMP_Text basketPanelCount;
     int basketIndex = 0;
@@ -22,6 +23,8 @@ public class LSY_ItemManager : MonoBehaviour
     [SerializeField] GameObject basketPanelPrefab;
 
     [Header("Content")]
+    [SerializeField] Transform decorationContent;
+    [SerializeField] Transform furnitureContent;
     [SerializeField] Transform basketContent;
 
     [Header("패널 및 최종가격 텍스트")]
@@ -34,6 +37,8 @@ public class LSY_ItemManager : MonoBehaviour
     [SerializeField] TMP_Text buyPrice;
     [SerializeField] TMP_Text totalPlayerMoney;
 
+    [SerializeField] Image warningImage;
+
     bool isBasketPanelActive = false;
     float totalPrice = 0;
 
@@ -43,6 +48,8 @@ public class LSY_ItemManager : MonoBehaviour
     {
         basketIndex = 0;
         basketCount.text = basketIndex.ToString();
+
+        InitializeItemPrefabs();
 
         foreach (var itemPrefab in decorationPrefabs)
         {
@@ -61,18 +68,48 @@ public class LSY_ItemManager : MonoBehaviour
         OrderButton.onClick.AddListener(Order);
     }
 
-    private void UpdateItemDelete(float price)
+    private void InitializeItemPrefabs()
     {
+        decorationPrefabs = new GameObject[decorationContent.childCount];
+        for (int i = 0; i < decorationContent.childCount; i++)
+        {
+            decorationPrefabs[i] = decorationContent.GetChild(i).gameObject;
+        }
+
+        furniturePrefabs = new GameObject[furnitureContent.childCount];
+        for (int i = 0; i < furnitureContent.childCount; i++)
+        {
+            furniturePrefabs[i] = furnitureContent.GetChild(i).gameObject;
+        }
+    }
+
+    private void UpdateItemDelete(float price, string itemName)
+    {
+        LSY_BasketItem itemToRemove = basketItems.Find(item => item.ItemName == itemName);
+        if (itemToRemove != null)
+        {
+            basketItems.Remove(itemToRemove);
+        }
+
         totalPrice -= price;
         allItemPriceText.text = totalPrice.ToString() + "$";
 
         basketIndex--;
         basketCount.text = basketIndex.ToString();
         basketPanelCount.text = basketIndex.ToString();
+
     }
 
     private void UpdateItemAddBasket(string name, float price, string explain, Sprite sprite, GameObject itemPrefab)
     {
+        if (basketIndex >= 10)
+        {
+            if (warningRoutine == null)
+            warningRoutine = StartCoroutine(WarningRoutine());
+
+            return;
+        }
+
         GameObject basketPanel = Instantiate(basketPanelPrefab, basketContent);
         LSY_BasketPanel basketPanelScript = basketPanel.GetComponent<LSY_BasketPanel>();
         basketPanelScript.SetItemInfo(name, price, explain, sprite, itemPrefab);
@@ -85,6 +122,14 @@ public class LSY_ItemManager : MonoBehaviour
         basketPanelCount.text = basketIndex.ToString();
 
         basketItems.Add(new LSY_BasketItem(name, price, explain, sprite, itemPrefab));
+    }
+    Coroutine warningRoutine;
+    IEnumerator WarningRoutine()
+    {
+        warningImage.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1);
+        warningImage.gameObject.SetActive(false);
+        warningRoutine = null;
     }
 
     private void UpdateTotalPrice(float addedPrice)
