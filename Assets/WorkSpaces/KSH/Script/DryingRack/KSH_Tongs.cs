@@ -6,12 +6,21 @@ public class KSH_Tongs : XRGrabInteractable
 {
     private List<Collider> overlappingObjects = new List<Collider>();
     [SerializeField] private Transform gripPoint; // 집게 오브젝트가 잡을 중심점
+
+    private Collider iscollider;
     private bool isActivated = false;
+
+    private void Start()
+    {
+        iscollider = GetComponent<Collider>();
+        iscollider.enabled = false;
+    }
 
     protected override void OnActivated(ActivateEventArgs args)
     {
         base.OnActivated(args);
         isActivated = true; // 누르고 있는 상태 활성화
+        iscollider.enabled = true;
         Debug.Log("집게 활성화!");
     }
 
@@ -78,5 +87,6 @@ public class KSH_Tongs : XRGrabInteractable
         }
 
         overlappingObjects.Clear();
+        iscollider.enabled = false;
     }
 }
