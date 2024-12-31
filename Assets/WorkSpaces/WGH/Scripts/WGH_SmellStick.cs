@@ -20,11 +20,8 @@ public class WGH_SmellStick : MonoBehaviourPun
     public event Action OnLikeInteract;
     public event Action OnQuestionInteract;
     public event Action OnDespairInteract;
-
     
-
-    
-    private bool isAbsorbed;
+    private bool isAbsorbed;                            // 이펙트 On인지 아닌지(상호작용 가능한 상태인지)
     private bool isRoutine;
     private Rigidbody rigid;
     private Vector3 startPos;
@@ -40,48 +37,8 @@ public class WGH_SmellStick : MonoBehaviourPun
         startPos = transform.position;
     }
 
-    private void FixedUpdate()
-    {
-        if(Vector3.Distance(startPos, transform.position) >= returnDistance)
-        {
-            StartCoroutine(KinematickRoutine());
-        }
-    }
-
-    IEnumerator KinematickRoutine()
-    {
-        transform.position = startPos;
-        rigid.isKinematic = true;
-        yield return null;
-        rigid.isKinematic = false;
-    }
-    public void Interact()
-    {
-        StartCoroutine(InteractRoutine());
-    }
-    /// <summary>
-    /// 시향노트에서 빠졌을 때 이펙트 On
-    /// </summary>
-    public void OnEffect()
-    {
-        aura.gameObject.SetActive(true);
-        isAbsorbed = true;
-    }
-
-    public void OffEffect()
-    {
-        aura.gameObject.SetActive(false);
-        isAbsorbed = false;
-    }
-
     private void OnTriggerEnter(Collider other)
     {
-        //if(other.gameObject.TryGetComponent(out WGH_InteractionNote testNote) && NoteType == testNote.NoteType)
-        //{
-        //    Debug.Log("이펙트");
-        //    aura.gameObject.SetActive(true);
-        //    isAbsorbed = true;
-        //}
         if (other.gameObject.TryGetComponent(out WGH_InteractArea interactArea) && isAbsorbed == true)
         {
             customer = interactArea.GetComponentInParent<WGH_NPCController>().gameObject;
@@ -94,7 +51,6 @@ public class WGH_SmellStick : MonoBehaviourPun
     {
         if (other.gameObject.TryGetComponent(out WGH_InteractArea interactArea))
         {
-            customer = null;
             OnBestInteract = null;
             OnLikeInteract = null;
             OnQuestionInteract = null;
@@ -104,7 +60,6 @@ public class WGH_SmellStick : MonoBehaviourPun
                 StopCoroutine(timeRoutine);
                 isRoutine = false;
             }
-            
         }
     }
 
@@ -117,7 +72,7 @@ public class WGH_SmellStick : MonoBehaviourPun
             curTime += Time.deltaTime;
             if(curTime >= needTime)
             {
-                StartCoroutine(InteractRoutine());
+                React();
                 curTime = 0f;
                 aura.gameObject.SetActive(false);
                 isAbsorbed = false;
@@ -127,9 +82,8 @@ public class WGH_SmellStick : MonoBehaviourPun
         }
     }
 
-    IEnumerator InteractRoutine()
+    private void React()
     {
-        yield return new WaitForSeconds(1);
         if (Vector3.Distance(transform.position, customer.transform.position) < interactionDist)
         {
             Debug.Log("상호작용");
@@ -150,6 +104,22 @@ public class WGH_SmellStick : MonoBehaviourPun
                 OnDespairInteract?.Invoke();
             }
         }
-        yield break;
+    }
+
+    /// <summary>
+    /// 시향노트에서 빠졌을 때 이펙트 On
+    /// </summary>
+    public void OnEffect()
+    {
+        aura.gameObject.SetActive(true);
+        isAbsorbed = true;
+    }
+    /// <summary>
+    /// 시향노트에 끼워졌을 때 이펙트 On
+    /// </summary>
+    public void OffEffect()
+    {
+        aura.gameObject.SetActive(false);
+        isAbsorbed = false;
     }
 }
