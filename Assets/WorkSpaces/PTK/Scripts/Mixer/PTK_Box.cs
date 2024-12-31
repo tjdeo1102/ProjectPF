@@ -6,16 +6,19 @@ using UnityEngine.Events;
 
 public class PTK_Box : MonoBehaviourPun
 {
-    [SerializeField] private PTK_Handle knobEvent;
+    //[SerializeField] private PTK_Handle knobEvent;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private Transform returnSpawnPoint;
+
+    [Header("스폰 오브젝트 설정")]
+    [SerializeField] private string spawnObjectPath;
 
     private PTK_Fruit currentFruit;
     private bool isReadyForMix = false;
 
     void Start()
     {
-        knobEvent.mixDone.AddListener(OnMixDone);
+        //knobEvent.mixDone.AddListener(OnMixDone);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -56,7 +59,7 @@ public class PTK_Box : MonoBehaviourPun
     }
 
 
-    private void OnMixDone()
+    public void OnMixDone()
     {
         if (isReadyForMix && currentFruit != null)
         {
@@ -86,7 +89,7 @@ public class PTK_Box : MonoBehaviourPun
         Vector3 spawnPosition = spawnPoint.position;
         Quaternion spawnRotation = Quaternion.identity;
 
-        GameObject newFruit = PhotonNetwork.Instantiate("PTK_Fruit", spawnPosition, spawnRotation, data: new object[] {name, type, state});
+        GameObject newFruit = PhotonNetwork.Instantiate(spawnObjectPath, spawnPosition, spawnRotation, data: new object[] {name, type, state});
 
         PTK_Fruit fruitComponent = newFruit.GetComponent<PTK_Fruit>();
 
