@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
-public class LSY_DispensorLiquid : MonoBehaviour
+public class LSY_DispensorLiquid : XRBaseInteractable
 {
+    [SerializeField] Animator animator;
+
     public ParticleSystem particleSystemLiquid;
     public float fillAmount = 1f;  
     public MeshRenderer MeshRenderer;
@@ -18,7 +21,7 @@ public class LSY_DispensorLiquid : MonoBehaviour
     private float pourAmountPerSecond = 0.02f;
     private float totalPourAmount = 0.1f;  // 총 줄어야 할 액체 양
 
-    void OnEnable()
+    void Start()
     {
         particleSystemLiquid.Stop();
 
@@ -29,15 +32,29 @@ public class LSY_DispensorLiquid : MonoBehaviour
         MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    protected override void OnSelectEntering(SelectEnterEventArgs args)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        base.OnSelectEntering(args);
+        PouringLiquid();
+        Debug.Log("select");
+    }
+
+    // 작동안함!
+    //protected override void OnActivated(ActivateEventArgs args)
+    //{
+    //    base.OnActivated(args);
+    //    PouringLiquid();
+    //    Debug.Log("activate");
+    //}
+
+    public void PouringLiquid()
+    {
+        if (pouringliquidRoutine == null)
         {
-            if (pouringliquidRoutine == null)
-            {
-                Debug.Log("플레이어와 부딪힘");
-                pouringliquidRoutine = StartCoroutine(PouringliquidRoutine());
-            }
+            if (fillAmount <= 0f) return;
+
+            animator.SetTrigger("HandleOn");
+            pouringliquidRoutine = StartCoroutine(PouringliquidRoutine());
         }
     }
 
@@ -105,10 +122,8 @@ public class LSY_DispensorLiquid : MonoBehaviour
         {
             particleSystemLiquid.Stop();
         }
-
+        animator.SetTrigger("HandleOff");
+        animator.SetTrigger("HandleIdle");
         pouringliquidRoutine = null;
     }
-
-
-
 }
