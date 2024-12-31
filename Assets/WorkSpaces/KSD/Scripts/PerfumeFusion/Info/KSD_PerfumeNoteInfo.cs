@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public enum PerfumeNoteName
 {
-    Floral, Fruity, Citrus, Woody, Green , Alcohol , SIze
+    Null ,Floral, Fruity, Citrus, Woody, Green , Alcohol , SIze
 }
 
 [Serializable]

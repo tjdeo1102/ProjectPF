@@ -12,6 +12,7 @@ public class LSY_DispensorLiquid : XRBaseInteractable
     public MeshRenderer MeshRenderer;
 
     MaterialPropertyBlock m_MaterialPropertyBlock;
+    [SerializeField] public PerfumeNoteName currentPerfumeNote;
 
     public Color potionColor;
     public Color linePotionColor;
@@ -51,7 +52,11 @@ public class LSY_DispensorLiquid : XRBaseInteractable
     {
         if (pouringliquidRoutine == null)
         {
-            if (fillAmount <= 0f) return;
+            if (fillAmount < 0.1f) 
+            {
+                Debug.Log("한번 나올 양이 부족함");
+                return;
+            }
 
             animator.SetTrigger("HandleOn");
             pouringliquidRoutine = StartCoroutine(PouringliquidRoutine());
@@ -122,6 +127,7 @@ public class LSY_DispensorLiquid : XRBaseInteractable
         {
             particleSystemLiquid.Stop();
         }
+
         animator.SetTrigger("HandleOff");
         animator.SetTrigger("HandleIdle");
         pouringliquidRoutine = null;
