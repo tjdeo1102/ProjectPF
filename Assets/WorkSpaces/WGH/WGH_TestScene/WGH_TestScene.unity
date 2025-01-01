@@ -1297,7 +1297,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8600253460078881002, guid: a7a2f687e4c7d9148bc3d1f0dd3dcb04, type: 3}
   m_PrefabInstance: {fileID: 8600253460190086054}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2085443048
+--- !u!114 &2085443056
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1306,13 +1306,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2085443040}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &2092089180
 GameObject:
   m_ObjectHideFlags: 0
@@ -1410,6 +1410,33 @@ Transform:
   m_Father: {fileID: 1768977672}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
+--- !u!1 &2106854092 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8600253459905001603, guid: a7a2f687e4c7d9148bc3d1f0dd3dcb04, type: 3}
+  m_PrefabInstance: {fileID: 8600253460190086054}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2106854094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2106854092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 15
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &2521882749845886934
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1772,6 +1799,14 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8600253460078881012, guid: a7a2f687e4c7d9148bc3d1f0dd3dcb04, type: 3}
+      propertyPath: OwnershipTransfer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600253460078881012, guid: a7a2f687e4c7d9148bc3d1f0dd3dcb04, type: 3}
+      propertyPath: ObservedComponents.Array.data[0]
+      value: 
+      objectReference: {fileID: 2085443056}
     - target: {fileID: 8600253460913494788, guid: a7a2f687e4c7d9148bc3d1f0dd3dcb04, type: 3}
       propertyPath: sceneViewId
       value: 5
