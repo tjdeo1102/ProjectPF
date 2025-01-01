@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class KSH_TEST1 : MonoBehaviour
+public class KSH_SocketSorting: MonoBehaviour
 {
     // 모든 자식들의 소켓 목록
     [SerializeField] private XRSocketInteractor[] sockets;
