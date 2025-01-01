@@ -1,8 +1,9 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LSY_PotionReceiver : MonoBehaviour
+public class LSY_PotionReceiver : MonoBehaviourPun
 {
     [Header("최대 포션 양")]
     public float maxLiquidFill = 1.0f;
@@ -84,5 +85,19 @@ public class LSY_PotionReceiver : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         fillAmount = Mathf.Round(fillAmount * 10f) / 10f;
         receiveCount = 0;
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(fillAmount);
+            stream.SendNext(perfumeNoteInfoLists);
+        }
+        else
+        {
+            fillAmount = (float)stream.ReceiveNext();
+            perfumeNoteInfoLists = (List<KSD_PerfumeNoteInfo>)stream.ReceiveNext();
+        }
     }
 }

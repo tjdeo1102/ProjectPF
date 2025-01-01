@@ -1,8 +1,10 @@
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine;
 using System.Collections;
+using Photon.Pun;
+using Unity.VisualScripting;
 
-public class LSY_DispensorLiquid : XRBaseInteractable
+public class LSY_DispensorLiquid : MonoBehaviourPun
 {
     [Header("디스펜서 핸들 애니매이터")]
     [SerializeField] Animator animator;
@@ -49,10 +51,10 @@ public class LSY_DispensorLiquid : XRBaseInteractable
         MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
     }
 
-    protected override void OnSelectEntering(SelectEnterEventArgs args)
-    {
-        base.OnSelectEntering(args);
 
+    [PunRPC]
+    public void OnSelectEnter()
+    {
         if (!isOnCooldown)
         {
             PouringLiquid();
@@ -99,6 +101,11 @@ public class LSY_DispensorLiquid : XRBaseInteractable
                 isOnCooldown = false;
 
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            photonView.RPC("OnSelectEnter", RpcTarget.AllViaServer);
         }
     }
 
@@ -183,6 +190,7 @@ public class LSY_DispensorLiquid : XRBaseInteractable
         potionReceiverRoutine = null;
     }
 
+    [PunRPC]
     public void ReceiveLiquid()
     {
         if (fillAmount < maxLiquidFill)
@@ -196,6 +204,20 @@ public class LSY_DispensorLiquid : XRBaseInteractable
             }
 
             Debug.Log($"현재 채워진 양: {fillAmount * 100}%");
+        }
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(fillAmount);
+            stream.SendNext(dispensorInfo);
+        }
+        else
+        {
+            fillAmount = (float)stream.ReceiveNext();
+            dispensorInfo = (LSY_DispensorInfo)stream.ReceiveNext();
         }
     }
 }

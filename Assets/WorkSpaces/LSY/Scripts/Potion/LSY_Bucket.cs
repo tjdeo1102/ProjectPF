@@ -1,9 +1,10 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class LSY_Bucket : MonoBehaviour
+public class LSY_Bucket : MonoBehaviourPun
 {
     [Header("액체 붓는 파티클")]
     public ParticleSystem particleSystemLiquid;
@@ -90,7 +91,7 @@ public class LSY_Bucket : MonoBehaviour
             {
                 Debug.Log("두 개의 DispensorReceiver를 찾음");
                 LSY_DispensorLiquid receiver = receivers[0];
-                receiver.ReceiveLiquid();
+                receiver.photonView.RPC("ReceiveLiquid", RpcTarget.AllViaServer);
             }
 
             m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
@@ -177,5 +178,19 @@ public class LSY_Bucket : MonoBehaviour
         m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
         MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
         isFilling = false;
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(fillAmount);
+            stream.SendNext(currentPerfumeNote);
+        }
+        else
+        {
+            fillAmount = (float)stream.ReceiveNext();
+            currentPerfumeNote = (PerfumeNoteName)stream.ReceiveNext();
+        }
     }
 }
