@@ -1,15 +1,29 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LSY_PotionReceiver : MonoBehaviour
 {
+    [Header("최대 포션 양")]
     public float maxLiquidFill = 1.0f;
+
+    [Header("포션 양")]
     public float fillAmount = 0.0f;
-    private float m_StartingFillAmount;
+
+    [Header("액체 렌더러")]
     public MeshRenderer liquidMeshRenderer;
+
+    public List<KSD_PerfumeNoteInfo> perfumeNoteInfoLists;
+
+    public int receiveCount = 0;
+
+
     private MaterialPropertyBlock m_MaterialPropertyBlock;
 
     void Start()
     {
+        perfumeNoteInfoLists = new List<KSD_PerfumeNoteInfo> ();
+
         if (liquidMeshRenderer == null)
         {
             return;
@@ -24,43 +38,51 @@ public class LSY_PotionReceiver : MonoBehaviour
         liquidMeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
     }
 
-    public void ReceivePotion(Color potionColor, Color linePotionColor)
+    public void ReceiveCountReset()
+    {
+        fillAmount = Mathf.Round(fillAmount * 10f) / 10f;
+        receiveCount = 0;
+    }
+
+    public void ReceivePotion(Color potionColor, Color linePotionColor, PerfumeNoteName perfumeNoteName)
     {
         if (fillAmount < maxLiquidFill)
         {
-            fillAmount += 0.1f * Time.deltaTime;
+            fillAmount += 0.01f;
+            receiveCount++;
 
-            if (m_MaterialPropertyBlock != null)
+            m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
+            m_MaterialPropertyBlock.SetColor("Color_E3091B1A", potionColor);
+            m_MaterialPropertyBlock.SetColor("Color_FDA61C50", linePotionColor);
+
+            liquidMeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
+
+            if (receiveCount == 7)
             {
-                m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
-                m_MaterialPropertyBlock.SetColor("Color_E3091B1A", potionColor);
-                m_MaterialPropertyBlock.SetColor("Color_FDA61C50", linePotionColor);
-                if (liquidMeshRenderer != null)
-                    liquidMeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
-            }
+                foreach (var potionInfo in perfumeNoteInfoLists)
+                {
+                    if (potionInfo.Name == perfumeNoteName)
+                    {
+                        potionInfo.NoteCount += 1;
+                        StartCoroutine(ResetCountRoutine());
+                        return;
+                    }
+                }
 
-            Debug.Log($"현재 채워진 양: {fillAmount * 100}%");
+                KSD_PerfumeNoteInfo noteInfo = new KSD_PerfumeNoteInfo();
+                noteInfo.Name = perfumeNoteName;
+                noteInfo.NoteCount++;
+                perfumeNoteInfoLists.Add(noteInfo);
+
+                StartCoroutine(ResetCountRoutine());
+            }
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    IEnumerator ResetCountRoutine()
     {
-        if (other.gameObject.CompareTag("Powder"))
-        {
-            Destroy(other.gameObject);
-            if (fillAmount < 0.7f)
-            {
-                fillAmount += 0.3f;
-                m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
-            }
-            else
-            {
-                fillAmount = 1f;
-                m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
-            }
-
-            if (liquidMeshRenderer != null)
-                liquidMeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
-        }
+        yield return new WaitForSeconds(0.5f);
+        fillAmount = Mathf.Round(fillAmount * 10f) / 10f;
+        receiveCount = 0;
     }
 }

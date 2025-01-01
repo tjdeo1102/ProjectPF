@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine;
+using System.Collections;
 
 public class LSY_DispensorLiquid : XRBaseInteractable
 {
@@ -27,10 +26,14 @@ public class LSY_DispensorLiquid : XRBaseInteractable
     Color liquidLineColor;
 
     private Coroutine pouringliquidRoutine;
-    private float totalPourTime = 5f;
-    private float pourAmountPerSecond = 0.02f;
+    private float totalPourTime = 1f;
+    private float pourAmountPerSecond = 0.1f;
     private float totalPourAmount = 0.1f;  // 총 줄어야 할 액체 양
     MaterialPropertyBlock m_MaterialPropertyBlock;
+
+    private bool isOnCooldown = false;
+    private float cooldownTime = 2f;  
+    private float cooldownTimer = 0f;
 
     void Start()
     {
@@ -49,30 +52,53 @@ public class LSY_DispensorLiquid : XRBaseInteractable
     protected override void OnSelectEntering(SelectEnterEventArgs args)
     {
         base.OnSelectEntering(args);
-        PouringLiquid();
-        Debug.Log("select");
-    }
 
-    // 작동안함!
-    //protected override void OnActivated(ActivateEventArgs args)
-    //{
-    //    base.OnActivated(args);
-    //    PouringLiquid();
-    //    Debug.Log("activate");
-    //}
+        if (!isOnCooldown)
+        {
+            PouringLiquid();
+        }
+    }
 
     public void PouringLiquid()
     {
         if (pouringliquidRoutine == null)
         {
-            if (fillAmount < 0.1f) 
+            if (fillAmount < 0.1f)
             {
                 Debug.Log("한번 나올 양이 부족함");
                 return;
             }
 
+            if (isOnCooldown)
+            {
+                Debug.Log("쿨다운 중입니다. 2초 후에 다시 시도해주세요.");
+                return;
+            }
+
             animator.SetTrigger("HandleOn");
             pouringliquidRoutine = StartCoroutine(PouringliquidRoutine());
+
+            StartCooldown();
+        }
+    }
+
+    void StartCooldown()
+    {
+        isOnCooldown = true;
+        cooldownTimer = cooldownTime;
+    }
+
+    void Update()
+    {
+        if (isOnCooldown)
+        {
+            cooldownTimer -= Time.deltaTime;
+
+            if (cooldownTimer <= 0)
+            {
+                isOnCooldown = false;
+
+            }
         }
     }
 
@@ -119,7 +145,10 @@ public class LSY_DispensorLiquid : XRBaseInteractable
                 Debug.Log("두 개의 PotionReceiver를 찾음");
 
                 LSY_PotionReceiver receiver = receivers[0];
-                receiver.ReceivePotion(liquidColor, liquidLineColor);
+                if (potionReceiverRoutine == null)
+                {
+                    potionReceiverRoutine = StartCoroutine(PotionReceiverRoutine(receiver));
+                }
             }
             else
             {
@@ -144,6 +173,14 @@ public class LSY_DispensorLiquid : XRBaseInteractable
         animator.SetTrigger("HandleOff");
         animator.SetTrigger("HandleIdle");
         pouringliquidRoutine = null;
+    }
+
+    Coroutine potionReceiverRoutine;
+    IEnumerator PotionReceiverRoutine(LSY_PotionReceiver potionReceiver)
+    {
+        potionReceiver.ReceivePotion(liquidColor, liquidLineColor, dispensorInfo.noteName);
+        yield return new WaitForSeconds(0.1f);
+        potionReceiverRoutine = null;
     }
 
     public void ReceiveLiquid()
