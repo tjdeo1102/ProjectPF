@@ -24,6 +24,7 @@ public class WGH_MaterialRespawnBasket : MonoBehaviour
     {
         material = list[(int)materailName];
         socket.startingSelectedInteractable = Resources.Load<GameObject>($"TestMaterial({(int)materailName})").GetComponent<XRBaseInteractable>();
+        
         StartCoroutine(StartSpawnRoutine());
     }
 
@@ -54,7 +55,7 @@ public class WGH_MaterialRespawnBasket : MonoBehaviour
     IEnumerator StartSpawnRoutine()
     {
         yield return new WaitForSeconds(3);
-        PhotonNetwork.Instantiate($"TestMaterial({(int)materailName})", spawnPos.position, Quaternion.identity);
+        Spawn();
         yield break;
     }
 }
