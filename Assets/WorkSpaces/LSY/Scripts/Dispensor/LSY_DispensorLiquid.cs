@@ -5,31 +5,44 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class LSY_DispensorLiquid : XRBaseInteractable
 {
+    [Header("디스펜서 핸들 애니매이터")]
     [SerializeField] Animator animator;
 
+    [Header("액체 붓는 파티클")]
     public ParticleSystem particleSystemLiquid;
-    public float fillAmount = 1f;  
+
+    [Header("최대 액체 양")]
+    public float maxLiquidFill = 1.0f;
+
+    [Header("액체 양")]
+    public float fillAmount;
+
+    [Header("디스펜서 액체 렌더러")]
     public MeshRenderer MeshRenderer;
 
-    MaterialPropertyBlock m_MaterialPropertyBlock;
-    [SerializeField] public PerfumeNoteName currentPerfumeNote;
+    [Header("디스펜서 Info")]
+    public LSY_DispensorInfo dispensorInfo;
 
-    public Color potionColor;
-    public Color linePotionColor;
+    Color liquidColor;
+    Color liquidLineColor;
 
     private Coroutine pouringliquidRoutine;
     private float totalPourTime = 5f;
     private float pourAmountPerSecond = 0.02f;
     private float totalPourAmount = 0.1f;  // 총 줄어야 할 액체 양
+    MaterialPropertyBlock m_MaterialPropertyBlock;
 
     void Start()
     {
         particleSystemLiquid.Stop();
 
+        liquidColor = dispensorInfo.liquidColor;
+        liquidLineColor = dispensorInfo.liquidLineColor;
+
         m_MaterialPropertyBlock = new MaterialPropertyBlock();
         m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
-        m_MaterialPropertyBlock.SetColor("Color_E3091B1A", potionColor);
-        m_MaterialPropertyBlock.SetColor("Color_FDA61C50", linePotionColor);
+        m_MaterialPropertyBlock.SetColor("Color_E3091B1A", liquidColor);
+        m_MaterialPropertyBlock.SetColor("Color_FDA61C50", liquidLineColor);
         MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
     }
 
@@ -106,7 +119,7 @@ public class LSY_DispensorLiquid : XRBaseInteractable
                 Debug.Log("두 개의 PotionReceiver를 찾음");
 
                 LSY_PotionReceiver receiver = receivers[0];
-                receiver.ReceivePotion(potionColor, linePotionColor);
+                receiver.ReceivePotion(liquidColor, liquidLineColor);
             }
             else
             {
@@ -131,5 +144,21 @@ public class LSY_DispensorLiquid : XRBaseInteractable
         animator.SetTrigger("HandleOff");
         animator.SetTrigger("HandleIdle");
         pouringliquidRoutine = null;
+    }
+
+    public void ReceiveLiquid()
+    {
+        if (fillAmount < maxLiquidFill)
+        {
+            fillAmount += 0.1f * Time.deltaTime;
+
+            if (m_MaterialPropertyBlock != null)
+            {
+                m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
+                MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
+            }
+
+            Debug.Log($"현재 채워진 양: {fillAmount * 100}%");
+        }
     }
 }

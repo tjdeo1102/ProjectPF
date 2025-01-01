@@ -47,8 +47,6 @@ public class LSY_Bucket : MonoBehaviour
         MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
 
         m_RbPotion = GetComponent<Rigidbody>();
-
-        ParticleSystem particle = Instantiate(bucketInfos[0].bucketParticle);
     }
 
     void Update()
@@ -67,11 +65,11 @@ public class LSY_Bucket : MonoBehaviour
             RaycastHit[] hits = Physics.RaycastAll(particleSystemLiquid.transform.position, Vector3.down, 50.0f, ~0, QueryTriggerInteraction.Collide);
 
             int receiverCount = 0;
-            LSY_DispensorReceiver[] receivers = new LSY_DispensorReceiver[hits.Length];
+            LSY_DispensorLiquid[] receivers = new LSY_DispensorLiquid[hits.Length];
 
             foreach (RaycastHit hit in hits)
             {
-                LSY_DispensorReceiver receiver = hit.collider.GetComponent<LSY_DispensorReceiver>();
+                LSY_DispensorLiquid receiver = hit.collider.GetComponentInChildren<LSY_DispensorLiquid>();
 
                 if (receiver != null)
                 {
@@ -79,11 +77,10 @@ public class LSY_Bucket : MonoBehaviour
                     receiverCount++;
 
                     // 디스펜서의 노트와 양동이의 노트가 같지 않다면 디스펜서는 액체를 받을 수 없음
-                    if (receiver.currentPerfumeNote != currentPerfumeNote)
+                    if (receiver.dispensorInfo.noteName != currentPerfumeNote)
                     {
-                        Debug.Log("같은 향이 아닙니다");
-                        Debug.Log(currentPerfumeNote);
-                        Debug.Log(receiver.currentPerfumeNote);
+                        m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
+                        MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
                         return;
                     }
                 }
@@ -92,11 +89,10 @@ public class LSY_Bucket : MonoBehaviour
             if (receiverCount >= 2)
             {
                 Debug.Log("두 개의 DispensorReceiver를 찾음");
-                LSY_DispensorReceiver receiver = receivers[0];
-                receiver.ReceivePotion(potionColor, linePotionColor);
+                LSY_DispensorLiquid receiver = receivers[0];
+                receiver.ReceiveLiquid();
             }
 
-            MeshRenderer.GetPropertyBlock(m_MaterialPropertyBlock);
             m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
             MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
         }

@@ -10,3 +10,11 @@ public class LSY_BucketInfo
     public ParticleSystem bucketParticle;
     public Color liquidColor;
 }
+
+[Serializable]
+public class LSY_DispensorInfo
+{
+    public PerfumeNoteName noteName;
+    public Color liquidColor;
+    public Color liquidLineColor;
+}
