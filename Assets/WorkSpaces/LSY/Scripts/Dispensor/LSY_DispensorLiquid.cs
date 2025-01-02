@@ -1,65 +1,111 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine;
+using System.Collections;
+using Photon.Pun;
+using Unity.VisualScripting;
 
-public class LSY_DispensorLiquid : XRBaseInteractable
+public class LSY_DispensorLiquid : MonoBehaviourPun
 {
+    [Header("디스펜서 핸들 애니매이터")]
     [SerializeField] Animator animator;
 
+    [Header("액체 붓는 파티클")]
     public ParticleSystem particleSystemLiquid;
-    public float fillAmount = 1f;  
+
+    [Header("최대 액체 양")]
+    public float maxLiquidFill = 1.0f;
+
+    [Header("액체 양")]
+    public float fillAmount;
+
+    [Header("디스펜서 액체 렌더러")]
     public MeshRenderer MeshRenderer;
 
-    MaterialPropertyBlock m_MaterialPropertyBlock;
-    [SerializeField] public PerfumeNoteName currentPerfumeNote;
+    [Header("디스펜서 Info")]
+    public LSY_DispensorInfo dispensorInfo;
 
-    public Color potionColor;
-    public Color linePotionColor;
+    Color liquidColor;
+    Color liquidLineColor;
 
     private Coroutine pouringliquidRoutine;
-    private float totalPourTime = 5f;
-    private float pourAmountPerSecond = 0.02f;
+    private float totalPourTime = 1f;
+    private float pourAmountPerSecond = 0.1f;
     private float totalPourAmount = 0.1f;  // 총 줄어야 할 액체 양
+    MaterialPropertyBlock m_MaterialPropertyBlock;
+
+    private bool isOnCooldown = false;
+    private float cooldownTime = 2f;  
+    private float cooldownTimer = 0f;
 
     void Start()
     {
         particleSystemLiquid.Stop();
 
+        liquidColor = dispensorInfo.liquidColor;
+        liquidLineColor = dispensorInfo.liquidLineColor;
+
         m_MaterialPropertyBlock = new MaterialPropertyBlock();
         m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
-        m_MaterialPropertyBlock.SetColor("Color_E3091B1A", potionColor);
-        m_MaterialPropertyBlock.SetColor("Color_FDA61C50", linePotionColor);
+        m_MaterialPropertyBlock.SetColor("Color_E3091B1A", liquidColor);
+        m_MaterialPropertyBlock.SetColor("Color_FDA61C50", liquidLineColor);
         MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
     }
 
-    protected override void OnSelectEntering(SelectEnterEventArgs args)
-    {
-        base.OnSelectEntering(args);
-        PouringLiquid();
-        Debug.Log("select");
-    }
 
-    // 작동안함!
-    //protected override void OnActivated(ActivateEventArgs args)
-    //{
-    //    base.OnActivated(args);
-    //    PouringLiquid();
-    //    Debug.Log("activate");
-    //}
+    [PunRPC]
+    public void OnSelectEnter()
+    {
+        if (!isOnCooldown)
+        {
+            PouringLiquid();
+        }
+    }
 
     public void PouringLiquid()
     {
         if (pouringliquidRoutine == null)
         {
-            if (fillAmount < 0.1f) 
+            if (fillAmount < 0.1f)
             {
                 Debug.Log("한번 나올 양이 부족함");
                 return;
             }
 
+            if (isOnCooldown)
+            {
+                Debug.Log("쿨다운 중입니다. 2초 후에 다시 시도해주세요.");
+                return;
+            }
+
             animator.SetTrigger("HandleOn");
             pouringliquidRoutine = StartCoroutine(PouringliquidRoutine());
+
+            StartCooldown();
+        }
+    }
+
+    void StartCooldown()
+    {
+        isOnCooldown = true;
+        cooldownTimer = cooldownTime;
+    }
+
+    void Update()
+    {
+        if (isOnCooldown)
+        {
+            cooldownTimer -= Time.deltaTime;
+
+            if (cooldownTimer <= 0)
+            {
+                isOnCooldown = false;
+
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            photonView.RPC("OnSelectEnter", RpcTarget.AllViaServer);
         }
     }
 
@@ -106,7 +152,10 @@ public class LSY_DispensorLiquid : XRBaseInteractable
                 Debug.Log("두 개의 PotionReceiver를 찾음");
 
                 LSY_PotionReceiver receiver = receivers[0];
-                receiver.ReceivePotion(potionColor, linePotionColor);
+                if (potionReceiverRoutine == null)
+                {
+                    potionReceiverRoutine = StartCoroutine(PotionReceiverRoutine(receiver));
+                }
             }
             else
             {
@@ -131,5 +180,44 @@ public class LSY_DispensorLiquid : XRBaseInteractable
         animator.SetTrigger("HandleOff");
         animator.SetTrigger("HandleIdle");
         pouringliquidRoutine = null;
+    }
+
+    Coroutine potionReceiverRoutine;
+    IEnumerator PotionReceiverRoutine(LSY_PotionReceiver potionReceiver)
+    {
+        potionReceiver.ReceivePotion(liquidColor, liquidLineColor, dispensorInfo.noteName);
+        yield return new WaitForSeconds(0.1f);
+        potionReceiverRoutine = null;
+    }
+
+    [PunRPC]
+    public void ReceiveLiquid()
+    {
+        if (fillAmount < maxLiquidFill)
+        {
+            fillAmount += 0.1f * Time.deltaTime;
+
+            if (m_MaterialPropertyBlock != null)
+            {
+                m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
+                MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
+            }
+
+            Debug.Log($"현재 채워진 양: {fillAmount * 100}%");
+        }
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(fillAmount);
+            stream.SendNext(dispensorInfo);
+        }
+        else
+        {
+            fillAmount = (float)stream.ReceiveNext();
+            dispensorInfo = (LSY_DispensorInfo)stream.ReceiveNext();
+        }
     }
 }
