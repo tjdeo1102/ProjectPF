@@ -19,11 +19,17 @@ public class KSD_CauldronWater : MonoBehaviour
         if (controller == null) return;
 
         MaterialPropertyBlock propertyBlock = new MaterialPropertyBlock();
-        propertyBlock.SetFloat("_ProcessPercentage", controller.CurrentPercentage);
 
-        if (controller.IsFail) propertyBlock.SetFloat("_IsFail", 1);
+        renderer.GetPropertyBlock(propertyBlock);
+        propertyBlock.SetFloat("_ProcessPercentage", controller.CurrentPercentage);
+        propertyBlock.SetColor("_FinishColor", controller.ResultNoteInfo.GetColorByName(controller.ResultNoteInfo.Name));
+
+        if (controller.IsFinish 
+            && controller.ResultNoteInfo.Name == PerfumeNoteName.Null
+            && controller.ResultNoteInfo.NoteCount < 1) propertyBlock.SetFloat("_IsFail", 1);
         else propertyBlock.SetFloat("_IsFail", 0);
-        
+
+
         renderer.SetPropertyBlock(propertyBlock);
     }
 }

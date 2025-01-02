@@ -45,7 +45,7 @@ public class KSD_LiquidMaterialBottle : MonoBehaviour
         fillAmount = 0f;
 
         m_RbPotion = GetComponent<Rigidbody>();
-        m_Breakable = true;
+        m_Breakable = false;
     }
 
     void Start()
