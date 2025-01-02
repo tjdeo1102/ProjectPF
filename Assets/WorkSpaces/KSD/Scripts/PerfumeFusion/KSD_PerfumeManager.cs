@@ -139,7 +139,7 @@ public class KSD_PerfumeManager : MonoBehaviour
     public bool IsValidPerfumeRecipe(List<KSD_PerfumeNoteInfo> notes, out KSD_PerfumeInfo perfumeInfo)
     {
         // 3. 향수 제작: 여러개의 노트 + 제각기 다른 노트 투입 횟수 => 비율이 아님
-        perfumeInfo = new KSD_PerfumeInfo { Name = PerfumeName.Null, PerfumeCount = 0 };
+        perfumeInfo = new KSD_PerfumeInfo { Name = PerfumeName.Null };
         bool isExistRecipe = false;
 
         // 노트 상태가 아닌 경우에는 기본적으로 실패
