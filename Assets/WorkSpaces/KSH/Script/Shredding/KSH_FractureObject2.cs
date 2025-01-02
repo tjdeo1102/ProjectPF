@@ -17,6 +17,9 @@ public class KSH_FractureObject2 : MonoBehaviour
     // 메인 오브젝트의 메터리얼
     [SerializeField] private Material mainMaterial;
 
+    // 복사본 오브젝트의 메터리얼
+    private Material copiedMaterial;
+
     // 메인 오브젝트의 MeshRenderer
     [SerializeField] private MeshRenderer[] meshRenderer;
 
@@ -61,11 +64,8 @@ public class KSH_FractureObject2 : MonoBehaviour
         // 메인 오브젝트의 MeshRenderer를 가져옵니다.
         meshRenderer = GetComponentsInChildren<MeshRenderer>();
 
-        if (meshRenderer != null && meshRenderer.Length > 0)
-        {
-            // 첫 번째 MeshRenderer의 Material을 복사하여 mainMaterial에 저장
-            mainMaterial = new Material(meshRenderer[3].sharedMaterial);
-        }
+        // mainMaterial의 복사본 생성
+        copiedMaterial = new Material(mainMaterial);
 
         Transform targetTransform = transform.Find("Piece");
         if (targetTransform != null)
@@ -109,7 +109,7 @@ public class KSH_FractureObject2 : MonoBehaviour
                 for (int i = 0; i < childMaterials.Length; i++)
                 {
                     // 공유된 mainMaterial 사용
-                    childMaterials[i] = mainMaterial;
+                    childMaterials[i] = copiedMaterial;
                 }
                 childRenderer.materials = childMaterials;
             }
@@ -135,7 +135,7 @@ public class KSH_FractureObject2 : MonoBehaviour
     private void StartFadeOut(Vector3 pos)
     {
         isFadingOut = true;
-        mainMaterial.DOFade(0, fadeDuration).OnComplete(() =>
+        copiedMaterial.DOFade(0, fadeDuration).OnComplete(() =>
         {
             // 사라진 위치에 새로운 오브젝트 생성
             PhotonNetwork.Instantiate(powderRawMaterialsName, pos, Quaternion.identity);

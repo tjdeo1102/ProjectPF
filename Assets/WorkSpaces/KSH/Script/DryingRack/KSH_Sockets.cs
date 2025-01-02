@@ -16,6 +16,11 @@ public class KSH_Sockets : MonoBehaviour
     private Material materials;
     private Color colors;
 
+    [Header("건조 색")]
+    [SerializeField] private float targetHue; // 목표 색상의 Hue 값 (0~1 범위, 30도 예시)
+    [SerializeField] private float targetSaturation; // 목표 색상의 채도 값
+    [SerializeField] private float targetValue; // 목표 색상의 밝기 값
+
     private void Awake()
     {
         xrSocket = GetComponent<XRSocketInteractor>();
@@ -67,6 +72,12 @@ public class KSH_Sockets : MonoBehaviour
 
     private void FragmentMaterial(Material material, Collider other, KSH_DryingRacks dryingRacks)
     {
+        // 현재 색상을 HSV로 변환
+        Color.RGBToHSV(material.color, out float h, out float s, out float v);
+
+        // 목표 색상을 HSV에서 RGB로 변환
+        Color targetColor = Color.HSVToRGB(targetHue, targetSaturation, targetValue);
+
         material.DOColor(colors, duration).OnComplete(() =>
         {
             other.gameObject.layer = 0;
