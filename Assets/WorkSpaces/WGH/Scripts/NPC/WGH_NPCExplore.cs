@@ -15,7 +15,7 @@ public class WGH_NPCExplore : INPCState
 
     public void Enter()
     {
-        Debug.Log("Explore 상태");
+        //Debug.Log("Explore 상태");
         randomNum = Random.Range(1, controller.ExploreDenominatorNum + 1);
         WGH_NPCCreator.Instance.isExplore = true;
     }

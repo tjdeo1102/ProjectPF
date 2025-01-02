@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3989285552268007514}
+  - component: {fileID: 7990905504755515060}
   - component: {fileID: 2191403102304419847}
   - component: {fileID: 96278042477121190}
   - component: {fileID: 5500202918643851164}
@@ -16,6 +17,7 @@ GameObject:
   - component: {fileID: 3650769079537372336}
   - component: {fileID: -7013948256280771404}
   - component: {fileID: -3839953225490163926}
+  - component: {fileID: 4488041475253283396}
   m_Layer: 0
   m_Name: TestMaterial(1)
   m_TagString: Untagged
@@ -38,6 +40,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -28.272, y: 0, z: 0}
+--- !u!114 &7990905504755515060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2917658569127641818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e290bc2e8c2e23b4e8917b2b20d77dba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!33 &2191403102304419847
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -119,7 +133,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 4488041475253283396}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -189,7 +204,19 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7990905504755515060}
+        m_TargetAssemblyTypeName: WGH_GrabObject, Assembly-CSharp
+        m_MethodName: OnGrab
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls: []
@@ -308,3 +335,19 @@ MonoBehaviour:
     Type: 0
     State: 0
     MaterialCount: 0
+--- !u!114 &4488041475253283396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2917658569127641818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
