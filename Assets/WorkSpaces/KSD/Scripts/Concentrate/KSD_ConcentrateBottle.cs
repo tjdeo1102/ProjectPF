@@ -15,19 +15,22 @@ public class KSD_ConcentrateBottle : MonoBehaviourPun
     [Range(0f, 1f), SerializeField] private float maxFillNoteThreshold;        // 노트가 최대치로 바뀌는 임계치
     [SerializeField] private float shakeTimer;                                 // 얼마나 흔들었을 때, 조합될지 타이머
     [SerializeField] private float distancePerFrame;                           // 프레임당 얼마나 거리차이가 날때 상태체크할지 결정
+    [SerializeField] private float startFillAmount;
     public float fillAmount;
 
     [Header("조합 전 재료 리스트")]
-    private List<KSD_PerfumeMaterialInfo> perfumeMaterialList;                // 조합전 재료 리스트
+    public List<KSD_PerfumeMaterialInfo> perfumeMaterialList;                // 조합전 재료 리스트
 
     [Header("조합 후 원료 정보")]
-    private KSD_PerfumeNoteInfo resInfo;
+    public KSD_PerfumeNoteInfo resInfo;
 
     [Header("참조 설정")]
     [SerializeField] private ParticleSystem particleSystemLiquid;
     [SerializeField] private ParticleSystem particleSystemSplash;
     public MeshRenderer LiquidRenderer;
 
+    private float lastShakeTime;       
+    private float deadTime = 1f;       // 흔들림 중단으로 간주할 시간
     private bool IsActiveShake;
     private Vector3 lastSpoonPosition;
 
@@ -51,14 +54,19 @@ public class KSD_ConcentrateBottle : MonoBehaviourPun
         m_MaterialPropertyBlock = new MaterialPropertyBlock();
         LiquidRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
 
-        fillAmount = 0f;
+        fillAmount = startFillAmount;
 
         m_RbPotion = GetComponent<Rigidbody>();
         m_Breakable = false;
 
-        resInfo = new KSD_PerfumeNoteInfo();
+        if (fillAmount < 0.001f) resInfo = new KSD_PerfumeNoteInfo()
+        {
+            Name = PerfumeNoteName.Null,
+            State = PerfumeNoteState.Null,
+            NoteCount = 0
+        };
+
         perfumeMaterialList = new List<KSD_PerfumeMaterialInfo>();
-        ResetBottle();
     }
 
     void Start()
@@ -102,21 +110,33 @@ public class KSD_ConcentrateBottle : MonoBehaviourPun
     {
         // 액체를 흔들고 있는 경우 상태 체크
         var pos = transform.position;
-        IsActiveShake = Vector3.Distance(lastSpoonPosition, pos) > distancePerFrame;
-        lastSpoonPosition = transform.position;
+        bool isShakingNow = Vector3.Distance(lastSpoonPosition, pos) > distancePerFrame;
 
-        if (IsActiveShake)
+        if (isShakingNow)
         {
-            if (shakeRoutine == null) shakeRoutine = StartCoroutine(ShakeRoutine());
+            lastShakeTime = Time.time; // 마지막 Shake 시간 갱신
+            IsActiveShake = true;
+
+            // 흔들림 루틴 시작
+            if (shakeRoutine == null)
+                shakeRoutine = StartCoroutine(ShakeRoutine());
         }
         else
         {
-            if (shakeRoutine != null)
+            // deadTime이 초과되는 만큼 Shake를 멈추면 루틴 해제
+            if (Time.time - lastShakeTime > deadTime)
             {
-                StopCoroutine(shakeRoutine);
-                shakeRoutine = null;
+                IsActiveShake = false;
+
+                if (shakeRoutine != null)
+                {
+                    StopCoroutine(shakeRoutine);
+                    shakeRoutine = null;
+                }
             }
         }
+
+        lastSpoonPosition = pos; // 현재 위치 저장
     }
 
     private IEnumerator ShakeRoutine()
@@ -173,7 +193,7 @@ public class KSD_ConcentrateBottle : MonoBehaviourPun
             var delta = 0.1f * Time.deltaTime;
             fillAmount -= delta;
             // 모든 액체를 버린 경우에는 정보가 초기화
-            if (fillAmount < 0)
+            if (fillAmount < 0.01f)
             {
                 fillAmount = 0;
                 ResetBottle();
@@ -187,8 +207,18 @@ public class KSD_ConcentrateBottle : MonoBehaviourPun
             {
                 if (hit.collider.TryGetComponent<KSD_ConcentrateBottle>(out var receiver))
                 {
-                    receiver.ReceiveNote(resInfo, delta);
+                    receiver.ReceiveConcentrate(resInfo, delta);
                     Debug.Log("받을 KSD_ConcentrateBottle를 찾음");
+                }
+                else if(hit.transform.CompareTag("Cauldron"))
+                {
+                    var receiver2 = hit.collider.GetComponentInParent<KSD_CauldronController>();
+                    if (receiver2 != null)
+                    {
+                        receiver2.ReceiveConcentrate(resInfo, delta);
+                        Debug.Log("받을 KSD_CauldronController를 찾음");
+                    }
+                    else Debug.Log("PotionReceiver를 찾지 못함");
                 }
                 else
                 {
@@ -237,7 +267,7 @@ public class KSD_ConcentrateBottle : MonoBehaviourPun
 
     public void ReceiveLiquidMaterial(KSD_PerfumeMaterialInfo mat, float getAmount)
     {
-        // 0. 기존에 노트가 있는 경우에는 재료 추가 안됨
+        // 0. 기존에 원료가 있는 경우에는 재료 추가 안됨
         if (resInfo.Name != PerfumeNoteName.Null) return;
         // 0-1. mat의 상태가 잘못되었으면 추가 안됨
         if (mat.State != PerfumeMaterialState.Process) return;
@@ -274,9 +304,9 @@ public class KSD_ConcentrateBottle : MonoBehaviourPun
         fillAmount = newAmount;
     }
 
-    public void ReceiveNote(KSD_PerfumeNoteInfo note, float getAmount)
+    public void ReceiveConcentrate(KSD_PerfumeNoteInfo note, float getAmount)
     {
-        // 만약, 현재 병에 이름이 다른 노트가 채워진 경우에는 리턴
+        // 만약, 현재 병에 이름이 다른 원료가 채워진 경우에는 리턴
         if (resInfo.Name != PerfumeNoteName.Null && resInfo.Name != note.Name) return;
         // 현재 병에 재료들이 채워져 있는 경우에도 리턴
         if (perfumeMaterialList.Count > 0) return;

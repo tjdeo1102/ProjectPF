@@ -31,7 +31,7 @@ public class KSD_PerfumeManager : MonoBehaviour
     public bool IsValidConcentrateRecipe(List<KSD_PerfumeMaterialInfo> materials, out KSD_PerfumeNoteInfo concentrateInfo)
     {
         // 1. 원액 제작: 비율 상관없이 서로 다른 재료 두개
-        concentrateInfo = null;
+        concentrateInfo = new KSD_PerfumeNoteInfo { Name = PerfumeNoteName.Null, NoteCount = 0, State = PerfumeNoteState.Null };
         // 가공 상태가 아닌 재료를 넣었을 경우에는 기본적으로 실패
         foreach (var mat in materials)
         {
@@ -83,7 +83,7 @@ public class KSD_PerfumeManager : MonoBehaviour
     public bool IsValidNoteRecipe(List<KSD_PerfumeNoteInfo> concentrates, out KSD_PerfumeNoteInfo noteInfo)
     {
         //2. 노트 제작: 원액 + 알코올, 비율도 고려
-        noteInfo = null;
+        noteInfo = new KSD_PerfumeNoteInfo { Name = PerfumeNoteName.Null, NoteCount = 0, State = PerfumeNoteState.Null};
         // 원액 상태가 아닌 노트를 넣었을 경우에는 기본적으로 실패
         foreach (var con in concentrates)
         {
@@ -139,7 +139,7 @@ public class KSD_PerfumeManager : MonoBehaviour
     public bool IsValidPerfumeRecipe(List<KSD_PerfumeNoteInfo> notes, out KSD_PerfumeInfo perfumeInfo)
     {
         // 3. 향수 제작: 여러개의 노트 + 제각기 다른 노트 투입 횟수 => 비율이 아님
-        perfumeInfo = null;
+        perfumeInfo = new KSD_PerfumeInfo { Name = PerfumeName.Null, PerfumeCount = 0 };
         bool isExistRecipe = false;
 
         // 노트 상태가 아닌 경우에는 기본적으로 실패
