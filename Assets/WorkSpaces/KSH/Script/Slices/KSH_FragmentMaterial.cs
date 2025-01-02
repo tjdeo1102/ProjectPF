@@ -60,7 +60,7 @@ public class KSH_FragmentMaterial : MonoBehaviour
         }
         if (SliceCount >= 3)
         {
-            photonView.RPC(nameof(FragmentMaterial), RpcTarget.All, position);
+            photonView.RPC(nameof(FragmentMaterial), RpcTarget.All, transform.position);
         }
     }
 
