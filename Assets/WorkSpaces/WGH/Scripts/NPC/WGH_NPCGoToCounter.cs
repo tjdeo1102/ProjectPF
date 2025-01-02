@@ -17,7 +17,7 @@ public class WGH_NPCGoToCounter : INPCState
 
     public void Enter() 
     {
-        Debug.Log("go counter 상태");
+        //Debug.Log("go counter 상태");
         WGH_NPCCreator.Instance.isCounter = true;
         agent.SetDestination(controller.Counter);
     }

@@ -32,7 +32,7 @@ public class WGH_NPCWait : INPCState
         {
             controller.SelectOrderUINetwork(randomNum, (int)controller.PerfumeType - 1);
         }
-        Debug.Log("Wait 상태");
+        //Debug.Log("Wait 상태");
         // 상호작용 콜라이더에 시향지가 들어와서 시향지 변수에 배정될때 그 시향지의 스크립트의 이벤트에 함수를 등록하기
         controller.InteractionArea.GetComponent<WGH_InteractArea>().OnChangedSmellStick += FindSmellStick;
     }

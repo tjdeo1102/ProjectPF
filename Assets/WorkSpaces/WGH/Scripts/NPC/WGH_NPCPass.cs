@@ -18,7 +18,7 @@ public class WGH_NPCPass : INPCState
     public void Enter()
     {
         randNum = Random.Range(1, controller.PassDenominatorNum + 1);
-        Debug.Log("pass 상태");
+        //Debug.Log("pass 상태");
         
         if((WGH_NPCCreator.Instance.isExplore == false || WGH_NPCCreator.Instance.isCounter == false) && randNum <= controller.PassNumeratorNum)
         {

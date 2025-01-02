@@ -16,7 +16,7 @@ public class WGH_NPCCenter : INPCState
 
     public void Enter()
     {
-        Debug.Log("Center 상태");
+        //Debug.Log("Center 상태");
         WGH_NPCCreator.Instance.isCounter = true;
         agent.SetDestination(controller.StoreCenter);
     }
