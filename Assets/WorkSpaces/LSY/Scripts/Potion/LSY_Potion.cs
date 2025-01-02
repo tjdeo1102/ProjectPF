@@ -82,8 +82,8 @@
 //                Debug.Log("두 개의 PotionReceiver를 찾음");
 
 //                LSY_PotionReceiver receiver = receivers[0];
-//                receiver.ReceivePotion(potionColor, linePotionColor);
-                
+//                //receiver.ReceivePotion(potionColor, linePotionColor);
+
 //            }
 //            else
 //            {
