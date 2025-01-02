@@ -9,24 +9,21 @@ public class PTK_Fruit : MonoBehaviourPun
 
     private void Awake()
     {
-        if(photonView.InstantiationData != null)
-        {
-            fruitInfo.Name = (PerfumeMaterialName)(byte)photonView.InstantiationData[0];
-            fruitInfo.Type = (PerfumeMaterialType)(byte)photonView.InstantiationData[1];
-            fruitInfo.State = (PerfumeMaterialState)(byte)photonView.InstantiationData[2];
-        }
-    }
-
-    private void Start()
-    {
         if (fruitInfo == null)
         {
             fruitInfo = new KSD_PerfumeMaterialInfo
             {
-                Name = PerfumeMaterialName.Cherry,
-                Type = PerfumeMaterialType.Small,
+                Name = PerfumeMaterialName.Null,
+                Type = PerfumeMaterialType.Null,
                 State = PerfumeMaterialState.Raw
             };
+        }
+
+        if (photonView.InstantiationData != null)
+        {
+            fruitInfo.Name = (PerfumeMaterialName)(byte)photonView.InstantiationData[0];
+            fruitInfo.Type = (PerfumeMaterialType)(byte)photonView.InstantiationData[1];
+            fruitInfo.State = (PerfumeMaterialState)(byte)photonView.InstantiationData[2];
         }
     }
 
