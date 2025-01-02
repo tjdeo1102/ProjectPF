@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public enum PerfumeName
 {
-    Apricot, Aqua, Blue, Green, LightNavy, Pink, Purple, Red, Yellow, Null
+    Null, Apricot, Aqua, Blue, Green, LightNavy, Pink, Purple, Red, Yellow
 }
 
 [Serializable]
@@ -14,10 +14,6 @@ public class KSD_PerfumeInfo
 {
     [Header("기본 설정")]
     public PerfumeName Name;
-
-    [Header("현재 상태")]
-    public int PerfumeCount = 0;
-    public bool isPrivate = false; // 레시피 공개 여부
 
     public Color GetColorByName(PerfumeName name)
     {

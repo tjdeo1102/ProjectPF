@@ -15,6 +15,7 @@ public class LSY_BucketInfo
 public class LSY_DispensorInfo
 {
     public PerfumeNoteName noteName;
+    public PerfumeNoteState state;
     public Color liquidColor;
     public Color liquidLineColor;
 }

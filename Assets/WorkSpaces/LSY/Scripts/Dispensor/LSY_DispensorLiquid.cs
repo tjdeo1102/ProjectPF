@@ -1,10 +1,8 @@
-using UnityEngine.XR.Interaction.Toolkit;
-using UnityEngine;
-using System.Collections;
 using Photon.Pun;
-using Unity.VisualScripting;
+using System.Collections;
+using UnityEngine;
 
-public class LSY_DispensorLiquid : MonoBehaviourPun
+public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
 {
     [Header("디스펜서 핸들 애니매이터")]
     [SerializeField] Animator animator;
@@ -34,9 +32,10 @@ public class LSY_DispensorLiquid : MonoBehaviourPun
     MaterialPropertyBlock m_MaterialPropertyBlock;
 
     private bool isOnCooldown = false;
-    private float cooldownTime = 2f;  
+    private float cooldownTime = 2f;
     private float cooldownTimer = 0f;
 
+    bool liquidOn = false;
     void Start()
     {
         particleSystemLiquid.Stop();
@@ -57,12 +56,15 @@ public class LSY_DispensorLiquid : MonoBehaviourPun
     {
         if (!isOnCooldown)
         {
-            PouringLiquid();
+            photonView.RPC("PouringLiquid", RpcTarget.All);
         }
     }
 
+    [PunRPC]
     public void PouringLiquid()
     {
+        if (!photonView.IsMine) return;
+
         if (pouringliquidRoutine == null)
         {
             if (fillAmount < 0.1f)
@@ -73,17 +75,19 @@ public class LSY_DispensorLiquid : MonoBehaviourPun
 
             if (isOnCooldown)
             {
-                Debug.Log("쿨다운 중입니다. 2초 후에 다시 시도해주세요.");
+                Debug.Log("2초 후에 다시 시도해주세요.");
                 return;
             }
 
             animator.SetTrigger("HandleOn");
-            pouringliquidRoutine = StartCoroutine(PouringliquidRoutine());
+            if (liquidOn == false)
+                pouringliquidRoutine = StartCoroutine(PouringliquidRoutine());
 
-            StartCooldown();
+            photonView.RPC("StartCooldown", RpcTarget.All);
         }
     }
 
+    [PunRPC]
     void StartCooldown()
     {
         isOnCooldown = true;
@@ -99,6 +103,7 @@ public class LSY_DispensorLiquid : MonoBehaviourPun
             if (cooldownTimer <= 0)
             {
                 isOnCooldown = false;
+                liquidOn = false;
 
             }
         }
@@ -107,19 +112,31 @@ public class LSY_DispensorLiquid : MonoBehaviourPun
         {
             photonView.RPC("OnSelectEnter", RpcTarget.AllViaServer);
         }
+
+        m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
+        MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
     }
+
+    public void OnSelectedEnter()
+    {
+        photonView.RPC("OnSelectEnter", RpcTarget.AllViaServer);
+    }
+
 
     IEnumerator PouringliquidRoutine()
     {
-        float startTime = Time.time;
+        liquidOn = true;
+
+        double startTime = PhotonNetwork.Time;
 
         float totalAmountToPour = totalPourAmount;
 
-        while (fillAmount > 0f && (Time.time - startTime) < totalPourTime)
+        while (fillAmount > 0f && (PhotonNetwork.Time - startTime) < totalPourTime)
         {
             if (particleSystemLiquid.isStopped)
             {
                 particleSystemLiquid.Play();
+                photonView.RPC("PlayParticle", RpcTarget.Others);
             }
 
             float amountToPourThisFrame = pourAmountPerSecond * Time.deltaTime;
@@ -131,6 +148,7 @@ public class LSY_DispensorLiquid : MonoBehaviourPun
             MeshRenderer.GetPropertyBlock(m_MaterialPropertyBlock);
             m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
             MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
+
 
             RaycastHit[] hits = Physics.RaycastAll(particleSystemLiquid.transform.position, Vector3.down, 50.0f, ~0, QueryTriggerInteraction.Collide);
 
@@ -172,22 +190,54 @@ public class LSY_DispensorLiquid : MonoBehaviourPun
         m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
         MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
 
-        if (fillAmount <= 0f || (Time.time - startTime) >= totalPourTime)
-        {
-            particleSystemLiquid.Stop();
-        }
+        particleSystemLiquid.Stop();
+        photonView.RPC("StopParticle", RpcTarget.Others);
 
         animator.SetTrigger("HandleOff");
         animator.SetTrigger("HandleIdle");
         pouringliquidRoutine = null;
     }
 
+    [PunRPC]
+    public void StopParticle()
+    {
+        particleSystemLiquid.Stop();
+    }
+
+    [PunRPC]
+    public void PlayParticle()
+    {
+        particleSystemLiquid.Play();
+    }
+
     Coroutine potionReceiverRoutine;
     IEnumerator PotionReceiverRoutine(LSY_PotionReceiver potionReceiver)
     {
-        potionReceiver.ReceivePotion(liquidColor, liquidLineColor, dispensorInfo.noteName);
-        yield return new WaitForSeconds(0.1f);
+
+        float[] potionColorArray = new float[] { liquidColor.r, liquidColor.g, liquidColor.b, liquidColor.a };
+        float[] linePotionColorArray = new float[] { liquidLineColor.r, liquidLineColor.g, liquidLineColor.b, liquidLineColor.a };
+
+        for (int i = 0; i < 10; i++)
+        {
+            potionReceiver.photonView.RPC("ReceivePotion", RpcTarget.All, potionColorArray, linePotionColorArray, dispensorInfo.noteName, dispensorInfo.state);
+            yield return new WaitForSeconds(0.1f);
+        }
+        //yield return new WaitForSeconds(1);
         potionReceiverRoutine = null;
+    }
+
+    [PunRPC]
+    public void FillAmountUpdate()
+    {
+        float amountToPourThisFrame = pourAmountPerSecond * Time.deltaTime;
+
+        fillAmount -= amountToPourThisFrame;
+
+        fillAmount = Mathf.Max(fillAmount, 0f);
+
+        MeshRenderer.GetPropertyBlock(m_MaterialPropertyBlock);
+        m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
+        MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
     }
 
     [PunRPC]
@@ -212,12 +262,11 @@ public class LSY_DispensorLiquid : MonoBehaviourPun
         if (stream.IsWriting)
         {
             stream.SendNext(fillAmount);
-            stream.SendNext(dispensorInfo);
         }
         else
         {
             fillAmount = (float)stream.ReceiveNext();
-            dispensorInfo = (LSY_DispensorInfo)stream.ReceiveNext();
         }
     }
+
 }
