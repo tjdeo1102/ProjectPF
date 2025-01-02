@@ -5,7 +5,10 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class KSH_Sockets : MonoBehaviour
 {
     [Header("건조 시간")]
-    [SerializeField] private float duration;
+    [SerializeField] private int duration;
+
+    [Header("건조 색")]
+    [SerializeField] private float targetValue; // 목표 색상의 밝기 값
 
     private KSH_Tongs tongs;
 
@@ -13,27 +16,22 @@ public class KSH_Sockets : MonoBehaviour
     private XRSocketInteractor xrSocket;
     // 건조된 물체인지 확인용
     private KSH_DryingRacks dryingRacks;
-    private Material materials;
-    private Color colors;
 
-    [Header("건조 색")]
-    [SerializeField] private float targetHue; // 목표 색상의 Hue 값 (0~1 범위, 30도 예시)
-    [SerializeField] private float targetSaturation; // 목표 색상의 채도 값
-    [SerializeField] private float targetValue; // 목표 색상의 밝기 값
 
     private void Awake()
     {
         xrSocket = GetComponent<XRSocketInteractor>();
-        colors = new Color(160 / 255f, 105 / 255f, 55 / 255f);
     }
 
     private void Start()
     {
         // 초기 값 설정
         duration = KSH_DryingRackManager.Instance.Times;
+        targetValue = KSH_DryingRackManager.Instance.TargetValue;
 
         // 값 변경 이벤트 구독
         KSH_DryingRackManager.Instance.OnTimesChanged += UpdateDuration;
+        KSH_DryingRackManager.Instance.OnTargetValueChanged += UpdateTargetValue;
     }
 
     private void OnDestroy()
@@ -42,6 +40,7 @@ public class KSH_Sockets : MonoBehaviour
         if (KSH_DryingRackManager.Instance != null)
         {
             KSH_DryingRackManager.Instance.OnTimesChanged -= UpdateDuration;
+            KSH_DryingRackManager.Instance.OnTargetValueChanged -= UpdateTargetValue;
         }
     }
 
@@ -50,38 +49,57 @@ public class KSH_Sockets : MonoBehaviour
         duration = newTimes;
     }
 
+    private void UpdateTargetValue(float newTargetValue)
+    {
+        targetValue = newTargetValue;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         // 빈 소켓인지 확인
         if (xrSocket.hasSelection)
         {
             dryingRacks = other.GetComponent<KSH_DryingRacks>();
+            if (dryingRacks == null)
+            {
+                Debug.Log($"dryingRacks가 없는 오브젝트: {other.gameObject.name}");
+                return;
+            }
             if (dryingRacks.Iscolor == false)
             {
-                materials = other.GetComponent<Renderer>().material;
-                other.gameObject.layer = 4;
-                FragmentMaterial(materials, other, dryingRacks);
+                other.gameObject.layer = 9;
+                FragmentMaterial(other.gameObject, dryingRacks);
             }
         }
-
-        //if (other.gameObject.CompareTag("Ingredient"))
-        //{
-
-        //}
     }
 
-    private void FragmentMaterial(Material material, Collider other, KSH_DryingRacks dryingRacks)
+    private void FragmentMaterial(GameObject other, KSH_DryingRacks dryingRacks)
     {
-        // 현재 색상을 HSV로 변환
-        Color.RGBToHSV(material.color, out float h, out float s, out float v);
+        // 부모 오브젝트의 모든 자식 순회
+        Renderer[] childRenderers = other.GetComponentsInChildren<Renderer>();
 
-        // 목표 색상을 HSV에서 RGB로 변환
-        Color targetColor = Color.HSVToRGB(targetHue, targetSaturation, targetValue);
+        foreach (Renderer renderer in childRenderers)
+        {
+            // 자식 오브젝트의 메터리얼 복사본 생성
+            Material childMaterial = new Material(renderer.material);
+            renderer.material = childMaterial;
 
-        material.DOColor(colors, duration).OnComplete(() =>
+            // 현재 색상을 HSV로 변환
+            Color.RGBToHSV(childMaterial.color, out float h, out float s, out float v);
+
+            // 목표 밝기 값(V) 설정
+            float targetV = targetValue;
+            Debug.Log(targetV);
+
+            // HSV를 RGB로 변환하여 새로운 색상 생성
+            Color updatedColor = Color.HSVToRGB(h, s, targetV);
+
+            childMaterial.DOColor(updatedColor, duration).OnComplete(() =>
         {
             other.gameObject.layer = 0;
             dryingRacks.Iscolor = true;
+            dryingRacks.Isdry = true;
         });
+        }
     }
 }

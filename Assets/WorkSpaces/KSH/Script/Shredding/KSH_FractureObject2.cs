@@ -23,6 +23,9 @@ public class KSH_FractureObject2 : MonoBehaviour
     // 메인 오브젝트의 MeshRenderer
     [SerializeField] private MeshRenderer[] meshRenderer;
 
+    // 건조 확인
+    [SerializeField] private KSH_DryingRacks dryingRacks;
+
     // 자식 오브젝트들의 MeshRenderer 배열
     [SerializeField] private MeshRenderer[] meshRenderers;
 
@@ -64,6 +67,8 @@ public class KSH_FractureObject2 : MonoBehaviour
         // 메인 오브젝트의 MeshRenderer를 가져옵니다.
         meshRenderer = GetComponentsInChildren<MeshRenderer>();
 
+        dryingRacks = GetComponent<KSH_DryingRacks>();
+
         // mainMaterial의 복사본 생성
         copiedMaterial = new Material(mainMaterial);
 
@@ -84,6 +89,8 @@ public class KSH_FractureObject2 : MonoBehaviour
 
         // 쿨타임 검사: 쿨타임이 지나지 않으면 충돌을 실행하지 않음
         if (Time.time - lastSliceTime < sliceCooldown) return;
+
+        if (!dryingRacks.Isdry) return;
 
         collisionCount++; // 충돌 횟수 증가
         lastSliceTime = Time.time;
