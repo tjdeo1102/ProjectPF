@@ -8,6 +8,6 @@ using static Photon.Voice.OpusCodec;
 
 public class KSH_DryingRacks : MonoBehaviour
 {
-    [SerializeField] 
-    public bool Iscolor = false;
+    [SerializeField] public bool Iscolor = false;
+    [SerializeField] public bool Isdry = false;
 }

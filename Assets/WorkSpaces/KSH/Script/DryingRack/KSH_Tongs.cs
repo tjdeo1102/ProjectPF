@@ -4,7 +4,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class KSH_Tongs : XRGrabInteractable
 {
-    private List<Collider> overlappingObjects = new List<Collider>();
+    [SerializeField] public List<XRGrabInteractable> OverlappingObjects = new List<XRGrabInteractable>();
     [SerializeField] private Transform gripPoint; // 집게 오브젝트가 잡을 중심점
 
     private Collider iscollider;
@@ -44,28 +44,30 @@ public class KSH_Tongs : XRGrabInteractable
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("TestBat"))
+        XRGrabInteractable xrGrab = other.GetComponent<XRGrabInteractable>();
+        if (other.gameObject.CompareTag("Ingredient"))
         {
-            if (!overlappingObjects.Contains(other))
+            if (!OverlappingObjects.Contains(xrGrab))
             {
-                overlappingObjects.Add(other);
-                Debug.Log($"추가된 오브젝트: {other.name}");
+                OverlappingObjects.Add(xrGrab);
+                Debug.Log($"추가된 오브젝트: {xrGrab.name}");
             }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (overlappingObjects.Contains(other))
+        XRGrabInteractable xrGrab = other.GetComponent<XRGrabInteractable>();
+        if (OverlappingObjects.Contains(xrGrab))
         {
-            overlappingObjects.Remove(other);
-            Debug.Log($"제거된 오브젝트: {other.name}");
+            OverlappingObjects.Remove(xrGrab);
+            Debug.Log($"제거된 오브젝트: {xrGrab.name}");
         }
     }
 
     private void GrabObjects()
     {
-        foreach (var obj in overlappingObjects)
+        foreach (var obj in OverlappingObjects)
         {
             Debug.Log($"잡은 오브젝트: {obj.name}");
             obj.transform.position = gripPoint.position;
@@ -78,7 +80,14 @@ public class KSH_Tongs : XRGrabInteractable
 
     private void ReleaseObjects()
     {
-        foreach (var obj in overlappingObjects)
+        // 소켓 할당 처리
+        KSH_SocketSorting socketSorting = FindObjectOfType<KSH_SocketSorting>();
+        if (socketSorting != null && socketSorting.IsSockets)
+        {
+            socketSorting.HandleReleasedObjects(OverlappingObjects);
+        }
+
+        foreach (var obj in OverlappingObjects)
         {
             Debug.Log($"해제된 오브젝트: {obj.name}");
             obj.transform.parent = null;
@@ -86,7 +95,7 @@ public class KSH_Tongs : XRGrabInteractable
             obj.GetComponent<Rigidbody>().isKinematic = false; // 물리 활성화
         }
 
-        overlappingObjects.Clear();
+        OverlappingObjects.Clear();
         iscollider.enabled = false;
     }
 }

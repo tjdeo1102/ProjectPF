@@ -7,31 +7,66 @@ public class KSH_SocketSorting: MonoBehaviour
     // 모든 자식들의 소켓 목록
     [SerializeField] private XRSocketInteractor[] sockets;
 
+    public bool IsSockets;
+
+    private void Start()
+    {
+        IsSockets = false;
+    }
+
     private void Awake()
     {
         // 모든 자식 소켓들을 한 번만 가져와 저장합니다.
         sockets = GetComponentsInChildren<XRSocketInteractor>(true);
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void HandleReleasedObjects(List<XRGrabInteractable> releasedObjects)
     {
-        // 트리거에 감지된 오브젝트가 XRGrabInteractable인지 확인
-        XRGrabInteractable interactable = other.GetComponent<XRGrabInteractable>();
-        if (interactable == null) return; // XRGrabInteractable이 아닌 경우 무시
-
-        // 빈 소켓을 가져옴
         Queue<XRSocketInteractor> emptySockets = GetEmptySockets();
 
-        // 빈 소켓이 없으면 처리 중단
-        if (emptySockets.Count == 0)
+        foreach (var obj in releasedObjects)
         {
-            Debug.Log("빈 소켓이 없습니다.");
-            return;
-        }
+            // 빈 소켓이 없으면 종료
+            if (emptySockets.Count == 0)
+            {
+                Debug.LogWarning($"빈 소켓이 부족하여 {obj.name}이 할당되지 않았습니다.");
+                break;
+            }
 
-        // 빈 소켓에 오브젝트를 할당
-        XRSocketInteractor socket = emptySockets.Dequeue();
-        AssignInteractableToSocket(socket, interactable);
+            // 빈 소켓에 오브젝트 할당
+            XRSocketInteractor socket = emptySockets.Dequeue();
+            AssignInteractableToSocket(socket, obj);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        IsSockets = true;
+        //KSH_Tongs tongs = other.GetComponent<KSH_Tongs>();
+        //if (tongs == null) return;
+
+        //// 트리거에 감지된 오브젝트가 XRGrabInteractable인지 확인
+        //XRGrabInteractable interactable = other.GetComponent<XRGrabInteractable>();
+        //if (interactable == null) return; // XRGrabInteractable이 아닌 경우 무시
+
+        //// 빈 소켓을 가져옴
+        //Queue<XRSocketInteractor> emptySockets = GetEmptySockets();
+
+        //// 빈 소켓이 없으면 처리 중단
+        //if (emptySockets.Count == 0)
+        //{
+        //    Debug.Log("빈 소켓이 없습니다.");
+        //    return;
+        //}
+
+        //// 빈 소켓에 오브젝트를 할당
+        //XRSocketInteractor socket = emptySockets.Dequeue();
+        //AssignInteractableToSocket(socket, interactable);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        IsSockets = false;
     }
 
     // 비어 있는 소켓을 Queue로 반환하는 메서드
