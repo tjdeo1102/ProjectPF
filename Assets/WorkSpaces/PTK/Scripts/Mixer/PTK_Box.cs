@@ -10,8 +10,8 @@ public class PTK_Box : MonoBehaviourPun
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private Transform returnSpawnPoint;
 
-    [Header("스폰 오브젝트 설정")]
-    [SerializeField] private string spawnObjectPath;
+    [Header("믹서 완료 이벤트")]
+    public UnityAction<KSD_PerfumeMaterialInfo> OnMixDone;
 
     private PTK_Fruit currentFruit;
     private bool isReadyForMix = false;
@@ -59,7 +59,7 @@ public class PTK_Box : MonoBehaviourPun
     }
 
 
-    public void OnMixDone()
+    public void MixDone()
     {
         if (isReadyForMix && currentFruit != null)
         {
@@ -69,7 +69,7 @@ public class PTK_Box : MonoBehaviourPun
             {
                 PhotonNetwork.Destroy(currentFruit.gameObject);
 
-                photonView.RPC("RPC_SpawnProcessedFruit", RpcTarget.MasterClient,
+                photonView.RPC("RPC_MixDone", RpcTarget.MasterClient,
                 (byte)currentFruit.fruitInfo.Name,
                 (byte)currentFruit.fruitInfo.Type,
                 (byte)currentFruit.fruitInfo.State);
@@ -84,27 +84,37 @@ public class PTK_Box : MonoBehaviourPun
     }
 
     [PunRPC]
-    private void RPC_SpawnProcessedFruit(byte name, byte type, byte state)
+    private void RPC_MixDone(byte name, byte type, byte state)
     {
-        Vector3 spawnPosition = spawnPoint.position;
-        Quaternion spawnRotation = Quaternion.identity;
-
-        GameObject newFruit = PhotonNetwork.Instantiate(spawnObjectPath, spawnPosition, spawnRotation, data: new object[] {name, type, state});
-
-        PTK_Fruit fruitComponent = newFruit.GetComponent<PTK_Fruit>();
-
-        if (fruitComponent != null)
-        {
-            fruitComponent.fruitInfo = new KSD_PerfumeMaterialInfo
-            {
-                Name = (PerfumeMaterialName)name,
-                Type = (PerfumeMaterialType)type,
-                State = (PerfumeMaterialState)state
-            };
-
-            Debug.Log("Fruit spawned");
-        }
+        KSD_PerfumeMaterialInfo info = new KSD_PerfumeMaterialInfo();
+        info.Name = (PerfumeMaterialName)name;
+        info.Type = (PerfumeMaterialType)type;
+        info.State = (PerfumeMaterialState)state;
+        OnMixDone?.Invoke(info);
     }
+
+    //[PunRPC]
+    //private void RPC_SpawnProcessedFruit(byte name, byte type, byte state)
+    //{
+    //    Vector3 spawnPosition = spawnPoint.position;
+    //    Quaternion spawnRotation = Quaternion.identity;
+
+    //    GameObject newFruit = PhotonNetwork.Instantiate(spawnObjectPath, spawnPosition, spawnRotation, data: new object[] {name, type, state});
+
+    //    PTK_Fruit fruitComponent = newFruit.GetComponent<PTK_Fruit>();
+
+    //    if (fruitComponent != null)
+    //    {
+    //        fruitComponent.fruitInfo = new KSD_PerfumeMaterialInfo
+    //        {
+    //            Name = (PerfumeMaterialName)name,
+    //            Type = (PerfumeMaterialType)type,
+    //            State = (PerfumeMaterialState)state
+    //        };
+
+    //        Debug.Log("Fruit spawned");
+    //    }
+    //}
 
     private void ReturnObject(Transform obj)
     {
