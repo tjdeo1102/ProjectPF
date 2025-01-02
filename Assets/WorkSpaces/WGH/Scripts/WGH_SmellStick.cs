@@ -80,7 +80,7 @@ public class WGH_SmellStick : MonoBehaviourPun
             {
                 React();
                 curTime = 0f;
-                aura[(int)NoteType - 1].gameObject.SetActive(false);
+                OffEffect();
                 isAbsorbed = false;
                 yield break;
             }
@@ -117,16 +117,24 @@ public class WGH_SmellStick : MonoBehaviourPun
     /// </summary>
     public void OnEffect()
     {
-        NoteType = contactNote.NoteType;
-        aura[(int)NoteType - 1].gameObject.SetActive(true);
-        isAbsorbed = true;
+        photonView.RPC("EffectRPC", RpcTarget.AllViaServer, true);
     }
     /// <summary>
     /// 시향노트에 끼워졌을 때 이펙트 Off
     /// </summary>
     public void OffEffect()
     {
-        aura[(int)NoteType - 1].gameObject.SetActive(false);
-        isAbsorbed = false;
+        photonView.RPC("EffectRPC", RpcTarget.AllViaServer, false);
+    }
+
+    [PunRPC]
+    private void EffectRPC(bool enable)
+    {
+        if(enable == true)
+        {
+            NoteType = contactNote.NoteType;
+        }
+        aura[(int)NoteType - 1].gameObject.SetActive(enable);
+        isAbsorbed = enable;
     }
 }
