@@ -50,7 +50,7 @@ public class WGH_Perfume : MonoBehaviour
     public E_WGH_NoteType QuestionMaterial;             // 의문 재료
     public E_WGH_NoteType QuestionMaterial2;            // 의문 재료2
 
-    private void Start()
+    private void OnEnable()
     {
         SelectPerfumeType();
     }
