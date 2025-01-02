@@ -54,7 +54,7 @@ public class KSD_ConcentrateBottle : MonoBehaviourPun
         fillAmount = 0f;
 
         m_RbPotion = GetComponent<Rigidbody>();
-        m_Breakable = true;
+        m_Breakable = false;
 
         resInfo = new KSD_PerfumeNoteInfo();
         perfumeMaterialList = new List<KSD_PerfumeMaterialInfo>();
@@ -206,12 +206,12 @@ public class KSD_ConcentrateBottle : MonoBehaviourPun
         if (collision.transform.CompareTag("Powder"))
         {
             // 추후, 가루 오브젝트의 컴포넌트에 따라 변동 가능
-            if (collision.transform.TryGetComponent<KSD_PerfumeMaterialInfo>(out var res))
+            if (collision.transform.TryGetComponent<KSD_MaterialObject>(out var res))
             {
                 // 가루화된 약초인 경우에만 동작
-                if (res.Type == PerfumeMaterialType.Hub && res.State == PerfumeMaterialState.Process)
+                if (res.data.Type == PerfumeMaterialType.Hub && res.data.State == PerfumeMaterialState.Process)
                 {
-                    ReceiveLiquidMaterial(res, 1f);
+                    ReceiveLiquidMaterial(res.data, 1f);
                 }
             }
         }
