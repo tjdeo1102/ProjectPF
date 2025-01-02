@@ -1,8 +1,10 @@
 using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.XR.Content.Interaction;
 
 public class LSY_Bucket : MonoBehaviourPun
 {
@@ -20,7 +22,7 @@ public class LSY_Bucket : MonoBehaviourPun
     public GameObject fillGameObject;
 
     [Header("현재 양동이가 가진 PerfumeNote")]
-    public PerfumeNoteName currentPerfumeNote;
+    public KSD_PerfumeNoteInfo currentPerfumeNote;
 
     [Header("양동이 액체 종류")]
     public List<LSY_BucketInfo> bucketInfos = new ();
@@ -53,7 +55,7 @@ public class LSY_Bucket : MonoBehaviourPun
     void Update()
     {
         // 양동이가 기울어져 있고 & 액체가 들어있어야 하고 & 현재 노트가 Null이 아니여야 함
-        if (Vector3.Dot(transform.up, Vector3.down) > 0 && fillAmount > 0 && currentPerfumeNote != PerfumeNoteName.Null)
+        if (Vector3.Dot(transform.up, Vector3.down) > 0 && fillAmount > 0 && currentPerfumeNote.Name != PerfumeNoteName.Null)
         {
             if (particleSystemLiquid.isStopped)
             {
@@ -78,7 +80,7 @@ public class LSY_Bucket : MonoBehaviourPun
                     receiverCount++;
 
                     // 디스펜서의 노트와 양동이의 노트가 같지 않다면 디스펜서는 액체를 받을 수 없음
-                    if (receiver.dispensorInfo.noteName != currentPerfumeNote)
+                    if (receiver.dispensorInfo.noteName != currentPerfumeNote.Name)
                     {
                         m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
                         MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
@@ -114,34 +116,45 @@ public class LSY_Bucket : MonoBehaviourPun
     {
         if (collision.gameObject.CompareTag("Cauldron") && !isFilling)
         {
-            if (collision.gameObject.GetComponent<KSD_CauldronController>() == null ) return;
+            var cauldronController = collision.gameObject.GetComponent<KSD_CauldronController>();
+            if (cauldronController == null) return;
 
-            if (collision.gameObject.GetComponent<KSD_CauldronController>().ResultNoteInfo.Name == PerfumeNoteName.Null) return;
-            
-            currentPerfumeNote = collision.gameObject.GetComponent<KSD_CauldronController>().ResultNoteInfo.Name;
+            if (cauldronController.ResultNoteInfo.Name == PerfumeNoteName.Null) return;
 
-            // 가마솥의 노트에 따라 양동이의 액체 색상과 파티클 색상을 바꿔줌
-            foreach (var noteName in bucketInfos)
-            {
-                if (currentPerfumeNote == noteName.noteName)
-                {
-                    particleSystemLiquid = noteName.bucketParticle;
-                    m_MaterialPropertyBlock.SetColor("Color_E3091B1A", noteName.liquidColor);
-                    m_MaterialPropertyBlock.SetColor("Color_FDA61C50", noteName.liquidColor);
-                    MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
-                }
-            }
+            string cauldronName = collision.gameObject.name;  
+            string resultNoteName = cauldronController.ResultNoteInfo.Name.ToString();  
 
-            fillGameObject.gameObject.SetActive(true);
-
-            if (fillBucketRoutine == null)
-            {
-                // 양동이를 채워주는 코루틴 시작
-                fillBucketRoutine = StartCoroutine(FillBucket());
-            }
-
+            photonView.RPC("ChangeColor", RpcTarget.All, cauldronName, resultNoteName);
         }
     }
+
+
+    [PunRPC]
+    public void ChangeColor(string cauldronName, string resultNoteName)
+    {
+        currentPerfumeNote.Name = (PerfumeNoteName)Enum.Parse(typeof(PerfumeNoteName), resultNoteName);
+        currentPerfumeNote.State = PerfumeNoteState.Note;
+
+        foreach (var noteName in bucketInfos)
+        {
+            if (currentPerfumeNote.Name == noteName.noteName)
+            {
+                particleSystemLiquid = noteName.bucketParticle;
+                m_MaterialPropertyBlock.SetColor("Color_E3091B1A", noteName.liquidColor);
+                m_MaterialPropertyBlock.SetColor("Color_FDA61C50", noteName.liquidColor);
+                MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
+            }
+        }
+
+        fillGameObject.gameObject.SetActive(true);
+
+        // 양동이를 채우는 코루틴 시작
+        if (fillBucketRoutine == null)
+        {
+            fillBucketRoutine = StartCoroutine(FillBucket());
+        }
+    }
+
 
     private void OnCollisionExit(Collision collision)
     {
@@ -186,11 +199,19 @@ public class LSY_Bucket : MonoBehaviourPun
         {
             stream.SendNext(fillAmount);
             stream.SendNext(currentPerfumeNote);
+            stream.SendNext(MeshRenderer);
         }
         else
         {
             fillAmount = (float)stream.ReceiveNext();
-            currentPerfumeNote = (PerfumeNoteName)stream.ReceiveNext();
+            currentPerfumeNote.Name = (PerfumeNoteName)stream.ReceiveNext();
+            MeshRenderer = (MeshRenderer)stream.ReceiveNext();
         }
+
+        m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
+        m_MaterialPropertyBlock.SetColor("Color_E3091B1A", potionColor);
+        m_MaterialPropertyBlock.SetColor("Color_FDA61C50", linePotionColor);
+
+        MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
     }
 }
