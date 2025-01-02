@@ -6,6 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.InputSystem.XR;
 
+
 public class PTK_Player : MonoBehaviourPun
 {
     [SerializeField] Camera camera;
@@ -16,6 +17,12 @@ public class PTK_Player : MonoBehaviourPun
     [SerializeField] ActionBasedController rightController;
     [SerializeField] ActionBasedControllerManager leftControllerManager;
     [SerializeField] ActionBasedControllerManager rightControllerManager;
+
+    [SerializeField] private Animator animator;
+
+    private Vector3 previousPosition;
+
+    private float movementSpeed;
 
     private void Awake()
     {
@@ -29,5 +36,42 @@ public class PTK_Player : MonoBehaviourPun
             leftControllerManager.enabled = false;
             rightControllerManager.enabled = false;
         }
+    }
+
+
+    private void Start()
+    {
+        previousPosition = transform.position;
+    }
+
+    private void Update()
+    {
+        if (photonView.IsMine)
+        {
+            UpdateMovementSpeed();
+            UpdateAnimator();
+        }
+    }
+
+    private void UpdateMovementSpeed()
+    {
+        Vector3 currentPosition = transform.position;
+        Vector3 deltaPosition = currentPosition - previousPosition;
+
+        movementSpeed = deltaPosition.magnitude / Time.deltaTime;
+
+        previousPosition = currentPosition;
+    }
+
+    private void UpdateAnimator()
+    {
+        animator.SetFloat("Speed", movementSpeed);
+        photonView.RPC("SyncAnimatorSpeed", RpcTarget.Others, movementSpeed);
+    }
+
+    [PunRPC]
+    private void SyncAnimatorSpeed(float speed)
+    {
+        animator.SetFloat("Speed", speed);
     }
 }

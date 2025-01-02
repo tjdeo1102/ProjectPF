@@ -58,6 +58,15 @@ public class PTK_Box : MonoBehaviourPun
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (currentFruit != null && other.transform == currentFruit.transform)
+        {
+            Debug.Log("Fruit exited");
+            currentFruit = null;
+            isReadyForMix = false;
+        }
+    }
 
     public void MixDone()
     {
@@ -69,7 +78,7 @@ public class PTK_Box : MonoBehaviourPun
             {
                 PhotonNetwork.Destroy(currentFruit.gameObject);
 
-                photonView.RPC("RPC_MixDone", RpcTarget.MasterClient,
+                photonView.RPC("RPC_MixDone", RpcTarget.All,
                 (byte)currentFruit.fruitInfo.Name,
                 (byte)currentFruit.fruitInfo.Type,
                 (byte)currentFruit.fruitInfo.State);
