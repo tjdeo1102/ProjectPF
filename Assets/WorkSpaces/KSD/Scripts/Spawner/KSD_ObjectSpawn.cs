@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class KSD_EraseSpawn : MonoBehaviour
+public class KSD_ObjectSpawn : MonoBehaviour
 {
     [SerializeField] private float spawnDistanceX;
     [SerializeField] private float spawnDistanceZ;
     [SerializeField] private float checkInterval = 1f;
     [SerializeField] private LayerMask spawnLayerMask;          // 해당 레이어만 체크
     [SerializeField] private string objectPath = "";
+    [SerializeField] private string tagName = "";
 
     private void Start()
     {
@@ -30,10 +31,9 @@ public class KSD_EraseSpawn : MonoBehaviour
 
             // 설정된 레이어만 충돌 검사
             Collider[] colliders = Physics.OverlapBox(transform.position, colliderSize / 2, Quaternion.identity, spawnLayerMask);
-            HashSet<PerfumeMaterialName> detectedFruits = new HashSet<PerfumeMaterialName>();
 
             // 콜라이더 내 숯 확인
-            if (colliders.Any(a => a.transform.CompareTag("Erase")) == false)
+            if (colliders.Any(a => a.transform.CompareTag(tagName)) == false)
             {
                 // 랜덤 위치 계산
                 Vector3 randomPosition = new Vector3(
