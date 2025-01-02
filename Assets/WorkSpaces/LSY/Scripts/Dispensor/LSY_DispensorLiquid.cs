@@ -2,7 +2,7 @@ using Photon.Pun;
 using System.Collections;
 using UnityEngine;
 
-public class LSY_DispensorLiquid : MonoBehaviourPun
+public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
 {
     [Header("디스펜서 핸들 애니매이터")]
     [SerializeField] Animator animator;
@@ -75,7 +75,7 @@ public class LSY_DispensorLiquid : MonoBehaviourPun
 
             if (isOnCooldown)
             {
-                Debug.Log("쿨다운 중입니다. 2초 후에 다시 시도해주세요.");
+                Debug.Log("2초 후에 다시 시도해주세요.");
                 return;
             }
 
@@ -112,12 +112,16 @@ public class LSY_DispensorLiquid : MonoBehaviourPun
         {
             photonView.RPC("OnSelectEnter", RpcTarget.AllViaServer);
         }
+
+        m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
+        MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
     }
 
     public void OnSelectedEnter()
     {
         photonView.RPC("OnSelectEnter", RpcTarget.AllViaServer);
     }
+
 
     IEnumerator PouringliquidRoutine()
     {
@@ -132,6 +136,7 @@ public class LSY_DispensorLiquid : MonoBehaviourPun
             if (particleSystemLiquid.isStopped)
             {
                 particleSystemLiquid.Play();
+                photonView.RPC("PlayParticle", RpcTarget.Others);
             }
 
             float amountToPourThisFrame = pourAmountPerSecond * Time.deltaTime;
@@ -143,8 +148,6 @@ public class LSY_DispensorLiquid : MonoBehaviourPun
             MeshRenderer.GetPropertyBlock(m_MaterialPropertyBlock);
             m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
             MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
-
-            photonView.RPC("UpdateFillLiquid", RpcTarget.Others, fillAmount);
 
 
             RaycastHit[] hits = Physics.RaycastAll(particleSystemLiquid.transform.position, Vector3.down, 50.0f, ~0, QueryTriggerInteraction.Collide);
@@ -188,6 +191,7 @@ public class LSY_DispensorLiquid : MonoBehaviourPun
         MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
 
         particleSystemLiquid.Stop();
+        photonView.RPC("StopParticle", RpcTarget.Others);
 
         animator.SetTrigger("HandleOff");
         animator.SetTrigger("HandleIdle");
@@ -195,12 +199,15 @@ public class LSY_DispensorLiquid : MonoBehaviourPun
     }
 
     [PunRPC]
-    public void UpdateFillLiquid(float fill)
+    public void StopParticle()
     {
-        fillAmount = fill;
-        fillAmount = Mathf.Round(fillAmount * 10f) / 10f;
-        m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
-        MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
+        particleSystemLiquid.Stop();
+    }
+
+    [PunRPC]
+    public void PlayParticle()
+    {
+        particleSystemLiquid.Play();
     }
 
     Coroutine potionReceiverRoutine;
@@ -260,10 +267,6 @@ public class LSY_DispensorLiquid : MonoBehaviourPun
         {
             fillAmount = (float)stream.ReceiveNext();
         }
-
-        m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
-        MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
-
     }
 
 }

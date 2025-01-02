@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LSY_PotionReceiver : MonoBehaviourPun
+public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
 {
     [Header("최대 포션 양")]
     public float maxLiquidFill = 1.0f;
@@ -248,21 +248,14 @@ public class LSY_PotionReceiver : MonoBehaviourPun
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(fillAmount);
-            stream.SendNext(perfumeNoteInfoLists);
-            stream.SendNext(resInfo);
+            stream.SendNext(transform.position);
+            stream.SendNext(transform.rotation);
         }
         else
         {
-            fillAmount = (float)stream.ReceiveNext();
-            perfumeNoteInfoLists = (List<KSD_PerfumeNoteInfo>)stream.ReceiveNext();
-            resInfo = (KSD_PerfumeInfo)stream.ReceiveNext();
+            transform.position = (Vector3)stream.ReceiveNext();
+            transform.rotation = (Quaternion)stream.ReceiveNext();
         }
-
-        m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
-        m_MaterialPropertyBlock.SetColor("Color_E3091B1A", potionColor);
-        m_MaterialPropertyBlock.SetColor("Color_FDA61C50", linePotionColor);
-        liquidMeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
     }
 
 }

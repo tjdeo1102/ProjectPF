@@ -17,7 +17,7 @@ public class LSY_DispendorActive : XRBaseInteractable
     protected override void OnSelectEntering(SelectEnterEventArgs args)
     {
         base.OnSelectEntering(args);
-        dispensorLiquid.OnSelectedEnter();
+        dispensorLiquid.OnSelectEnter();
         PhotonView interactablePV = args.interactableObject.transform.GetComponent<PhotonView>();
         interactablePV.RequestOwnership();
     }

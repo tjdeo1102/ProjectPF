@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR.Content.Interaction;
 
-public class LSY_Bucket : MonoBehaviourPun
+public class LSY_Bucket : MonoBehaviourPun, IPunObservable
 {
     [Header("액체 붓는 파티클")]
     public ParticleSystem particleSystemLiquid;
@@ -110,6 +110,9 @@ public class LSY_Bucket : MonoBehaviourPun
             m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
             fillGameObject.gameObject.SetActive(false);
         }
+
+        m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
+        MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -198,20 +201,10 @@ public class LSY_Bucket : MonoBehaviourPun
         if (stream.IsWriting)
         {
             stream.SendNext(fillAmount);
-            stream.SendNext(currentPerfumeNote);
-            stream.SendNext(MeshRenderer);
         }
         else
         {
             fillAmount = (float)stream.ReceiveNext();
-            currentPerfumeNote.Name = (PerfumeNoteName)stream.ReceiveNext();
-            MeshRenderer = (MeshRenderer)stream.ReceiveNext();
         }
-
-        m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
-        m_MaterialPropertyBlock.SetColor("Color_E3091B1A", potionColor);
-        m_MaterialPropertyBlock.SetColor("Color_FDA61C50", linePotionColor);
-
-        MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
     }
 }
