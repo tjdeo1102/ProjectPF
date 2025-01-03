@@ -165,7 +165,7 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
                 }
             }
 
-            if (receiverCount == 2)
+            if (receiverCount >= 2)
             {
                 Debug.Log("두 개의 PotionReceiver를 찾음");
 
@@ -245,7 +245,7 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
     {
         if (fillAmount < maxLiquidFill)
         {
-            fillAmount += 0.1f * Time.deltaTime;
+            fillAmount += 0.07f * Time.deltaTime;
 
             if (m_MaterialPropertyBlock != null)
             {

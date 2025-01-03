@@ -43,6 +43,11 @@ public class KSH_FragmentMaterial : MonoBehaviour
         position = transform.position;
     }
 
+    public void OnPositon()
+    {
+        position = transform.position;
+    }
+
     public void OnSlices()
     {
         SliceCount++;

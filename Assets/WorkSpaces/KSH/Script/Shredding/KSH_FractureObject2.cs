@@ -92,6 +92,7 @@ public class KSH_FractureObject2 : MonoBehaviour
 
         if (!dryingRacks.Isdry) return;
 
+        other.gameObject.layer = 9;
         collisionCount++; // 충돌 횟수 증가
         lastSliceTime = Time.time;
 

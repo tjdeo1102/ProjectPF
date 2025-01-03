@@ -26,13 +26,21 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     [Header("액체 붓는 파티클")]
     public ParticleSystem particleSystemLiquid;
 
+    [Header("Shake")]
     [SerializeField] private float shakeTimer;
     [SerializeField] private float distancePerFrame;
 
-    public int receiveCount = 0;
+    [Header("Splash")]
+    public GameObject potion;
+    public ParticleSystem particleSystemSplash;
+
+    int receiveCount = 0;
 
     private Color potionColor;
     private Color linePotionColor;
+
+    bool m_Breakable = true;
+    Rigidbody m_RbPotion;
 
     bool perfumeClear = false;
     private MaterialPropertyBlock m_MaterialPropertyBlock;
@@ -46,6 +54,7 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     {
         resInfo.Name = PerfumeName.Null;
         perfumeNoteInfoLists = new List<KSD_PerfumeNoteInfo>();
+        m_RbPotion = GetComponent<Rigidbody>();
 
         if (liquidMeshRenderer == null)
         {
@@ -66,6 +75,9 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
         photonView.RPC("CheckShake", RpcTarget.All);
 
         photonView.RPC("UpdateDropLiquid", RpcTarget.All);
+
+        m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
+        liquidMeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
     }
 
     [PunRPC]
@@ -220,7 +232,7 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     [PunRPC]
     void DecreaseLiquid(float deltaTime)
     {
-        var delta = 0.1f * deltaTime;
+        var delta = 0.3f * deltaTime;
         fillAmount -= delta;
 
         if (fillAmount <= 0)
@@ -251,12 +263,46 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
         {
             stream.SendNext(transform.position);
             stream.SendNext(transform.rotation);
+            stream.SendNext(m_Breakable);
         }
         else
         {
             transform.position = (Vector3)stream.ReceiveNext();
             transform.rotation = (Quaternion)stream.ReceiveNext();
+            m_Breakable = (bool)stream.ReceiveNext();
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (m_RbPotion.velocity.magnitude > 1.35 && m_Breakable)
+        {
+            if (particleSystemSplash != null)
+            {
+                fillAmount = 0f;
+                particleSystemSplash.gameObject.SetActive(true);
+                photonView.RPC("PlaySplashParticle", RpcTarget.All);
+            }
+            photonView.RPC("DestroyPotion", RpcTarget.All);
+        }
+    }
+
+    [PunRPC]
+    public void PlaySplashParticle()
+    {
+        particleSystemSplash.Play();
+    }
+
+    [PunRPC]
+    public void DestroyPotion()
+    {
+        Destroy(potion);
+        Destroy(gameObject, 3f);
+    }
+
+    public void ToggleBreakable(bool breakable)
+    {
+        m_Breakable = breakable;
     }
 
 }

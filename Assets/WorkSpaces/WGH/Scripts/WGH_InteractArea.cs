@@ -3,11 +3,11 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
-// »óÈ£ÀÛ¿ë Äİ¶óÀÌ´õ Å½Áö¿ë Å¬·¡½º
+// ìƒí˜¸ì‘ìš© ì½œë¼ì´ë” íƒì§€ìš© í´ë˜ìŠ¤
 public class WGH_InteractArea : MonoBehaviour
 {
     [SerializeField] WGH_NPCController controller;
-    [SerializeField, Tooltip("½ÇÆĞ±âÁØ È½¼ö")] int maxCount;
+    [SerializeField, Tooltip("ì‹¤íŒ¨ê¸°ì¤€ íšŸìˆ˜")] int maxCount;
     private int curCount;
     [SerializeField] private bool isCheck;
 
@@ -25,19 +25,19 @@ public class WGH_InteractArea : MonoBehaviour
             controller.SmellStick = smellStick;
             OnChangedSmellStick?.Invoke();
         }
-        if (other.gameObject.TryGetComponent(out LSY_PotionReceiver potion) && curCount < maxCount)
+        if(other.gameObject.TryGetComponent(out LSY_PotionReceiver potion) && curCount < maxCount)
         {
             if (isCheck == false && potion.perfumeName == controller.PerfumeType
-                 && potion.e_BottleType == controller.BottleType) //TODO : ½Ã¿¬´Ô ½ºÅ©¸³Æ® ¸ÓÁö ÈÄ Æ÷¼Ç °á°ú¹°ÀÇ º´Å¸ÀÔµµ ºñ±³ÇØ¾ß ÇÔ
+                 && potion.e_BottleType == controller.BottleType) //TODO : ì‹œì—°ë‹˜ ìŠ¤í¬ë¦½íŠ¸ ë¨¸ì§€ í›„ í¬ì…˜ ê²°ê³¼ë¬¼ì˜ ë³‘íƒ€ì…ë„ ë¹„êµí•´ì•¼ í•¨
             {
-                // ¼º°øÇÏ¸é ¼º°ø °¨Á¤Ç¥Çö ÈÄ ÅğÀå
+                // ì„±ê³µí•˜ë©´ ì„±ê³µ ê°ì •í‘œí˜„ í›„ í‡´ì¥
                 StartCoroutine(PurchaseRoutine());
             }
-            else if (isCheck == false && (potion.perfumeName != controller.PerfumeType
+            else if(isCheck == false && (potion.perfumeName != controller.PerfumeType
                  || potion.e_BottleType != controller.BottleType))
             {
-                // ½ÇÆĞÇÏ¸é Àı¸Á °¨Á¤Ç¥Çö ÈÄ ½ÇÆĞÈ½¼ö 1È¸ Ãß°¡
-                // ½ÇÆĞÈ½¼ö 2È¸ ÀÌ»óÀÏ ½Ã ÅğÀå
+                // ì‹¤íŒ¨í•˜ë©´ ì ˆë§ ê°ì •í‘œí˜„ í›„ ì‹¤íŒ¨íšŸìˆ˜ 1íšŒ ì¶”ê°€
+                // ì‹¤íŒ¨íšŸìˆ˜ 2íšŒ ì´ìƒì¼ ì‹œ í‡´ì¥
                 StartCoroutine(CheckTimeDelayRoutine());
             }
         }
@@ -64,10 +64,10 @@ public class WGH_InteractArea : MonoBehaviour
         isCheck = true;
         curCount++;
         controller.SelectReactUINetwork((int)E_ReactUiType.DESPAIR);
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(2); 
         if (curCount >= maxCount)
         {
-            // ½ÇÆĞÈ½¼ö°¡ ¼³Á¤µÈ ¼ö¿¡ µµ´ŞÇÏ¸é ÅğÀå
+            // ì‹¤íŒ¨íšŸìˆ˜ê°€ ì„¤ì •ëœ ìˆ˜ì— ë„ë‹¬í•˜ë©´ í‡´ì¥
             controller.ChangeStateNetwork((int)E_StateType.EXIT);
         }
         else
