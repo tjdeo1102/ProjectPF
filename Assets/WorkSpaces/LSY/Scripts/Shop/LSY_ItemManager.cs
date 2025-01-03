@@ -37,6 +37,9 @@ public class LSY_ItemManager : MonoBehaviour
     [SerializeField] TMP_Text buyPrice;
     [SerializeField] TMP_Text totalPlayerMoney;
 
+    [Header("구매 물품 스폰 위치")]
+    public Vector3 objectTransform;
+
     [SerializeField] Image warningImage;
 
     bool isBasketPanelActive = false;
@@ -46,6 +49,8 @@ public class LSY_ItemManager : MonoBehaviour
 
     private void Start()
     {
+        basketPanelCount.text = "0";
+        allItemPriceText.text = "0$";
         basketIndex = 0;
         basketCount.text = basketIndex.ToString();
 
@@ -147,7 +152,7 @@ public class LSY_ItemManager : MonoBehaviour
             foreach (var item in basketItems)
             {
                 GameObject itemPrefab = item.ItemPrefab;
-                Instantiate(itemPrefab, new Vector3(0, 3, 0), Quaternion.identity);
+                Instantiate(itemPrefab, objectTransform, Quaternion.identity);
                 Debug.Log($"주문한 아이템: {item.ItemName}, 가격: {item.ItemPrice}$");
             }
 
