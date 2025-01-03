@@ -69,7 +69,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2629bdb5f95d3aa4c8ff0bbc8840c7a5, type: 2}
+  - {fileID: 2100000, guid: 1b6d21fded2bcd945934998c7ffc9f59, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -183,7 +183,19 @@ MonoBehaviour:
       m_Calls: []
   m_SelectExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -8647323208719800864}
+        m_TargetAssemblyTypeName: KSH_FragmentMaterial, Assembly-CSharp
+        m_MethodName: OnPositon
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_FirstFocusEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -329,7 +341,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fragmentMaterial: {fileID: 7629278880034697364, guid: 4e06d490bbc73b045acf3d8cff07a2b4, type: 3}
   fragmentMaterialName: 
-  material: {fileID: 2100000, guid: fa833133b853dc64e9f6f134473dbc13, type: 2}
+  material: {fileID: 0}
   meshRenderers: []
   fadeDuration: 2
 --- !u!114 &-4183242329984818506

@@ -242,7 +242,7 @@ public class KSD_ConcentrateBottle : MonoBehaviourPun
                 if (res.fruitInfo.Type == PerfumeMaterialType.Hub && res.fruitInfo.State == PerfumeMaterialState.Process)
                 {
                     ReceiveLiquidMaterial(res.fruitInfo, 1f);
-                    if (PhotonNetwork.IsMasterClient) PhotonNetwork.Destroy(gameObject);
+                    if (PhotonNetwork.IsMasterClient) PhotonNetwork.Destroy(collision.gameObject);
                 }
             }
         }
