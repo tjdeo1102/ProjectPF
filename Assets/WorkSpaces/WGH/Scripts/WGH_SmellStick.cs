@@ -90,25 +90,22 @@ public class WGH_SmellStick : MonoBehaviourPun
 
     private void React()
     {
-        if (Vector3.Distance(transform.position, customer.transform.position) < interactionDist)
+        Debug.Log("상호작용");
+        if (NoteType == customer.GetComponent<WGH_NPCController>().BestMaterial)
         {
-            Debug.Log("상호작용");
-            if (NoteType == customer.GetComponent<WGH_NPCController>().BestMaterial)
-            {
-                OnBestInteract?.Invoke();
-            }
-            else if (NoteType == customer.GetComponent<WGH_NPCController>().LikeMaterial || NoteType == customer.GetComponent<WGH_NPCController>().LikeMaterial2)
-            {
-                OnLikeInteract?.Invoke();
-            }
-            else if (NoteType == customer.GetComponent<WGH_NPCController>().QuestionMaterial || NoteType == customer.GetComponent<WGH_NPCController>().QuestionMaterial2)
-            {
-                OnQuestionInteract?.Invoke();
-            }
-            else
-            {
-                OnDespairInteract?.Invoke();
-            }
+            OnBestInteract?.Invoke();
+        }
+        else if (NoteType == customer.GetComponent<WGH_NPCController>().LikeMaterial || NoteType == customer.GetComponent<WGH_NPCController>().LikeMaterial2)
+        {
+            OnLikeInteract?.Invoke();
+        }
+        else if (NoteType == customer.GetComponent<WGH_NPCController>().QuestionMaterial || NoteType == customer.GetComponent<WGH_NPCController>().QuestionMaterial2)
+        {
+            OnQuestionInteract?.Invoke();
+        }
+        else
+        {
+            OnDespairInteract?.Invoke();
         }
     }
 
