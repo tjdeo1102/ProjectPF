@@ -49,11 +49,11 @@ public class LSY_LobbyPanel : LSY_BaseUI
     }
 
     #region 게임 종료
-    public void QuitGame()
-    {
-        UnityEditor.EditorApplication.isPlaying = false;
-        Application.Quit();
-    }
+    //public void QuitGame()
+    //{
+    //    UnityEditor.EditorApplication.isPlaying = false;
+    //    Application.Quit();
+    //}
     #endregion
 
     #region 방 검색하기 기능
