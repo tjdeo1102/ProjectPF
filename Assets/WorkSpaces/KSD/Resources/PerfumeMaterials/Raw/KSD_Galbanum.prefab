@@ -348,9 +348,10 @@ GameObject:
   - component: {fileID: 8028436999697575587}
   - component: {fileID: 4321011764581738049}
   - component: {fileID: -7225235403862334011}
+  - component: {fileID: 4052266914699960735}
   m_Layer: 26
   m_Name: KSD_Galbanum
-  m_TagString: Untagged
+  m_TagString: Ingredient
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -417,10 +418,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e423890d5cc7037459659b869450ee05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powderRawMaterials: {fileID: 880981420789588080, guid: 4c3318d43f8055148b09e6572302a11b, type: 3}
+  powderRawMaterials: {fileID: 5190926401544976135, guid: fca227b7d9d54cd4fb42d262f5381e94, type: 3}
   powderRawMaterialsName: 
   mainMaterial: {fileID: 2100000, guid: 84f3a21d510a57b4fab04043a2e5f977, type: 2}
   meshRenderer: []
+  dryingRacks: {fileID: 0}
   meshRenderers: []
   rigidbodies: []
   frags:
@@ -639,6 +641,20 @@ MonoBehaviour:
   m_SynchronizeAngularVelocity: 1
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
+--- !u!114 &4052266914699960735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 609859525768459645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02fad47ef72964544a83476db245b2cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Iscolor: 0
+  Isdry: 0
 --- !u!1 &609859525768459647
 GameObject:
   m_ObjectHideFlags: 0

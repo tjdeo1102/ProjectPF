@@ -2116,9 +2116,10 @@ GameObject:
   - component: {fileID: 6965209169125321778}
   - component: {fileID: 223867651350971424}
   - component: {fileID: 2481495779483170487}
+  - component: {fileID: 8129153483792778320}
   m_Layer: 26
   m_Name: KSD_TreeBark
-  m_TagString: Untagged
+  m_TagString: Ingredient
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2192,10 +2193,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e423890d5cc7037459659b869450ee05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powderRawMaterials: {fileID: 880981420789588080, guid: 4c3318d43f8055148b09e6572302a11b, type: 3}
+  powderRawMaterials: {fileID: 5481307442420036365, guid: 53a96064da90d5c4cad79fbd8c3ba365, type: 3}
   powderRawMaterialsName: 
   mainMaterial: {fileID: 2100000, guid: c352ea13210a31f48922e535c253d8de, type: 2}
   meshRenderer: []
+  dryingRacks: {fileID: 0}
   meshRenderers: []
   rigidbodies: []
   frags:
@@ -2414,6 +2416,20 @@ MonoBehaviour:
     Type: 2
     State: 0
     MaterialAmount: 0
+--- !u!114 &8129153483792778320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6965209169125552157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02fad47ef72964544a83476db245b2cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Iscolor: 0
+  Isdry: 0
 --- !u!1 &6965209169125552159
 GameObject:
   m_ObjectHideFlags: 0

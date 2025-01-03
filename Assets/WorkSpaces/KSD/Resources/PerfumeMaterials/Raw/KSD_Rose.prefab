@@ -1602,9 +1602,10 @@ GameObject:
   - component: {fileID: 5585667269476766467}
   - component: {fileID: 676353789732060706}
   - component: {fileID: 2620820549040054144}
+  - component: {fileID: -5839340173018231511}
   m_Layer: 26
   m_Name: KSD_Rose
-  m_TagString: Untagged
+  m_TagString: Ingredient
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1675,10 +1676,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e423890d5cc7037459659b869450ee05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powderRawMaterials: {fileID: 880981420789588080, guid: 4c3318d43f8055148b09e6572302a11b, type: 3}
+  powderRawMaterials: {fileID: 4464703049031214046, guid: 69716cd8d710a4f4ba1ec19fa703c4f0, type: 3}
   powderRawMaterialsName: 
   mainMaterial: {fileID: 2100000, guid: c47f8ff5696bae54a90e10f2949e9cd5, type: 2}
   meshRenderer: []
+  dryingRacks: {fileID: 0}
   meshRenderers: []
   rigidbodies: []
   frags:
@@ -1709,7 +1711,6 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 5585667269476766467}
-  - {fileID: 0}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -1898,6 +1899,20 @@ MonoBehaviour:
     Type: 2
     State: 0
     MaterialAmount: 0
+--- !u!114 &-5839340173018231511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5585667269477257002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02fad47ef72964544a83476db245b2cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Iscolor: 0
+  Isdry: 0
 --- !u!1 &5585667269477257004
 GameObject:
   m_ObjectHideFlags: 0

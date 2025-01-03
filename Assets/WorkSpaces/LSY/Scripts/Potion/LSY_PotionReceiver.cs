@@ -21,6 +21,7 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     [Header("조합 후 향수 정보")]
     public KSD_PerfumeInfo resInfo;
     public E_WGH_PerfumeType perfumeName;
+    public E_BottleType e_BottleType;
 
     [Header("액체 붓는 파티클")]
     public ParticleSystem particleSystemLiquid;

@@ -348,9 +348,10 @@ GameObject:
   - component: {fileID: 3655274345720018615}
   - component: {fileID: 2753068859962442663}
   - component: {fileID: -2045363803527713821}
+  - component: {fileID: 7483164846655748174}
   m_Layer: 26
   m_Name: KSD_Cosmos
-  m_TagString: Untagged
+  m_TagString: Ingredient
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -417,10 +418,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e423890d5cc7037459659b869450ee05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powderRawMaterials: {fileID: 880981420789588080, guid: 4c3318d43f8055148b09e6572302a11b, type: 3}
+  powderRawMaterials: {fileID: 5671178388608727787, guid: 1cc5ccf6c477b81488102a2df9147540, type: 3}
   powderRawMaterialsName: 
   mainMaterial: {fileID: 2100000, guid: 2b1d50fbc808a294b9864b393c9de656, type: 2}
   meshRenderer: []
+  dryingRacks: {fileID: 0}
   meshRenderers: []
   rigidbodies: []
   frags:
@@ -639,6 +641,20 @@ MonoBehaviour:
     Type: 2
     State: 0
     MaterialAmount: 0
+--- !u!114 &7483164846655748174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3655274345719851692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02fad47ef72964544a83476db245b2cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Iscolor: 0
+  Isdry: 0
 --- !u!1 &3655274345719851694
 GameObject:
   m_ObjectHideFlags: 0
