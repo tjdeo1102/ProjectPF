@@ -62,7 +62,7 @@ public class LSY_Bucket : MonoBehaviourPun, IPunObservable
                 particleSystemLiquid.Play();
             }
 
-            fillAmount -= 0.1f * Time.deltaTime;
+            fillAmount -= 0.3f * Time.deltaTime;
 
             // 액체가 쏟아지는 방향으로 레이캐스트를 쏴서 LSY_DispensorReceiver컴포넌트를 가진 두 개의 충돌체가 있어야 액체를 받게 함
             RaycastHit[] hits = Physics.RaycastAll(particleSystemLiquid.transform.position, Vector3.down, 50.0f, ~0, QueryTriggerInteraction.Collide);
@@ -135,6 +135,11 @@ public class LSY_Bucket : MonoBehaviourPun, IPunObservable
     [PunRPC]
     public void ChangeColor(string cauldronName, string resultNoteName)
     {
+        if (currentPerfumeNote.Name != (PerfumeNoteName)Enum.Parse(typeof(PerfumeNoteName), resultNoteName))
+        {
+            fillAmount = 0;
+        }
+
         currentPerfumeNote.Name = (PerfumeNoteName)Enum.Parse(typeof(PerfumeNoteName), resultNoteName);
         currentPerfumeNote.State = PerfumeNoteState.Note;
 
@@ -182,9 +187,9 @@ public class LSY_Bucket : MonoBehaviourPun, IPunObservable
 
         float initialFillAmount = fillAmount;  
 
-        while (Time.time - startTime < 3f)
+        while (Time.time - startTime < 2f)
         {
-            fillAmount = Mathf.Lerp(initialFillAmount, targetFillAmount, (Time.time - startTime) / 3f);
+            fillAmount = Mathf.Lerp(initialFillAmount, targetFillAmount, (Time.time - startTime) / 2f);
             m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
             MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
             yield return null;  
