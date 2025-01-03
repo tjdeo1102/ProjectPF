@@ -56,7 +56,7 @@ public class KSH_FractureObject2 : MonoBehaviour
 
     private void Start()
     {
-        powderRawMaterialsName = powderRawMaterials.name;
+        powderRawMaterialsName = "PerfumeMaterials/Process/" + powderRawMaterials.name;
         position = transform.position;
     }
 
