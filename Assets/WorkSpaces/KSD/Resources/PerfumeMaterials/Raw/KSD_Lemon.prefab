@@ -12,13 +12,13 @@ GameObject:
   - component: {fileID: 3293876135782662392}
   - component: {fileID: 3293876135781663288}
   - component: {fileID: 3235253007954369006}
-  - component: {fileID: 3235253007954369002}
   - component: {fileID: 3235253007954369004}
   - component: {fileID: 3235253007954369005}
   - component: {fileID: 3235253007954369007}
   - component: {fileID: 3235253007954369000}
   - component: {fileID: 3235253007954369001}
   - component: {fileID: 3694484390344212197}
+  - component: {fileID: 6666221865654558149}
   m_Layer: 26
   m_Name: KSD_Lemon
   m_TagString: Untagged
@@ -107,19 +107,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!135 &3235253007954369002
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3293876135779474680}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.15
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3235253007954369004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -324,7 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08c19f568285ebe4eb127627553bb64c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fragmentMaterial: {fileID: 0}
+  fragmentMaterial: {fileID: 512128997002121614, guid: 9eb17d95998bf2e428511017014a2e92, type: 3}
   fragmentMaterialName: 
   material: {fileID: 2100000, guid: 8a87a3521873741428438ff9ad64100f, type: 2}
   meshRenderers: []
@@ -348,7 +335,7 @@ MonoBehaviour:
     insideMaterial: {fileID: 0}
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
-    invokeCallbacks: 0
+    invokeCallbacks: 1
   callbackOptions:
     onFracture:
       m_PersistentCalls:
@@ -385,3 +372,16 @@ MonoBehaviour:
   m_SynchronizeAngularVelocity: 1
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
+--- !u!65 &6666221865654558149
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3293876135779474680}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.25, y: 0.353, z: 0.25}
+  m_Center: {x: 0, y: 0, z: 0}

@@ -121,7 +121,7 @@ public class KSD_GameManager : MonoBehaviourPunCallbacks
     /// <param name="addCount"> 추가되거나 감소될 카운트 </param>
     public void AddFinishPlayerCount(int addCount)
     {
-        photonView.RPC("AddFinishPlayerCountRPC", RpcTarget.All, addCount);
+        if (PhotonNetwork.IsMasterClient) photonView.RPC("AddFinishPlayerCountRPC", RpcTarget.All, addCount);
     }
 
 

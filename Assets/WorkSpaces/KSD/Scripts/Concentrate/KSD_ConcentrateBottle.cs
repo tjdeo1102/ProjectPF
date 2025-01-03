@@ -233,15 +233,16 @@ public class KSD_ConcentrateBottle : MonoBehaviourPun
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.CompareTag("Powder"))
+        if (collision.transform.CompareTag("Ingredient"))
         {
             // 추후, 가루 오브젝트의 컴포넌트에 따라 변동 가능
-            if (collision.transform.TryGetComponent<KSD_MaterialObject>(out var res))
+            if (collision.transform.TryGetComponent<PTK_Fruit>(out var res))
             {
                 // 가루화된 약초인 경우에만 동작
-                if (res.data.Type == PerfumeMaterialType.Hub && res.data.State == PerfumeMaterialState.Process)
+                if (res.fruitInfo.Type == PerfumeMaterialType.Hub && res.fruitInfo.State == PerfumeMaterialState.Process)
                 {
-                    ReceiveLiquidMaterial(res.data, 1f);
+                    ReceiveLiquidMaterial(res.fruitInfo, 1f);
+                    if (PhotonNetwork.IsMasterClient) PhotonNetwork.Destroy(gameObject);
                 }
             }
         }

@@ -723,9 +723,10 @@ GameObject:
   - component: {fileID: 8854113940555864522}
   - component: {fileID: 7456920863001261343}
   - component: {fileID: 2807199468170867430}
+  - component: {fileID: 4267417944049328665}
   m_Layer: 26
   m_Name: KSD_GreenTea
-  m_TagString: Untagged
+  m_TagString: Ingredient
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -792,10 +793,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e423890d5cc7037459659b869450ee05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powderRawMaterials: {fileID: 880981420789588080, guid: 4c3318d43f8055148b09e6572302a11b, type: 3}
+  powderRawMaterials: {fileID: 2303372816329743476, guid: 4ad8105831061bb469c6b885d5fc8cca, type: 3}
   powderRawMaterialsName: 
   mainMaterial: {fileID: 2100000, guid: b7c6500f2320cde48987afd502d15557, type: 2}
   meshRenderer: []
+  dryingRacks: {fileID: 0}
   meshRenderers: []
   rigidbodies: []
   frags:
@@ -1014,6 +1016,20 @@ MonoBehaviour:
     Type: 0
     State: 0
     MaterialAmount: 0
+--- !u!114 &4267417944049328665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8854113940555864369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02fad47ef72964544a83476db245b2cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Iscolor: 0
+  Isdry: 0
 --- !u!1 &8854113940555864371
 GameObject:
   m_ObjectHideFlags: 0
