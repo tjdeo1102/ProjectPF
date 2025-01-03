@@ -4956,7 +4956,7 @@ GameObject:
   - component: {fileID: 6422482666457882706}
   - component: {fileID: 6422482666457882717}
   - component: {fileID: 6422482666457882716}
-  - component: {fileID: 6422482666457882719}
+  - component: {fileID: 15633396641834447}
   m_Layer: 26
   m_Name: GPVFX_Bottle_B
   m_TagString: Untagged
@@ -5029,8 +5029,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6422482666457882719
-MeshCollider:
+--- !u!65 &15633396641834447
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5039,10 +5039,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300002, guid: 88f9810cdc36b466cb152006feafd25e, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 1.359411, y: 1.2805458, z: 1.35941}
+  m_Center: {x: 0.0000004967054, y: -0.34569284, z: 0}
 --- !u!1 &6422482666904927751
 GameObject:
   m_ObjectHideFlags: 0
