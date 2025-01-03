@@ -87,6 +87,12 @@ public class WGH_NPCCreator : MonoBehaviour
         isCheat = true;
         GameObject obj = PhotonNetwork.Instantiate("Customer", spawnLeftPos.position, Quaternion.identity);
         WGH_NPCController controller = obj.GetComponent<WGH_NPCController>();
+        controller.PassPos = new Vector3(-spawnRightPos.position.x, spawnRightPos.position.y, spawnRightPos.position.z);
+        controller.Entrance = enterancePos.position;
+        controller.ExplorePos1 = leftExplorePos.position;
+        controller.ExplorePos2 = rightExplorePos.position;
+        controller.StoreCenter = storeCenterPos.position;
+        controller.Counter = CounterPos.position;
         yield return new WaitForSeconds(0.1f);
         controller.ChangeStateNetwork((int)E_StateType.COUNTER);
         isCheat = false;
