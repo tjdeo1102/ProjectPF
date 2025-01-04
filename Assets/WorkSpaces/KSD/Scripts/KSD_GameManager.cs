@@ -1,9 +1,11 @@
 using Firebase.Extensions;
 using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using WebSocketSharp;
 
 public class KSD_GameManager : MonoBehaviourPunCallbacks
@@ -12,7 +14,7 @@ public class KSD_GameManager : MonoBehaviourPunCallbacks
     public static KSD_GameManager Instance;
 
     [Header("기본 설정")]
-    [SerializeField] private int maxCustomerCount;
+    [SerializeField] public int maxCustomerCount;
     [SerializeField] private int currentStageID;
     [SerializeField] private int returnSceneIndex;
 
@@ -102,11 +104,11 @@ public class KSD_GameManager : MonoBehaviourPunCallbacks
 
         CurrentStageInfo.FinishPlayerCount += addCount;
 
-        if (CurrentStageInfo.FinishPlayerCount >= maxCustomerCount)
+        if (CurrentStageInfo.FinishPlayerCount >= maxCustomerCount - 1)
         {
             // 스테이지 상승
             CurrentStageInfo.StageLevel++;
-            CurrentStageInfo.FinishPlayerCount = 0;
+            CurrentStageInfo.FinishPlayerCount = CurrentStageInfo.FinishPlayerCount - maxCustomerCount;
             // 스테이지 종료 관련 이벤트 호출
             OnExitStage?.Invoke();
         }
@@ -149,6 +151,12 @@ public class KSD_GameManager : MonoBehaviourPunCallbacks
                 }
             }
         });
+    }
+
+    public void DontSaveQuitGame()
+    {
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.LoadLevel(returnSceneIndex);
     }
 
     public void UpdateEnvironment()

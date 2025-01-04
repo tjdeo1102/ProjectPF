@@ -114,20 +114,22 @@ public class WGH_SmellStick : MonoBehaviourPun
     /// </summary>
     public void OnEffect()
     {
-        photonView.RPC("EffectRPC", RpcTarget.AllViaServer, true);
+        photonView.RPC("EffectRPC", RpcTarget.All, true);
     }
     /// <summary>
     /// 시향노트에 끼워졌을 때 이펙트 Off
     /// </summary>
     public void OffEffect()
     {
-        photonView.RPC("EffectRPC", RpcTarget.AllViaServer, false);
+        photonView.RPC("EffectRPC", RpcTarget.All, false);
     }
 
     [PunRPC]
-    private void EffectRPC(bool enable)
+    public void EffectRPC(bool enable)
     {
-        if(enable == true)
+        Debug.Log("SmellStickOn Called");
+
+        if (enable == true)
         {
             NoteType = contactNote.NoteType;
         }
