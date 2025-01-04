@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public enum PerfumeName
 {
-    Null, Apricot, Aqua, Blue, Green, LightNavy, Pink, Purple, Red, Yellow
+    Null, Red, Purple, Apricot, Green, Aqua, Pink, Blue, Yellow, LightNavy
 }
 
 [Serializable]
