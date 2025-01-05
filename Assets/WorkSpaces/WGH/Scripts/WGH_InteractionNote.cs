@@ -29,7 +29,6 @@ public class WGH_InteractionNote : MonoBehaviourPun
     public void SmellStickOff(SelectEnterEventArgs arg)
     {
         SmellStick.OffEffect();
-        
+        SmellStick.NoteType = this.NoteType;
     }
-
 }
