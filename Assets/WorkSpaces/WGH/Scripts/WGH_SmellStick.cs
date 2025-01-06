@@ -139,6 +139,5 @@ public class WGH_SmellStick : MonoBehaviourPun
             return;
         aura[(int)NoteType - 1].gameObject.SetActive(enable);
         isAbsorbed = enable;
-        Debug.Log(isAbsorbed);
     }
 }
