@@ -131,7 +131,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_LocalPosition.x
@@ -395,11 +395,6 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
---- !u!4 &422443689 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 835925790093218171, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
-  m_PrefabInstance: {fileID: 2007715391}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &422483345 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 835925789878647979, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
@@ -1130,6 +1125,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 1757873801}
+  - {fileID: 5642844177934635734}
   - {fileID: 1757873800}
   sceneViewId: 9
   InstantiationId: 0
@@ -1537,7 +1533,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 2032288273}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 835925789037046202, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
       propertyPath: m_Enabled
@@ -1581,7 +1577,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 835925790093218171, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 835925790093218171, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
       propertyPath: m_LocalScale.x
@@ -1676,7 +1672,6 @@ Transform:
   m_Children:
   - {fileID: 800658603}
   - {fileID: 1867454433}
-  - {fileID: 422443689}
   - {fileID: 1767387284}
   m_Father: {fileID: 0}
   m_RootOrder: 2
