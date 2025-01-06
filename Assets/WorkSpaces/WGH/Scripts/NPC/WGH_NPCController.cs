@@ -14,6 +14,7 @@ public enum E_StateType
     COUNTER,                                                                      // 카운터로 가는 상태
     WAIT,                                                                         // 카운터에서 대기 + 시향 + 리액션 + 병 타입 제시
     EXIT,                                                                         // 퇴장
+    SMELL,
     ENnpcType_MAX
 }
 
@@ -29,10 +30,14 @@ public class WGH_NPCController : MonoBehaviourPun
     private WGH_NPCGoToCounter goToCouterState;
     private WGH_NPCWait wait;
     private WGH_NPCExit exitState;
+    private WGH_NPCSmellTest smellState;
     
     private NavMeshAgent agent;
-    public NavMeshAgent Agent { get { return agent; } }
-    public WGH_SmellStick SmellStick;
+    [HideInInspector] public NavMeshAgent Agent { get { return agent; } }
+    [HideInInspector] public WGH_SmellStick SmellStick;
+    public GameObject TestNote;
+    public Button SmellTestStartButton;
+    public Button SmellTestEndButton;
 
     [Header("선호도")]
     private WGH_NPCNote npcNote;
@@ -94,16 +99,19 @@ public class WGH_NPCController : MonoBehaviourPun
         wait = new WGH_NPCWait(this, agent);
         center = new WGH_NPCCenter(this, agent);
         exitState = new WGH_NPCExit(this, agent);
+        smellState = new WGH_NPCSmellTest(this, agent);
     }
 
     private void Start()
     {
-        ChangeStateNetwork((int)E_StateType.PASS);
+        if (PhotonNetwork.IsMasterClient)
+            ChangeStateNetwork((int)E_StateType.PASS);
     }
 
     private void Update()
     {
-        curState?.OnUpdate();
+        if(PhotonNetwork.IsMasterClient)
+            curState?.OnUpdate();
     }
 
 
@@ -139,7 +147,8 @@ public class WGH_NPCController : MonoBehaviourPun
     /// </summary>
     public void ChangeStateNetwork(int type)
     {
-        photonView.RPC("ChangeState", RpcTarget.AllBuffered, type);
+        if (PhotonNetwork.IsMasterClient)
+            photonView.RPC("ChangeState", RpcTarget.AllBuffered, type);
     }
 
     /// <summary>
@@ -163,6 +172,8 @@ public class WGH_NPCController : MonoBehaviourPun
                 return new WGH_NPCWait(this, Agent);
             case 7:
                 return new WGH_NPCExit(this, Agent);
+            case 8:
+                return new WGH_NPCSmellTest(this, Agent);
             default:
                 return null;
         }

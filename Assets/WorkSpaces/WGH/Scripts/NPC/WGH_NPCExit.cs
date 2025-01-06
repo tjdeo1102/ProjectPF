@@ -16,7 +16,8 @@ public class WGH_NPCExit : INPCState
 
     public void Enter()
     {
-        //Debug.Log("exit 상태");
+        Debug.Log("exit 상태");
+        
         agent.SetDestination(controller.PassPos);
     }
 
