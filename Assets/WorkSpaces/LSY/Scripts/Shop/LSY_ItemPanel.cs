@@ -7,7 +7,7 @@ public class LSY_ItemPanel : MonoBehaviour
     [SerializeField] Button addButton;
 
     [Header("아이템")]
-    [SerializeField] string itemName;
+    [SerializeField] public string itemName;
     [SerializeField] float itemPrice;
     [SerializeField] string itemExplain;
     [SerializeField] Sprite item;
@@ -19,6 +19,9 @@ public class LSY_ItemPanel : MonoBehaviour
     [SerializeField] TextMeshProUGUI itemPriceText;
     [SerializeField] TextMeshProUGUI itemExplainText;
 
+    [SerializeField] LSY_ItemManager itemManager;
+    public bool isAdded;
+
     public delegate void ItemAdded(float price);
     public event ItemAdded OnItemAdded;
 
@@ -27,6 +30,7 @@ public class LSY_ItemPanel : MonoBehaviour
 
     private void Start()
     {
+        isAdded = false;
         addButton.onClick.AddListener(AddItem);
 
         itemImage.sprite = item;
@@ -37,7 +41,13 @@ public class LSY_ItemPanel : MonoBehaviour
 
     private void AddItem()
     {
+        if (LSY_ItemManager.basketIndex > 9 || isAdded)
+        {
+            Debug.Log("장바구니의 갯수가 10개가 넘었거나 이미 담은 물건입니다.");
+            return;
+        }
         OnItemAddedBasket?.Invoke(itemName, itemPrice, itemExplain, item, itemGameObekct);
         OnItemAdded?.Invoke(itemPrice);
+        isAdded = true;
     }
 }
