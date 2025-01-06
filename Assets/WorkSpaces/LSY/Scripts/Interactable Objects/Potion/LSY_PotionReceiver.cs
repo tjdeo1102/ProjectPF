@@ -72,9 +72,9 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
 
     private void Update()
     {
-        photonView.RPC("CheckShake", RpcTarget.All);
+        //photonView.RPC("CheckShake", RpcTarget.All);
 
-        photonView.RPC("UpdateDropLiquid", RpcTarget.All);
+        //photonView.RPC("UpdateDropLiquid", RpcTarget.All);
 
         m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
         liquidMeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
@@ -86,16 +86,13 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
         var pos = transform.position;
         IsActiveShake = Vector3.Distance(lastSpoonPosition, pos) > distancePerFrame;
         lastSpoonPosition = transform.position;
-        Debug.Log("checkshake2");
         if (IsActiveShake)
         {
-            Debug.Log("액티베이트");
             if (shakeRoutine == null)
                 photonView.RPC("PerfumeDone", RpcTarget.All);
         }
         else
         {
-            Debug.Log("노액티베이트");
             if (shakeRoutine != null)
             {
                 StopCoroutine(shakeRoutine);
@@ -106,16 +103,13 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
 
     IEnumerator ShakeRoutine()
     {
-        Debug.Log("checkshake3");
         yield return new WaitForSeconds(shakeTimer);
-        Debug.Log("checkshake3.5");
         photonView.RPC("PerfumeDone", RpcTarget.All);
     }
 
     [PunRPC]
     public void PerfumeDone()
     {
-        Debug.Log("checkshake4");
         if (perfumeNoteInfoLists.Count < 1 || resInfo.Name != PerfumeName.Null) return;
 
         if (KSD_PerfumeManager.Instance.IsValidPerfumeRecipe(perfumeNoteInfoLists, out var res))
@@ -134,7 +128,6 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
             int perfumeValue = (int)resInfo.Name;
 
             perfumeName = (E_WGH_PerfumeType)perfumeValue;
-            Debug.Log("checkshake5");
         }
         else
         {

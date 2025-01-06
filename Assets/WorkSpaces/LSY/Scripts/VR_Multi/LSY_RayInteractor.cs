@@ -13,7 +13,8 @@ public class LSY_RayInteractor : XRRayInteractor
         // 잡은 사실을 네트워크를 통해서 전달
         // 잡은 플레이어가 잡은 사실을 네트워크를 통해 전달
         PhotonView interactablePV = args.interactableObject.transform.GetComponent<PhotonView>();
-        interactablePV.RequestOwnership();
+        if (interactablePV != null )
+            interactablePV.RequestOwnership();
     }
 
     protected override void OnSelectExited(SelectExitEventArgs args)
@@ -22,6 +23,7 @@ public class LSY_RayInteractor : XRRayInteractor
 
         // 놓은 플레이어가 잡은 물체의 소유권을 방장에게 다시 주기
         PhotonView interactablePV = args.interactableObject.transform.GetComponent<PhotonView>();
-        interactablePV.TransferOwnership(PhotonNetwork.MasterClient);
+        if (interactablePV != null)
+            interactablePV.TransferOwnership(PhotonNetwork.MasterClient);
     }
 }
