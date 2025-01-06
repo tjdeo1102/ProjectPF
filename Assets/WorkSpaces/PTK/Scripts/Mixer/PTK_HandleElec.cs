@@ -7,7 +7,7 @@ using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.XR.Content.Interaction;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class PTK_HandleElec : MonoBehaviourPun
+public class PTK_HandleElec : MonoBehaviourPun, IPunObservable
 {
     [SerializeField] private XRKnob Knob;
     [SerializeField] private float decayRate = 1f;
@@ -22,33 +22,34 @@ public class PTK_HandleElec : MonoBehaviourPun
 
     private void CheckSecondKnob()
     {
+        if (photonView.IsMine == false)
+            return;
+
         if (Knob.value > 0)
         {
             Knob.value -= decayRate * Time.deltaTime;
             Knob.value = Mathf.Max(Knob.value, 0);
         }
 
-        bool newState;
-
-        if (Knob.value > secondaryKnobThreshold)
-        {
-            newState = true;
-        }
-        else
-        {
-            newState = false;
-        }
+        bool newState = Knob.value > secondaryKnobThreshold;
 
         if (newState != isSecondHandleActive)
         {
             isSecondHandleActive = newState;
-            photonView.RPC("RPC_UpdateSecondHandleState", RpcTarget.All, newState);
         }
     }
 
-    [PunRPC]
-    private void RPC_UpdateSecondHandleState(bool newState)
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        isSecondHandleActive = newState;
+        if (stream.IsWriting)
+        {
+            stream.SendNext(Knob.value);
+            stream.SendNext(isSecondHandleActive);
+        }
+        else if (stream.IsReading)
+        {
+            Knob.value = (float)stream.ReceiveNext();
+            isSecondHandleActive = (bool)stream.ReceiveNext();
+        }
     }
 }
