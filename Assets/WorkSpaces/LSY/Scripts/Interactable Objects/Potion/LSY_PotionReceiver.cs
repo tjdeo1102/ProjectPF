@@ -65,22 +65,19 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
         {
             m_MaterialPropertyBlock = new MaterialPropertyBlock();
         }
-
-        m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
-        liquidMeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
     }
 
     private void Update()
     {
-        //photonView.RPC("CheckShake", RpcTarget.All);
-
-        //photonView.RPC("UpdateDropLiquid", RpcTarget.All);
+        if (!photonView.IsMine) { return; }
+        CheckShake();
+        UpdateDropLiquid();
 
         m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
         liquidMeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
+
     }
 
-    [PunRPC]
     private void CheckShake()
     {
         var pos = transform.position;
@@ -89,7 +86,7 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
         if (IsActiveShake)
         {
             if (shakeRoutine == null)
-                photonView.RPC("PerfumeDone", RpcTarget.All);
+                shakeRoutine = StartCoroutine(ShakeRoutine());
         }
         else
         {
@@ -166,10 +163,9 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
             Color colorPotion = new Color(potionColor[0], potionColor[1], potionColor[2], potionColor[3]);
             Color colorLinePotion = new Color(linePotionColor[0], linePotionColor[1], linePotionColor[2], linePotionColor[3]);
 
-            m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
             m_MaterialPropertyBlock.SetColor("Color_E3091B1A", colorPotion);
             m_MaterialPropertyBlock.SetColor("Color_FDA61C50", colorLinePotion);
-
+            m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
             liquidMeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
 
             if (receiveCount == 7)
@@ -204,17 +200,16 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
         receiveCount = 0;
     }
 
-    [PunRPC]
     void UpdateDropLiquid()
     {
         if (Vector3.Dot(transform.up, Vector3.down) > 0 && fillAmount > 0 && perfumeClear)
         {
             if (particleSystemLiquid.isStopped)
             {
-                particleSystemLiquid.Play();
+                photonView.RPC("PlaySplashParticle", RpcTarget.All);
             }
 
-            photonView.RPC("DecreaseLiquid", RpcTarget.AllBuffered, Time.deltaTime); 
+            DecreaseLiquid();
         }
         else
         {
@@ -222,10 +217,9 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
         }
     }
 
-    [PunRPC]
-    void DecreaseLiquid(float deltaTime)
+    void DecreaseLiquid()
     {
-        var delta = 0.3f * deltaTime;
+        var delta = 0.3f * Time.deltaTime;
         fillAmount -= delta;
 
         if (fillAmount <= 0)
@@ -233,9 +227,6 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
             fillAmount = 0;
             photonView.RPC("ResetBottle", RpcTarget.All);
         }
-
-        m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
-        liquidMeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
     }
 
 
@@ -245,8 +236,6 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
         perfumeClear = false;
         resInfo = null;
         fillAmount = 0f; 
-        m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
-        liquidMeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
     }
 
 
@@ -254,12 +243,14 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     {
         if (stream.IsWriting)
         {
+            stream.SendNext(fillAmount);
             stream.SendNext(transform.position);
             stream.SendNext(transform.rotation);
             stream.SendNext(m_Breakable);
         }
         else
         {
+            fillAmount = (float)stream.ReceiveNext();
             transform.position = (Vector3)stream.ReceiveNext();
             transform.rotation = (Quaternion)stream.ReceiveNext();
             m_Breakable = (bool)stream.ReceiveNext();
