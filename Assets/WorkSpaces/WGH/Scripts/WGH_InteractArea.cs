@@ -28,7 +28,7 @@ public class WGH_InteractArea : MonoBehaviour
         if(other.gameObject.TryGetComponent(out LSY_PotionReceiver potion) && curCount < maxCount)
         {
             if (isCheck == false && potion.perfumeName == controller.PerfumeType
-                 && potion.e_BottleType == controller.BottleType) //TODO : 시연님 스크립트 머지 후 포션 결과물의 병타입도 비교해야 함
+                 && potion.e_BottleType == controller.BottleType)
             {
                 // 성공하면 성공 감정표현 후 퇴장
                 StartCoroutine(PurchaseRoutine());

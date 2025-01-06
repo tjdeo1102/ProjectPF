@@ -38,6 +38,15 @@ public class WGH_SmellStick : MonoBehaviourPun
     {
         startPos = transform.position;
     }
+    private void LateUpdate()
+    {
+        // "Dynamic Attach"라는 이름을 가진 자식 오브젝트 삭제
+        Transform dynamicAttach = transform.Find("[Ray Interactor] Dynamic Attach");
+        if (dynamicAttach != null)
+        {
+            Destroy(dynamicAttach.gameObject);
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -45,7 +54,7 @@ public class WGH_SmellStick : MonoBehaviourPun
         {
             contactNote = note;
         }
-        if (other.gameObject.TryGetComponent(out WGH_InteractArea interactArea) && isAbsorbed == true)
+        if (other.gameObject.TryGetComponent(out WGH_InteractArea interactArea) && isAbsorbed == true && isRoutine == false)
         {
             customer = interactArea.GetComponentInParent<WGH_NPCController>().gameObject;
             curTime = 0f;
@@ -71,17 +80,16 @@ public class WGH_SmellStick : MonoBehaviourPun
 
     IEnumerator TimeRoutine()
     {
+        isRoutine = true;
         while (true)
         {
-            isRoutine = true;
-            Debug.Log(curTime);
             curTime += Time.deltaTime;
             if(curTime >= needTime)
             {
                 React();
                 curTime = 0f;
                 OffEffect();
-                isAbsorbed = false;
+                isRoutine = false;
                 yield break;
             }
             yield return null;
@@ -114,23 +122,21 @@ public class WGH_SmellStick : MonoBehaviourPun
     /// </summary>
     public void OnEffect()
     {
-        photonView.RPC("EffectRPC", RpcTarget.AllViaServer, true);
+        photonView.RPC("EffectRPC", RpcTarget.All, true);
     }
     /// <summary>
     /// 시향노트에 끼워졌을 때 이펙트 Off
     /// </summary>
     public void OffEffect()
     {
-        photonView.RPC("EffectRPC", RpcTarget.AllViaServer, false);
+        photonView.RPC("EffectRPC", RpcTarget.All, false);
     }
 
     [PunRPC]
     private void EffectRPC(bool enable)
     {
-        if(enable == true)
-        {
-            NoteType = contactNote.NoteType;
-        }
+        if (!PhotonNetwork.IsMasterClient)
+            return;
         aura[(int)NoteType - 1].gameObject.SetActive(enable);
         isAbsorbed = enable;
     }
