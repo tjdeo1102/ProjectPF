@@ -49,6 +49,8 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
 
     [SerializeField] List<LSY_ItemPanel> itemPanels = new();
 
+    [SerializeField] List<LSY_BasketItem> lSY_BasketItems = new();
+
     bool isBasketPanelActive = false;
     float totalPrice = 0;
 
@@ -159,6 +161,7 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
 
         basketItems.Add(new LSY_BasketItem(name, price, explain, sprite, itemPrefab));
     }
+
     Coroutine warningRoutine;
     IEnumerator WarningRoutine()
     {
@@ -254,17 +257,18 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(basketIndex);
-            stream.SendNext(totalPrice);
+            stream.SendNext(stageInfo.StageMoney);
             stream.SendNext(basketItems.Count);
         }
         else
         {
             basketIndex = (int)stream.ReceiveNext();
-            totalPrice = (float)stream.ReceiveNext();
+            stageInfo.StageMoney = (int)stream.ReceiveNext();
             int basketItemCount = (int)stream.ReceiveNext();
         }
     }
 
+    [Serializable]
     public class LSY_BasketItem
     {
         public string ItemName { get; private set; }

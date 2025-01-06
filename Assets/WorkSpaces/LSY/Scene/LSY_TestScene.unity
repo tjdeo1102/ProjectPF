@@ -122,6 +122,33 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &20794720 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8640463158392034682, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1564754778}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &20794724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20794720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 139
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &28114737
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,6 +160,7 @@ GameObject:
   - component: {fileID: 28114738}
   - component: {fileID: 28114740}
   - component: {fileID: 28114739}
+  - component: {fileID: 28114741}
   m_Layer: 5
   m_Name: Seller Profile Text
   m_TagString: Untagged
@@ -257,11 +285,60 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 28114737}
   m_CullTransparentMesh: 1
+--- !u!114 &28114741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28114737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 138
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &28585510 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9191522556685367961, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1464194972}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &28585511 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2277939216334054306, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
   m_PrefabInstance: {fileID: 1464194972}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &28585516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28585510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 143
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &32314930
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,6 +691,7 @@ GameObject:
   - component: {fileID: 37829597}
   - component: {fileID: 37829596}
   - component: {fileID: 37829598}
+  - component: {fileID: 37829599}
   m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
@@ -694,6 +772,55 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 2, y: -2}
   m_UseGraphicAlpha: 1
+--- !u!114 &37829599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 37829594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 62
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &54647190 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7893203667356330012, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1954513778}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &54647195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 54647190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 61
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &100766914
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -751,6 +878,114 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f874f14d43ec6054fb4c75abb37afc06, type: 3}
+--- !u!1 &115175375 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2277309361348112308, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1205903636}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &115175379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115175375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 137
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &166627011 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5550571028716256687, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1464194972}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &166627016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166627011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 136
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &172339847 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5550571028716256687, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1954513778}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &172339852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172339847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 124
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &179960914 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8640463158392034682, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1954513778}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &179960918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 179960914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 123
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &203001260
 GameObject:
   m_ObjectHideFlags: 0
@@ -763,6 +998,7 @@ GameObject:
   - component: {fileID: 203001264}
   - component: {fileID: 203001263}
   - component: {fileID: 203001262}
+  - component: {fileID: 203001265}
   m_Layer: 5
   m_Name: Cylinder (4)
   m_TagString: Untagged
@@ -854,6 +1090,55 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 203001260}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &203001265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203001260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 1
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 29
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &213760440 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2277309361348112308, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1564754778}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &213760444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213760440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 122
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &227678680
 GameObject:
   m_ObjectHideFlags: 0
@@ -865,6 +1150,7 @@ GameObject:
   - component: {fileID: 227678681}
   - component: {fileID: 227678683}
   - component: {fileID: 227678682}
+  - component: {fileID: 227678684}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -990,6 +1276,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 227678680}
   m_CullTransparentMesh: 1
+--- !u!114 &227678684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 227678680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 121
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &229873378
 GameObject:
   m_ObjectHideFlags: 0
@@ -1001,6 +1309,7 @@ GameObject:
   - component: {fileID: 229873379}
   - component: {fileID: 229873381}
   - component: {fileID: 229873380}
+  - component: {fileID: 229873382}
   m_Layer: 5
   m_Name: Line
   m_TagString: Untagged
@@ -1066,6 +1375,82 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 229873378}
   m_CullTransparentMesh: 1
+--- !u!114 &229873382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229873378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 120
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &249680830 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8648882694363671740, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1020308799}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &249680835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249680830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 128
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &263956818 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4554201381532684544, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1464194972}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &263956822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 263956818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 127
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &270838898
 GameObject:
   m_ObjectHideFlags: 0
@@ -1077,6 +1462,7 @@ GameObject:
   - component: {fileID: 270838899}
   - component: {fileID: 270838901}
   - component: {fileID: 270838900}
+  - component: {fileID: 270838902}
   m_Layer: 5
   m_Name: Basket List
   m_TagString: Untagged
@@ -1201,6 +1587,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 270838898}
   m_CullTransparentMesh: 1
+--- !u!114 &270838902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270838898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 126
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &271285540
 GameObject:
   m_ObjectHideFlags: 0
@@ -1212,6 +1620,7 @@ GameObject:
   - component: {fileID: 271285541}
   - component: {fileID: 271285543}
   - component: {fileID: 271285542}
+  - component: {fileID: 271285544}
   m_Layer: 5
   m_Name: Speech Bubble Text
   m_TagString: Untagged
@@ -1336,6 +1745,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 271285540}
   m_CullTransparentMesh: 1
+--- !u!114 &271285544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271285540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 125
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &273001665
 GameObject:
   m_ObjectHideFlags: 0
@@ -1348,6 +1779,7 @@ GameObject:
   - component: {fileID: 273001669}
   - component: {fileID: 273001668}
   - component: {fileID: 273001667}
+  - component: {fileID: 273001670}
   m_Layer: 5
   m_Name: Cylinder (2)
   m_TagString: Untagged
@@ -1439,6 +1871,28 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 273001665}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &273001670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273001665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 32
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &274363918
 GameObject:
   m_ObjectHideFlags: 0
@@ -1470,6 +1924,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &298692234 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2277309361348112308, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1464194972}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &298692238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298692234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 118
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &313852979
 GameObject:
   m_ObjectHideFlags: 0
@@ -1481,6 +1962,7 @@ GameObject:
   - component: {fileID: 313852980}
   - component: {fileID: 313852982}
   - component: {fileID: 313852981}
+  - component: {fileID: 313852983}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1605,6 +2087,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 313852979}
   m_CullTransparentMesh: 1
+--- !u!114 &313852983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313852979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 117
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &330793251
 GameObject:
   m_ObjectHideFlags: 0
@@ -1617,6 +2121,7 @@ GameObject:
   - component: {fileID: 330793254}
   - component: {fileID: 330793252}
   - component: {fileID: 330793253}
+  - component: {fileID: 330793256}
   m_Layer: 5
   m_Name: Warning PopUp Image
   m_TagString: Untagged
@@ -1698,6 +2203,28 @@ RectTransform:
   m_AnchoredPosition: {x: -0.9, y: 0}
   m_SizeDelta: {x: 785.3, y: 78.8}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &330793256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330793251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 116
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &345773911
 GameObject:
   m_ObjectHideFlags: 0
@@ -1707,6 +2234,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 345773912}
+  - component: {fileID: 345773913}
   m_Layer: 5
   m_Name: Furniture Panel
   m_TagString: Untagged
@@ -1739,6 +2267,28 @@ RectTransform:
   m_AnchoredPosition: {x: 94, y: -93.600006}
   m_SizeDelta: {x: 645.4, y: 304.8}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &345773913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345773911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 115
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &360608517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1750,6 +2300,7 @@ GameObject:
   - component: {fileID: 360608518}
   - component: {fileID: 360608520}
   - component: {fileID: 360608519}
+  - component: {fileID: 360608521}
   m_Layer: 5
   m_Name: Announcement Text
   m_TagString: Untagged
@@ -1876,6 +2427,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 360608517}
   m_CullTransparentMesh: 1
+--- !u!114 &360608521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360608517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 114
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &377689981
 GameObject:
   m_ObjectHideFlags: 0
@@ -1887,6 +2460,7 @@ GameObject:
   - component: {fileID: 377689982}
   - component: {fileID: 377689984}
   - component: {fileID: 377689983}
+  - component: {fileID: 377689985}
   m_Layer: 5
   m_Name: Buy PopUp
   m_TagString: Untagged
@@ -1957,6 +2531,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 377689981}
   m_CullTransparentMesh: 1
+--- !u!114 &377689985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377689981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 96
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &384653187 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5550571028716256687, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1564754778}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &384653192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384653187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 142
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &384734034
 GameObject:
   m_ObjectHideFlags: 0
@@ -2072,6 +2695,33 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+--- !u!1 &387198908 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4554201381532684544, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1954513778}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &387198912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 387198908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 141
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &387964243
 GameObject:
   m_ObjectHideFlags: 0
@@ -2083,6 +2733,7 @@ GameObject:
   - component: {fileID: 387964244}
   - component: {fileID: 387964246}
   - component: {fileID: 387964245}
+  - component: {fileID: 387964247}
   m_Layer: 5
   m_Name: Button List
   m_TagString: Untagged
@@ -2152,6 +2803,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 387964243}
   m_CullTransparentMesh: 1
+--- !u!114 &387964247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 387964243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 140
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &460464379
 GameObject:
   m_ObjectHideFlags: 0
@@ -2164,6 +2837,7 @@ GameObject:
   - component: {fileID: 460464384}
   - component: {fileID: 460464383}
   - component: {fileID: 460464381}
+  - component: {fileID: 460464385}
   m_Layer: 5
   m_Name: Wallet
   m_TagString: Untagged
@@ -2247,6 +2921,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 460464379}
   m_CullTransparentMesh: 1
+--- !u!114 &460464385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 460464379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 135
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &467830096
 GameObject:
   m_ObjectHideFlags: 0
@@ -2258,6 +2954,7 @@ GameObject:
   - component: {fileID: 467830097}
   - component: {fileID: 467830099}
   - component: {fileID: 467830098}
+  - component: {fileID: 467830100}
   m_Layer: 5
   m_Name: Seller Profile Text
   m_TagString: Untagged
@@ -2382,6 +3079,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 467830096}
   m_CullTransparentMesh: 1
+--- !u!114 &467830100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467830096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 134
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &506896292
 GameObject:
   m_ObjectHideFlags: 0
@@ -2393,6 +3112,7 @@ GameObject:
   - component: {fileID: 506896293}
   - component: {fileID: 506896295}
   - component: {fileID: 506896294}
+  - component: {fileID: 506896296}
   m_Layer: 5
   m_Name: Total Price Text
   m_TagString: Untagged
@@ -2517,6 +3237,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 506896292}
   m_CullTransparentMesh: 1
+--- !u!114 &506896296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 506896292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 133
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &529969902
 GameObject:
   m_ObjectHideFlags: 0
@@ -2575,6 +3317,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &554605796 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5550571028716256687, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1205903636}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &554605801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 554605796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 132
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &559727134
 GameObject:
   m_ObjectHideFlags: 0
@@ -2587,6 +3356,7 @@ GameObject:
   - component: {fileID: 559727138}
   - component: {fileID: 559727137}
   - component: {fileID: 559727136}
+  - component: {fileID: 559727139}
   m_Layer: 5
   m_Name: Scrollbar Vertical
   m_TagString: Untagged
@@ -2703,6 +3473,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 559727134}
   m_CullTransparentMesh: 1
+--- !u!114 &559727139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 559727134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 131
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &579260659
 GameObject:
   m_ObjectHideFlags: 0
@@ -2715,6 +3507,7 @@ GameObject:
   - component: {fileID: 579260663}
   - component: {fileID: 579260662}
   - component: {fileID: 579260661}
+  - component: {fileID: 579260664}
   m_Layer: 5
   m_Name: Cylinder
   m_TagString: Untagged
@@ -2806,6 +3599,28 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 579260659}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &579260664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579260659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 33
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &579592738
 GameObject:
   m_ObjectHideFlags: 0
@@ -2817,6 +3632,7 @@ GameObject:
   - component: {fileID: 579592739}
   - component: {fileID: 579592741}
   - component: {fileID: 579592740}
+  - component: {fileID: 579592742}
   m_Layer: 5
   m_Name: Speech Bubble Text
   m_TagString: Untagged
@@ -2941,6 +3757,82 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 579592738}
   m_CullTransparentMesh: 1
+--- !u!114 &579592742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579592738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 130
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &581953477 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8640463158392034682, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1464194972}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &581953481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581953477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 129
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &611922013 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1061494993409663136, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1020308799}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &611922017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 611922013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 119
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &667180598
 GameObject:
   m_ObjectHideFlags: 0
@@ -2953,6 +3845,7 @@ GameObject:
   - component: {fileID: 667180602}
   - component: {fileID: 667180601}
   - component: {fileID: 667180600}
+  - component: {fileID: 667180603}
   m_Layer: 5
   m_Name: Viewport
   m_TagString: Untagged
@@ -3032,6 +3925,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 667180598}
   m_CullTransparentMesh: 1
+--- !u!114 &667180603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 667180598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 113
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &667817645
 GameObject:
   m_ObjectHideFlags: 0
@@ -3043,6 +3958,7 @@ GameObject:
   - component: {fileID: 667817646}
   - component: {fileID: 667817648}
   - component: {fileID: 667817647}
+  - component: {fileID: 667817649}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -3167,6 +4083,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 667817645}
   m_CullTransparentMesh: 1
+--- !u!114 &667817649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 667817645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 112
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &691695940
 GameObject:
   m_ObjectHideFlags: 0
@@ -3179,6 +4117,7 @@ GameObject:
   - component: {fileID: 691695944}
   - component: {fileID: 691695943}
   - component: {fileID: 691695942}
+  - component: {fileID: 691695945}
   m_Layer: 5
   m_Name: Decoration Scroll View
   m_TagString: Untagged
@@ -3276,6 +4215,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 691695940}
   m_CullTransparentMesh: 1
+--- !u!114 &691695945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691695940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 111
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &704169430
 GameObject:
   m_ObjectHideFlags: 0
@@ -3289,6 +4250,7 @@ GameObject:
   - component: {fileID: 704169434}
   - component: {fileID: 704169433}
   - component: {fileID: 704169432}
+  - component: {fileID: 704169436}
   m_Layer: 5
   m_Name: Buy Button
   m_TagString: Untagged
@@ -3414,6 +4376,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 704169430}
   m_CullTransparentMesh: 1
+--- !u!114 &704169436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 704169430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 110
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &706314916 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7893203667356330012, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1020308799}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &706314921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 706314916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 109
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &734468824
 GameObject:
   m_ObjectHideFlags: 0
@@ -3425,6 +4436,7 @@ GameObject:
   - component: {fileID: 734468825}
   - component: {fileID: 734468827}
   - component: {fileID: 734468826}
+  - component: {fileID: 734468828}
   m_Layer: 5
   m_Name: Speech Bubble Text
   m_TagString: Untagged
@@ -3550,6 +4562,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 734468824}
   m_CullTransparentMesh: 1
+--- !u!114 &734468828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 734468824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 108
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &737350986 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1061494993409663136, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1205903636}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &737350990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737350986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 107
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &743456653
 GameObject:
   m_ObjectHideFlags: 0
@@ -3561,6 +4622,7 @@ GameObject:
   - component: {fileID: 743456654}
   - component: {fileID: 743456656}
   - component: {fileID: 743456655}
+  - component: {fileID: 743456657}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -3629,6 +4691,28 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 15.9}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &743456657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743456653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 106
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &761141554
 GameObject:
   m_ObjectHideFlags: 0
@@ -3641,6 +4725,7 @@ GameObject:
   - component: {fileID: 761141558}
   - component: {fileID: 761141557}
   - component: {fileID: 761141556}
+  - component: {fileID: 761141559}
   m_Layer: 5
   m_Name: Speech Bubble Image
   m_TagString: Untagged
@@ -3722,6 +4807,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 761141554}
   m_CullTransparentMesh: 1
+--- !u!114 &761141559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 761141554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 105
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &784859336
 GameObject:
   m_ObjectHideFlags: 0
@@ -3733,6 +4840,7 @@ GameObject:
   - component: {fileID: 784859337}
   - component: {fileID: 784859339}
   - component: {fileID: 784859338}
+  - component: {fileID: 784859340}
   m_Layer: 5
   m_Name: Purchase Amount Text
   m_TagString: Untagged
@@ -3857,6 +4965,82 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 784859336}
   m_CullTransparentMesh: 1
+--- !u!114 &784859340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784859336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 104
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &793951921 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8648882694363671740, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1464194972}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &793951926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793951921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 103
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &811759187 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1061494993409663136, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1954513778}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &811759191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811759187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 102
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &813241658
 GameObject:
   m_ObjectHideFlags: 0
@@ -3868,6 +5052,7 @@ GameObject:
   - component: {fileID: 813241659}
   - component: {fileID: 813241661}
   - component: {fileID: 813241660}
+  - component: {fileID: 813241662}
   m_Layer: 5
   m_Name: Player Money Text
   m_TagString: Untagged
@@ -3992,6 +5177,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 813241658}
   m_CullTransparentMesh: 1
+--- !u!114 &813241662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 813241658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 101
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &814797642
 GameObject:
   m_ObjectHideFlags: 0
@@ -4004,6 +5211,7 @@ GameObject:
   - component: {fileID: 814797646}
   - component: {fileID: 814797645}
   - component: {fileID: 814797644}
+  - component: {fileID: 814797647}
   m_Layer: 5
   m_Name: Furniture Scroll View
   m_TagString: Untagged
@@ -4101,6 +5309,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 814797642}
   m_CullTransparentMesh: 1
+--- !u!114 &814797647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814797642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 100
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &829394194 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4554201381532684544, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1020308799}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &829394198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 829394194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 99
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &830997405
 GameObject:
   m_ObjectHideFlags: 0
@@ -4112,6 +5369,7 @@ GameObject:
   - component: {fileID: 830997406}
   - component: {fileID: 830997408}
   - component: {fileID: 830997407}
+  - component: {fileID: 830997409}
   m_Layer: 5
   m_Name: Line
   m_TagString: Untagged
@@ -4177,6 +5435,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 830997405}
   m_CullTransparentMesh: 1
+--- !u!114 &830997409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830997405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 98
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &862986369
 GameObject:
   m_ObjectHideFlags: 0
@@ -4190,6 +5470,7 @@ GameObject:
   - component: {fileID: 862986372}
   - component: {fileID: 862986371}
   - component: {fileID: 862986374}
+  - component: {fileID: 862986375}
   m_Layer: 5
   m_Name: Decoration Button
   m_TagString: Untagged
@@ -4327,6 +5608,28 @@ MonoBehaviour:
   m_EffectColor: {r: 0.6603774, g: 0.6603774, b: 0.6603774, a: 0.5}
   m_EffectDistance: {x: 6, y: -6}
   m_UseGraphicAlpha: 1
+--- !u!114 &862986375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 862986369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 97
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &877030733
 GameObject:
   m_ObjectHideFlags: 0
@@ -4338,6 +5641,7 @@ GameObject:
   - component: {fileID: 877030734}
   - component: {fileID: 877030736}
   - component: {fileID: 877030735}
+  - component: {fileID: 877030737}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -4462,6 +5766,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 877030733}
   m_CullTransparentMesh: 1
+--- !u!114 &877030737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 877030733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 70
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &891107972
 GameObject:
   m_ObjectHideFlags: 0
@@ -4474,6 +5800,7 @@ GameObject:
   - component: {fileID: 891107976}
   - component: {fileID: 891107975}
   - component: {fileID: 891107974}
+  - component: {fileID: 891107977}
   m_Layer: 5
   m_Name: Scrollbar Vertical
   m_TagString: Untagged
@@ -4590,11 +5917,87 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 891107972}
   m_CullTransparentMesh: 1
+--- !u!114 &891107977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 891107972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 69
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &899579789 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9191522556685367961, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1954513778}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &899579790 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2277939216334054306, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
   m_PrefabInstance: {fileID: 1954513778}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &899579795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899579789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 68
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &917821994 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1061494993409663136, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1564754778}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &917821998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917821994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 67
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &926644066
 GameObject:
   m_ObjectHideFlags: 0
@@ -4606,6 +6009,7 @@ GameObject:
   - component: {fileID: 926644067}
   - component: {fileID: 926644069}
   - component: {fileID: 926644068}
+  - component: {fileID: 926644070}
   m_Layer: 5
   m_Name: Buy PopUp
   m_TagString: Untagged
@@ -4672,6 +6076,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 926644066}
   m_CullTransparentMesh: 1
+--- !u!114 &926644070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 926644066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 66
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &947765221
 GameObject:
   m_ObjectHideFlags: 0
@@ -4780,6 +6206,7 @@ GameObject:
   - component: {fileID: 947865271}
   - component: {fileID: 947865273}
   - component: {fileID: 947865272}
+  - component: {fileID: 947865274}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -4845,11 +6272,60 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 15.9}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &947865274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947865270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 65
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &954782706 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9191522556685367961, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1564754778}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &954782707 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2277939216334054306, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
   m_PrefabInstance: {fileID: 1564754778}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &954782712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954782706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 64
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &956142484
 GameObject:
   m_ObjectHideFlags: 0
@@ -9826,11 +11302,50 @@ Transform:
   m_Father: {fileID: 32314931}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!1 &981769628 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9191522556685367961, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1205903636}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &981769629 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2277939216334054306, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
   m_PrefabInstance: {fileID: 1205903636}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &981769630 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7027292006920019612, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1205903636}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 981769628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cd05abb914b3eb4eb297bf6ebb96c09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &981769634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 981769628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 981769630}
+  sceneViewId: 63
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1005221757
 GameObject:
   m_ObjectHideFlags: 0
@@ -9842,6 +11357,7 @@ GameObject:
   - component: {fileID: 1005221758}
   - component: {fileID: 1005221760}
   - component: {fileID: 1005221759}
+  - component: {fileID: 1005221761}
   m_Layer: 5
   m_Name: StageMoneyText
   m_TagString: Untagged
@@ -9966,6 +11482,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1005221757}
   m_CullTransparentMesh: 1
+--- !u!114 &1005221761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1005221757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 60
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &1016645025 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7893203667356330012, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1564754778}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1016645030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016645025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 59
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &1020308799
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10057,6 +11622,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4765254616468136397, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+      propertyPath: sceneViewId
+      value: 26
+      objectReference: {fileID: 0}
     - target: {fileID: 7027292006920019612, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
       propertyPath: item
       value: 
@@ -10084,6 +11653,60 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+--- !u!1 &1044736218 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5550571028716256687, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1020308799}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1044736223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044736218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 58
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &1051835414 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7893203667356330012, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1205903636}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1051835419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051835414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 57
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1052374726
 GameObject:
   m_ObjectHideFlags: 0
@@ -10097,6 +11720,7 @@ GameObject:
   - component: {fileID: 1052374730}
   - component: {fileID: 1052374729}
   - component: {fileID: 1052374728}
+  - component: {fileID: 1052374732}
   m_Layer: 5
   m_Name: Basket Button
   m_TagString: Untagged
@@ -10223,6 +11847,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1052374726}
   m_CullTransparentMesh: 1
+--- !u!114 &1052374732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1052374726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 56
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1109559168
 GameObject:
   m_ObjectHideFlags: 0
@@ -10310,6 +11956,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1132949107 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8640463158392034682, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1205903636}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1132949111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132949107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 55
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1148136484
 GameObject:
   m_ObjectHideFlags: 0
@@ -10467,6 +12140,7 @@ GameObject:
   - component: {fileID: 1191741283}
   - component: {fileID: 1191741282}
   - component: {fileID: 1191741281}
+  - component: {fileID: 1191741284}
   m_Layer: 5
   m_Name: Cylinder (3)
   m_TagString: Untagged
@@ -10558,6 +12232,28 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1191741279}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1191741284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191741279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 31
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &1205903636
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10649,6 +12345,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4765254616468136397, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+      propertyPath: sceneViewId
+      value: 27
+      objectReference: {fileID: 0}
     - target: {fileID: 7027292006920019612, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
       propertyPath: item
       value: 
@@ -10687,6 +12387,7 @@ GameObject:
   - component: {fileID: 1214991534}
   - component: {fileID: 1214991536}
   - component: {fileID: 1214991535}
+  - component: {fileID: 1214991537}
   m_Layer: 5
   m_Name: Item Count
   m_TagString: Untagged
@@ -10811,6 +12512,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1214991533}
   m_CullTransparentMesh: 1
+--- !u!114 &1214991537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1214991533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 54
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1230379903
 GameObject:
   m_ObjectHideFlags: 0
@@ -10820,6 +12543,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1230379904}
+  - component: {fileID: 1230379905}
   m_Layer: 5
   m_Name: Decoration Panel
   m_TagString: Untagged
@@ -10852,6 +12576,28 @@ RectTransform:
   m_AnchoredPosition: {x: 94, y: -93.600006}
   m_SizeDelta: {x: 645.4, y: 304.8}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1230379905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1230379903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 53
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1239793072
 GameObject:
   m_ObjectHideFlags: 0
@@ -11183,6 +12929,7 @@ GameObject:
   - component: {fileID: 1246284189}
   - component: {fileID: 1246284188}
   - component: {fileID: 1246284187}
+  - component: {fileID: 1246284190}
   m_Layer: 5
   m_Name: Warning PopUp Image
   m_TagString: Untagged
@@ -11249,6 +12996,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1246284190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246284186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 52
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1249220952
 GameObject:
   m_ObjectHideFlags: 0
@@ -11260,6 +13029,7 @@ GameObject:
   - component: {fileID: 1249220953}
   - component: {fileID: 1249220955}
   - component: {fileID: 1249220954}
+  - component: {fileID: 1249220956}
   m_Layer: 5
   m_Name: Total Amount Text
   m_TagString: Untagged
@@ -11384,6 +13154,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1249220952}
   m_CullTransparentMesh: 1
+--- !u!114 &1249220956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249220952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 51
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &1251597749 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4554201381532684544, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1564754778}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1251597753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1251597749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 50
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1276813543
 GameObject:
   m_ObjectHideFlags: 0
@@ -11393,6 +13212,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1276813544}
+  - component: {fileID: 1276813545}
   m_Layer: 5
   m_Name: Sliding Area
   m_TagString: Untagged
@@ -11420,6 +13240,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1276813545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276813543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 95
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1279815346
 GameObject:
   m_ObjectHideFlags: 0
@@ -11464,6 +13306,7 @@ GameObject:
   - component: {fileID: 1286458057}
   - component: {fileID: 1286458056}
   - component: {fileID: 1286458055}
+  - component: {fileID: 1286458059}
   m_Layer: 5
   m_Name: Furniture Button
   m_TagString: Untagged
@@ -11589,6 +13432,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1286458053}
   m_CullTransparentMesh: 1
+--- !u!114 &1286458059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286458053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 94
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1290756816
 GameObject:
   m_ObjectHideFlags: 0
@@ -11601,6 +13466,7 @@ GameObject:
   - component: {fileID: 1290756820}
   - component: {fileID: 1290756819}
   - component: {fileID: 1290756818}
+  - component: {fileID: 1290756821}
   m_Layer: 5
   m_Name: Seller Profile Image
   m_TagString: Untagged
@@ -11681,6 +13547,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1290756816}
   m_CullTransparentMesh: 1
+--- !u!114 &1290756821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1290756816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 93
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1365422569
 GameObject:
   m_ObjectHideFlags: 0
@@ -11693,6 +13581,7 @@ GameObject:
   - component: {fileID: 1365422573}
   - component: {fileID: 1365422572}
   - component: {fileID: 1365422571}
+  - component: {fileID: 1365422574}
   m_Layer: 5
   m_Name: Close Button
   m_TagString: Untagged
@@ -11803,6 +13692,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1365422569}
   m_CullTransparentMesh: 1
+--- !u!114 &1365422574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365422569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 76
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1378615862
 GameObject:
   m_ObjectHideFlags: 0
@@ -11814,6 +13725,7 @@ GameObject:
   - component: {fileID: 1378615863}
   - component: {fileID: 1378615865}
   - component: {fileID: 1378615864}
+  - component: {fileID: 1378615866}
   m_Layer: 5
   m_Name: Line
   m_TagString: Untagged
@@ -11879,6 +13791,109 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1378615862}
   m_CullTransparentMesh: 1
+--- !u!114 &1378615866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378615862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 75
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &1390353849 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8640463158392034682, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1020308799}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1390353853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390353849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 74
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &1394080815 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7893203667356330012, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1464194972}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1394080820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394080815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 73
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &1409221297 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8648882694363671740, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1205903636}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1409221302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1409221297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 72
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &1464194972
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11970,6 +13985,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4765254616468136397, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+      propertyPath: sceneViewId
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 7027292006920019612, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
       propertyPath: item
       value: 
@@ -12039,6 +14058,7 @@ GameObject:
   - component: {fileID: 1484035271}
   - component: {fileID: 1484035273}
   - component: {fileID: 1484035272}
+  - component: {fileID: 1484035274}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -12106,6 +14126,28 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 15.9}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &1484035274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1484035270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 71
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1507939843
 GameObject:
   m_ObjectHideFlags: 0
@@ -12117,6 +14159,7 @@ GameObject:
   - component: {fileID: 1507939844}
   - component: {fileID: 1507939846}
   - component: {fileID: 1507939845}
+  - component: {fileID: 1507939847}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -12241,6 +14284,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1507939843}
   m_CullTransparentMesh: 1
+--- !u!114 &1507939847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507939843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 92
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1512015986
 GameObject:
   m_ObjectHideFlags: 0
@@ -12252,6 +14317,7 @@ GameObject:
   - component: {fileID: 1512015987}
   - component: {fileID: 1512015989}
   - component: {fileID: 1512015988}
+  - component: {fileID: 1512015990}
   m_Layer: 5
   m_Name: Total Price
   m_TagString: Untagged
@@ -12376,6 +14442,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1512015986}
   m_CullTransparentMesh: 1
+--- !u!114 &1512015990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1512015986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 91
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1513063946
 GameObject:
   m_ObjectHideFlags: 0
@@ -12387,6 +14475,7 @@ GameObject:
   - component: {fileID: 1513063947}
   - component: {fileID: 1513063949}
   - component: {fileID: 1513063948}
+  - component: {fileID: 1513063950}
   m_Layer: 5
   m_Name: Seller Profile Text
   m_TagString: Untagged
@@ -12511,6 +14600,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1513063946}
   m_CullTransparentMesh: 1
+--- !u!114 &1513063950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1513063946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 90
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1539096736
 GameObject:
   m_ObjectHideFlags: 0
@@ -17398,6 +19509,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1564695982}
+  - component: {fileID: 1564695983}
   m_Layer: 5
   m_Name: Sliding Area
   m_TagString: Untagged
@@ -17425,6 +19537,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1564695983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564695981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 89
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &1564754778
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17516,6 +19650,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4765254616468136397, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+      propertyPath: sceneViewId
+      value: 23
+      objectReference: {fileID: 0}
     - target: {fileID: 7027292006920019612, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
       propertyPath: item
       value: 
@@ -17543,6 +19681,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+--- !u!1 &1569314769 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8648882694363671740, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1564754778}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1569314774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1569314769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 88
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1574519366
 GameObject:
   m_ObjectHideFlags: 0
@@ -17554,6 +19719,7 @@ GameObject:
   - component: {fileID: 1574519367}
   - component: {fileID: 1574519369}
   - component: {fileID: 1574519368}
+  - component: {fileID: 1574519370}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -17619,6 +19785,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1574519366}
   m_CullTransparentMesh: 1
+--- !u!114 &1574519370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574519366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 87
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &1581228912
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17688,6 +19876,7 @@ GameObject:
   - component: {fileID: 1585873905}
   - component: {fileID: 1585873904}
   - component: {fileID: 1585873903}
+  - component: {fileID: 1585873906}
   m_Layer: 5
   m_Name: Scrollbar Vertical
   m_TagString: Untagged
@@ -17804,6 +19993,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1585873901}
   m_CullTransparentMesh: 1
+--- !u!114 &1585873906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1585873901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 86
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1603634140
 GameObject:
   m_ObjectHideFlags: 0
@@ -17816,6 +20027,7 @@ GameObject:
   - component: {fileID: 1603634144}
   - component: {fileID: 1603634143}
   - component: {fileID: 1603634142}
+  - component: {fileID: 1603634145}
   m_Layer: 5
   m_Name: Seller Profile Image
   m_TagString: Untagged
@@ -17896,6 +20108,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1603634140}
   m_CullTransparentMesh: 1
+--- !u!114 &1603634145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603634140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 85
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1611329147
 GameObject:
   m_ObjectHideFlags: 0
@@ -17907,6 +20141,7 @@ GameObject:
   - component: {fileID: 1611329148}
   - component: {fileID: 1611329150}
   - component: {fileID: 1611329149}
+  - component: {fileID: 1611329151}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -18031,6 +20266,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1611329147}
   m_CullTransparentMesh: 1
+--- !u!114 &1611329151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1611329147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 84
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1614558710
 GameObject:
   m_ObjectHideFlags: 0
@@ -18223,6 +20480,7 @@ GameObject:
   - component: {fileID: 1644836088}
   - component: {fileID: 1644836090}
   - component: {fileID: 1644836089}
+  - component: {fileID: 1644836091}
   m_Layer: 5
   m_Name: Item Count Text
   m_TagString: Untagged
@@ -18349,6 +20607,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1644836087}
   m_CullTransparentMesh: 1
+--- !u!114 &1644836091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1644836087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 83
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1655850468
 GameObject:
   m_ObjectHideFlags: 0
@@ -18361,6 +20641,7 @@ GameObject:
   - component: {fileID: 1655850472}
   - component: {fileID: 1655850471}
   - component: {fileID: 1655850470}
+  - component: {fileID: 1655850473}
   m_Layer: 5
   m_Name: Cylinder (1)
   m_TagString: Untagged
@@ -18452,6 +20733,28 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1655850468}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1655850473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655850468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 30
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1674790971
 GameObject:
   m_ObjectHideFlags: 0
@@ -18464,6 +20767,7 @@ GameObject:
   - component: {fileID: 1674790975}
   - component: {fileID: 1674790974}
   - component: {fileID: 1674790973}
+  - component: {fileID: 1674790976}
   m_Layer: 5
   m_Name: Viewport
   m_TagString: Untagged
@@ -18543,6 +20847,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1674790971}
   m_CullTransparentMesh: 1
+--- !u!114 &1674790976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674790971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 82
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1679247930
 GameObject:
   m_ObjectHideFlags: 0
@@ -18554,6 +20880,7 @@ GameObject:
   - component: {fileID: 1679247931}
   - component: {fileID: 1679247933}
   - component: {fileID: 1679247932}
+  - component: {fileID: 1679247934}
   m_Layer: 5
   m_Name: Speech Bubble Image
   m_TagString: Untagged
@@ -18620,6 +20947,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1679247930}
   m_CullTransparentMesh: 1
+--- !u!114 &1679247934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679247930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 81
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1682787338
 GameObject:
   m_ObjectHideFlags: 0
@@ -18951,6 +21300,7 @@ GameObject:
   - component: {fileID: 1713512208}
   - component: {fileID: 1713512210}
   - component: {fileID: 1713512209}
+  - component: {fileID: 1713512211}
   m_Layer: 5
   m_Name: Receipt Text
   m_TagString: Untagged
@@ -19075,11 +21425,60 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1713512207}
   m_CullTransparentMesh: 1
+--- !u!114 &1713512211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713512207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 80
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &1733533160 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9191522556685367961, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1020308799}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1733533161 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2277939216334054306, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
   m_PrefabInstance: {fileID: 1020308799}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1733533166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733533160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 79
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1743271818
 GameObject:
   m_ObjectHideFlags: 0
@@ -19138,6 +21537,7 @@ GameObject:
   - component: {fileID: 1755321039}
   - component: {fileID: 1755321038}
   - component: {fileID: 1755321037}
+  - component: {fileID: 1755321040}
   m_Layer: 5
   m_Name: Seller Profile Image
   m_TagString: Untagged
@@ -19218,6 +21618,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1755321035}
   m_CullTransparentMesh: 1
+--- !u!114 &1755321040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755321035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 78
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1764976339
 GameObject:
   m_ObjectHideFlags: 0
@@ -19265,6 +21687,7 @@ GameObject:
   - component: {fileID: 1779909328}
   - component: {fileID: 1779909330}
   - component: {fileID: 1779909329}
+  - component: {fileID: 1779909331}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -19389,6 +21812,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1779909327}
   m_CullTransparentMesh: 1
+--- !u!114 &1779909331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779909327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 77
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1812268742
 GameObject:
   m_ObjectHideFlags: 0
@@ -19400,6 +21845,7 @@ GameObject:
   - component: {fileID: 1812268743}
   - component: {fileID: 1812268745}
   - component: {fileID: 1812268744}
+  - component: {fileID: 1812268746}
   m_Layer: 5
   m_Name: Line
   m_TagString: Untagged
@@ -19465,6 +21911,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1812268742}
   m_CullTransparentMesh: 1
+--- !u!114 &1812268746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812268742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 49
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &1817400067 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2277309361348112308, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1954513778}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1817400071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1817400067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 48
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1846612426
 GameObject:
   m_ObjectHideFlags: 0
@@ -19477,6 +21972,7 @@ GameObject:
   - component: {fileID: 1846612430}
   - component: {fileID: 1846612429}
   - component: {fileID: 1846612428}
+  - component: {fileID: 1846612431}
   m_Layer: 5
   m_Name: Item Count& Price Image
   m_TagString: Untagged
@@ -19562,6 +22058,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1846612426}
   m_CullTransparentMesh: 1
+--- !u!114 &1846612431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1846612426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 47
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1869843059
 GameObject:
   m_ObjectHideFlags: 0
@@ -19672,6 +22190,7 @@ GameObject:
   - component: {fileID: 1876816067}
   - component: {fileID: 1876816066}
   - component: {fileID: 1876816065}
+  - component: {fileID: 1876816068}
   m_Layer: 5
   m_Name: Speech Bubble Image
   m_TagString: Untagged
@@ -19753,6 +22272,82 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1876816063}
   m_CullTransparentMesh: 1
+--- !u!114 &1876816068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876816063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 46
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &1914633976 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1061494993409663136, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1464194972}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1914633980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914633976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 45
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &1916456154 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2277309361348112308, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1020308799}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1916456158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916456154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 44
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1942744439
 GameObject:
   m_ObjectHideFlags: 0
@@ -19764,6 +22359,7 @@ GameObject:
   - component: {fileID: 1942744440}
   - component: {fileID: 1942744442}
   - component: {fileID: 1942744441}
+  - component: {fileID: 1942744443}
   m_Layer: 5
   m_Name: Basket Count Text
   m_TagString: Untagged
@@ -19888,6 +22484,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1942744439}
   m_CullTransparentMesh: 1
+--- !u!114 &1942744443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1942744439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 43
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &1954513778
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19979,6 +22597,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4765254616468136397, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+      propertyPath: sceneViewId
+      value: 28
+      objectReference: {fileID: 0}
     - target: {fileID: 7027292006920019612, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
       propertyPath: item
       value: 
@@ -20006,6 +22628,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+--- !u!1 &1979471713 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8648882694363671740, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1954513778}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1979471718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1979471713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 42
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &1993275084
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20079,6 +22728,7 @@ GameObject:
   - component: {fileID: 2012829233}
   - component: {fileID: 2012829232}
   - component: {fileID: 2012829231}
+  - component: {fileID: 2012829234}
   m_Layer: 5
   m_Name: Viewport
   m_TagString: Untagged
@@ -20158,6 +22808,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2012829229}
   m_CullTransparentMesh: 1
+--- !u!114 &2012829234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2012829229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 41
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &2052575550
 GameObject:
   m_ObjectHideFlags: 0
@@ -20170,6 +22842,7 @@ GameObject:
   - component: {fileID: 2052575554}
   - component: {fileID: 2052575553}
   - component: {fileID: 2052575552}
+  - component: {fileID: 2052575555}
   m_Layer: 5
   m_Name: Basket Scroll View
   m_TagString: Untagged
@@ -20267,6 +22940,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2052575550}
   m_CullTransparentMesh: 1
+--- !u!114 &2052575555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052575550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 40
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &2065880285
 GameObject:
   m_ObjectHideFlags: 0
@@ -20276,6 +22971,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2065880286}
+  - component: {fileID: 2065880287}
   m_Layer: 5
   m_Name: Basket Panel
   m_TagString: Untagged
@@ -20311,6 +23007,28 @@ RectTransform:
   m_AnchoredPosition: {x: 94, y: -93.600006}
   m_SizeDelta: {x: 645.4, y: 304.8}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2065880287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065880285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 39
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &2080021262
 GameObject:
   m_ObjectHideFlags: 0
@@ -20323,6 +23041,7 @@ GameObject:
   - component: {fileID: 2080021266}
   - component: {fileID: 2080021265}
   - component: {fileID: 2080021264}
+  - component: {fileID: 2080021267}
   m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
@@ -20403,6 +23122,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2080021262}
   m_CullTransparentMesh: 1
+--- !u!114 &2080021267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080021262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 38
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &2082268628
 GameObject:
   m_ObjectHideFlags: 0
@@ -20456,6 +23197,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2087601090}
+  - component: {fileID: 2087601091}
   m_Layer: 5
   m_Name: Sliding Area
   m_TagString: Untagged
@@ -20483,6 +23225,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2087601091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087601089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 37
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &2097074907
 GameObject:
   m_ObjectHideFlags: 0
@@ -20495,6 +23259,7 @@ GameObject:
   - component: {fileID: 2097074911}
   - component: {fileID: 2097074910}
   - component: {fileID: 2097074909}
+  - component: {fileID: 2097074912}
   m_Layer: 5
   m_Name: Speech Bubble Image
   m_TagString: Untagged
@@ -20576,6 +23341,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2097074907}
   m_CullTransparentMesh: 1
+--- !u!114 &2097074912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2097074907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 36
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &2119131099 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4554201381532684544, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
+  m_PrefabInstance: {fileID: 1205903636}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2119131103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119131099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 35
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &2139393644
 GameObject:
   m_ObjectHideFlags: 0
@@ -20588,6 +23402,7 @@ GameObject:
   - component: {fileID: 2139393648}
   - component: {fileID: 2139393647}
   - component: {fileID: 2139393646}
+  - component: {fileID: 2139393649}
   m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
@@ -20668,6 +23483,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2139393644}
   m_CullTransparentMesh: 1
+--- !u!114 &2139393649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139393644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 34
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &757688332304028775
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20817,6 +23654,7 @@ GameObject:
   - component: {fileID: 1898296297687789051}
   - component: {fileID: 1898296297687789052}
   - component: {fileID: 1898296297687789053}
+  - component: {fileID: 1898296297687789054}
   m_Layer: 5
   m_Name: Shop Canvas
   m_TagString: Untagged
@@ -20981,6 +23819,30 @@ MonoBehaviour:
     StageLevel: 0
     StageMoney: 100
   itemPanels: []
+  lSY_BasketItems: []
+--- !u!114 &1898296297687789054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1898296297687789024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 1
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 1898296297687789053}
+  sceneViewId: 21
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!114 &2043066480025767722 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1137823669224394215, guid: 87e87409cd487a643856f05ffa34f881, type: 3}

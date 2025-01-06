@@ -1,8 +1,10 @@
+using Photon.Pun;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LSY_ItemPanel : MonoBehaviour
+public class LSY_ItemPanel : MonoBehaviourPun, IPunObservable
 {
     [SerializeField] Button addButton;
 
@@ -39,6 +41,20 @@ public class LSY_ItemPanel : MonoBehaviour
         itemExplainText.text = itemExplain;
     }
 
+    public void SetItemInfo(string name, float price, string explanation, Sprite image, GameObject itemPrefab)
+    {
+        itemName = name;
+        itemPrice = price;
+        itemExplain = explanation;
+        item = image;
+        itemGameObekct = itemPrefab;
+
+        itemNameText.text = itemName;
+        itemPriceText.text = itemPrice.ToString() + "$";
+        itemExplainText.text = itemExplain;
+
+        itemImage.sprite = item;
+    }
     private void AddItem()
     {
         if (LSY_ItemManager.basketIndex > 9 || isAdded)
@@ -49,5 +65,17 @@ public class LSY_ItemPanel : MonoBehaviour
         OnItemAddedBasket?.Invoke(itemName, itemPrice, itemExplain, item, itemGameObekct);
         OnItemAdded?.Invoke(itemPrice);
         isAdded = true;
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(isAdded);
+        }
+        else
+        {
+            isAdded = (bool)stream.ReceiveNext();
+        }
     }
 }
