@@ -59,7 +59,7 @@ public class KSD_AddToolRoomPanel : MonoBehaviour
                                 StageDate = res[i].StageDate,
                                 StageID = res[i].StageID,
                                 StageLevel = res[i].StageLevel,
-                                StageScore = res[i].StageScore,
+                                StageMoney = res[i].StageMoney,
                             };
                         }
                         entrys[i].UpdateStageInfo();
