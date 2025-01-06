@@ -12,5 +12,5 @@ public class KSD_StageInfo
     public string StageDate;
     public int FinishPlayerCount;
     public int StageLevel;
-    public int StageScore;
+    public int StageMoney;
 }

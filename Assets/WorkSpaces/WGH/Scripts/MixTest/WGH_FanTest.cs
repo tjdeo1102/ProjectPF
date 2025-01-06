@@ -28,14 +28,14 @@ public class WGH_FanTest : MonoBehaviour
     void Start()
     {
         lastPosition = fan.position; // 부채 초기 위치 저장
-        if (AlwaysFire) isActiveFire = true;
     }
 
     void Update()
     {
         //if (!isGrabbed)  // 부채가 잡혀있지 않으면 Update 중단
         //    return;
-        
+        if (AlwaysFire) isActiveFire = true;
+
         // 부채의 이동 속도 계산
         shakeSpeed = (fan.position - lastPosition).magnitude / Time.deltaTime;
         lastPosition = fan.position;
@@ -43,7 +43,7 @@ public class WGH_FanTest : MonoBehaviour
         // 부채와 불 사이의 거리 계산
         float distance = Vector3.Distance(fan.position, fireSource.position);
 
-        if (distance <= maxDistance)
+        if (distance <= maxDistance || AlwaysFire)
         {
             AdjustFire(shakeSpeed); // 거리가 조건에 충족되면 파티클 조정
         }

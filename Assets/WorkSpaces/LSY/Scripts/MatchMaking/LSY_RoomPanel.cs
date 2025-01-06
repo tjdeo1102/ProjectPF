@@ -34,7 +34,7 @@ public class LSY_RoomPanel : MonoBehaviour
             selectStageInfo.StageID = 0;
             selectStageInfo.StageDate = DateTime.Now.ToString();
             selectStageInfo.StageLevel = 0;
-            selectStageInfo.StageScore = 0;
+            selectStageInfo.StageMoney = 0;
             selectStageInfo.FinishPlayerCount = 0;
             addTool.UpdateList();
         }

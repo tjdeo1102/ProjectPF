@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class KSD_ObjectSpawn : MonoBehaviour
 {
-    [SerializeField] private float spawnDistanceX;
-    [SerializeField] private float spawnDistanceZ;
+    //[SerializeField] private float spawnDistanceX;
+    //[SerializeField] private float spawnDistanceZ;
     [SerializeField] private float checkInterval = 1f;
     [SerializeField] private LayerMask spawnLayerMask;          // 해당 레이어만 체크
     [SerializeField] private string objectPath = "";
@@ -37,12 +37,12 @@ public class KSD_ObjectSpawn : MonoBehaviour
             {
                 // 랜덤 위치 계산
                 Vector3 randomPosition = new Vector3(
-                    Random.Range(-spawnDistanceX + transform.position.x, spawnDistanceX + transform.position.x),
+                    Random.Range(collider.bounds.min.x, collider.bounds.max.x),
                     transform.position.y,
-                    Random.Range(-spawnDistanceZ + transform.position.z, spawnDistanceZ + transform.position.z));
+                    Random.Range(collider.bounds.min.z, collider.bounds.max.z));
 
                 // 재료 생성
-                PhotonNetwork.Instantiate(objectPath, randomPosition, Quaternion.identity);
+                if (PhotonNetwork.InRoom) PhotonNetwork.Instantiate(objectPath, randomPosition, Quaternion.identity);
             }
         }
     }
