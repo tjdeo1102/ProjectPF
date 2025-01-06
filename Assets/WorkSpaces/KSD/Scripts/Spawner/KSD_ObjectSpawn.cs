@@ -10,15 +10,20 @@ public class KSD_ObjectSpawn : MonoBehaviour
     [SerializeField] private float respawnCoolTime = 1f;
     [SerializeField] private string objectPath = "";
     [SerializeField] private Collider spawnArea;
+    [SerializeField] private int objectMaxCount = 3;
 
     private string objectName;
     private Coroutine exitObjectRoutine;
     private float spawnDelay = 1f;
     private float timer;
+
+    private List<GameObject> objects;
+
     private void Start()
     {
         if (PhotonNetwork.IsMasterClient == false) return;
-            
+
+        objects = new List<GameObject>();
         SpawnObject();
     }
 
@@ -70,6 +75,12 @@ public class KSD_ObjectSpawn : MonoBehaviour
 
         // 재료 생성
         var obj = PhotonNetwork.Instantiate(objectPath, randomPosition, Quaternion.identity);
+        objects.Add(obj);
+        if (objects.Count > objectMaxCount)
+        {
+            PhotonNetwork.Destroy(objects[0]);
+            objects.RemoveAt(0);
+        }
         objectName = obj.name;
     }
 
