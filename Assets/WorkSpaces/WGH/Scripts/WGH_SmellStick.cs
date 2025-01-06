@@ -9,12 +9,12 @@ using Unity.VisualScripting;
 public class WGH_SmellStick : MonoBehaviourPun
 {
     [SerializeField] private GameObject customer;
-    [SerializeField] private float interactionDist;     // »óÈ£ÀÛ¿ë °Å¸®
+    [SerializeField] private float interactionDist;     // ìƒí˜¸ì‘ìš© ê±°ë¦¬
     [SerializeField] private ParticleSystem[] aura;
 
-    private float curTime;                              // ÇöÀç ½Ã°£
-    [SerializeField] private float needTime;            // ½ÃÇâ¿¡ ÇÊ¿äÇÑ ½Ã°£
-    [SerializeField] private float returnDistance;      // ¸Ö¾îÁ³À» ¶§ ¿ø·¡À§Ä¡·Î µ¹¾Æ¿À´Â °Å¸®
+    private float curTime;                              // í˜„ì¬ ì‹œê°„
+    [SerializeField] private float needTime;            // ì‹œí–¥ì— í•„ìš”í•œ ì‹œê°„
+    [SerializeField] private float returnDistance;      // ë©€ì–´ì¡Œì„ ë•Œ ì›ë˜ìœ„ì¹˜ë¡œ ëŒì•„ì˜¤ëŠ” ê±°ë¦¬
     public E_WGH_NoteType NoteType;
     [SerializeField] WGH_InteractionNote contactNote;
     public event Action OnBestInteract;
@@ -22,7 +22,7 @@ public class WGH_SmellStick : MonoBehaviourPun
     public event Action OnQuestionInteract;
     public event Action OnDespairInteract;
     
-    private bool isAbsorbed;                            // ÀÌÆåÆ® OnÀÎÁö ¾Æ´ÑÁö(»óÈ£ÀÛ¿ë °¡´ÉÇÑ »óÅÂÀÎÁö)
+    private bool isAbsorbed;                            // ì´í™íŠ¸ Onì¸ì§€ ì•„ë‹Œì§€(ìƒí˜¸ì‘ìš© ê°€ëŠ¥í•œ ìƒíƒœì¸ì§€)
     private bool isRoutine;
     [HideInInspector] public bool isGrab;
     private Rigidbody rigid;
@@ -38,6 +38,15 @@ public class WGH_SmellStick : MonoBehaviourPun
     {
         startPos = transform.position;
     }
+    private void LateUpdate()
+    {
+        // "Dynamic Attach"ë¼ëŠ” ì´ë¦„ì„ ê°€ì§„ ìì‹ ì˜¤ë¸Œì íŠ¸ ì‚­ì œ
+        Transform dynamicAttach = transform.Find("[Ray Interactor] Dynamic Attach");
+        if (dynamicAttach != null)
+        {
+            Destroy(dynamicAttach.gameObject);
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -45,7 +54,7 @@ public class WGH_SmellStick : MonoBehaviourPun
         {
             contactNote = note;
         }
-        if (other.gameObject.TryGetComponent(out WGH_InteractArea interactArea) && isAbsorbed == true)
+        if (other.gameObject.TryGetComponent(out WGH_InteractArea interactArea) && isAbsorbed == true && isRoutine == false)
         {
             customer = interactArea.GetComponentInParent<WGH_NPCController>().gameObject;
             curTime = 0f;
@@ -71,17 +80,16 @@ public class WGH_SmellStick : MonoBehaviourPun
 
     IEnumerator TimeRoutine()
     {
+        isRoutine = true;
         while (true)
         {
-            isRoutine = true;
-            Debug.Log(curTime);
             curTime += Time.deltaTime;
             if(curTime >= needTime)
             {
                 React();
                 curTime = 0f;
                 OffEffect();
-                isAbsorbed = false;
+                isRoutine = false;
                 yield break;
             }
             yield return null;
@@ -90,7 +98,7 @@ public class WGH_SmellStick : MonoBehaviourPun
 
     private void React()
     {
-        Debug.Log("»óÈ£ÀÛ¿ë");
+        Debug.Log("ìƒí˜¸ì‘ìš©");
         if (NoteType == customer.GetComponent<WGH_NPCController>().BestMaterial)
         {
             OnBestInteract?.Invoke();
@@ -110,14 +118,14 @@ public class WGH_SmellStick : MonoBehaviourPun
     }
 
     /// <summary>
-    /// ½ÃÇâ³ëÆ®¿¡¼­ ºüÁ³À» ¶§ ÀÌÆåÆ® On
+    /// ì‹œí–¥ë…¸íŠ¸ì—ì„œ ë¹ ì¡Œì„ ë•Œ ì´í™íŠ¸ On
     /// </summary>
     public void OnEffect()
     {
         photonView.RPC("EffectRPC", RpcTarget.All, true);
     }
     /// <summary>
-    /// ½ÃÇâ³ëÆ®¿¡ ³¢¿öÁ³À» ¶§ ÀÌÆåÆ® Off
+    /// ì‹œí–¥ë…¸íŠ¸ì— ë¼ì›Œì¡Œì„ ë•Œ ì´í™íŠ¸ Off
     /// </summary>
     public void OffEffect()
     {
@@ -127,12 +135,8 @@ public class WGH_SmellStick : MonoBehaviourPun
     [PunRPC]
     public void EffectRPC(bool enable)
     {
-        Debug.Log("SmellStickOn Called");
-
-        if (enable == true)
-        {
-            NoteType = contactNote.NoteType;
-        }
+        if (!PhotonNetwork.IsMasterClient)
+            return;
         aura[(int)NoteType - 1].gameObject.SetActive(enable);
         isAbsorbed = enable;
     }

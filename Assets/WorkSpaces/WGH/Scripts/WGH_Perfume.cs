@@ -20,11 +20,11 @@ public enum E_WGH_PerfumeType
 public enum E_WGH_NoteType
 {
     NONE = 0,
-    FLORAL,
     FRUITY,
+    FLORAL,
+    GREEN,
     CITRUS,
     WOODY,
-    GREEN,
     E_WGH_PERFUMEMATERIAL_MAX
 }
 
