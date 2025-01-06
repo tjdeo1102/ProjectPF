@@ -55,14 +55,12 @@ public class WGH_NPCController : MonoBehaviourPun
     [SerializeField] int exploreNumeratorNum;
     public int ExploreNumeratorNum { get { return exploreNumeratorNum; } }
 
-
-
-    public Vector3 PassPos;                                                           // pass 루트 Vector
-    public Vector3 Entrance;
-    public Vector3 ExplorePos1;                                                       // explore 위치 1
-    public Vector3 ExplorePos2;                                                       // explore 위치 2
-    public Vector3 StoreCenter;
-    public Vector3 Counter;
+    [HideInInspector] public Vector3 PassPos;                                                           // pass 루트 Vector
+    [HideInInspector] public Vector3 Entrance;
+    [HideInInspector] public Vector3 ExplorePos1;                                                       // explore 위치 1
+    [HideInInspector] public Vector3 ExplorePos2;                                                       // explore 위치 2
+    [HideInInspector] public Vector3 StoreCenter;
+    [HideInInspector] public Vector3 Counter;
 
     [Header("NPC 상호작용 콜라이더")]
     [SerializeField, Tooltip("시향 콜라이더")] private Collider interactionArea;                         // 시향 콜라이더
@@ -106,16 +104,6 @@ public class WGH_NPCController : MonoBehaviourPun
     private void Update()
     {
         curState?.OnUpdate();
-        if(stateType == E_StateType.EXIT)
-        {
-            if (agent.remainingDistance < agent.stoppingDistance && agent.pathPending == false)
-            {
-                if (PhotonNetwork.IsMasterClient == true)
-                {
-                    PhotonNetwork.Destroy(gameObject);
-                }
-            }
-        }
     }
 
 

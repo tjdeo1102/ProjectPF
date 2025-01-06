@@ -22,7 +22,13 @@ public class WGH_NPCExit : INPCState
 
     public void OnUpdate()
     {
-        
+        if (agent.remainingDistance < 3)
+        {
+            if (PhotonNetwork.IsMasterClient == true)
+            {
+                PhotonNetwork.Destroy(controller.gameObject);
+            }
+        }
     }
     
     public void Exit() { }
