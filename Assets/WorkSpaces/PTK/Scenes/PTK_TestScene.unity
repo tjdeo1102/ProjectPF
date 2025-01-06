@@ -1212,24 +1212,6 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &1827827997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1827827991}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7f90e85a7b916f47bdbc8b65fdccd3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Knob: {fileID: 0}
-  turnResult: 10
-  elec: {fileID: 0}
-  mixDone:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &1858953644
 GameObject:
   m_ObjectHideFlags: 0
@@ -1536,16 +1518,36 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 835925789037046202, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
+      propertyPath: m_Value
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 835925789037046202, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 835925789037046202, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
       propertyPath: m_MaxAngle
-      value: 36000
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 835925789037046202, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
+      propertyPath: m_MinAngle
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 835925789037046202, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
+      propertyPath: m_ClampedMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 835925789037046202, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
+      propertyPath: m_TwistSensitivity
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 835925789037046202, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
       propertyPath: m_InteractionManager
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 835925789037046202, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
+      propertyPath: m_PositionTrackedRadius
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 835925789037046203, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
       propertyPath: m_Size.x
@@ -1570,6 +1572,14 @@ PrefabInstance:
     - target: {fileID: 835925789037046203, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
       propertyPath: m_Center.z
       value: 0.00011383521
+      objectReference: {fileID: 0}
+    - target: {fileID: 835925789878647978, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 835925789878647978, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 835925790093218168, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
       propertyPath: m_Name
