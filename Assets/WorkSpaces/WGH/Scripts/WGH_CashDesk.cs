@@ -55,7 +55,9 @@ public class WGH_CashDesk : MonoBehaviour
 
     public void OnPurchase()
     {
-        if (Perfume != null && Perfume.TryGetComponent(out LSY_PotionReceiver perfume) && PhotonNetwork.IsMasterClient == true)
+        if (PhotonNetwork.IsMasterClient == false)
+            return;
+        if (Perfume != null && Perfume.TryGetComponent(out LSY_PotionReceiver perfume))
         {
             if (Perfume.GetComponent<LSY_PotionReceiver>().perfumeName == Customer.PerfumeType
                 && Perfume.GetComponent<LSY_PotionReceiver>().e_BottleType == Customer.BottleType
@@ -90,10 +92,21 @@ public class WGH_CashDesk : MonoBehaviour
         
         KSD_GameManager.Instance.AddFinishPlayerCount(1);
         yield return new WaitForSeconds(2);
-        WGH_NPCCreator.Instance.isCounter = false;
+        if (curCount == 0 && KSD_GameManager.Instance != null)
+        {
+            KSD_GameManager.Instance.CurrentStageInfo.StageMoney += 100;
+        }
+        else if(curCount == 1 && KSD_GameManager.Instance != null)
+        {
+            KSD_GameManager.Instance.CurrentStageInfo.StageMoney += 80;
+        }
+        Debug.Log(KSD_GameManager.Instance.CurrentStageInfo.StageMoney);
+        
         curCount = 0;
         Customer.ChangeStateNetwork((int)E_StateType.EXIT);
+        WGH_NPCCreator.Instance.isCounter = false;
         yield return null;
+
         PhotonNetwork.Destroy(Perfume);
         yield return null;
         isCheck = false;

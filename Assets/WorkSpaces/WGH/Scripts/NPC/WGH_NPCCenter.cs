@@ -16,16 +16,18 @@ public class WGH_NPCCenter : INPCState
 
     public void Enter()
     {
-        //Debug.Log("Center ป๓ลย");
-        WGH_NPCCreator.Instance.isCounter = true;
         agent.SetDestination(controller.StoreCenter);
     }
 
     public void OnUpdate()
     {
-        if(agent.remainingDistance < agent.stoppingDistance && agent.pathPending == false && WGH_NPCCreator.Instance.isCounter == false)
+        if(agent.remainingDistance < agent.stoppingDistance && WGH_NPCCreator.Instance.isCounter == false)
         {
             controller.ChangeStateNetwork((int)E_StateType.COUNTER);
+        }
+        else if(agent.remainingDistance < agent.stoppingDistance && WGH_NPCCreator.Instance.isCounter == true)
+        {
+            controller.ChangeStateNetwork((int)E_StateType.EXIT);
         }
     }
 
