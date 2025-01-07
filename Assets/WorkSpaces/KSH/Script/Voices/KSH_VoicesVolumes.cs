@@ -3,7 +3,7 @@ using Photon.Voice.PUN;
 using Photon.Voice.Unity;
 using UnityEngine;
 
-public class VoicesVolumes : MonoBehaviour
+public class KSH_VoicesVolumes : MonoBehaviour
 {
     [SerializeField] private Recorder recorder; // 마이크 입력용 Recorder
     [SerializeField] private Speaker speaker;   // 수신된 음성 출력용 Speaker
