@@ -4,13 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
+using System;
+using Photon.Pun;
 
-public class LSY_ItemManager : MonoBehaviour
+public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
 {
     [Header("장바구니 아이템 개수")]
     [SerializeField] TMP_Text basketCount;
     [SerializeField] TMP_Text basketPanelCount;
-    int basketIndex = 0;
+    static public int basketIndex = 0;
 
     [Header("아이템 목록")]
     [SerializeField] GameObject[] decorationPrefabs;
@@ -37,10 +39,17 @@ public class LSY_ItemManager : MonoBehaviour
     [SerializeField] TMP_Text buyPrice;
     [SerializeField] TMP_Text totalPlayerMoney;
 
-    [Header("구매 물품 스폰 위치")]
-    public Vector3 objectTransform;
-
+    [Header("장바구니 경고창")]
     [SerializeField] Image warningImage;
+
+    [Header("플레이어 돈")]
+    [SerializeField] TMP_Text playerMoneyText;
+
+    [SerializeField] KSD_StageInfo stageInfo;
+
+    [SerializeField] List<LSY_ItemPanel> itemPanels = new();
+
+    [SerializeField] List<LSY_BasketItem> lSY_BasketItems = new();
 
     bool isBasketPanelActive = false;
     float totalPrice = 0;
@@ -49,6 +58,10 @@ public class LSY_ItemManager : MonoBehaviour
 
     private void Start()
     {
+        InitializeItemPanels(decorationContent);
+        InitializeItemPanels(furnitureContent);
+
+        playerMoneyText.text = "$" + stageInfo.StageMoney;
         basketPanelCount.text = "0";
         allItemPriceText.text = "0$";
         basketIndex = 0;
@@ -73,6 +86,18 @@ public class LSY_ItemManager : MonoBehaviour
         OrderButton.onClick.AddListener(Order);
     }
 
+    private void InitializeItemPanels(Transform content)
+    {
+        foreach (Transform child in content)
+        {
+            LSY_ItemPanel itemPanel = child.GetComponent<LSY_ItemPanel>();
+            if (itemPanel != null)
+            {
+                itemPanels.Add(itemPanel);
+            }
+        }
+    }
+
     private void InitializeItemPrefabs()
     {
         decorationPrefabs = new GameObject[decorationContent.childCount];
@@ -91,9 +116,17 @@ public class LSY_ItemManager : MonoBehaviour
     private void UpdateItemDelete(float price, string itemName)
     {
         LSY_BasketItem itemToRemove = basketItems.Find(item => item.ItemName == itemName);
+        LSY_ItemPanel itemPanel = itemPanels.Find(panel => panel.itemName == itemName);
+
+
         if (itemToRemove != null)
         {
             basketItems.Remove(itemToRemove);
+        }
+
+        if (itemPanel != null)
+        {
+            itemPanel.isAdded = false;
         }
 
         totalPrice -= price;
@@ -107,10 +140,10 @@ public class LSY_ItemManager : MonoBehaviour
 
     private void UpdateItemAddBasket(string name, float price, string explain, Sprite sprite, GameObject itemPrefab)
     {
-        if (basketIndex >= 10)
+        if (basketIndex > 9)
         {
             if (warningRoutine == null)
-            warningRoutine = StartCoroutine(WarningRoutine());
+                warningRoutine = StartCoroutine(WarningRoutine());
 
             return;
         }
@@ -128,6 +161,7 @@ public class LSY_ItemManager : MonoBehaviour
 
         basketItems.Add(new LSY_BasketItem(name, price, explain, sprite, itemPrefab));
     }
+
     Coroutine warningRoutine;
     IEnumerator WarningRoutine()
     {
@@ -139,12 +173,19 @@ public class LSY_ItemManager : MonoBehaviour
 
     private void UpdateTotalPrice(float addedPrice)
     {
+        Debug.Log("업데이트돈");
         totalPrice += addedPrice;
         allItemPriceText.text = totalPrice.ToString() + "$";
     }
 
     private void Order()
     {
+        if (stageInfo.StageMoney < totalPrice)
+        {
+            Debug.Log("돈이 부족합니다.");
+            return;
+        }
+
         if (basketItems.Count > 0)
         {
             StartCoroutine(BuyRoutine());
@@ -152,17 +193,23 @@ public class LSY_ItemManager : MonoBehaviour
             foreach (var item in basketItems)
             {
                 GameObject itemPrefab = item.ItemPrefab;
-                Instantiate(itemPrefab, objectTransform, Quaternion.identity);
+                itemPrefab.gameObject.SetActive(true);
                 Debug.Log($"주문한 아이템: {item.ItemName}, 가격: {item.ItemPrice}$");
-            }
 
-            Debug.Log("주문이 완료되었습니다.");
+                LSY_ItemPanel itemPanel = itemPanels.Find(panel => panel.itemName == item.ItemName);
+                if (itemPanel != null)
+                {
+                    itemPanels.Remove(itemPanel);
+                    Destroy(itemPanel.gameObject);
+                }
+            }
         }
         else
         {
             Debug.Log("장바구니에 아이템이 없습니다.");
         }
     }
+
 
     private void ClearBasket()
     {
@@ -172,6 +219,11 @@ public class LSY_ItemManager : MonoBehaviour
         }
 
         basketItems.Clear();
+
+        playerMoney.text = "소지금: ";
+        buyPrice.text = "구매 금액: ";
+        totalPlayerMoney.text = "구매 후 금액: ";
+
         basketIndex = 0;
         basketCount.text = basketIndex.ToString();
         basketPanelCount.text = basketIndex.ToString();
@@ -182,36 +234,56 @@ public class LSY_ItemManager : MonoBehaviour
     IEnumerator BuyRoutine()
     {
         buyPopUp.gameObject.SetActive(true);
-
+        Debug.Log(totalPrice);
         yield return null;
-        playerMoney.text = "소지금: $" + "플레이어돈"; 
+        playerMoney.text = "소지금: $" + stageInfo.StageMoney;
         yield return new WaitForSeconds(0.5f);
-
+        Debug.Log(totalPrice);
         buyPrice.text = "구매 금액: $" + totalPrice;
         yield return new WaitForSeconds(0.5f);
 
-        totalPlayerMoney.text = "구매 후 금액: $" + ("플레이어돈 - " + totalPrice); 
+        totalPlayerMoney.text = "구매 후 금액: $" + (stageInfo.StageMoney - totalPrice);
+        stageInfo.StageMoney = stageInfo.StageMoney - (int)totalPrice;
+        Debug.Log(totalPrice);
+        playerMoneyText.text = "$" + stageInfo.StageMoney;
         yield return new WaitForSeconds(5);
 
         buyPopUp.gameObject.SetActive(false);
         ClearBasket();
     }
-}
 
-public class LSY_BasketItem
-{
-    public string ItemName { get; private set; }
-    public float ItemPrice { get; private set; }
-    public string ItemExplain { get; private set; }
-    public Sprite ItemSprite { get; private set; }
-    public GameObject ItemPrefab { get; private set; }
-
-    public LSY_BasketItem(string name, float price, string explain, Sprite sprite, GameObject prefab)
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        ItemName = name;
-        ItemPrice = price;
-        ItemExplain = explain;
-        ItemSprite = sprite;
-        ItemPrefab = prefab;
+        if (stream.IsWriting)
+        {
+            stream.SendNext(basketIndex);
+            stream.SendNext(stageInfo.StageMoney);
+            stream.SendNext(basketItems.Count);
+        }
+        else
+        {
+            basketIndex = (int)stream.ReceiveNext();
+            stageInfo.StageMoney = (int)stream.ReceiveNext();
+            int basketItemCount = (int)stream.ReceiveNext();
+        }
+    }
+
+    [Serializable]
+    public class LSY_BasketItem
+    {
+        public string ItemName { get; private set; }
+        public float ItemPrice { get; private set; }
+        public string ItemExplain { get; private set; }
+        public Sprite ItemSprite { get; private set; }
+        public GameObject ItemPrefab { get; private set; }
+
+        public LSY_BasketItem(string name, float price, string explain, Sprite sprite, GameObject prefab)
+        {
+            ItemName = name;
+            ItemPrice = price;
+            ItemExplain = explain;
+            ItemSprite = sprite;
+            ItemPrefab = prefab;
+        }
     }
 }

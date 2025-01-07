@@ -458,6 +458,7 @@ GameObject:
   - component: {fileID: 181148053614958231}
   - component: {fileID: 7540729596492870341}
   - component: {fileID: 9154533536967295498}
+  - component: {fileID: 4994035933197726757}
   m_Layer: 5
   m_Name: Basket Entry
   m_TagString: Untagged
@@ -542,10 +543,33 @@ MonoBehaviour:
   itemPrice: 0
   itemExplain: 
   item: {fileID: 0}
+  itemGameObekct: {fileID: 0}
   itemImage: {fileID: 6048913877480961985}
   itemNameText: {fileID: 8709856002861785107}
   itemPriceText: {fileID: 7582859236532347846}
   itemExplainText: {fileID: 6719033310570755155}
+--- !u!114 &4994035933197726757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4511951592993739596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 1
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &5739913668915038581
 GameObject:
   m_ObjectHideFlags: 0

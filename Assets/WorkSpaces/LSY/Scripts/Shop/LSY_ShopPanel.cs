@@ -1,9 +1,10 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LSY_ShopPanel : MonoBehaviour
+public class LSY_ShopPanel : MonoBehaviourPun
 {
     public enum Panel { Decoration, Furniture, Basket }
     [SerializeField] GameObject decorationPanel;
@@ -23,6 +24,7 @@ public class LSY_ShopPanel : MonoBehaviour
         closeButton.onClick.AddListener(CloseButton);
     }
 
+    [PunRPC]
     private void SetActivePanel(Panel panel)
     {
         decorationPanel.SetActive(panel == Panel.Decoration);
@@ -32,22 +34,22 @@ public class LSY_ShopPanel : MonoBehaviour
 
     public void CloseButton()
     {
-        SetActivePanel(Panel.Decoration);
+        photonView.RPC("SetActivePanel", RpcTarget.All, Panel.Decoration);
         decorationPanel.SetActive(false);
     }
 
     public void DecorationButton()
     {
-        SetActivePanel(Panel.Decoration);
+        photonView.RPC("SetActivePanel", RpcTarget.All, Panel.Decoration);
     }
 
     public void FurnitureButton()
     {
-        SetActivePanel(Panel.Furniture);
+        photonView.RPC("SetActivePanel", RpcTarget.All, Panel.Furniture);
     }
 
     public void BasketButton()
     {
-        SetActivePanel(Panel.Basket);
+        photonView.RPC("SetActivePanel", RpcTarget.All, Panel.Basket);
     }
 }
