@@ -56,6 +56,7 @@ public class WGH_InteractArea : MonoBehaviour
         controller.SelectReactUINetwork((int)E_ReactUiType.BEST);
         KSD_GameManager.Instance.AddFinishPlayerCount(1);
         yield return new WaitForSeconds(2);
+        WGH_NPCCreator.Instance.isCounter = false;
         controller.ChangeStateNetwork((int)E_StateType.EXIT);
     }
 
@@ -68,6 +69,7 @@ public class WGH_InteractArea : MonoBehaviour
         if (curCount >= maxCount)
         {
             // 실패횟수가 설정된 수에 도달하면 퇴장
+            WGH_NPCCreator.Instance.isCounter = false;
             controller.ChangeStateNetwork((int)E_StateType.EXIT);
         }
         else

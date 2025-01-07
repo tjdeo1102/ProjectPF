@@ -16,13 +16,20 @@ public class WGH_NPCExit : INPCState
 
     public void Enter()
     {
-        //Debug.Log("exit 상태");
+        Debug.Log("exit 상태");
+        
         agent.SetDestination(controller.PassPos);
     }
 
     public void OnUpdate()
     {
-        
+        if (agent.remainingDistance < 3)
+        {
+            if (PhotonNetwork.IsMasterClient == true)
+            {
+                PhotonNetwork.Destroy(controller.gameObject);
+            }
+        }
     }
     
     public void Exit() { }

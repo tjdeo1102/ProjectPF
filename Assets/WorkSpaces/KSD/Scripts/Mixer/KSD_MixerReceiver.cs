@@ -11,10 +11,11 @@ public class KSD_MixerReceiver : MonoBehaviour
     [SerializeField] private ParticleSystem outputParticle;     //액체가 나오는 효과를 담당하는 파티클
     [SerializeField] private PTK_Box mixer;                     //믹서기 완료를 알기위해 이벤트 구독
 
-    private KSD_LiquidMaterialBottle currentBottle;             //갈린 액체를 받을 병
+    private KSD_ConcentrateBottle currentBottle;                //갈린 액체를 받을 병
     private KSD_PerfumeMaterialInfo resultMixInfo;              //믹서기 결과로 나온 액체
     private bool isMixDone;
     private float outputTimer;
+    private int overlapBottleCount = 0;
 
     private void OnEnable()
     {
@@ -55,17 +56,19 @@ public class KSD_MixerReceiver : MonoBehaviour
         var trans = collision.transform;
         
         // 받고 있는 도중에 새로운 병이 추가되도, 기존병이 없어지지 않으면 반응 없음
-        if (trans.CompareTag("MaterialBottle") && currentBottle == null)
+        if (currentBottle == null)
         {
-            currentBottle = trans.GetComponent<KSD_LiquidMaterialBottle>();
+            overlapBottleCount++;
+            trans.TryGetComponent<KSD_ConcentrateBottle>(out currentBottle);
         }
     }
 
     private void OnCollisionExit(Collision collision)
     {
         var trans = collision.transform;
-        if (trans.CompareTag("MaterialBottle"))
+        if (trans.TryGetComponent<KSD_ConcentrateBottle>(out currentBottle) && overlapBottleCount <= 1)
         {
+            overlapBottleCount--;
             currentBottle = null;
         }
     }
@@ -85,10 +88,6 @@ public class KSD_MixerReceiver : MonoBehaviour
         if (currentBottle != null)
         {
             //3. 받았던 완성된 재료액의 Info의 정보를 업데이트
-            currentBottle.Info.Name = resultMixInfo.Name;
-            currentBottle.Info.Type = resultMixInfo.Type;
-            currentBottle.Info.State = resultMixInfo.State;
-
             currentBottle.ReceiveLiquidMaterial(resultMixInfo, Time.deltaTime / outputLiquidTimer);
         }
 

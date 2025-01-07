@@ -6,36 +6,37 @@ using UnityEngine.Events;
 using UnityEngine.XR.Content.Interaction;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class PTK_Handle : MonoBehaviourPun
+public class PTK_HandleMix : MonoBehaviourPun
 {
-    [SerializeField] private XRKnob knob;
-    //[SerializeField] private float turnResult;
-    private float lastValue;
+    [SerializeField] private XRKnob Knob;
+    [SerializeField] private float turnResult = 5f;
 
+    public PTK_HandleElec elec;
+
+    private float lastValue;
     public UnityEvent mixDone;
 
     void Start()
     {
-        lastValue = knob.value;
+        lastValue = Knob.value;
     }
 
     void Update()
     {
-        if (knob != null)
+        if (elec.isSecondHandleActive == true)
         {
-            // knob범위가 0~1이므로, 0 또는 1인 경우에만 작동하도록 설정
-            float currentValue = knob.value;
-            //float delta = Mathf.Abs(currentValue - startValue);
+            float currentValue = Knob.value;
+            float delta = Mathf.Abs(currentValue - lastValue);
 
-            //if (delta >= turnResult)
-            if (currentValue == 1 || currentValue == 0)
+            if (delta >= turnResult)
             {
+                Debug.Log("RPC_MixDone");
                 photonView.RPC("RPC_MixDone", RpcTarget.All);
                 lastValue = currentValue;
             }
         }
     }
-
+   
     [PunRPC]
     private void RPC_MixDone()
     {
