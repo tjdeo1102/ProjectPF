@@ -88,7 +88,6 @@ public class WGH_NPCController : MonoBehaviourPun
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        interactionArea = GetComponentInChildren<SphereCollider>();
         PerfumeUI = transform.GetChild(0).GetChild(0).GetComponent<Image>();
         BottleUI = transform.GetChild(0).GetChild(1).GetComponent<Image>();
 
