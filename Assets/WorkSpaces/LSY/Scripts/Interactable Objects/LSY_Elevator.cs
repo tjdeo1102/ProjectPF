@@ -46,6 +46,7 @@ public class LSY_Elevator : MonoBehaviourPun
 
         if (playerIn) return;
 
+
         if (upButtonPokeStateData.Value.interactionStrength > pressForce)
         {
             if (transform.position.y > maxHeight) return;
@@ -58,7 +59,6 @@ public class LSY_Elevator : MonoBehaviourPun
 
             photonView.RPC("MoveCube", RpcTarget.All, Vector3.down);
         }
-
     }
 
     [PunRPC]
