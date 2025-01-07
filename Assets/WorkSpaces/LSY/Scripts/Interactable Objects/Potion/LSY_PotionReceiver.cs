@@ -259,6 +259,8 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (m_RbPotion == null) return;
+
         if (m_RbPotion.velocity.magnitude > 1.35 && m_Breakable)
         {
             if (particleSystemSplash != null)
