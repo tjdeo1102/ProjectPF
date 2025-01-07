@@ -35,8 +35,6 @@ public class LSY_Elevator : MonoBehaviourPun
         }
     }
 
-    // 최대 높이에 도달했을 때 떨리는 현상 발생
-
     void Update()
     {
         if (photonView.IsMine == false)
@@ -49,14 +47,17 @@ public class LSY_Elevator : MonoBehaviourPun
 
         if (upButtonPokeStateData.Value.interactionStrength > pressForce)
         {
-            if (transform.position.y > maxHeight) return;
+            if (transform.position.y > maxHeight)
+            {
+                rb.velocity = Vector3.zero;
+                return;
+            }
 
             photonView.RPC("MoveCube", RpcTarget.All, Vector3.up);
         }
         else
         {
-            if (transform.position.y < initialPosition.y) return;
-
+            if (transform.position.y <= initialPosition.y + 0.01f) return;
             photonView.RPC("MoveCube", RpcTarget.All, Vector3.down);
         }
     }
