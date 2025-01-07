@@ -5,10 +5,16 @@ using UnityEngine;
 public class WGH_NPCCreator : MonoBehaviour
 {
     public static WGH_NPCCreator Instance;
-
-    [SerializeField] private float spawnTime;
-    [SerializeField] private float curTime;
+    [Header("방문 손님 생성 시간")]
+    [SerializeField] private float storeNpcSpawnTime;
+    [SerializeField] private float storeNpcCurTime;
+    [Header("길거리 손님 생성 시간")]
+    [SerializeField] private float passNpcSpawnTime;
+    [SerializeField] private float passNpcCurTime;
+    [Header("포지션")]
+    [SerializeField] private Transform spawnPassLeftPos;
     [SerializeField] private Transform spawnLeftPos;
+    [SerializeField] private Transform spawnPassRightPos;
     [SerializeField] private Transform spawnRightPos;
     [SerializeField] private Transform enterancePos;
     [SerializeField] private Transform leftExplorePos;
@@ -16,6 +22,9 @@ public class WGH_NPCCreator : MonoBehaviour
     [SerializeField] private Transform storeCenterPos;
     [SerializeField] private Transform CounterPos;
 
+    [SerializeField] private int stageLevel;
+
+    private bool isPassLeftSpawn;
     private bool isLeftSpawn;
     public bool isCounter;
     public bool isExplore;
@@ -30,20 +39,46 @@ public class WGH_NPCCreator : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
+        // 스테이지 레벨
+        //stageLevel = KSD_GameManager.Instance.CurrentStageInfo.StageLevel;
     }
 
     private void Update()
     {
         if (PhotonNetwork.IsMasterClient == false && !isCheat)
             return;
+        PassNpcSpawn();
         CountTime();
     }
 
+    public void PassNpcSpawn()
+    {
+        passNpcCurTime += Time.deltaTime;
+        if(passNpcCurTime >= passNpcSpawnTime && isPassLeftSpawn == false)
+        {
+            int randNum = Random.Range(1, 9);
+            isPassLeftSpawn = true;
+            GameObject obj = PhotonNetwork.Instantiate($"Customer{randNum}", spawnPassLeftPos.position, Quaternion.identity);
+            WGH_NPCController controller = obj.GetComponent<WGH_NPCController>();
+            controller.isOnlyPassNpc = true;
+            controller.PassPos = new Vector3(-spawnPassLeftPos.position.x, spawnPassLeftPos.position.y, spawnPassLeftPos.position.z);
+            passNpcCurTime = 0;
+        }
+        else if(passNpcCurTime >= passNpcSpawnTime && isPassLeftSpawn == true)
+        {
+            int randNum = Random.Range(1, 9);
+            isPassLeftSpawn = false;
+            GameObject obj = PhotonNetwork.Instantiate($"Customer{randNum}", spawnPassRightPos.position, Quaternion.identity);
+            WGH_NPCController controller = obj.GetComponent<WGH_NPCController>();
+            controller.isOnlyPassNpc = true;
+            controller.PassPos = new Vector3(-spawnPassRightPos.position.x, spawnPassRightPos.position.y, spawnPassRightPos.position.z);
+            passNpcCurTime = 0;
+        }
+    }
     public void CountTime()
     {
-        curTime += Time.deltaTime;
-        if (curTime >= spawnTime && isLeftSpawn == false)
+        storeNpcCurTime += Time.deltaTime;
+        if (storeNpcCurTime >= storeNpcSpawnTime && isLeftSpawn == false)
         {
             int randNum = Random.Range(1, 9);
             isLeftSpawn = true;
@@ -55,9 +90,9 @@ public class WGH_NPCCreator : MonoBehaviour
             controller.ExplorePos2 = rightExplorePos.position;
             controller.StoreCenter = storeCenterPos.position;
             controller.Counter = CounterPos.position;
-            curTime = 0f;
+            storeNpcCurTime = 0f;
         }
-        else if(curTime >= spawnTime && isLeftSpawn == true)
+        else if(storeNpcCurTime >= storeNpcSpawnTime && isLeftSpawn == true)
         {
             int randNum = Random.Range(1, 9);
             isLeftSpawn = false;
@@ -69,7 +104,7 @@ public class WGH_NPCCreator : MonoBehaviour
             controller.ExplorePos2 = rightExplorePos.position;
             controller.StoreCenter = storeCenterPos.position;
             controller.Counter = CounterPos.position;
-            curTime = 0f;
+            storeNpcCurTime = 0f;
         }
     }
 

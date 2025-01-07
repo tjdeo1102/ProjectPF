@@ -49,11 +49,6 @@ public class WGH_NPCController : MonoBehaviourPun
     public E_WGH_NoteType QuestionMaterial;
     public E_WGH_NoteType QuestionMaterial2;
 
-    [Header("가게로 입장할지에 대한 난수")]
-    [SerializeField] int passDenominatorNum;
-    public int PassDenominatorNum { get { return passDenominatorNum; } }
-    [SerializeField] int passNumeratorNum;
-    public int PassNumeratorNum { get { return passNumeratorNum; } }
     [Header("탐색하고 난 뒤 행동에 대한 난수")]
     [SerializeField] int exploreDenominatorNum;
     public int ExploreDenominatorNum { get { return exploreDenominatorNum; } }
@@ -85,6 +80,7 @@ public class WGH_NPCController : MonoBehaviourPun
 
     private Coroutine exploreRoutine;
     public bool isExplore;
+    public bool isOnlyPassNpc;                  // pass만 하는 npc인지 여부
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();

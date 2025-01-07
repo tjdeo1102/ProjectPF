@@ -87,12 +87,16 @@ public class WGH_CashDesk : MonoBehaviour
     {
         isCheck = true;
         Customer.SelectReactUINetwork((int)E_ReactUiType.BEST);
-        PhotonNetwork.Destroy(Perfume);
+        
         KSD_GameManager.Instance.AddFinishPlayerCount(1);
         yield return new WaitForSeconds(2);
         WGH_NPCCreator.Instance.isCounter = false;
         curCount = 0;
         Customer.ChangeStateNetwork((int)E_StateType.EXIT);
+        yield return null;
+        PhotonNetwork.Destroy(Perfume);
+        yield return null;
+        isCheck = false;
     }
 
     IEnumerator CheckTimeDelayRoutine()
@@ -107,7 +111,10 @@ public class WGH_CashDesk : MonoBehaviour
             WGH_NPCCreator.Instance.isCounter = false;
             curCount = 0;
             Customer.ChangeStateNetwork((int)E_StateType.EXIT);
+            yield return null;
             PhotonNetwork.Destroy(Perfume);
+            yield return null;
+            isCheck = false;
         }
         else
         {
