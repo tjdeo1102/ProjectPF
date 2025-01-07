@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 535721049348482543}
   - component: {fileID: 531865128121043404}
   - component: {fileID: 531865128121043405}
-  m_Layer: 26
+  m_Layer: 0
   m_Name: KSD_ConcentrateBottle
-  m_TagString: Bottle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 533774655145952150}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 540326177245406190}
@@ -258,7 +258,7 @@ MonoBehaviour:
   maxFillMateiralThreshold: 0.85
   maxFillNoteThreshold: 0.85
   shakeTimer: 1
-  distancePerFrame: 0.000001
+  distancePerFrame: 0.001
   startFillAmount: 0
   fillAmount: 0
   perfumeMaterialList: []
@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 539937421632666574}
   - component: {fileID: 511533118526370856}
   - component: {fileID: 521526879118912114}
-  m_Layer: 26
+  m_Layer: 0
   m_Name: GPVFX_Bottle_A_Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -365,7 +365,7 @@ GameObject:
   - component: {fileID: 540326177245406190}
   - component: {fileID: 511030963589167700}
   - component: {fileID: 520854508908576686}
-  m_Layer: 26
+  m_Layer: 0
   m_Name: GPVFX_Bottle_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -448,7 +448,7 @@ GameObject:
   - component: {fileID: 535721049085792524}
   - component: {fileID: 535721049085792514}
   - component: {fileID: 535721049085792525}
-  m_Layer: 26
+  m_Layer: 0
   m_Name: LiquidParticle (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5326,7 +5326,7 @@ GameObject:
   - component: {fileID: 535721050289185500}
   - component: {fileID: 535721050289185490}
   - component: {fileID: 535721050289185501}
-  m_Layer: 26
+  m_Layer: 0
   m_Name: LiquidParticleSplash (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
