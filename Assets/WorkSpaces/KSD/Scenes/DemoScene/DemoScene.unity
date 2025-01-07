@@ -1082,6 +1082,7 @@ MonoBehaviour:
   respawnCoolTime: 10
   objectPath: PerfumeMaterials/Raw/KSD_GreenTea
   spawnArea: {fileID: 1142345379}
+  objectMaxCount: 3
 --- !u!54 &72149770
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3221,7 +3222,7 @@ RectTransform:
   m_Children:
   - {fileID: 133548006}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -5397,7 +5398,7 @@ Transform:
   - {fileID: 2112270636}
   - {fileID: 452057848}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &251501661
 GameObject:
@@ -5660,6 +5661,7 @@ MonoBehaviour:
   respawnCoolTime: 10
   objectPath: PerfumeMaterials/Raw/KSD_Neroli
   spawnArea: {fileID: 242252540}
+  objectMaxCount: 3
 --- !u!54 &252406272
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5959,7 +5961,7 @@ Transform:
   - {fileID: 319795550027211121}
   - {fileID: 1818418587857352413}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &273040885
 GameObject:
@@ -6226,7 +6228,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 25
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &281476647
 PrefabInstance:
@@ -7528,7 +7530,7 @@ Transform:
   - {fileID: 492341294}
   - {fileID: 1831020068}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &348620172
 GameObject:
@@ -8555,6 +8557,7 @@ MonoBehaviour:
   respawnCoolTime: 60
   objectPath: Potion/D
   spawnArea: {fileID: 396673448}
+  objectMaxCount: 3
 --- !u!65 &396673448
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8782,6 +8785,7 @@ MonoBehaviour:
   respawnCoolTime: 10
   objectPath: PerfumeMaterials/Raw/KSD_Rose
   spawnArea: {fileID: 996011489}
+  objectMaxCount: 3
 --- !u!54 &431695078
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9394,6 +9398,7 @@ MonoBehaviour:
   respawnCoolTime: 1
   objectPath: KSD_Erase
   spawnArea: {fileID: 452057850}
+  objectMaxCount: 3
 --- !u!65 &452057850
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17940,7 +17945,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC561\uCCB4 \uC7AC\uB8CC\uBCD1"
+  m_text: "\uC54C\uCF54\uC62C\uBCD1"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9f835912eb05d9d47972642d08f01f76, type: 2}
   m_sharedMaterial: {fileID: 1126010313546179003, guid: 9f835912eb05d9d47972642d08f01f76, type: 2}
@@ -18291,7 +18296,7 @@ RectTransform:
   m_Children:
   - {fileID: 1615128449}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -18819,7 +18824,7 @@ Transform:
   - {fileID: 372871665}
   - {fileID: 145185471}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &642465462
 GameObject:
@@ -19031,6 +19036,7 @@ MonoBehaviour:
   respawnCoolTime: 60
   objectPath: KSD_LiquidBottle
   spawnArea: {fileID: 657165449}
+  objectMaxCount: 3
 --- !u!65 &657165449
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -25276,6 +25282,7 @@ MonoBehaviour:
   respawnCoolTime: 10
   objectPath: PerfumeMaterials/Raw/KSD_Cherry
   spawnArea: {fileID: 827905198}
+  objectMaxCount: 3
 --- !u!54 &788689234
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -25327,7 +25334,7 @@ Transform:
   - {fileID: 1412093692}
   - {fileID: 979679129}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &791918124
 GameObject:
@@ -26120,7 +26127,7 @@ Transform:
   - {fileID: 1946997467}
   - {fileID: 892932484}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &843353307
 GameObject:
@@ -26449,7 +26456,7 @@ Transform:
   - {fileID: 349598311}
   - {fileID: 1224163703}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &859988398
 GameObject:
@@ -26732,6 +26739,7 @@ MonoBehaviour:
   respawnCoolTime: 10
   objectPath: PerfumeMaterials/Raw/KSD_Grapefruit
   spawnArea: {fileID: 2119081468}
+  objectMaxCount: 3
 --- !u!54 &861520237
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -27138,7 +27146,7 @@ Transform:
   - {fileID: 77787666}
   - {fileID: 1413683077}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &885906812
 GameObject:
@@ -27977,7 +27985,7 @@ RectTransform:
   m_Children:
   - {fileID: 2098943451}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -28907,6 +28915,7 @@ MonoBehaviour:
   respawnCoolTime: 60
   objectPath: Potion/C
   spawnArea: {fileID: 1011726219}
+  objectMaxCount: 3
 --- !u!65 &1011726219
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -28968,6 +28977,7 @@ MonoBehaviour:
   respawnCoolTime: 60
   objectPath: Potion/E
   spawnArea: {fileID: 1015570787}
+  objectMaxCount: 3
 --- !u!65 &1015570787
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -30122,6 +30132,67 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1101053044}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1107265996
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 789382125, guid: 6fe76dc22f5e00c48a237d8424ffdb21, type: 3}
+      propertyPath: sceneViewId
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1377289485222523870, guid: 6fe76dc22f5e00c48a237d8424ffdb21, type: 3}
+      propertyPath: m_Name
+      value: KSD_Cherry
+      objectReference: {fileID: 0}
+    - target: {fileID: 1377289485222817790, guid: 6fe76dc22f5e00c48a237d8424ffdb21, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1377289485222817790, guid: 6fe76dc22f5e00c48a237d8424ffdb21, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.6879396
+      objectReference: {fileID: 0}
+    - target: {fileID: 1377289485222817790, guid: 6fe76dc22f5e00c48a237d8424ffdb21, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.987
+      objectReference: {fileID: 0}
+    - target: {fileID: 1377289485222817790, guid: 6fe76dc22f5e00c48a237d8424ffdb21, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -31.577717
+      objectReference: {fileID: 0}
+    - target: {fileID: 1377289485222817790, guid: 6fe76dc22f5e00c48a237d8424ffdb21, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1377289485222817790, guid: 6fe76dc22f5e00c48a237d8424ffdb21, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1377289485222817790, guid: 6fe76dc22f5e00c48a237d8424ffdb21, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1377289485222817790, guid: 6fe76dc22f5e00c48a237d8424ffdb21, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1377289485222817790, guid: 6fe76dc22f5e00c48a237d8424ffdb21, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1377289485222817790, guid: 6fe76dc22f5e00c48a237d8424ffdb21, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1377289485222817790, guid: 6fe76dc22f5e00c48a237d8424ffdb21, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6fe76dc22f5e00c48a237d8424ffdb21, type: 3}
 --- !u!1 &1109657187
 GameObject:
   m_ObjectHideFlags: 0
@@ -30546,7 +30617,7 @@ Transform:
   - {fileID: 1431891045}
   - {fileID: 219003413}
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1132790706
 GameObject:
@@ -31307,6 +31378,7 @@ MonoBehaviour:
   respawnCoolTime: 10
   objectPath: PerfumeMaterials/Raw/KSD_Galbanum
   spawnArea: {fileID: 427292674}
+  objectMaxCount: 3
 --- !u!54 &1156845299
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -37868,6 +37940,7 @@ MonoBehaviour:
   respawnCoolTime: 60
   objectPath: Potion/B
   spawnArea: {fileID: 1249165754}
+  objectMaxCount: 3
 --- !u!65 &1249165754
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -38274,7 +38347,7 @@ Transform:
   - {fileID: 980430169728492422}
   - {fileID: 219672690}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1288043717
 GameObject:
@@ -39339,6 +39412,7 @@ MonoBehaviour:
   respawnCoolTime: 10
   objectPath: PerfumeMaterials/Raw/KSD_Cosmos
   spawnArea: {fileID: 1028642222}
+  objectMaxCount: 3
 --- !u!54 &1370744762
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -40267,6 +40341,7 @@ MonoBehaviour:
   respawnCoolTime: 10
   objectPath: PerfumeMaterials/Raw/KSD_TreeBark
   spawnArea: {fileID: 2066940578}
+  objectMaxCount: 3
 --- !u!54 &1408095340
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -40587,7 +40662,7 @@ Transform:
   m_Children:
   - {fileID: 494748188}
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!64 &1415980868
 MeshCollider:
@@ -41313,6 +41388,7 @@ MonoBehaviour:
   respawnCoolTime: 10
   objectPath: PerfumeMaterials/Raw/KSD_Blueberry
   spawnArea: {fileID: 387484051}
+  objectMaxCount: 3
 --- !u!54 &1453573198
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -41759,7 +41835,7 @@ Transform:
   - {fileID: 7796546879763140139}
   - {fileID: 1991708120}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1491643662
 GameObject:
@@ -42399,7 +42475,7 @@ Transform:
   - {fileID: 6310240781427518857}
   - {fileID: 4902080681951458}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1539347387
 GameObject:
@@ -45437,6 +45513,7 @@ MonoBehaviour:
   respawnCoolTime: 60
   objectPath: KSD_ConcentrateBottle
   spawnArea: {fileID: 1675668910}
+  objectMaxCount: 3
 --- !u!65 &1675668910
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -48331,6 +48408,7 @@ MonoBehaviour:
   respawnCoolTime: 10
   objectPath: PerfumeMaterials/Raw/KSD_Lemon
   spawnArea: {fileID: 1972263151}
+  objectMaxCount: 3
 --- !u!54 &1846467510
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -48839,7 +48917,7 @@ Transform:
   - {fileID: 5356612776043186916}
   - {fileID: 67163930}
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1893499587
 GameObject:
@@ -50003,6 +50081,7 @@ MonoBehaviour:
   respawnCoolTime: 60
   objectPath: Potion/A
   spawnArea: {fileID: 1983570023}
+  objectMaxCount: 3
 --- !u!65 &1983570023
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -63810,7 +63889,7 @@ MonoBehaviour:
     NoteCount: 0
   maxFillConcentrateThreshold: 0.95
   finishCookTime: 3
-  noShakeDeadTime: 100
+  noShakeDeadTime: 2
   distancePerFrame: 0.001
   IsActiveShake: 0
   CurrentPercentage: 0
@@ -63934,7 +64013,7 @@ Transform:
   - {fileID: 2062267700242387985}
   - {fileID: 2062267700789798557}
   m_Father: {fileID: 0}
-  m_RootOrder: 24
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1319468308385384075
 MonoBehaviour:
@@ -69300,7 +69379,7 @@ Transform:
   - {fileID: 2098577244}
   - {fileID: 1313752851}
   m_Father: {fileID: 0}
-  m_RootOrder: 26
+  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2521882748457902957
 MonoBehaviour:
@@ -82414,7 +82493,7 @@ RectTransform:
   m_Children:
   - {fileID: 3354064051652851626}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -82541,7 +82620,7 @@ Transform:
   - {fileID: 4007570073601980199}
   - {fileID: 7987060715136189231}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4005977725837433380
 GameObject:
@@ -88387,7 +88466,7 @@ Transform:
   - {fileID: 3107969626865061458}
   - {fileID: 5061653534821774694}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5061653534462640263
 GameObject:
@@ -89045,7 +89124,7 @@ Transform:
   - {fileID: 877225431}
   - {fileID: 449103697}
   m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5562301545076656090
 GameObject:
@@ -95380,7 +95459,7 @@ Transform:
   - {fileID: 8819805693323519497}
   - {fileID: 1519418326}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8819805692629339826
 GameObject:

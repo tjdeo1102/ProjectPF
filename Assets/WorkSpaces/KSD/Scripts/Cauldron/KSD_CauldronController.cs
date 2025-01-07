@@ -2,6 +2,7 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(PhotonView))]
@@ -137,8 +138,10 @@ public class KSD_CauldronController : MonoBehaviourPun
         {
             ConcentrateAmountList[index] = 0f;
             ConcentrateInfoList[index].NoteCount += 1;
-
-            if (ui != null) ui.SetText($"원료 {ConcentrateInfoList[index].Name.ToString()}가 1회분 추가됨");
+            if (ui != null)
+            {
+                ui.SetText($"원료 {ConcentrateInfoList[index].Name.ToString()}가 1회분 추가됨", newCon.GetColorByName(newCon.Name));
+            }
         }
     }
 
