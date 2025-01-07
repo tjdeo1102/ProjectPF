@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.XR.Content.Interaction;
+using UnityEngine.XR.Interaction.Toolkit;
 
-[RequireComponent(typeof(PhotonView))]
+[RequireComponent(typeof(PhotonView),typeof(KSD_NetworkGrabInteractable))]
 public class KSD_ConcentrateBottle : MonoBehaviourPun
 {
     static private int NextFreeUniqueId = 3000;
@@ -33,6 +34,7 @@ public class KSD_ConcentrateBottle : MonoBehaviourPun
     private float deadTime = 1f;       // 흔들림 중단으로 간주할 시간
     private bool IsActiveShake;
     private Vector3 lastSpoonPosition;
+    private bool isGrab;
 
     private Coroutine shakeRoutine;
 
@@ -67,6 +69,17 @@ public class KSD_ConcentrateBottle : MonoBehaviourPun
         };
 
         perfumeMaterialList = new List<KSD_PerfumeMaterialInfo>();
+
+        var grab = GetComponent<KSD_NetworkGrabInteractable>();
+        grab.selectEntered.AddListener(OnSelectEntered);
+        grab.selectExited.AddListener(OnSelectExited);
+    }
+
+    private void OnDisable()
+    {
+        var grab = GetComponent<KSD_NetworkGrabInteractable>();
+        grab.selectEntered.RemoveListener(OnSelectEntered);
+        grab.selectExited.RemoveListener(OnSelectExited);
     }
 
     void Start()
@@ -112,7 +125,7 @@ public class KSD_ConcentrateBottle : MonoBehaviourPun
         var pos = transform.position;
         bool isShakingNow = Vector3.Distance(lastSpoonPosition, pos) > distancePerFrame;
 
-        if (isShakingNow)
+        if (isShakingNow && isGrab)
         {
             lastShakeTime = Time.time; // 마지막 Shake 시간 갱신
             IsActiveShake = true;
@@ -322,5 +335,16 @@ public class KSD_ConcentrateBottle : MonoBehaviourPun
             fillAmount = 1f;
             resInfo.NoteCount = 1;
         }
+    }
+
+
+    private void OnSelectEntered(SelectEnterEventArgs args)
+    {
+        isGrab = true;
+    }
+
+    private void OnSelectExited(SelectExitEventArgs args)
+    {
+        isGrab = false;
     }
 }

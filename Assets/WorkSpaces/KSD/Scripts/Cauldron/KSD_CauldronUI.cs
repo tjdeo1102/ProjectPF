@@ -11,7 +11,7 @@ public class KSD_CauldronUI : MonoBehaviour
     private Coroutine hideTextCoroutine;
 
     // 텍스트 설정 함수
-    public void SetText(string message)
+    public void SetText(string message, Color col)
     {
         // 기존 코루틴이 실행 중이면 중단
         if (hideTextCoroutine != null)
@@ -21,6 +21,7 @@ public class KSD_CauldronUI : MonoBehaviour
 
         uiText.text = message;
         uiText.enabled = true;
+        uiText.color = col;
 
         hideTextCoroutine = StartCoroutine(HideTextAfterDelay());
     }
