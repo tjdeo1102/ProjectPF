@@ -10,11 +10,11 @@ public class LSY_BasketPanel : MonoBehaviour
     [SerializeField] Button deleteButton;
 
     [Header("æ∆¿Ã≈€")]
-    [SerializeField] string itemName;
+    [SerializeField] public string itemName;
     [SerializeField] float itemPrice;
     [SerializeField] string itemExplain;
     [SerializeField] Sprite item;
-    [SerializeField] GameObject itemGameObekct;
+    [SerializeField] public GameObject itemGameObekct;
 
     [Header("UI")]
     [SerializeField] Image itemImage;
@@ -24,9 +24,6 @@ public class LSY_BasketPanel : MonoBehaviour
 
     public delegate void ItemDelete(float price, string itemName);
     public event ItemDelete OnItemDelete;
-
-    public delegate void ItemAdded(float price);
-    public event ItemAdded OnItemAdded;
 
     float totalItemPrice;
 
@@ -40,20 +37,6 @@ public class LSY_BasketPanel : MonoBehaviour
         deleteButton.onClick.AddListener(Delete);
     }
 
-    public void SetItemInfo(string name, float price, string explanation, Sprite image, GameObject itemPrefab)
-    {
-        itemName = name;
-        itemPrice = price;
-        itemExplain = explanation;
-        item = image;
-        itemGameObekct = itemPrefab;
-
-        itemNameText.text = itemName;
-        itemPriceText.text = itemPrice.ToString() + "$";
-        itemExplainText.text = itemExplain;
-
-        itemImage.sprite = item;
-    }
     private void TotalPrice()
     {
         totalItemPrice = itemPrice;
@@ -62,6 +45,5 @@ public class LSY_BasketPanel : MonoBehaviour
     private void Delete()
     {
         OnItemDelete?.Invoke(itemPrice, itemName);
-        Destroy(gameObject);
     }
 }

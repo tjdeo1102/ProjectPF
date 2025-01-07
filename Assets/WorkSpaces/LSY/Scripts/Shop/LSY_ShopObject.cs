@@ -12,5 +12,4 @@ public class LSY_ShopObject : ScriptableObject
     [SerializeField] public float itemPrice;
     [SerializeField] public string itemExplain;
     [SerializeField] public Sprite itemSprite;
-    [SerializeField] public GameObject itemPrefab;
 }
