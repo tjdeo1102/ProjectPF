@@ -1,11 +1,11 @@
-using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Xml.Linq;
+using ExitGames.Client.Photon;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
+using System.Collections;
+using System;
+using Photon.Pun;
 
 public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
 {
@@ -15,12 +15,14 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
     static public int basketIndex = 0;
 
     [Header("아이템 목록")]
-    [SerializeField] List<LSY_ItemPanel> itemPanels = new();
-    [SerializeField] List<LSY_BasketPanel> basketItems = new List<LSY_BasketPanel>();
-    [SerializeField] List<string> basketNames = new();
+    [SerializeField] GameObject[] decorationPrefabs;
+    [SerializeField] GameObject[] furniturePrefabs;
 
     [Header("버튼")]
     [SerializeField] Button OrderButton;
+
+    [Header("프리팹")]
+    [SerializeField] GameObject basketPanelPrefab;
 
     [Header("Content")]
     [SerializeField] Transform decorationContent;
@@ -45,20 +47,41 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
 
     [SerializeField] KSD_StageInfo stageInfo;
 
+    [SerializeField] List<LSY_ItemPanel> itemPanels = new();
+
+    [SerializeField] List<LSY_BasketItem> lSY_BasketItems = new();
+
+    bool isBasketPanelActive = false;
     float totalPrice = 0;
 
+    private List<LSY_BasketItem> basketItems = new List<LSY_BasketItem>();
 
     private void Start()
     {
         InitializeItemPanels(decorationContent);
         InitializeItemPanels(furnitureContent);
-        InitializeBasketPanels();
 
         playerMoneyText.text = "$" + stageInfo.StageMoney;
         basketPanelCount.text = "0";
         allItemPriceText.text = "0$";
         basketIndex = 0;
         basketCount.text = basketIndex.ToString();
+
+        InitializeItemPrefabs();
+
+        foreach (var itemPrefab in decorationPrefabs)
+        {
+            LSY_ItemPanel itemPanelScript = itemPrefab.GetComponent<LSY_ItemPanel>();
+            itemPanelScript.OnItemAdded += UpdateTotalPrice;
+            itemPanelScript.OnItemAddedBasket += UpdateItemAddBasket;
+        }
+
+        foreach (var itemPrefab in furniturePrefabs)
+        {
+            LSY_ItemPanel itemPanelScript = itemPrefab.GetComponent<LSY_ItemPanel>();
+            itemPanelScript.OnItemAdded += UpdateTotalPrice;
+            itemPanelScript.OnItemAddedBasket += UpdateItemAddBasket;
+        }
 
         OrderButton.onClick.AddListener(Order);
     }
@@ -71,35 +94,34 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
             if (itemPanel != null)
             {
                 itemPanels.Add(itemPanel);
-                itemPanel.OnItemAdded += (float price) => photonView.RPC("RPC_UpdateTotalPrice", RpcTarget.All, price);
-                itemPanel.OnItemAddedBasket += UpdateItemAddBasket;
             }
         }
     }
 
-    private void InitializeBasketPanels()
+    private void InitializeItemPrefabs()
     {
-        foreach (Transform child in basketContent)
+        decorationPrefabs = new GameObject[decorationContent.childCount];
+        for (int i = 0; i < decorationContent.childCount; i++)
         {
-            LSY_BasketPanel basketPanel = child.GetComponent<LSY_BasketPanel>();
-            if (basketPanel != null)
-            {
-                basketItems.Add(basketPanel);
-                child.gameObject.SetActive(false);
-                basketPanel.OnItemDelete += (float price, string itemName) => photonView.RPC("RPC_UpdateItemDelete", RpcTarget.All, price, itemName);
-            }
+            decorationPrefabs[i] = decorationContent.GetChild(i).gameObject;
+        }
+
+        furniturePrefabs = new GameObject[furnitureContent.childCount];
+        for (int i = 0; i < furnitureContent.childCount; i++)
+        {
+            furniturePrefabs[i] = furnitureContent.GetChild(i).gameObject;
         }
     }
 
-    [PunRPC]
-    public void RPC_UpdateItemDelete(float price, string itemName)
+    private void UpdateItemDelete(float price, string itemName)
     {
-        LSY_BasketPanel itemToRemove = basketItems.Find(item => item.itemName == itemName);
+        LSY_BasketItem itemToRemove = basketItems.Find(item => item.ItemName == itemName);
         LSY_ItemPanel itemPanel = itemPanels.Find(panel => panel.itemName == itemName);
+
 
         if (itemToRemove != null)
         {
-            itemToRemove.gameObject.SetActive(false);
+            basketItems.Remove(itemToRemove);
         }
 
         if (itemPanel != null)
@@ -113,10 +135,10 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
         basketIndex--;
         basketCount.text = basketIndex.ToString();
         basketPanelCount.text = basketIndex.ToString();
-        basketNames.Remove(itemName);
+
     }
 
-    private void UpdateItemAddBasket(string name)
+    private void UpdateItemAddBasket(string name, float price, string explain, Sprite sprite, GameObject itemPrefab)
     {
         if (basketIndex > 9)
         {
@@ -125,18 +147,19 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
 
             return;
         }
-        photonView.RPC("RPC_UpdateItemAddBasket", RpcTarget.All, name);
-    }
 
-    [PunRPC]
-    public void RPC_UpdateItemAddBasket(string name)
-    {
+        GameObject basketPanel = Instantiate(basketPanelPrefab, basketContent);
+        LSY_BasketPanel basketPanelScript = basketPanel.GetComponent<LSY_BasketPanel>();
+        basketPanelScript.SetItemInfo(name, price, explain, sprite, itemPrefab);
+
+        basketPanelScript.OnItemDelete += UpdateItemDelete;
+        basketPanelScript.OnItemAdded += UpdateTotalPrice;
+
         basketIndex++;
         basketCount.text = basketIndex.ToString();
         basketPanelCount.text = basketIndex.ToString();
-        LSY_BasketPanel basketItem = basketItems.Find(item => item.itemName == name);
-        basketItem.gameObject.SetActive(true);
-        basketNames.Add(name);
+
+        basketItems.Add(new LSY_BasketItem(name, price, explain, sprite, itemPrefab));
     }
 
     Coroutine warningRoutine;
@@ -148,53 +171,54 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
         warningRoutine = null;
     }
 
-    [PunRPC]
-    public void RPC_UpdateTotalPrice(float addedPrice)
+    private void UpdateTotalPrice(float addedPrice)
     {
+        Debug.Log("업데이트돈");
         totalPrice += addedPrice;
         allItemPriceText.text = totalPrice.ToString() + "$";
     }
 
     private void Order()
     {
-        photonView.RPC("RPC_Order", RpcTarget.All);
-    }
-
-    [PunRPC]
-    public void RPC_Order()
-    {
         if (stageInfo.StageMoney < totalPrice)
         {
+            Debug.Log("돈이 부족합니다.");
             return;
         }
 
         if (basketItems.Count > 0)
         {
             StartCoroutine(BuyRoutine());
+
+            foreach (var item in basketItems)
+            {
+                GameObject itemPrefab = item.ItemPrefab;
+                itemPrefab.gameObject.SetActive(true);
+                Debug.Log($"주문한 아이템: {item.ItemName}, 가격: {item.ItemPrice}$");
+
+                LSY_ItemPanel itemPanel = itemPanels.Find(panel => panel.itemName == item.ItemName);
+                if (itemPanel != null)
+                {
+                    itemPanels.Remove(itemPanel);
+                    Destroy(itemPanel.gameObject);
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("장바구니에 아이템이 없습니다.");
         }
     }
 
-    [PunRPC]
-    private void RPC_ClearBasket()
+
+    private void ClearBasket()
     {
-        foreach (var item in basketItems)
+        foreach (Transform child in basketContent)
         {
-            if (basketNames.Contains(item.itemName))
-            {
-                item.itemGameObekct.SetActive(true);
-                Destroy(item.gameObject);
-            }
+            Destroy(child.gameObject);
         }
 
-        foreach (var item in itemPanels)
-        {
-            if (basketNames.Contains(item.itemName))
-            {
-                Destroy(item.gameObject);
-            }
-        }
-
-        basketNames.Clear();
+        basketItems.Clear();
 
         playerMoney.text = "소지금: ";
         buyPrice.text = "구매 금액: ";
@@ -210,22 +234,22 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
     IEnumerator BuyRoutine()
     {
         buyPopUp.gameObject.SetActive(true);
-
+        Debug.Log(totalPrice);
         yield return null;
         playerMoney.text = "소지금: $" + stageInfo.StageMoney;
         yield return new WaitForSeconds(0.5f);
-
+        Debug.Log(totalPrice);
         buyPrice.text = "구매 금액: $" + totalPrice;
         yield return new WaitForSeconds(0.5f);
 
         totalPlayerMoney.text = "구매 후 금액: $" + (stageInfo.StageMoney - totalPrice);
         stageInfo.StageMoney = stageInfo.StageMoney - (int)totalPrice;
-
+        Debug.Log(totalPrice);
         playerMoneyText.text = "$" + stageInfo.StageMoney;
         yield return new WaitForSeconds(5);
 
         buyPopUp.gameObject.SetActive(false);
-        photonView.RPC("RPC_ClearBasket", RpcTarget.All);
+        ClearBasket();
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -241,6 +265,25 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
             basketIndex = (int)stream.ReceiveNext();
             stageInfo.StageMoney = (int)stream.ReceiveNext();
             int basketItemCount = (int)stream.ReceiveNext();
+        }
+    }
+
+    [Serializable]
+    public class LSY_BasketItem
+    {
+        public string ItemName { get; private set; }
+        public float ItemPrice { get; private set; }
+        public string ItemExplain { get; private set; }
+        public Sprite ItemSprite { get; private set; }
+        public GameObject ItemPrefab { get; private set; }
+
+        public LSY_BasketItem(string name, float price, string explain, Sprite sprite, GameObject prefab)
+        {
+            ItemName = name;
+            ItemPrice = price;
+            ItemExplain = explain;
+            ItemSprite = sprite;
+            ItemPrefab = prefab;
         }
     }
 }

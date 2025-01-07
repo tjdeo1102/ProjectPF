@@ -10,9 +10,10 @@ public class LSY_ItemPanel : MonoBehaviourPun, IPunObservable
 
     [Header("아이템")]
     [SerializeField] public string itemName;
-    [SerializeField] public float itemPrice;
-    [SerializeField] public string itemExplain;
+    [SerializeField] float itemPrice;
+    [SerializeField] string itemExplain;
     [SerializeField] Sprite item;
+    [SerializeField] GameObject itemGameObekct;
 
     [Header("UI")]
     [SerializeField] Image itemImage;
@@ -26,7 +27,7 @@ public class LSY_ItemPanel : MonoBehaviourPun, IPunObservable
     public delegate void ItemAdded(float price);
     public event ItemAdded OnItemAdded;
 
-    public delegate void ItemAddedBasket(string name);
+    public delegate void ItemAddedBasket(string name, float price, string explain, Sprite sprite, GameObject itemPrefab);
     public event ItemAddedBasket OnItemAddedBasket;
 
     private void Start()
@@ -40,6 +41,20 @@ public class LSY_ItemPanel : MonoBehaviourPun, IPunObservable
         itemExplainText.text = itemExplain;
     }
 
+    public void SetItemInfo(string name, float price, string explanation, Sprite image, GameObject itemPrefab)
+    {
+        itemName = name;
+        itemPrice = price;
+        itemExplain = explanation;
+        item = image;
+        itemGameObekct = itemPrefab;
+
+        itemNameText.text = itemName;
+        itemPriceText.text = itemPrice.ToString() + "$";
+        itemExplainText.text = itemExplain;
+
+        itemImage.sprite = item;
+    }
     private void AddItem()
     {
         if (LSY_ItemManager.basketIndex > 9 || isAdded)
@@ -47,17 +62,11 @@ public class LSY_ItemPanel : MonoBehaviourPun, IPunObservable
             Debug.Log("장바구니의 갯수가 10개가 넘었거나 이미 담은 물건입니다.");
             return;
         }
-        OnItemAddedBasket?.Invoke(itemName);
+        OnItemAddedBasket?.Invoke(itemName, itemPrice, itemExplain, item, itemGameObekct);
         OnItemAdded?.Invoke(itemPrice);
         isAdded = true;
-        photonView.RPC("RPC_IsAdded", RpcTarget.Others);
     }
 
-    [PunRPC]
-    public void RPC_IsAdded()
-    {
-        isAdded = true;
-    }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
