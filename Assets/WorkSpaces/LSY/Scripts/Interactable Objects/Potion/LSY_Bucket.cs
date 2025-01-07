@@ -26,7 +26,7 @@ public class LSY_Bucket : MonoBehaviourPun, IPunObservable
     public List<LSY_BucketInfo> bucketInfos = new ();
 
     MaterialPropertyBlock m_MaterialPropertyBlock;
-    Rigidbody m_RbPotion;
+    Rigidbody rb;
 
     private bool isFilling = false;
 
@@ -47,7 +47,7 @@ public class LSY_Bucket : MonoBehaviourPun, IPunObservable
 
         MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
 
-        m_RbPotion = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -204,10 +204,12 @@ public class LSY_Bucket : MonoBehaviourPun, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(fillAmount);
+            stream.SendNext(rb.useGravity);
         }
         else
         {
             fillAmount = (float)stream.ReceiveNext();
+            rb.useGravity = (bool)stream.ReceiveNext();
         }
     }
 }

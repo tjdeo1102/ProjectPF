@@ -43,18 +43,20 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
     [Header("플레이어 돈")]
     [SerializeField] TMP_Text playerMoneyText;
 
-    [SerializeField] KSD_StageInfo stageInfo;
+    //[SerializeField] KSD_StageInfo stageInfo;
 
     float totalPrice = 0;
 
 
     private void Start()
     {
+        if (KSD_GameManager.Instance == null) return;
+
         InitializeItemPanels(decorationContent);
         InitializeItemPanels(furnitureContent);
         InitializeBasketPanels();
 
-        playerMoneyText.text = "$" + stageInfo.StageMoney;
+        playerMoneyText.text = "$" + KSD_GameManager.Instance.CurrentStageInfo.StageMoney;
         basketPanelCount.text = "0";
         allItemPriceText.text = "0$";
         basketIndex = 0;
@@ -163,7 +165,7 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
     [PunRPC]
     public void RPC_Order()
     {
-        if (stageInfo.StageMoney < totalPrice)
+        if (KSD_GameManager.Instance.CurrentStageInfo.StageMoney < totalPrice)
         {
             return;
         }
@@ -212,16 +214,16 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
         buyPopUp.gameObject.SetActive(true);
 
         yield return null;
-        playerMoney.text = "소지금: $" + stageInfo.StageMoney;
+        playerMoney.text = "소지금: $" + KSD_GameManager.Instance.CurrentStageInfo.StageMoney;
         yield return new WaitForSeconds(0.5f);
 
         buyPrice.text = "구매 금액: $" + totalPrice;
         yield return new WaitForSeconds(0.5f);
 
-        totalPlayerMoney.text = "구매 후 금액: $" + (stageInfo.StageMoney - totalPrice);
-        stageInfo.StageMoney = stageInfo.StageMoney - (int)totalPrice;
+        totalPlayerMoney.text = "구매 후 금액: $" + (KSD_GameManager.Instance.CurrentStageInfo.StageMoney - totalPrice);
+        KSD_GameManager.Instance.CurrentStageInfo.StageMoney = KSD_GameManager.Instance.CurrentStageInfo.StageMoney - (int)totalPrice;
 
-        playerMoneyText.text = "$" + stageInfo.StageMoney;
+        playerMoneyText.text = "$" + KSD_GameManager.Instance.CurrentStageInfo.StageMoney;
         yield return new WaitForSeconds(5);
 
         buyPopUp.gameObject.SetActive(false);
@@ -233,13 +235,13 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(basketIndex);
-            stream.SendNext(stageInfo.StageMoney);
+            stream.SendNext(KSD_GameManager.Instance.CurrentStageInfo.StageMoney);
             stream.SendNext(basketItems.Count);
         }
         else
         {
             basketIndex = (int)stream.ReceiveNext();
-            stageInfo.StageMoney = (int)stream.ReceiveNext();
+            KSD_GameManager.Instance.CurrentStageInfo.StageMoney = (int)stream.ReceiveNext();
             int basketItemCount = (int)stream.ReceiveNext();
         }
     }
