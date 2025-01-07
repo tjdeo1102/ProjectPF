@@ -131,7 +131,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_LocalPosition.x
@@ -395,11 +395,6 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
---- !u!4 &422443689 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 835925790093218171, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
-  m_PrefabInstance: {fileID: 2007715391}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &422483345 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 835925789878647979, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
@@ -729,7 +724,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 954591851760057252, guid: 04052c76cd8138f47bfc66ae8d456707, type: 3}
       propertyPath: m_Name
-      value: Mixer Handle
+      value: Mixer Handle(mix)
       objectReference: {fileID: 0}
     - target: {fileID: 3344241857523076466, guid: 04052c76cd8138f47bfc66ae8d456707, type: 3}
       propertyPath: m_RootOrder
@@ -757,7 +752,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3344241857523076466, guid: 04052c76cd8138f47bfc66ae8d456707, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.876
+      value: 1.8760004
       objectReference: {fileID: 0}
     - target: {fileID: 3344241857523076466, guid: 04052c76cd8138f47bfc66ae8d456707, type: 3}
       propertyPath: m_LocalRotation.w
@@ -809,27 +804,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04052c76cd8138f47bfc66ae8d456707, type: 3}
---- !u!114 &1389729057
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 954591850985320122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7f90e85a7b916f47bdbc8b65fdccd3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  knob: {fileID: 5642844177029808457}
-  secondKnob: {fileID: 5642844177934635732}
-  turnResult: 5
-  decayRate: 1
-  secondaryKnobThreshold: 10
-  secondaryKnobMaxValue: 20
-  mixDone:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &1389729058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1039,7 +1013,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 954591851760057252, guid: 04052c76cd8138f47bfc66ae8d456707, type: 3}
       propertyPath: m_Name
-      value: Mixer Handle2
+      value: Mixer Handle(elec)
       objectReference: {fileID: 0}
     - target: {fileID: 3344241857523076466, guid: 04052c76cd8138f47bfc66ae8d456707, type: 3}
       propertyPath: m_RootOrder
@@ -1067,7 +1041,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3344241857523076466, guid: 04052c76cd8138f47bfc66ae8d456707, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.876
+      value: 1.8760004
       objectReference: {fileID: 0}
     - target: {fileID: 3344241857523076466, guid: 04052c76cd8138f47bfc66ae8d456707, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1151,6 +1125,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 1757873801}
+  - {fileID: 5642844177934635734}
   - {fileID: 1757873800}
   sceneViewId: 9
   InstantiationId: 0
@@ -1197,17 +1172,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 835925789037046151, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
   m_PrefabInstance: {fileID: 2007715391}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1827827993 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 835925789037046202, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
-  m_PrefabInstance: {fileID: 2007715391}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1827827991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65a8500fa86faa04596fb5f9d40efeae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1827827995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1248,27 +1212,6 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &1827827997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1827827991}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7f90e85a7b916f47bdbc8b65fdccd3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  knob: {fileID: 1827827993}
-  secondKnob: {fileID: 0}
-  turnResult: 10
-  decayRate: 1
-  secondaryKnobThreshold: 10
-  secondaryKnobMaxValue: 20
-  mixDone:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &1858953644
 GameObject:
   m_ObjectHideFlags: 0
@@ -1572,19 +1515,39 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 2032288273}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 835925789037046202, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
+      propertyPath: m_Value
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 835925789037046202, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 835925789037046202, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
       propertyPath: m_MaxAngle
-      value: 36000
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 835925789037046202, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
+      propertyPath: m_MinAngle
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 835925789037046202, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
+      propertyPath: m_ClampedMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 835925789037046202, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
+      propertyPath: m_TwistSensitivity
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 835925789037046202, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
       propertyPath: m_InteractionManager
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 835925789037046202, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
+      propertyPath: m_PositionTrackedRadius
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 835925789037046203, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
       propertyPath: m_Size.x
@@ -1610,13 +1573,21 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0.00011383521
       objectReference: {fileID: 0}
+    - target: {fileID: 835925789878647978, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 835925789878647978, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 835925790093218168, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
       propertyPath: m_Name
       value: CoffeeMill
       objectReference: {fileID: 0}
     - target: {fileID: 835925790093218171, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 835925790093218171, guid: e9d4170f48467fd4db4b3950a8c74260, type: 3}
       propertyPath: m_LocalScale.x
@@ -1711,7 +1682,6 @@ Transform:
   m_Children:
   - {fileID: 800658603}
   - {fileID: 1867454433}
-  - {fileID: 422443689}
   - {fileID: 1767387284}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -1810,6 +1780,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65a8500fa86faa04596fb5f9d40efeae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5642844177029808459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954591850985320122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7f90e85a7b916f47bdbc8b65fdccd3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Knob: {fileID: 5642844177029808457}
+  turnResult: 5
+  elec: {fileID: 5642844177934635734}
+  mixDone:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &5642844177934635732 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5642844176185545815, guid: 04052c76cd8138f47bfc66ae8d456707, type: 3}
@@ -1821,6 +1809,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65a8500fa86faa04596fb5f9d40efeae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5642844177934635734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954591851353275687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41a33a00bd04af645ab88421a9a8b202, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Knob: {fileID: 5642844177934635732}
+  decayRate: 1
+  secondaryKnobThreshold: 5
+  isSecondHandleActive: 0
 --- !u!1001 &6235662515438762550
 PrefabInstance:
   m_ObjectHideFlags: 0
