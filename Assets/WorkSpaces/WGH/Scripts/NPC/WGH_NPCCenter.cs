@@ -23,7 +23,7 @@ public class WGH_NPCCenter : INPCState
 
     public void OnUpdate()
     {
-        if(agent.remainingDistance < agent.stoppingDistance && agent.pathPending == false)
+        if(agent.remainingDistance < agent.stoppingDistance && agent.pathPending == false && WGH_NPCCreator.Instance.isCounter == false)
         {
             controller.ChangeStateNetwork((int)E_StateType.COUNTER);
         }

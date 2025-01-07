@@ -45,8 +45,9 @@ public class WGH_NPCCreator : MonoBehaviour
         curTime += Time.deltaTime;
         if (curTime >= spawnTime && isLeftSpawn == false)
         {
+            int randNum = Random.Range(1, 9);
             isLeftSpawn = true;
-            GameObject obj = PhotonNetwork.Instantiate("Customer", spawnLeftPos.position, Quaternion.identity);
+            GameObject obj = PhotonNetwork.Instantiate($"Customer{randNum}", spawnLeftPos.position, Quaternion.identity);
             WGH_NPCController controller = obj.GetComponent<WGH_NPCController>();
             controller.PassPos = new Vector3(-spawnLeftPos.position.x, spawnLeftPos.position.y, spawnLeftPos.position.z);
             controller.Entrance = enterancePos.position;
@@ -58,8 +59,9 @@ public class WGH_NPCCreator : MonoBehaviour
         }
         else if(curTime >= spawnTime && isLeftSpawn == true)
         {
+            int randNum = Random.Range(1, 9);
             isLeftSpawn = false;
-            GameObject obj = PhotonNetwork.Instantiate("Customer", spawnRightPos.position, Quaternion.identity);
+            GameObject obj = PhotonNetwork.Instantiate($"Customer{randNum}", spawnRightPos.position, Quaternion.identity);
             WGH_NPCController controller = obj.GetComponent<WGH_NPCController>();
             controller.PassPos = new Vector3(-spawnRightPos.position.x, spawnRightPos.position.y, spawnRightPos.position.z);
             controller.Entrance = enterancePos.position;
@@ -84,8 +86,9 @@ public class WGH_NPCCreator : MonoBehaviour
     /// <returns></returns>
     IEnumerator CheatRoutine()
     {
+        int randNum = Random.Range(1, 9);
         isCheat = true;
-        GameObject obj = PhotonNetwork.Instantiate("Customer", spawnLeftPos.position, Quaternion.identity);
+        GameObject obj = PhotonNetwork.Instantiate($"Customer{randNum}", spawnLeftPos.position, Quaternion.identity);
         WGH_NPCController controller = obj.GetComponent<WGH_NPCController>();
         controller.PassPos = new Vector3(-spawnRightPos.position.x, spawnRightPos.position.y, spawnRightPos.position.z);
         controller.Entrance = enterancePos.position;

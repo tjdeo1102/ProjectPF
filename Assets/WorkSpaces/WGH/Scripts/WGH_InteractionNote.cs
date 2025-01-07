@@ -9,15 +9,15 @@ public class WGH_InteractionNote : MonoBehaviourPun
 {
     public E_WGH_NoteType NoteType;
     public WGH_SmellStick SmellStick;
-    public XRSocketInteractor socket;
+    public XRSocketInteractor Socket;
+    public WGH_NPCController Customer;
     private void Awake()
     {
-        socket = GetComponent<XRSocketInteractor>();
+        Socket = GetComponent<XRSocketInteractor>();
     }
     private void Start()
     {
         SmellStick = GameObject.FindGameObjectWithTag("SmellStick").gameObject.GetComponent<WGH_SmellStick>();
-        
     }
 
 
