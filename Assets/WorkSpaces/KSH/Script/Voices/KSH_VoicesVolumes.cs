@@ -5,15 +5,24 @@ using UnityEngine;
 
 public class KSH_VoicesVolumes : MonoBehaviour
 {
-    [SerializeField] private Recorder recorder; // 마이크 입력용 Recorder
-    [SerializeField] private Speaker speaker;   // 수신된 음성 출력용 Speaker
+    // 마이크 입력용 Recorder
+    [SerializeField] private Recorder recorder;
+
+    // 수신된 음성 출력용 기본 Speaker (프리팹에 할당된 Speaker)
+    [SerializeField] private Speaker speaker1;
+
+    // 동적으로 할당될 플레이어 Speaker
+    [SerializeField] private Speaker speaker2;
 
     [Range(0f, 1f)]
     [SerializeField] private float inputVolume = 1f;  // 입력 음량 (0.0 ~ 1.0)
     [Range(0f, 1f)]
     [SerializeField] private float outputVolume = 1f; // 출력 음량 (0.0 ~ 1.0)
 
-    private AudioSource audioSource; // Speaker와 연결된 AudioSource
+    // Speaker와 연결된 AudioSource
+    private AudioSource audioSource;
+    // 현재 활성화된 Speaker 확인
+    private Speaker currentSpeaker;
 
     private void Start()
     {
@@ -30,19 +39,24 @@ public class KSH_VoicesVolumes : MonoBehaviour
         }
 
         // Speaker 초기화 및 AudioSource 가져오기
-        if (speaker == null)
+        if (speaker1 == null)
         {
-            speaker = GetComponent<Speaker>();
+            speaker1 = GetComponent<Speaker>();
         }
 
-        if (speaker != null)
-        {
-            audioSource = speaker.GetComponent<AudioSource>();
-        }
+        // Speaker 초기화
+        InitializeSpeaker(speaker1); // speaker1을 기본으로 설정
     }
 
     private void Update()
     {
+        if (speaker2 == null)
+        {
+            if (currentSpeaker != speaker1)
+            {
+                InitializeSpeaker(speaker1); // speaker1을 다시 활성화
+            }
+        }
         // 입력 음량 조절
         if (recorder != null && recorder.UserData is VolumeProcessor volumeProcessor)
         {
@@ -54,6 +68,34 @@ public class KSH_VoicesVolumes : MonoBehaviour
         if (audioSource != null)
         {
             audioSource.volume = outputVolume;
+        }
+    }
+
+    private void InitializeSpeaker(Speaker speaker)
+    {
+        if (speaker != null)
+        {
+            // 현재 활성화된 Speaker를 업데이트
+            currentSpeaker = speaker;
+            audioSource = speaker.GetComponent<AudioSource>();
+            Debug.Log($"활성화된 Speaker: {speaker.gameObject.name}");
+        }
+        else
+        {
+            Debug.LogWarning("Speaker1가 null입니다.");
+        }
+    }
+
+    public void AssignPlayerSpeaker(Speaker playerSpeaker)
+    {
+        if (playerSpeaker != null)
+        {
+            speaker2 = playerSpeaker; // speaker2에 새 Speaker 할당
+            InitializeSpeaker(speaker2); // speaker2를 활성화된 Speaker로 설정
+        }
+        else
+        {
+            Debug.LogWarning("Speaker2가 null입니다.");
         }
     }
 }
