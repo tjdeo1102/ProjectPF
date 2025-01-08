@@ -21,21 +21,16 @@ public class LSY_Elevator : MonoBehaviourPun
 
     private IReadOnlyBindableVariable<PokeStateData> upButtonPokeStateData;
 
-    private Rigidbody rb;
-
     void Start()
     {
         playerIn = false;
         initialPosition = transform.position;
-        rb = GetComponent<Rigidbody>();
 
         if (buttonFilter != null)
         {
             upButtonPokeStateData = buttonFilter.pokeStateData;
         }
     }
-
-    // 최대 높이에 도달했을 때 떨리는 현상 발생
 
     void Update()
     {
@@ -48,23 +43,23 @@ public class LSY_Elevator : MonoBehaviourPun
 
         if (upButtonPokeStateData.Value.interactionStrength > pressForce)
         {
-            if (transform.position.y > maxHeight) return;
+            if (transform.position.y > maxHeight)
+            {
+                return; 
+            }
 
-            photonView.RPC("MoveCube", RpcTarget.All, Vector3.up);
+            MoveElevator(Vector3.up);
         }
         else
         {
-            if (transform.position.y < initialPosition.y) return;
-
-            photonView.RPC("MoveCube", RpcTarget.All, Vector3.down);
+            if (transform.position.y <= initialPosition.y + 0.01f) return; 
+            MoveElevator(Vector3.down);
         }
-
     }
 
-    [PunRPC]
-    private void MoveCube(Vector3 direction)
+    private void MoveElevator(Vector3 direction)
     {
-        rb.velocity = direction * moveSpeed;
+        transform.position += direction * moveSpeed * Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -75,19 +70,30 @@ public class LSY_Elevator : MonoBehaviourPun
             playerIn = true;
             return;
         }
-
-        other.transform.SetParent(transform);
     }
+
+    //private void OnTriggerStay(Collider other)
+    //{
+    //    if (transform.position.y > maxHeight)
+    //    {
+    //        other.GetComponent<Rigidbody>().useGravity = false;
+    //        other.GetComponent<Rigidbody>().velocity = Vector3.zero;
+    //    }
+    //    else
+    //    {
+    //        other.GetComponent<Rigidbody>().useGravity = true;
+    //    }
+    //}
 
     private void OnTriggerExit(Collider other)
     {
+        other.GetComponent<Rigidbody>().useGravity = true;
+
         Debug.Log("물체 나감");
         if (other.gameObject.CompareTag("Player"))
         {
             playerIn = false;
             return;
         }
-
-        other.transform.SetParent(null);
     }
 }

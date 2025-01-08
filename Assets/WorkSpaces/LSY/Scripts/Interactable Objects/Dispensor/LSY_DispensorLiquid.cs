@@ -51,7 +51,7 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
     }
 
 
-    [PunRPC]
+
     public void OnSelectEnter()
     {
         if (!isOnCooldown)

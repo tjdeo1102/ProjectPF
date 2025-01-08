@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8210614381407739745}
   - component: {fileID: 6571610302120158732}
   - component: {fileID: 4164962019436366278}
+  - component: {fileID: 6644864290625893031}
   m_Layer: 5
   m_Name: Item Name Text
   m_TagString: Untagged
@@ -135,6 +136,28 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6644864290625893031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061494993409663136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 1
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &2277309361348112308
 GameObject:
   m_ObjectHideFlags: 0
@@ -146,6 +169,7 @@ GameObject:
   - component: {fileID: 3176350106984036500}
   - component: {fileID: 1189784118121404635}
   - component: {fileID: 4218851122334664329}
+  - component: {fileID: 7420313229538022371}
   m_Layer: 5
   m_Name: Line
   m_TagString: Untagged
@@ -211,6 +235,28 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7420313229538022371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2277309361348112308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &4554201381532684544
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,6 +268,7 @@ GameObject:
   - component: {fileID: 1785159696984457156}
   - component: {fileID: 6657107585727093283}
   - component: {fileID: 2030481535903784326}
+  - component: {fileID: 4226555671795849969}
   m_Layer: 5
   m_Name: Item Explain Text
   m_TagString: Untagged
@@ -347,6 +394,28 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4226555671795849969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4554201381532684544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &5550571028716256687
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,6 +428,7 @@ GameObject:
   - component: {fileID: 8064778897135667322}
   - component: {fileID: 1467714642219175536}
   - component: {fileID: 5684230258446112297}
+  - component: {fileID: 483047376806464505}
   m_Layer: 5
   m_Name: Add to cart Button
   m_TagString: Untagged
@@ -527,6 +597,28 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &483047376806464505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5550571028716256687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &7893203667356330012
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,6 +631,7 @@ GameObject:
   - component: {fileID: 4184395942879031820}
   - component: {fileID: 1360502836008328724}
   - component: {fileID: 1036350682052277964}
+  - component: {fileID: 9129066558209259226}
   m_Layer: 5
   m_Name: Item Image
   m_TagString: Untagged
@@ -619,6 +712,28 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 5, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!114 &9129066558209259226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7893203667356330012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &8640463158392034682
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,6 +745,7 @@ GameObject:
   - component: {fileID: 4698759437944927195}
   - component: {fileID: 5408613276620350890}
   - component: {fileID: 2893790687106566675}
+  - component: {fileID: 6877495105729959441}
   m_Layer: 5
   m_Name: Item Price Text
   m_TagString: Untagged
@@ -754,6 +870,28 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6877495105729959441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8640463158392034682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &8648882694363671740
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,6 +904,7 @@ GameObject:
   - component: {fileID: 5695158733877360650}
   - component: {fileID: 3223019515821475393}
   - component: {fileID: 6792313112102777737}
+  - component: {fileID: 8205992371374252152}
   m_Layer: 5
   m_Name: Item Explain Image
   m_TagString: Untagged
@@ -851,6 +990,28 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 5, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!114 &8205992371374252152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8648882694363671740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &9191522556685367961
 GameObject:
   m_ObjectHideFlags: 0
@@ -948,7 +1109,6 @@ MonoBehaviour:
   itemPrice: 0
   itemExplain: 
   item: {fileID: 0}
-  itemGameObekct: {fileID: 0}
   itemImage: {fileID: 1360502836008328724}
   itemNameText: {fileID: 4164962019436366278}
   itemPriceText: {fileID: 2893790687106566675}
@@ -973,7 +1133,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 1
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 7027292006920019612}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
