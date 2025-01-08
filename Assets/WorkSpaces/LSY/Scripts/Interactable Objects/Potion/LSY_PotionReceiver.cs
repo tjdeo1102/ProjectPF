@@ -29,6 +29,8 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     [Header("Shake")]
     [SerializeField] private float shakeTimer;
     [SerializeField] private float distancePerFrame;
+    private float lastShakeTime;
+    private float deadTime = 1f;
 
     [Header("Splash")]
     public GameObject potion;
@@ -80,27 +82,37 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     private void CheckShake()
     {
         var pos = transform.position;
-        IsActiveShake = Vector3.Distance(lastSpoonPosition, pos) > distancePerFrame;
-        lastSpoonPosition = transform.position;
-        if (IsActiveShake)
+        bool isShakingNow = Vector3.Distance(lastSpoonPosition, pos) > distancePerFrame;
+
+        if (isShakingNow)
         {
+            lastShakeTime = Time.time;
+            IsActiveShake = true;
+
             if (shakeRoutine == null)
-                Debug.Log("흔들기시작");
                 shakeRoutine = StartCoroutine(ShakeRoutine());
         }
         else
         {
-            Debug.Log("흔들기 안하는 중");
-            if (shakeRoutine != null)
+            if (Time.time - lastShakeTime > deadTime)
             {
-                StopCoroutine(shakeRoutine);
+                IsActiveShake = false;
+
+                if (shakeRoutine != null)
+                {
+                    StopCoroutine(shakeRoutine);
+                    shakeRoutine = null;
+                }
             }
         }
+
+        lastSpoonPosition = pos; 
     }
 
     IEnumerator ShakeRoutine()
     {
         yield return new WaitForSeconds(shakeTimer);
+        shakeRoutine = null;
         photonView.RPC("PerfumeDone", RpcTarget.All);
     }
 
@@ -134,6 +146,7 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
         perfumeNoteInfoLists.Clear();
         shakeRoutine = null;
         Debug.Log("흔들기완료");
+        m_RbPotion.velocity = Vector3.zero;
     }
 
     [PunRPC]
@@ -153,7 +166,6 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
         liquidMeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
     }
 
-    [PunRPC]
     public void ReceivePotion(float[] potionColor, float[] linePotionColor, PerfumeNoteName perfumeNoteName, PerfumeNoteState state)
     {
         if (fillAmount < maxLiquidFill)

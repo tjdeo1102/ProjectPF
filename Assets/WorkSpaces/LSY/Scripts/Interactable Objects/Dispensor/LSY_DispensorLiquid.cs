@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
 {
-    [Header("디스펜서 핸들 애니매이터")]
-    [SerializeField] Animator handleAnimator;
     [Header("디스펜서 뚜껑 애니매이터")]
     [SerializeField] Animator litAnimator;
 
@@ -23,6 +21,13 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
 
     [Header("디스펜서 Info")]
     public LSY_DispensorInfo dispensorInfo;
+
+    [Header("디스펜서 UI")]
+    public GameObject despensorUI;
+    bool onDespensorUI = false;
+
+    public LSY_DespensorLever LSY_DespensorLever;
+
 
     Color liquidColor;
     Color liquidLineColor;
@@ -42,6 +47,7 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
     void Start()
     {
         particleSystemLiquid.Stop();
+        despensorUI.SetActive(false);
 
         liquidColor = dispensorInfo.liquidColor;
         liquidLineColor = dispensorInfo.liquidLineColor;
@@ -52,63 +58,6 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
         m_MaterialPropertyBlock.SetColor("Color_FDA61C50", liquidLineColor);
         MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
     }
-
-
-
-    public void OnSelectEnter()
-    {
-        if (!isOnCooldown)
-        {
-            photonView.RPC("PouringLiquid", RpcTarget.All);
-        }
-    }
-
-    [PunRPC]
-    public void PouringLiquid()
-    {
-        if (!photonView.IsMine) return;
-
-        if (pouringliquidRoutine == null)
-        {
-            if (fillAmount < 0.1f)
-            {
-                Debug.Log("한번 나올 양이 부족함");
-                return;
-            }
-
-            if (isOnCooldown)
-            {
-                Debug.Log("2초 후에 다시 시도해주세요.");
-                return;
-            }
-
-            photonView.RPC("RPC_HandleAnimation", RpcTarget.All, "HandleOn");
-            if (liquidOn == false)
-                pouringliquidRoutine = StartCoroutine(PouringliquidRoutine());
-
-            photonView.RPC("StartCooldown", RpcTarget.All);
-        }
-    }
-
-    [PunRPC]
-    public void RPC_HandleAnimation(string name)
-    {
-        handleAnimator.SetTrigger(name);
-    }
-
-    [PunRPC]
-    public void RPC_LitAnimation(string name)
-    {
-        litAnimator.SetTrigger(name);
-    }
-
-    [PunRPC]
-    void StartCooldown()
-    {
-        isOnCooldown = true;
-        cooldownTimer = cooldownTime;
-    }
-
     void Update()
     {
         if (isOnCooldown)
@@ -132,6 +81,52 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
         MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
     }
 
+    public void OnSelectEnter()
+    {
+        if (!isOnCooldown)
+        {
+            photonView.RPC("PouringLiquid", RpcTarget.All);
+        }
+    }
+
+    [PunRPC]
+    public void PouringLiquid()
+    {
+        //if (!photonView.IsMine) return;
+
+        if (pouringliquidRoutine == null)
+        {
+            if (fillAmount < 0.1f)
+            {
+                Debug.Log("한번 나올 양이 부족함");
+                return;
+            }
+
+            if (isOnCooldown)
+            {
+                Debug.Log("2초 후에 다시 시도해주세요.");
+                return;
+            }
+
+            if (liquidOn == false)
+                pouringliquidRoutine = StartCoroutine(PouringliquidRoutine());
+
+            StartCooldown();
+        }
+    }
+
+    [PunRPC]
+    public void RPC_LitAnimation(string name)
+    {
+        litAnimator.SetTrigger(name);
+    }
+
+    void StartCooldown()
+    {
+        isOnCooldown = true;
+        cooldownTimer = cooldownTime;
+    }
+
 
     IEnumerator PouringliquidRoutine()
     {
@@ -146,7 +141,6 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
             if (particleSystemLiquid.isStopped)
             {
                 particleSystemLiquid.Play();
-                photonView.RPC("PlayParticle", RpcTarget.Others);
             }
 
             float amountToPourThisFrame = pourAmountPerSecond * Time.deltaTime;
@@ -199,10 +193,8 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
         MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
 
         particleSystemLiquid.Stop();
-        photonView.RPC("StopParticle", RpcTarget.Others);
 
-        photonView.RPC("RPC_HandleAnimation", RpcTarget.All, "HandleOff");
-        photonView.RPC("RPC_HandleAnimation", RpcTarget.All, "HandleIdle");
+        LSY_DespensorLever.StartRoutine();
         pouringliquidRoutine = null;
     }
 
@@ -227,10 +219,10 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
 
         for (int i = 0; i < 10; i++)
         {
-            potionReceiver.photonView.RPC("ReceivePotion", RpcTarget.All, potionColorArray, linePotionColorArray, dispensorInfo.noteName, dispensorInfo.state);
+            potionReceiver.ReceivePotion(potionColorArray, linePotionColorArray, dispensorInfo.noteName, dispensorInfo.state);
             yield return new WaitForSeconds(0.1f);
         }
-        //yield return new WaitForSeconds(1);
+
         potionReceiverRoutine = null;
     }
 
@@ -255,6 +247,12 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
         {
             Debug.Log("뚜껑 닫혀있음");
             return; 
+        }
+
+        if (onDespensorUI == false)
+        {
+            despensorUI.SetActive(true);
+            onDespensorUI = true;
         }
 
         if (fillAmount < maxLiquidFill)
