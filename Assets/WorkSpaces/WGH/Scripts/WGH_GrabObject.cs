@@ -43,7 +43,6 @@ public class WGH_GrabObject : MonoBehaviourPun
         if (rigid != null)
         {
             rigid.useGravity = !isGrabbed;
-            smellStick.isGrab = isGrabbed;
         }
     }
 }

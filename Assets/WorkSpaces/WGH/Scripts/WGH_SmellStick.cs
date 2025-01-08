@@ -124,7 +124,6 @@ public class WGH_SmellStick : MonoBehaviourPun
 
     private void React()
     {
-        Debug.Log("상호작용");
         if (NoteType == customer.GetComponent<WGH_NPCController>().BestMaterial)
         {
             OnBestInteract?.Invoke();

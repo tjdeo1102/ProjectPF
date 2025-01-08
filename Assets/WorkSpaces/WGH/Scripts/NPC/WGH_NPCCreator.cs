@@ -39,11 +39,53 @@ public class WGH_NPCCreator : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        // 스테이지 레벨
-        //stageLevel = KSD_GameManager.Instance.CurrentStageInfo.StageLevel;
+        
         //onchangestageinfo 이벤트 구독해서 스테이지가 바뀔때마다 함수 호출
     }
+    private void Start()
+    {
+        // 스테이지 레벨
+        stageLevel = KSD_GameManager.Instance.CurrentStageInfo.StageLevel;
+        KSD_GameManager.Instance.OnChangeStageInfo.AddListener(StageChange);
+    }
 
+    public void StageChange()
+    {
+        Debug.Log("스테이지 체인지 이벤트 호출");
+        stageLevel = KSD_GameManager.Instance.CurrentStageInfo.StageLevel;
+        storeNpcSpawnTime = SetCustomerAmount(stageLevel);
+    }
+
+    private int SetCustomerAmount(int stageLevel)
+    {
+        switch(stageLevel)
+        {
+            case 0:
+                return 10;
+            case 1:
+                return 10;
+            case 2:
+                return 30;
+            case 3:
+                return 20;
+            case 4:
+                return 20;
+            case 5:
+                return 20;
+            case 6:
+                return 20;
+            case 7:
+                return 20;
+            case 8:
+                return 15;
+            case 9:
+                return 15;
+            case 10:
+                return 15;
+            default:
+                return 10;
+        }
+    }
     private void Update()
     {
         if (PhotonNetwork.IsMasterClient == false && !isCheat)
