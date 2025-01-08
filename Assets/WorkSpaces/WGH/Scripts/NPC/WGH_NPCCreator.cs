@@ -41,6 +41,7 @@ public class WGH_NPCCreator : MonoBehaviour
         }
         // 스테이지 레벨
         //stageLevel = KSD_GameManager.Instance.CurrentStageInfo.StageLevel;
+        //onchangestageinfo 이벤트 구독해서 스테이지가 바뀔때마다 함수 호출
     }
 
     private void Update()

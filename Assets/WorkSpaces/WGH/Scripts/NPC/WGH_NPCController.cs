@@ -14,7 +14,6 @@ public enum E_StateType
     COUNTER,                                                                      // 카운터로 가는 상태
     WAIT,                                                                         // 카운터에서 대기 + 시향 + 리액션 + 병 타입 제시
     EXIT,                                                                         // 퇴장
-    SMELL,
     ENnpcType_MAX
 }
 
@@ -30,8 +29,7 @@ public class WGH_NPCController : MonoBehaviourPun
     private WGH_NPCGoToCounter goToCouterState;
     private WGH_NPCWait wait;
     private WGH_NPCExit exitState;
-    private WGH_NPCSmellTest smellState;
-    
+
     private NavMeshAgent agent;
     [HideInInspector] public NavMeshAgent Agent { get { return agent; } }
     [HideInInspector] public WGH_SmellStick SmellStick;
@@ -94,7 +92,6 @@ public class WGH_NPCController : MonoBehaviourPun
         wait = new WGH_NPCWait(this, agent);
         center = new WGH_NPCCenter(this, agent);
         exitState = new WGH_NPCExit(this, agent);
-        smellState = new WGH_NPCSmellTest(this, agent);
     }
 
     private void Start()
@@ -105,7 +102,7 @@ public class WGH_NPCController : MonoBehaviourPun
 
     private void Update()
     {
-        if(PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient)
             curState?.OnUpdate();
     }
 
@@ -116,6 +113,8 @@ public class WGH_NPCController : MonoBehaviourPun
     [PunRPC]
     public void ChangeState(E_StateType type)
     {
+        if (PhotonNetwork.IsMasterClient == false)
+            return;
         INPCState newState = FindStateType((int)type);
         curState?.Exit();
         curState = newState;
@@ -127,13 +126,10 @@ public class WGH_NPCController : MonoBehaviourPun
             exploreRoutine = StartCoroutine(ExploreRoutine());
             isExplore = true;
         }
-        else if(stateType == E_StateType.COUNTER || stateType == E_StateType.EXIT) 
+        else if ((stateType == E_StateType.COUNTER || stateType == E_StateType.EXIT) && isExplore == true)
         {
-            if(isExplore && PhotonNetwork.IsMasterClient)
-            {
-                StopCoroutine(exploreRoutine);
-                isExplore = false;
-            }
+            StopCoroutine(exploreRoutine);
+            isExplore = false;
         }
     }
 
@@ -142,8 +138,7 @@ public class WGH_NPCController : MonoBehaviourPun
     /// </summary>
     public void ChangeStateNetwork(int type)
     {
-        if (PhotonNetwork.IsMasterClient)
-            photonView.RPC("ChangeState", RpcTarget.AllBuffered, type);
+        photonView.RPC("ChangeState", RpcTarget.All, type);
     }
 
     /// <summary>
@@ -167,8 +162,6 @@ public class WGH_NPCController : MonoBehaviourPun
                 return new WGH_NPCWait(this, Agent);
             case 7:
                 return new WGH_NPCExit(this, Agent);
-            case 8:
-                return new WGH_NPCSmellTest(this, Agent);
             default:
                 return null;
         }
@@ -205,12 +198,12 @@ public class WGH_NPCController : MonoBehaviourPun
     [PunRPC]
     public void SelectOrderUI(int bottleType, int perfumeType)
     {
-        if(BottleUI.gameObject.activeSelf == false)
+        if (BottleUI.gameObject.activeSelf == false)
         {
             BottleUI.gameObject.SetActive(true);
             PerfumeUI.gameObject.SetActive(true);
         }
-       
+
         BottleUI.sprite = BottleUis[bottleType];
         PerfumeUI.sprite = PerfumeUis[perfumeType];
         BottleType = (E_BottleType)bottleType;
@@ -231,9 +224,9 @@ public class WGH_NPCController : MonoBehaviourPun
         int randomSec3 = Random.Range(3, 11);
 
         bool exploreLeft = false;
-        for(int i = 1; i <= randomCount; i++)
+        for (int i = 1; i <= randomCount; i++)
         {
-            if(!exploreLeft)
+            if (!exploreLeft)
             {
                 exploreLeft = true;
                 agent.SetDestination(ExplorePos2);

@@ -40,12 +40,12 @@ public class WGH_SmellStick : MonoBehaviourPun
     }
     private void LateUpdate()
     {
-        // "Dynamic Attach"라는 이름을 가진 자식 오브젝트 삭제
-        Transform dynamicAttach = transform.Find("[Ray Interactor] Dynamic Attach");
-        if (dynamicAttach != null)
-        {
-            Destroy(dynamicAttach.gameObject);
-        }
+        //// "Dynamic Attach"라는 이름을 가진 자식 오브젝트 삭제
+        //Transform dynamicAttach = transform.Find("[Ray Interactor] Dynamic Attach");
+        //if (dynamicAttach != null)
+        //{
+        //    Destroy(dynamicAttach.gameObject);
+        //}
     }
 
     private void OnTriggerEnter(Collider other)
@@ -135,8 +135,6 @@ public class WGH_SmellStick : MonoBehaviourPun
     [PunRPC]
     public void EffectRPC(bool enable)
     {
-        if (!PhotonNetwork.IsMasterClient)
-            return;
         aura[(int)NoteType - 1].gameObject.SetActive(enable);
         isAbsorbed = enable;
     }
