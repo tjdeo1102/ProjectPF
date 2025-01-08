@@ -14,6 +14,7 @@ public class PTK_HandleMix : MonoBehaviourPun
     public PTK_HandleElec elec;
 
     private float lastValue;
+    private bool wasSecondHandleActive = false;
     public UnityEvent mixDone;
 
     void Start()
@@ -23,6 +24,13 @@ public class PTK_HandleMix : MonoBehaviourPun
 
     void Update()
     {
+        if (wasSecondHandleActive == false && elec.isSecondHandleActive)
+        {
+            lastValue = Knob.value;
+        }
+
+        wasSecondHandleActive = elec.isSecondHandleActive;
+
         if (elec.isSecondHandleActive == true)
         {
             float currentValue = Knob.value;
