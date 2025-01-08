@@ -62,7 +62,8 @@ public class WGH_NPCCreator : MonoBehaviour
             GameObject obj = PhotonNetwork.Instantiate($"Customer{randNum}", spawnPassLeftPos.position, Quaternion.identity);
             WGH_NPCController controller = obj.GetComponent<WGH_NPCController>();
             controller.isOnlyPassNpc = true;
-            controller.PassPos = new Vector3(-spawnPassLeftPos.position.x, spawnPassLeftPos.position.y, spawnPassLeftPos.position.z);
+            controller.PassPos = spawnPassLeftPos.position;
+            controller.PassPos.x = spawnPassRightPos.position.x;
             passNpcCurTime = 0;
         }
         else if(passNpcCurTime >= passNpcSpawnTime && isPassLeftSpawn == true)
@@ -72,7 +73,8 @@ public class WGH_NPCCreator : MonoBehaviour
             GameObject obj = PhotonNetwork.Instantiate($"Customer{randNum}", spawnPassRightPos.position, Quaternion.identity);
             WGH_NPCController controller = obj.GetComponent<WGH_NPCController>();
             controller.isOnlyPassNpc = true;
-            controller.PassPos = new Vector3(-spawnPassRightPos.position.x, spawnPassRightPos.position.y, spawnPassRightPos.position.z);
+            controller.PassPos = spawnPassRightPos.position;
+            controller.PassPos.x = spawnPassLeftPos.position.x;
             passNpcCurTime = 0;
         }
     }
@@ -85,7 +87,8 @@ public class WGH_NPCCreator : MonoBehaviour
             isLeftSpawn = true;
             GameObject obj = PhotonNetwork.Instantiate($"Customer{randNum}", spawnLeftPos.position, Quaternion.identity);
             WGH_NPCController controller = obj.GetComponent<WGH_NPCController>();
-            controller.PassPos = new Vector3(-spawnLeftPos.position.x, spawnLeftPos.position.y, spawnLeftPos.position.z);
+            controller.PassPos = spawnLeftPos.position;
+            controller.PassPos.x = spawnRightPos.position.x;
             controller.Entrance = enterancePos.position;
             controller.ExplorePos1 = leftExplorePos.position;
             controller.ExplorePos2 = rightExplorePos.position;
@@ -99,7 +102,8 @@ public class WGH_NPCCreator : MonoBehaviour
             isLeftSpawn = false;
             GameObject obj = PhotonNetwork.Instantiate($"Customer{randNum}", spawnRightPos.position, Quaternion.identity);
             WGH_NPCController controller = obj.GetComponent<WGH_NPCController>();
-            controller.PassPos = new Vector3(-spawnRightPos.position.x, spawnRightPos.position.y, spawnRightPos.position.z);
+            controller.PassPos = spawnRightPos.position;
+            controller.PassPos.x = spawnLeftPos.position.x;
             controller.Entrance = enterancePos.position;
             controller.ExplorePos1 = leftExplorePos.position;
             controller.ExplorePos2 = rightExplorePos.position;
