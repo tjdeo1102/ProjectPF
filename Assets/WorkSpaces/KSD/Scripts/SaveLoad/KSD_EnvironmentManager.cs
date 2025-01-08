@@ -14,6 +14,7 @@ public class KSD_EnvironmentManager : MonoBehaviourPun
     [SerializeField] private float minLightRotation;
     [SerializeField] private float lightRotationLengh;
     [SerializeField] private float rotationTime;
+    [SerializeField] private Material skyMaterial;
 
     private void Start()
     {
@@ -50,6 +51,17 @@ public class KSD_EnvironmentManager : MonoBehaviourPun
         var lightRot = minLightRotation + ((float)currentCount / (float)maxCount) * lightRotationLengh;
 
         directLight.DORotate(new Vector3(lightRot, directLight.rotation.y, directLight.rotation.z), rotationTime, RotateMode.Fast);
+        if (skyMaterial != null)
+        {
+            var start = skyMaterial.GetFloat("_CubemapTransition");
+            var target = (float)currentCount / (float)maxCount;
+            DOTween.To(
+                () => start, // 시작 값
+                x => skyMaterial.SetFloat("_CubemapTransition", x), // 변경 콜백
+                target, // 목표 값
+                rotationTime // 애니메이션 시간
+            );
+        }
     }
 
 }
