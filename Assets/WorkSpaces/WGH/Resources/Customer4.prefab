@@ -5286,7 +5286,7 @@ MonoBehaviour:
   ExplorePos2: {x: 0, y: 0, z: 0}
   StoreCenter: {x: 0, y: 0, z: 0}
   Counter: {x: 0, y: 0, z: 0}
-  interactionArea: {fileID: 0}
+  interactionArea: {fileID: 3056152840898776502}
   bestEmotion: {fileID: 8674414537621744740}
   likeEmotion: {fileID: 6771432616129689742}
   questionEmotion: {fileID: 6661556790043061823}
@@ -5310,6 +5310,7 @@ MonoBehaviour:
   PerfumeUI: {fileID: 0}
   BottleUI: {fileID: 0}
   isExplore: 0
+  isOnlyPassNpc: 0
 --- !u!114 &1097282291910061834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5518,8 +5519,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
-  maxCount: 2
-  isCheck: 0
 --- !u!1 &2638730908909019810
 GameObject:
   m_ObjectHideFlags: 0

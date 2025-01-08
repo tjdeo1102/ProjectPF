@@ -18,11 +18,12 @@ public class WGH_NPCSmellTest : INPCState
 
     public void Enter()
     {
+        // npc 선호 이모지 내리기
         controller.PerfumeUI.gameObject.SetActive(false);
         controller.BottleUI.gameObject.SetActive(false);
-
+        // npc 탐지 영역 true
         controller.InteractionArea.gameObject.SetActive(true);
-
+        
         controller.SmellTestEndButton.interactable = true;
         controller.SmellTestEndButton.onClick.AddListener(ChangeWaitState);
 
