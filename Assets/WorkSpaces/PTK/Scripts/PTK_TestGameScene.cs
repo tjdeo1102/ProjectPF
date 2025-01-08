@@ -44,6 +44,6 @@ public class PTK_TestGameScene : MonoBehaviourPunCallbacks
     private void PlayerSpawn()
     {
         Vector3 randomPos = new Vector3(Random.Range(0f, 0f), 0.2f, Random.Range(0, 0f));
-        GameObject player = PhotonNetwork.Instantiate("Player", randomPos, Quaternion.identity);
+        GameObject player = PhotonNetwork.Instantiate("PTK_Test", randomPos, Quaternion.identity);
     }
 }
