@@ -147,11 +147,9 @@ public class KSD_CauldronController : MonoBehaviourPun
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Bucket")
-            && other.TryGetComponent<KSD_LiquidObject>(out var note))
+        if (other.TryGetComponent<LSY_Bucket>(out var note))
         {
             print("양동이에 담음");
-            note.data = ResultNoteInfo;
             ResetState();
         }
         else if(other.CompareTag("Erase"))
