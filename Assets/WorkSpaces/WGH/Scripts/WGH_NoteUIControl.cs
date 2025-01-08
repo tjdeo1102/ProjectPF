@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
+using TMPro;
 
 public class WGH_NoteUIControl : MonoBehaviourPun
 {
+    [SerializeField] TextMeshProUGUI[] texts;
     [SerializeField] Image[] images;
 
     // E_WGH_NoteType 열거형을 넣으면 해당 노트 UI 조절
@@ -22,6 +24,7 @@ public class WGH_NoteUIControl : MonoBehaviourPun
     [PunRPC]
     private void SetUI(E_WGH_NoteType noteType, bool isOn)
     {
+        texts[(int)noteType - 1].gameObject.SetActive(isOn);
         images[(int)noteType - 1].gameObject.SetActive(isOn);
     }
 }
