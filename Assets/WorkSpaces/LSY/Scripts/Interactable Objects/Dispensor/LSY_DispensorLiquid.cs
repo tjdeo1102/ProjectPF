@@ -5,7 +5,9 @@ using UnityEngine;
 public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
 {
     [Header("µΩ∫∆Êº≠ «⁄µÈ æ÷¥œ∏≈¿Ã≈Õ")]
-    [SerializeField] Animator animator;
+    [SerializeField] Animator handleAnimator;
+    [Header("µΩ∫∆Êº≠ ∂—≤± æ÷¥œ∏≈¿Ã≈Õ")]
+    [SerializeField] Animator litAnimator;
 
     [Header("æ◊√º ∫◊¥¬ ∆ƒ∆º≈¨")]
     public ParticleSystem particleSystemLiquid;
@@ -36,6 +38,7 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
     private float cooldownTimer = 0f;
 
     bool liquidOn = false;
+    public bool isLitOpen = false;
     void Start()
     {
         particleSystemLiquid.Stop();
@@ -79,12 +82,18 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
                 return;
             }
 
-            animator.SetTrigger("HandleOn");
+            photonView.RPC("RPC_PlayAnimation", RpcTarget.All, "HandleOn");
             if (liquidOn == false)
                 pouringliquidRoutine = StartCoroutine(PouringliquidRoutine());
 
             photonView.RPC("StartCooldown", RpcTarget.All);
         }
+    }
+
+    [PunRPC]
+    public void RPC_PlayAnimation(string name)
+    {
+        litAnimator.SetTrigger(name);
     }
 
     [PunRPC]
@@ -167,8 +176,6 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
 
             if (receiverCount >= 2)
             {
-                Debug.Log("µŒ ∞≥¿« PotionReceiver∏¶ √£¿Ω");
-
                 LSY_PotionReceiver receiver = receivers[0];
                 if (potionReceiverRoutine == null)
                 {
@@ -193,8 +200,8 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
         particleSystemLiquid.Stop();
         photonView.RPC("StopParticle", RpcTarget.Others);
 
-        animator.SetTrigger("HandleOff");
-        animator.SetTrigger("HandleIdle");
+        photonView.RPC("RPC_PlayAnimation", RpcTarget.All, "HandleOff");
+        photonView.RPC("RPC_PlayAnimation", RpcTarget.All, "HandleIdle");
         pouringliquidRoutine = null;
     }
 
@@ -243,9 +250,15 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
     [PunRPC]
     public void ReceiveLiquid()
     {
+        if (!isLitOpen) 
+        {
+            Debug.Log("∂—≤± ¥›«Ù¿÷¿Ω");
+            return; 
+        }
+
         if (fillAmount < maxLiquidFill)
         {
-            fillAmount += 0.07f * Time.deltaTime;
+            fillAmount += 0.04f * Time.deltaTime;
 
             if (m_MaterialPropertyBlock != null)
             {
@@ -262,10 +275,14 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(fillAmount);
+            stream.SendNext(isLitOpen);
+            stream.SendNext(liquidOn);
         }
         else
         {
             fillAmount = (float)stream.ReceiveNext();
+            isLitOpen = (bool)stream.ReceiveNext();
+            liquidOn = (bool)stream.ReceiveNext();
         }
     }
 

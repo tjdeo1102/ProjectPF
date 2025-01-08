@@ -175,7 +175,6 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
                     if (potionInfo.Name == perfumeNoteName)
                     {
                         potionInfo.NoteCount += 1;
-                        Debug.Log("Ãß°¡µÊ");
                         StartCoroutine(ResetCountRoutine());
                         return;
                     }
@@ -194,7 +193,6 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
 
     IEnumerator ResetCountRoutine()
     {
-        Debug.Log("¸®¼Â");
         yield return new WaitForSeconds(0.5f);
         fillAmount = Mathf.Round(fillAmount * 10f) / 10f;
         receiveCount = 0;

@@ -64,12 +64,15 @@ public class LSY_Elevator : MonoBehaviourPun
 
     private void OnTriggerEnter(Collider other)
     {
+
         Debug.Log("물체 들어옴");
         if (other.gameObject.CompareTag("Player"))
         {
             playerIn = true;
             return;
         }
+        if (other.GetComponent<Rigidbody>() != null)
+            other.GetComponent<Rigidbody>().useGravity = true;
     }
 
     //private void OnTriggerStay(Collider other)
@@ -87,7 +90,6 @@ public class LSY_Elevator : MonoBehaviourPun
 
     private void OnTriggerExit(Collider other)
     {
-        other.GetComponent<Rigidbody>().useGravity = true;
 
         Debug.Log("물체 나감");
         if (other.gameObject.CompareTag("Player"))
@@ -95,5 +97,7 @@ public class LSY_Elevator : MonoBehaviourPun
             playerIn = false;
             return;
         }
+        if (other.GetComponent<Rigidbody>() != null)
+            other.GetComponent<Rigidbody>().useGravity = true;
     }
 }
