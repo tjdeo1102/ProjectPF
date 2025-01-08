@@ -89,6 +89,7 @@ public class WGH_NPCWait : INPCState
 
     private void DespairEmotion()
     {
+        Debug.Log("½Ç¸Á");
         controller.SelectReactUINetwork((int)E_ReactUiType.DESPAIR);
     }
 }

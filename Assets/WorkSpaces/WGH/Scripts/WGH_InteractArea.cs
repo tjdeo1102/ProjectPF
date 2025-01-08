@@ -45,6 +45,7 @@ public class WGH_InteractArea : MonoBehaviour
             }
         }
     }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.TryGetComponent(out WGH_SmellStick smellStick))
