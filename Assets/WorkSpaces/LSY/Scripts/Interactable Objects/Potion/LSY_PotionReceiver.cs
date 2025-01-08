@@ -35,6 +35,7 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     [Header("Splash")]
     public GameObject potion;
     public ParticleSystem particleSystemSplash;
+    public float SplashSpeed;
 
     int receiveCount = 0;
 
@@ -274,7 +275,7 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     {
         if (m_RbPotion == null) return;
 
-        if (m_RbPotion.velocity.magnitude > 1.35 && m_Breakable)
+        if (m_RbPotion.velocity.magnitude > SplashSpeed && m_Breakable)
         {
             if (particleSystemSplash != null)
             {
