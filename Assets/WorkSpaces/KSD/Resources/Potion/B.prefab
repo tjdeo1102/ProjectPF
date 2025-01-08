@@ -9952,8 +9952,8 @@ Transform:
   m_GameObject: {fileID: 6422482666910245806}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 7.718, y: 0.83, z: 0.34}
-  m_LocalScale: {x: 0.29999998, y: 0.29999998, z: 0.29999998}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.44, y: 0.44, z: 0.44}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6422482667975690558}
   - {fileID: 6422482666457882706}
@@ -10219,6 +10219,7 @@ MonoBehaviour:
   distancePerFrame: 0.5
   potion: {fileID: 6422482666457882718}
   particleSystemSplash: {fileID: 6422482666369854362}
+  m_Breakable: 1
 --- !u!65 &6422482666910245804
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10271,9 +10272,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6422482667975690555}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: -0.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6422482666910245798}
   m_RootOrder: 0

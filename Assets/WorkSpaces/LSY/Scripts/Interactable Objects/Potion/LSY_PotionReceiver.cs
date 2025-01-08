@@ -39,7 +39,7 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     private Color potionColor;
     private Color linePotionColor;
 
-    bool m_Breakable = true;
+    public bool m_Breakable = true;
     Rigidbody m_RbPotion;
 
     bool perfumeClear = false;
@@ -69,9 +69,8 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
 
     private void Update()
     {
-        if (!photonView.IsMine) { return; }
-        CheckShake();
         UpdateDropLiquid();
+        CheckShake();
 
         m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
         liquidMeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
@@ -86,14 +85,15 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
         if (IsActiveShake)
         {
             if (shakeRoutine == null)
+                Debug.Log("흔들기시작");
                 shakeRoutine = StartCoroutine(ShakeRoutine());
         }
         else
         {
+            Debug.Log("흔들기 안하는 중");
             if (shakeRoutine != null)
             {
                 StopCoroutine(shakeRoutine);
-                shakeRoutine = null;
             }
         }
     }
@@ -133,6 +133,7 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
 
         perfumeNoteInfoLists.Clear();
         shakeRoutine = null;
+        Debug.Log("흔들기완료");
     }
 
     [PunRPC]
@@ -200,11 +201,13 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
 
     void UpdateDropLiquid()
     {
-        if (Vector3.Dot(transform.up, Vector3.down) > 0 && fillAmount > 0 && perfumeClear)
+        if (!perfumeClear) { return; }
+
+        if (Vector3.Dot(transform.up, Vector3.down) > 0 && fillAmount > 0)
         {
             if (particleSystemLiquid.isStopped)
             {
-                photonView.RPC("PlaySplashParticle", RpcTarget.All);
+                particleSystemLiquid.Play();
             }
 
             DecreaseLiquid();
@@ -224,6 +227,7 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
         {
             fillAmount = 0;
             photonView.RPC("ResetBottle", RpcTarget.All);
+            photonView.RPC("PlayLiquidParticle", RpcTarget.All, false);
         }
     }
 
@@ -232,7 +236,6 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     public void ResetBottle()
     {
         perfumeClear = false;
-        resInfo = null;
         fillAmount = 0f; 
     }
 
@@ -275,6 +278,20 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     public void PlaySplashParticle()
     {
         particleSystemSplash.Play();
+    }
+
+    [PunRPC]
+    public void PlayLiquidParticle(bool on)
+    {
+        if (on)
+        {
+            particleSystemLiquid.Play();
+        }
+        else
+        {
+            particleSystemLiquid.Stop();
+        }
+
     }
 
     [PunRPC]

@@ -82,7 +82,7 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
                 return;
             }
 
-            photonView.RPC("RPC_PlayAnimation", RpcTarget.All, "HandleOn");
+            photonView.RPC("RPC_HandleAnimation", RpcTarget.All, "HandleOn");
             if (liquidOn == false)
                 pouringliquidRoutine = StartCoroutine(PouringliquidRoutine());
 
@@ -91,7 +91,13 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
     }
 
     [PunRPC]
-    public void RPC_PlayAnimation(string name)
+    public void RPC_HandleAnimation(string name)
+    {
+        handleAnimator.SetTrigger(name);
+    }
+
+    [PunRPC]
+    public void RPC_LitAnimation(string name)
     {
         litAnimator.SetTrigger(name);
     }
@@ -119,16 +125,11 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            photonView.RPC("OnSelectEnter", RpcTarget.AllViaServer);
+            OnSelectEnter();
         }
 
         m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
         MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
-    }
-
-    public void OnSelectedEnter()
-    {
-        photonView.RPC("OnSelectEnter", RpcTarget.AllViaServer);
     }
 
 
@@ -200,8 +201,8 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
         particleSystemLiquid.Stop();
         photonView.RPC("StopParticle", RpcTarget.Others);
 
-        photonView.RPC("RPC_PlayAnimation", RpcTarget.All, "HandleOff");
-        photonView.RPC("RPC_PlayAnimation", RpcTarget.All, "HandleIdle");
+        photonView.RPC("RPC_HandleAnimation", RpcTarget.All, "HandleOff");
+        photonView.RPC("RPC_HandleAnimation", RpcTarget.All, "HandleIdle");
         pouringliquidRoutine = null;
     }
 
