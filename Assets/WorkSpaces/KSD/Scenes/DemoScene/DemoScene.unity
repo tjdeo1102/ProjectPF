@@ -30617,7 +30617,7 @@ Transform:
   - {fileID: 1431891045}
   - {fileID: 219003413}
   m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1132790706
 GameObject:
@@ -42150,9 +42150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f90e85a7b916f47bdbc8b65fdccd3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Knob: {fileID: 0}
-  turnResult: 5
-  elec: {fileID: 0}
+  knob: {fileID: 1515353714}
   mixDone:
     m_PersistentCalls:
       m_Calls:
@@ -64045,7 +64043,7 @@ GameObject:
   - component: {fileID: 3356177362251905405}
   - component: {fileID: 3356177362251905406}
   - component: {fileID: 3356177362251905407}
-  m_Layer: 11
+  m_Layer: 5
   m_Name: Plate_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74492,10 +74490,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4765254616468136397, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
-      propertyPath: sceneViewId
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 7027292006920019612, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
       propertyPath: item
       value: 
@@ -75196,10 +75190,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4765254616468136397, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
-      propertyPath: sceneViewId
-      value: 24
-      objectReference: {fileID: 0}
     - target: {fileID: 7027292006920019612, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
       propertyPath: item
       value: 
@@ -75740,10 +75730,6 @@ PrefabInstance:
     - target: {fileID: 2277939216334054306, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4765254616468136397, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
-      propertyPath: sceneViewId
-      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 7027292006920019612, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
       propertyPath: item
@@ -77621,10 +77607,6 @@ PrefabInstance:
     - target: {fileID: 2277939216334054306, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4765254616468136397, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
-      propertyPath: sceneViewId
-      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 7027292006920019612, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
       propertyPath: item
@@ -82119,10 +82101,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4765254616468136397, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
-      propertyPath: sceneViewId
-      value: 9
-      objectReference: {fileID: 0}
     - target: {fileID: 7027292006920019612, guid: 259a2e6ca1571684fbf117586e813ffe, type: 3}
       propertyPath: item
       value: 
@@ -82609,16 +82587,8 @@ MonoBehaviour:
   playerMoney: {fileID: 3354064053624207062}
   buyPrice: {fileID: 3354064053396595488}
   totalPlayerMoney: {fileID: 3354064051845069488}
+  objectTransform: {x: -13.56, y: 1, z: -15.6}
   warningImage: {fileID: 3354064053082514126}
-  playerMoneyText: {fileID: 0}
-  stageInfo:
-    StageID: 0
-    StageDate: 
-    FinishPlayerCount: 0
-    StageLevel: 0
-    StageMoney: 0
-  itemPanels: []
-  lSY_BasketItems: []
 --- !u!4 &4002794517530537206
 Transform:
   m_ObjectHideFlags: 0
@@ -94020,8 +93990,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NoteType: 1
   SmellStick: {fileID: 0}
-  Socket: {fileID: 0}
-  Customer: {fileID: 0}
+  socket: {fileID: 0}
 --- !u!4 &6310240781427518857
 Transform:
   m_ObjectHideFlags: 0
@@ -94903,8 +94872,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NoteType: 4
   SmellStick: {fileID: 0}
-  Socket: {fileID: 0}
-  Customer: {fileID: 0}
+  socket: {fileID: 0}
 --- !u!4 &8819805691448954526
 Transform:
   m_ObjectHideFlags: 0
@@ -95204,8 +95172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NoteType: 2
   SmellStick: {fileID: 0}
-  Socket: {fileID: 0}
-  Customer: {fileID: 0}
+  socket: {fileID: 0}
 --- !u!4 &8819805691969436344
 Transform:
   m_ObjectHideFlags: 0
@@ -95438,8 +95405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NoteType: 3
   SmellStick: {fileID: 0}
-  Socket: {fileID: 0}
-  Customer: {fileID: 0}
+  socket: {fileID: 0}
 --- !u!4 &8819805692447313309
 Transform:
   m_ObjectHideFlags: 0
@@ -95776,8 +95742,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NoteType: 5
   SmellStick: {fileID: 0}
-  Socket: {fileID: 0}
-  Customer: {fileID: 0}
+  socket: {fileID: 0}
 --- !u!4 &8819805693323519497
 Transform:
   m_ObjectHideFlags: 0
