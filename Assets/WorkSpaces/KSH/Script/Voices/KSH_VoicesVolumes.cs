@@ -46,7 +46,8 @@ public class KSH_VoicesVolumes : MonoBehaviour
         // 입력 음량 조절
         if (recorder != null && recorder.UserData is VolumeProcessor volumeProcessor)
         {
-            volumeProcessor.SetVolumeMultiplier(inputVolume); // 볼륨 실시간 업데이트
+            // 볼륨 실시간 업데이트
+            volumeProcessor.SetVolumeMultiplier(inputVolume);
         }
 
         // 출력 음량 조절
@@ -60,13 +61,16 @@ public class KSH_VoicesVolumes : MonoBehaviour
 // 사용자 정의 IAudioProcessor 구현
 public class VolumeProcessor : IProcessor<float>
 {
+    // 볼륨 배율
     private float volumeMultiplier;
 
+    // 볼륨 배율 초기값 설정
     public VolumeProcessor(float volumeMultiplier)
     {
         this.volumeMultiplier = volumeMultiplier;
     }
 
+    // 볼륨 배율 값을 업데이트 하는 함수
     public void SetVolumeMultiplier(float newMultiplier)
     {
         volumeMultiplier = newMultiplier;
