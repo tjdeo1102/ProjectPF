@@ -12,7 +12,9 @@ public class PTK_HandleElec : MonoBehaviourPun, IPunObservable
     [SerializeField] private XRKnob Knob;
     [SerializeField] private float decayRate = 1f;
     [SerializeField] private float secondaryKnobThreshold = 5f;
-    
+
+    public float knobMaxValue = 10f;
+
     public bool isSecondHandleActive = false;
 
     void Update()
@@ -24,6 +26,8 @@ public class PTK_HandleElec : MonoBehaviourPun, IPunObservable
     {
         if (photonView.IsMine == false)
             return;
+
+        Knob.value = Mathf.Clamp(Knob.value, 0, knobMaxValue);
 
         if (Knob.value > 0)
         {
@@ -37,6 +41,11 @@ public class PTK_HandleElec : MonoBehaviourPun, IPunObservable
         {
             isSecondHandleActive = newState;
         }
+    }
+
+    public float GetKnobValue()
+    {
+        return Knob.value;
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
