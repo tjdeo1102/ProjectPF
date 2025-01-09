@@ -26,6 +26,10 @@ public class KSD_GameManager : MonoBehaviourPunCallbacks
     [SerializeField] private Transform spawnPosition;
     [SerializeField] private float randomSpawnLength;
 
+    [Header("스테이지 별 게임 데이터")]
+    [SerializeField] KSD_StageGameData[] gameDatas;
+    public KSD_StageGameData currentGameData;
+
     private GameObject player;
 
     [Header("게임 매니저 구성 요소")]
@@ -52,11 +56,13 @@ public class KSD_GameManager : MonoBehaviourPunCallbacks
     public override void OnEnable()
     {
         OnExitStage.AddListener(SampleExitStageHandle);
+        OnChangeStageInfo.AddListener(UpdateGameData);
     }
 
     public override void OnDisable()
     {
         OnExitStage.RemoveListener(SampleExitStageHandle);
+        OnChangeStageInfo.RemoveListener(UpdateGameData);
     }
 
     void Start()
@@ -81,6 +87,10 @@ public class KSD_GameManager : MonoBehaviourPunCallbacks
             CurrentStageInfo = JsonUtility.FromJson<KSD_StageInfo>((string)currentMapData);
             UpdateEnvironment();
             InitPlayer();
+            if (gameDatas.Length >= CurrentStageInfo.StageLevel)
+            {
+                currentGameData = gameDatas[CurrentStageInfo.StageLevel-1];
+            }
             OnChangeStageInfo?.Invoke();
             Debug.Log("맵 데이터가 로드되었습니다.");
         }
@@ -104,13 +114,17 @@ public class KSD_GameManager : MonoBehaviourPunCallbacks
 
         CurrentStageInfo.FinishPlayerCount += addCount;
 
-        if (CurrentStageInfo.FinishPlayerCount >= maxCustomerCount - 1)
+        if (CurrentStageInfo.FinishPlayerCount >= maxCustomerCount)
         {
             // 스테이지 상승
             CurrentStageInfo.StageLevel++;
             CurrentStageInfo.FinishPlayerCount = CurrentStageInfo.FinishPlayerCount - maxCustomerCount;
             // 스테이지 종료 관련 이벤트 호출
             OnExitStage?.Invoke();
+        }
+        if (gameDatas.Length >= CurrentStageInfo.StageLevel)
+        {
+            currentGameData = gameDatas[CurrentStageInfo.StageLevel - 1];
         }
         OnChangeStageInfo?.Invoke();
 
@@ -170,5 +184,10 @@ public class KSD_GameManager : MonoBehaviourPunCallbacks
     public void SampleExitStageHandle()
     {
         Debug.Log("<color=green> 스테이지 종료 함수 호출 (추후, 스테이지 종료시 필요한 기능에 따라 상세 구현 필요) </color>");
+    }
+
+    public void UpdateGameData()
+    {
+        maxCustomerCount = currentGameData.TargetNPCCount;
     }
 }
