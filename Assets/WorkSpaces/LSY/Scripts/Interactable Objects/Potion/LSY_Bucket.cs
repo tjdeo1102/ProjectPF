@@ -25,10 +25,13 @@ public class LSY_Bucket : MonoBehaviourPun, IPunObservable
     [Header("양동이 액체 종류")]
     public List<LSY_BucketInfo> bucketInfos = new ();
 
+    public KSD_CauldronController cauldronController;
+
     MaterialPropertyBlock m_MaterialPropertyBlock;
     Rigidbody rb;
 
     private bool isFilling = false;
+    bool resetCauldron = false;
 
     Color potionColor;
     Color linePotionColor;
@@ -50,8 +53,21 @@ public class LSY_Bucket : MonoBehaviourPun, IPunObservable
         rb = GetComponent<Rigidbody>();
     }
 
+    [PunRPC]
+    public void ResetCauldron()
+    {
+        cauldronController.ResetState();
+    }
+
     void Update()
     {
+        if (fillAmount == 1 && resetCauldron == false)
+        {
+            resetCauldron = true;
+            Debug.Log("가마솥 리셋");
+            cauldronController.ResetState();
+        }
+
         // 양동이가 기울어져 있고 & 액체가 들어있어야 하고 & 현재 노트가 Null이 아니여야 함
         if (Vector3.Dot(transform.up, Vector3.down) > 0 && fillAmount > 0 && currentPerfumeNote.Name != PerfumeNoteName.Null)
         {
@@ -159,6 +175,7 @@ public class LSY_Bucket : MonoBehaviourPun, IPunObservable
         // 양동이를 채우는 코루틴 시작
         if (fillBucketRoutine == null)
         {
+            resetCauldron = false;
             fillBucketRoutine = StartCoroutine(FillBucket());
         }
     }
@@ -206,12 +223,12 @@ public class LSY_Bucket : MonoBehaviourPun, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(fillAmount);
-            stream.SendNext(rb.useGravity);
+            //stream.SendNext(rb.useGravity);
         }
         else
         {
             fillAmount = (float)stream.ReceiveNext();
-            rb.useGravity = (bool)stream.ReceiveNext();
+            //rb.useGravity = (bool)stream.ReceiveNext();
         }
     }
 }

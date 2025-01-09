@@ -29,7 +29,7 @@ public class LSY_TestScene : MonoBehaviourPunCallbacks
 
     void SpawnPlayer()
     {
-        Vector3 randomPos = new Vector3(Random.Range(-3f, 3f), 0, Random.Range(-3, 3));
-        PhotonNetwork.Instantiate("Player", randomPos, Quaternion.identity);
+        Vector3 randomPos = new Vector3(Random.Range(-3f, 3f), 5, Random.Range(-3, 3));
+        PhotonNetwork.Instantiate("PTK_Test4", randomPos, Quaternion.identity);
     }
 }

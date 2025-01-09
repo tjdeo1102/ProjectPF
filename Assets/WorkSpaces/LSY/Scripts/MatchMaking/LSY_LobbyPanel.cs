@@ -59,7 +59,14 @@ public class LSY_LobbyPanel : LSY_BaseUI
     #region 방 검색하기 기능
     public void OnSearchRoom(string searchText)
     {
-        if (string.IsNullOrEmpty(searchText)) return;
+        if (string.IsNullOrEmpty(searchText))
+        {
+            foreach (var room in roomDictionay)
+            {
+                LSY_RoomEntry roomEntry = room.Value;
+                roomEntry.gameObject.SetActive(true);
+            }
+        }
         SearchRoomText(searchText.ToLower());
     }
 
@@ -99,6 +106,7 @@ public class LSY_LobbyPanel : LSY_BaseUI
         warningText.gameObject.SetActive(true);
         yield return new WaitForSeconds(1);
         warningText.gameObject.SetActive(false);
+        nickName.text = PhotonNetwork.LocalPlayer.NickName;
     }
 
     IEnumerator ConfirmTextRoutine()

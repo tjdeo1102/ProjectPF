@@ -25,8 +25,9 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
     [Header("µð½ºÆæ¼­ UI")]
     public GameObject despensorUI;
     bool onDespensorUI = false;
-
+    public E_WGH_NoteType noteType;
     public LSY_DespensorLever LSY_DespensorLever;
+    public WGH_NoteUIControl noteUIControl;
 
 
     Color liquidColor;
@@ -46,6 +47,8 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
     public bool isLitOpen = false;
     void Start()
     {
+        noteUIControl = GameObject.FindWithTag("TestNote").GetComponent<WGH_NoteUIControl>();
+
         particleSystemLiquid.Stop();
         despensorUI.SetActive(false);
 
@@ -116,9 +119,10 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
     }
 
     [PunRPC]
-    public void RPC_LitAnimation(string name)
+    public void RPC_LitAnimation(string name, bool on)
     {
         litAnimator.SetTrigger(name);
+        isLitOpen = on;
     }
 
     void StartCooldown()
@@ -253,6 +257,7 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
         {
             despensorUI.SetActive(true);
             onDespensorUI = true;
+            noteUIControl.OnUI(noteType);
         }
 
         if (fillAmount < maxLiquidFill)

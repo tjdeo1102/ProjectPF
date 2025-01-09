@@ -1208,7 +1208,9 @@ MonoBehaviour:
     liquidColor: {r: 0.14901961, g: 0.854902, b: 0.24313727, a: 0}
     liquidLineColor: {r: 0.14901961, g: 0.854902, b: 0.24313727, a: 0}
   despensorUI: {fileID: 2616745211292494581}
+  noteType: 3
   LSY_DespensorLever: {fileID: 2616745210456000666}
+  noteUIControl: {fileID: 0}
   isLitOpen: 0
 --- !u!54 &2616745210152322982
 Rigidbody:
@@ -6557,8 +6559,8 @@ GameObject:
   - component: {fileID: 2616745210349091527}
   - component: {fileID: 2616745210349091526}
   - component: {fileID: 2616745210349091523}
-  - component: {fileID: 2616745210349091521}
   - component: {fileID: 2616745210349091524}
+  - component: {fileID: 6041202627767474030}
   m_Layer: 0
   m_Name: lid
   m_TagString: Untagged
@@ -6706,7 +6708,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2616745210349091521
+--- !u!65 &2616745210349091524
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2616745210349091522}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3059981, y: 0.13, z: 0.10245705}
+  m_Center: {x: 0.01031673, y: 0.060000002, z: -0.52530766}
+--- !u!114 &6041202627767474030
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6728,19 +6743,6 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!65 &2616745210349091524
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2616745210349091522}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.3059981, y: 0.13, z: 0.10245705}
-  m_Center: {x: 0.01031673, y: 0.060000002, z: -0.52530766}
 --- !u!1 &2616745210456000660
 GameObject:
   m_ObjectHideFlags: 0
@@ -6931,6 +6933,7 @@ MonoBehaviour:
   lever: {fileID: 2616745211641124447}
   xrLever: {fileID: 2616745210456000664}
   resetDuration: 1
+  isLeverEnabled: 1
 --- !u!1 &2616745210471160194
 GameObject:
   m_ObjectHideFlags: 0
@@ -7407,6 +7410,7 @@ MonoBehaviour:
   lever: {fileID: 2616745211226262167}
   xrLever: {fileID: 2616745210582813469}
   resetDuration: 1
+  isLeverEnabled: 1
 --- !u!1 &2616745210630630005
 GameObject:
   m_ObjectHideFlags: 0
@@ -7791,6 +7795,7 @@ MonoBehaviour:
   lever: {fileID: 2616745210810077619}
   xrLever: {fileID: 2616745210636733445}
   resetDuration: 1
+  isLeverEnabled: 1
 --- !u!1 &2616745210640227410
 GameObject:
   m_ObjectHideFlags: 0
@@ -13096,7 +13101,9 @@ MonoBehaviour:
     liquidColor: {r: 0.8470589, g: 0.20392159, b: 0.8000001, a: 0}
     liquidLineColor: {r: 0.8470589, g: 0.20392159, b: 0.8000001, a: 0}
   despensorUI: {fileID: 2616745211415446003}
+  noteType: 2
   LSY_DespensorLever: {fileID: 2616745211954888430}
+  noteUIControl: {fileID: 0}
   isLitOpen: 0
 --- !u!54 &2616745210925075906
 Rigidbody:
@@ -18401,6 +18408,7 @@ MonoBehaviour:
   lever: {fileID: 2616745211904261743}
   xrLever: {fileID: 2616745211124862033}
   resetDuration: 1
+  isLeverEnabled: 1
 --- !u!1 &2616745211127165741
 GameObject:
   m_ObjectHideFlags: 0
@@ -24873,7 +24881,9 @@ MonoBehaviour:
     liquidColor: {r: 0.8196079, g: 0.854902, b: 0.24313727, a: 0}
     liquidLineColor: {r: 0.8196079, g: 0.854902, b: 0.24313727, a: 0}
   despensorUI: {fileID: 2616745210874148423}
+  noteType: 4
   LSY_DespensorLever: {fileID: 2616745210636733447}
+  noteUIControl: {fileID: 0}
   isLitOpen: 0
 --- !u!1 &2616745211757343219
 GameObject:
@@ -24979,7 +24989,9 @@ MonoBehaviour:
     liquidColor: {r: 0.8470589, g: 0.46274513, b: 0.24313727, a: 0}
     liquidLineColor: {r: 0.8470589, g: 0.5058824, b: 0.24313727, a: 0}
   despensorUI: {fileID: 2616745211127165741}
+  noteType: 1
   LSY_DespensorLever: {fileID: 2616745210582813471}
+  noteUIControl: {fileID: 0}
   isLitOpen: 0
 --- !u!1 &2616745211770663979
 GameObject:
@@ -25069,7 +25081,9 @@ MonoBehaviour:
     liquidColor: {r: 0.49803925, g: 0.37254903, b: 0.3254902, a: 0}
     liquidLineColor: {r: 0.48235297, g: 0.3647059, b: 0.32156864, a: 0}
   despensorUI: {fileID: 2616745210471160194}
+  noteType: 5
   LSY_DespensorLever: {fileID: 2616745211124862035}
+  noteUIControl: {fileID: 0}
   isLitOpen: 0
 --- !u!54 &2616745211770663983
 Rigidbody:
@@ -30888,6 +30902,7 @@ MonoBehaviour:
   lever: {fileID: 2616745211707247193}
   xrLever: {fileID: 2616745211954888427}
   resetDuration: 1
+  isLeverEnabled: 1
 --- !u!1 &2616745211983794052
 GameObject:
   m_ObjectHideFlags: 0
