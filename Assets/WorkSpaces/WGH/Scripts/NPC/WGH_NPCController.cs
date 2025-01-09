@@ -215,13 +215,14 @@ public class WGH_NPCController : MonoBehaviourPun
     {
         photonView.RPC("SelectOrderUI", RpcTarget.All, bottleType, perfumeType);
     }
+
     IEnumerator CheckDist(Vector3 pos)
     {
         while (true) 
         {
             if(agent.remainingDistance < 0.2f && agent.pathPending == false)
             {
-                anim.SetTrigger("Explore");
+                SetAnimNetwork("Explore");
                 Debug.Log("Explore");
                 yield break;
             }
@@ -255,13 +256,23 @@ public class WGH_NPCController : MonoBehaviourPun
                 StartCoroutine(CheckDist(ExplorePos1));
                 yield return new WaitForSeconds(randomSec2);
             }
-            anim.SetTrigger("Walk");
+            SetAnimNetwork("Walk");
             Debug.Log("Walk");
         }
         isExplore = false;
         yield break;
     }
 
+    public void SetAnimNetwork(string name)
+    {
+        photonView.RPC("SetAnimRPC", RpcTarget.All, name);
+    }
+
+    [PunRPC]
+    private void SetAnimRPC(string name)
+    {
+        anim.SetTrigger(name);
+    }
     IEnumerator FloatBestEmotionRoutine()
     {
         bestEmotion.gameObject.SetActive(true);
