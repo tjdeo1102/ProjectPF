@@ -29,6 +29,12 @@ public class WGH_InteractionNote : MonoBehaviourPun
     public void SmellStickOff(SelectEnterEventArgs arg)
     {
         SmellStick.OffEffect();
+        photonView.RPC("ChangeNote", RpcTarget.All);
+    }
+
+    [PunRPC]
+    private void ChangeNote()
+    {
         SmellStick.NoteType = this.NoteType;
     }
 }

@@ -24,13 +24,17 @@ public class WGH_SmellStick : MonoBehaviourPun
     
     private bool isAbsorbed;                            // 이펙트 On인지 아닌지(상호작용 가능한 상태인지)
     private bool isRoutine;
-    [HideInInspector] public bool isGrab;
     private Rigidbody rigid;
     private Vector3 startPos;
-    private Coroutine timeRoutine;
+    private Coroutine shakeRoutine;
+
+    private float judgeAmount;
+    [SerializeField] private float judgeCurLate;
+    private Vector3 lastPos;
 
     private void Awake()
     {
+        judgeAmount = 3;
         rigid = GetComponent<Rigidbody>();
     }
 
@@ -40,12 +44,12 @@ public class WGH_SmellStick : MonoBehaviourPun
     }
     private void LateUpdate()
     {
-        // "Dynamic Attach"라는 이름을 가진 자식 오브젝트 삭제
-        Transform dynamicAttach = transform.Find("[Ray Interactor] Dynamic Attach");
-        if (dynamicAttach != null)
-        {
-            Destroy(dynamicAttach.gameObject);
-        }
+        //// "Dynamic Attach"라는 이름을 가진 자식 오브젝트 삭제
+        //Transform dynamicAttach = transform.Find("[Ray Interactor] Dynamic Attach");
+        //if (dynamicAttach != null)
+        //{
+        //    Destroy(dynamicAttach.gameObject);
+        //}
     }
 
     private void OnTriggerEnter(Collider other)
@@ -53,12 +57,13 @@ public class WGH_SmellStick : MonoBehaviourPun
         if (other.gameObject.TryGetComponent(out WGH_InteractionNote note))
         {
             contactNote = note;
+            lastPos = transform.position;
         }
         if (other.gameObject.TryGetComponent(out WGH_InteractArea interactArea) && isAbsorbed == true && isRoutine == false)
         {
             customer = interactArea.GetComponentInParent<WGH_NPCController>().gameObject;
-            curTime = 0f;
-            timeRoutine = StartCoroutine(TimeRoutine());
+            judgeCurLate = 0f;
+            shakeRoutine = StartCoroutine(ShakeRoutine());
         }
     }
 
@@ -72,12 +77,33 @@ public class WGH_SmellStick : MonoBehaviourPun
             OnDespairInteract = null;
             if(isRoutine)
             {
-                StopCoroutine(timeRoutine);
+                StopCoroutine(shakeRoutine);
                 isRoutine = false;
             }
         }
     }
-
+    IEnumerator ShakeRoutine()
+    {
+        isRoutine = true;
+        while (true)
+        {
+            float dist = Vector3.Distance(transform.position, lastPos);
+            if (dist > 0.1f)
+            {
+                judgeCurLate += 0.1f;
+                lastPos = transform.position;
+            }
+            if (judgeCurLate >= judgeAmount)
+            {
+                React();
+                judgeCurLate = 0;
+                OffEffect();
+                isRoutine = false;
+                yield break;
+            }
+            yield return null;
+        }
+    }
     IEnumerator TimeRoutine()
     {
         isRoutine = true;
@@ -98,7 +124,6 @@ public class WGH_SmellStick : MonoBehaviourPun
 
     private void React()
     {
-        Debug.Log("상호작용");
         if (NoteType == customer.GetComponent<WGH_NPCController>().BestMaterial)
         {
             OnBestInteract?.Invoke();
@@ -135,8 +160,6 @@ public class WGH_SmellStick : MonoBehaviourPun
     [PunRPC]
     public void EffectRPC(bool enable)
     {
-        if (!PhotonNetwork.IsMasterClient)
-            return;
         aura[(int)NoteType - 1].gameObject.SetActive(enable);
         isAbsorbed = enable;
     }
