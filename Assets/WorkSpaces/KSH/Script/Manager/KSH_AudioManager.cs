@@ -19,7 +19,14 @@ public class KSH_AudioManager : MonoBehaviour
 
     public enum Sfx
     {
-        Slice
+        Button1, Button2, Button3, Button4, Button5, Pick_fruit, Pick_scoop, Pick_clamp, Cut1, Knife, Cut2, 
+        Blender_in, Blender_Lid1, Blender_Lid2, Blender_handle, Blender_play, Blender_out, Mortar_in, Mortar_play,
+        Mortar_end, Mortar_out, Cauldron_in1, Cauldron_in2, Cauldron_change, Cauldron_fall,
+        Cauldron_coal, Pick_coal, Cauldron_fire1, Cauldron_fire2, Cauldron_fire3, Cauldron_boils, Cauldron_water,
+        Cauldron_clear, Cauldron_out, Tank_out, Tank_button, Dispenser_in, Dispenser_out, Perfume_success,
+        Perfume_fall, Guest_wait, Test1, Test2, Guest_feedback3, Guest_feedback2, Guest_feedback1, Guest_feedback0,
+        Pick_Bottle, Label_sign, Label_on, Guest_success, Guest_fall, Bill1, Bill2, Tablet_on, Tablet_click,
+        Tablet_cansel, Tablet_success, Tablet_fall, Furniture_on, Next_Stage
     } // 예시 효과음 종류 설정
 
     private void Awake()
@@ -105,6 +112,20 @@ public class KSH_AudioManager : MonoBehaviour
         }
     }
 
+    // 반복 효과음 중지 메소드
+    public void StopSfxLoop(Sfx sfx)
+    {
+        for (int i = 0; i < sfxPlayers.Length; i++)
+        {
+            if (sfxPlayers[i].clip == sfxClips[(int)sfx] && sfxPlayers[i].isPlaying)
+            {
+                sfxPlayers[i].loop = false; // 반복 재생 비활성화
+                sfxPlayers[i].Stop(); // 재생 중지
+                sfxPlayers[i].loop = true; // 반복 설정 복원
+            }
+        }
+    }
+
     // 배경음악 볼륨 조절 메소드
     public void SetBgmVolume(float volume)
     {
@@ -132,14 +153,14 @@ public class KSH_AudioManager : MonoBehaviour
 
 
 // 사용 방법
-// AudioManager.Instance.PlayBgm(0); 첫 번째 배경음악 재생 0대신 1입력 시 두번째 배경음악
-// AudioManager.Instance.StopBgm();  배경 음악 멈출 때 사용
+// KSH_AudioManager.Instance.PlayBgm(0); 첫 번째 배경음악 재생 0대신 1입력 시 두번째 배경음악
+// KSH_AudioManager.Instance.StopBgm();  배경 음악 멈출 때 사용
 
 // 효과음
-// AudioManager.Instance.PlaySfx(AudioManager.Sfx.Clicks); 선택한 효과음 재생 및 종료
+// KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Clicks); 선택한 효과음 재생 및 종료
 
 // 배경음 볼륨을 50%로 설정
-// AudioManager.Instance.SetBgmVolume(0.5f);
+// KSH_AudioManager.Instance.SetBgmVolume(0.5f);
 
 // SFX 볼륨을 70%로 설정
-// AudioManager.Instance.SetSfxVolume(0.7f);
+// KSH_AudioManager.Instance.SetSfxVolume(0.7f);
