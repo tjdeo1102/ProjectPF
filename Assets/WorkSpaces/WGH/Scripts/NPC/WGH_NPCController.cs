@@ -215,7 +215,19 @@ public class WGH_NPCController : MonoBehaviourPun
     {
         photonView.RPC("SelectOrderUI", RpcTarget.All, bottleType, perfumeType);
     }
-
+    IEnumerator CheckDist(Vector3 pos)
+    {
+        while (true) 
+        {
+            if(agent.remainingDistance < 0.2f && agent.pathPending == false)
+            {
+                anim.SetTrigger("Explore");
+                Debug.Log("Explore");
+                yield break;
+            }
+            yield return null;
+        }
+    }
     IEnumerator ExploreRoutine()
     {
         if (!PhotonNetwork.IsMasterClient)
@@ -232,24 +244,19 @@ public class WGH_NPCController : MonoBehaviourPun
             {
                 exploreLeft = true;
                 agent.SetDestination(ExplorePos2);
-                if(agent.remainingDistance <= agent.stoppingDistance)
-                {
-                    anim.SetTrigger("Explore");
-                }
+                StartCoroutine(CheckDist(ExplorePos2));
                 yield return new WaitForSeconds(randomSec);
-                anim.SetTrigger("Walk");
+                
             }
             else
             {
                 exploreLeft = false;
                 agent.SetDestination(ExplorePos1);
-                if (agent.remainingDistance <= agent.stoppingDistance)
-                {
-                    anim.SetTrigger("Explore");
-                }
+                StartCoroutine(CheckDist(ExplorePos1));
                 yield return new WaitForSeconds(randomSec2);
-                anim.SetTrigger("Walk");
             }
+            anim.SetTrigger("Walk");
+            Debug.Log("Walk");
         }
         isExplore = false;
         yield break;
