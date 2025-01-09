@@ -27,7 +27,7 @@ public class WGH_XRGrabInteractable : XRGrabInteractable
 
             interactable.TransferOwnership(PhotonNetwork.LocalPlayer);
             //print("소유권 양도");
-            interactable.RPC("ChangeRigidbodySetting", RpcTarget.AllViaServer, true);
+            interactable.RPC("ChangeRigidbodySetting", RpcTarget.All, true);
         }
     }
 
@@ -42,7 +42,7 @@ public class WGH_XRGrabInteractable : XRGrabInteractable
             base.OnSelectExited(args);
 
             interactable.TransferOwnership(PhotonNetwork.MasterClient);
-            interactable.RPC("ChangeRigidbodySetting", RpcTarget.AllViaServer, false);
+            interactable.RPC("ChangeRigidbodySetting", RpcTarget.All, false);
         }
     }
 
@@ -55,6 +55,7 @@ public class WGH_XRGrabInteractable : XRGrabInteractable
         if (info.Sender.IsLocal) return;
         var rigid = GetComponent<Rigidbody>();
         rigid.isKinematic = isSelect;
+        rigid.useGravity = isSelect;
         interactionLayers = InteractionLayerMask.GetMask("Default");
         interactionLayers &= ~InteractionLayerMask.GetMask("SmellStick");
     }

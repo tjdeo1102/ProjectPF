@@ -56,7 +56,7 @@ public class WGH_NPCCreator : MonoBehaviour
         storeNpcSpawnTime = SetCustomerAmount(stageLevel);
     }
 
-    private int SetCustomerAmount(int stageLevel)
+    private float SetCustomerAmount(int stageLevel)
     {
         switch(stageLevel)
         {
