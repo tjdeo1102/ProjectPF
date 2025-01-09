@@ -95,7 +95,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.440571, y: 1.750144, z: 0.440572}
+  m_Size: {x: 0.8, y: 1.750144, z: 0.8}
   m_Center: {x: -0.0009934977, y: -0.093816996, z: 0}
 --- !u!1 &757688332148828562
 GameObject:
@@ -5074,8 +5074,8 @@ Transform:
   m_GameObject: {fileID: 757688332262298805}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 6.779, y: 0.83, z: 0.3399999}
-  m_LocalScale: {x: 0.29999998, y: 0.29999998, z: 0.29999998}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.44, y: 0.44, z: 0.44}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 757688331991662487}
   - {fileID: 757688333156613231}
@@ -5341,6 +5341,8 @@ MonoBehaviour:
   distancePerFrame: 0.5
   potion: {fileID: 757688331991662475}
   particleSystemSplash: {fileID: 757688332148828561}
+  SplashSpeed: 1.3
+  m_Breakable: 1
 --- !u!65 &757688332262298803
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5352,7 +5354,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.33785385, z: 0.5}
+  m_Size: {x: 0.7, y: 0.33785385, z: 0.7}
   m_Center: {x: 0, y: -0.8072595, z: 0}
 --- !u!65 &757688332262298804
 BoxCollider:
@@ -5365,7 +5367,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.33785385, z: 0.5}
+  m_Size: {x: 0.7, y: 0.33785385, z: 0.7}
   m_Center: {x: 0, y: 0.51, z: 0}
 --- !u!1 &757688333156613218
 GameObject:

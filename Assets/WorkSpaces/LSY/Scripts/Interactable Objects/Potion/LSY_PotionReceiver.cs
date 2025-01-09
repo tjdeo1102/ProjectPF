@@ -29,17 +29,20 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     [Header("Shake")]
     [SerializeField] private float shakeTimer;
     [SerializeField] private float distancePerFrame;
+    private float lastShakeTime;
+    private float deadTime = 1f;
 
     [Header("Splash")]
     public GameObject potion;
     public ParticleSystem particleSystemSplash;
+    public float SplashSpeed;
 
     int receiveCount = 0;
 
     private Color potionColor;
     private Color linePotionColor;
 
-    bool m_Breakable = true;
+    public bool m_Breakable = true;
     Rigidbody m_RbPotion;
 
     bool perfumeClear = false;
@@ -69,9 +72,8 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
 
     private void Update()
     {
-        if (!photonView.IsMine) { return; }
-        CheckShake();
         UpdateDropLiquid();
+        CheckShake();
 
         m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
         liquidMeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
@@ -81,26 +83,37 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     private void CheckShake()
     {
         var pos = transform.position;
-        IsActiveShake = Vector3.Distance(lastSpoonPosition, pos) > distancePerFrame;
-        lastSpoonPosition = transform.position;
-        if (IsActiveShake)
+        bool isShakingNow = Vector3.Distance(lastSpoonPosition, pos) > distancePerFrame;
+
+        if (isShakingNow)
         {
+            lastShakeTime = Time.time;
+            IsActiveShake = true;
+
             if (shakeRoutine == null)
                 shakeRoutine = StartCoroutine(ShakeRoutine());
         }
         else
         {
-            if (shakeRoutine != null)
+            if (Time.time - lastShakeTime > deadTime)
             {
-                StopCoroutine(shakeRoutine);
-                shakeRoutine = null;
+                IsActiveShake = false;
+
+                if (shakeRoutine != null)
+                {
+                    StopCoroutine(shakeRoutine);
+                    shakeRoutine = null;
+                }
             }
         }
+
+        lastSpoonPosition = pos; 
     }
 
     IEnumerator ShakeRoutine()
     {
         yield return new WaitForSeconds(shakeTimer);
+        shakeRoutine = null;
         photonView.RPC("PerfumeDone", RpcTarget.All);
     }
 
@@ -133,6 +146,8 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
 
         perfumeNoteInfoLists.Clear();
         shakeRoutine = null;
+        Debug.Log("Èçµé±â¿Ï·á");
+        m_RbPotion.velocity = Vector3.zero;
     }
 
     [PunRPC]
@@ -152,7 +167,6 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
         liquidMeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
     }
 
-    [PunRPC]
     public void ReceivePotion(float[] potionColor, float[] linePotionColor, PerfumeNoteName perfumeNoteName, PerfumeNoteState state)
     {
         if (fillAmount < maxLiquidFill)
@@ -175,7 +189,6 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
                     if (potionInfo.Name == perfumeNoteName)
                     {
                         potionInfo.NoteCount += 1;
-                        Debug.Log("Ãß°¡µÊ");
                         StartCoroutine(ResetCountRoutine());
                         return;
                     }
@@ -194,7 +207,6 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
 
     IEnumerator ResetCountRoutine()
     {
-        Debug.Log("¸®¼Â");
         yield return new WaitForSeconds(0.5f);
         fillAmount = Mathf.Round(fillAmount * 10f) / 10f;
         receiveCount = 0;
@@ -202,11 +214,13 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
 
     void UpdateDropLiquid()
     {
-        if (Vector3.Dot(transform.up, Vector3.down) > 0 && fillAmount > 0 && perfumeClear)
+        if (!perfumeClear) { return; }
+
+        if (Vector3.Dot(transform.up, Vector3.down) > 0 && fillAmount > 0)
         {
             if (particleSystemLiquid.isStopped)
             {
-                photonView.RPC("PlaySplashParticle", RpcTarget.All);
+                particleSystemLiquid.Play();
             }
 
             DecreaseLiquid();
@@ -226,6 +240,7 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
         {
             fillAmount = 0;
             photonView.RPC("ResetBottle", RpcTarget.All);
+            photonView.RPC("PlayLiquidParticle", RpcTarget.All, false);
         }
     }
 
@@ -234,7 +249,6 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     public void ResetBottle()
     {
         perfumeClear = false;
-        resInfo = null;
         fillAmount = 0f; 
     }
 
@@ -261,7 +275,7 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     {
         if (m_RbPotion == null) return;
 
-        if (m_RbPotion.velocity.magnitude > 1.35 && m_Breakable)
+        if (m_RbPotion.velocity.magnitude > SplashSpeed && m_Breakable)
         {
             if (particleSystemSplash != null)
             {
@@ -277,6 +291,20 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     public void PlaySplashParticle()
     {
         particleSystemSplash.Play();
+    }
+
+    [PunRPC]
+    public void PlayLiquidParticle(bool on)
+    {
+        if (on)
+        {
+            particleSystemLiquid.Play();
+        }
+        else
+        {
+            particleSystemLiquid.Stop();
+        }
+
     }
 
     [PunRPC]

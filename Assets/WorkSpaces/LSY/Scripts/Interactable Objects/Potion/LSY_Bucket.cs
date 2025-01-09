@@ -60,17 +60,19 @@ public class LSY_Bucket : MonoBehaviourPun, IPunObservable
                 particleSystemLiquid.Play();
             }
 
-            fillAmount -= 0.3f * Time.deltaTime;
+            fillAmount -= 0.2f * Time.deltaTime;
 
             // 액체가 쏟아지는 방향으로 레이캐스트를 쏴서 LSY_DispensorReceiver컴포넌트를 가진 두 개의 충돌체가 있어야 액체를 받게 함
             RaycastHit[] hits = Physics.RaycastAll(particleSystemLiquid.transform.position, Vector3.down, 50.0f, ~0, QueryTriggerInteraction.Collide);
 
+
+            Debug.DrawRay(particleSystemLiquid.transform.position, Vector3.down, Color.red);
             int receiverCount = 0;
             LSY_DispensorLiquid[] receivers = new LSY_DispensorLiquid[hits.Length];
 
             foreach (RaycastHit hit in hits)
             {
-                LSY_DispensorLiquid receiver = hit.collider.GetComponentInChildren<LSY_DispensorLiquid>();
+                LSY_DispensorLiquid receiver = hit.collider.GetComponentInParent<LSY_DispensorLiquid>();
 
                 if (receiver != null)
                 {

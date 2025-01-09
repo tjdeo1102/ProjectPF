@@ -4,15 +4,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class LSY_DispendorActive : XRBaseInteractable
-{ 
+public class LSY_DispensorIid : XRBaseInteractable
+{
     public LSY_DispensorLiquid dispensorLiquid;
 
     protected override void OnSelectEntering(SelectEnterEventArgs args)
     {
         base.OnSelectEntering(args);
-        dispensorLiquid.OnSelectEnter();
         PhotonView interactablePV = args.interactableObject.transform.GetComponent<PhotonView>();
+        if (dispensorLiquid.isLitOpen == false)
+        {
+            dispensorLiquid.isLitOpen = true;
+            dispensorLiquid.photonView.RPC("RPC_LitAnimation", RpcTarget.All, "LidOn");
+        }
+        else
+        {
+            dispensorLiquid.isLitOpen = false;
+            dispensorLiquid.photonView.RPC("RPC_LitAnimation", RpcTarget.All, "LidOff");
+            dispensorLiquid.photonView.RPC("RPC_LitAnimation", RpcTarget.All, "LidIdle");
+        }
+
         interactablePV.RequestOwnership();
     }
 
