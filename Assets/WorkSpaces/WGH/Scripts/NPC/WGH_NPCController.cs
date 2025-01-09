@@ -31,6 +31,7 @@ public class WGH_NPCController : MonoBehaviourPun
     private WGH_NPCExit exitState;
 
     private NavMeshAgent agent;
+    [HideInInspector] public Animator anim;
     [HideInInspector] public NavMeshAgent Agent { get { return agent; } }
     [HideInInspector] public WGH_SmellStick SmellStick;
     public GameObject TestNote;
@@ -82,6 +83,7 @@ public class WGH_NPCController : MonoBehaviourPun
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>();
         PerfumeUI = transform.GetChild(0).GetChild(0).GetComponent<Image>();
         BottleUI = transform.GetChild(0).GetChild(1).GetComponent<Image>();
 
@@ -230,13 +232,23 @@ public class WGH_NPCController : MonoBehaviourPun
             {
                 exploreLeft = true;
                 agent.SetDestination(ExplorePos2);
+                if(agent.remainingDistance <= agent.stoppingDistance)
+                {
+                    anim.SetTrigger("Explore");
+                }
                 yield return new WaitForSeconds(randomSec);
+                anim.SetTrigger("Walk");
             }
             else
             {
                 exploreLeft = false;
                 agent.SetDestination(ExplorePos1);
+                if (agent.remainingDistance <= agent.stoppingDistance)
+                {
+                    anim.SetTrigger("Explore");
+                }
                 yield return new WaitForSeconds(randomSec2);
+                anim.SetTrigger("Walk");
             }
         }
         isExplore = false;
