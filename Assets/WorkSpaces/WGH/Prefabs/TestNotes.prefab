@@ -88,12 +88,12 @@ GameObject:
   - component: {fileID: 791918127}
   - component: {fileID: 791918126}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: FruityText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &791918125
 RectTransform:
   m_ObjectHideFlags: 0
@@ -299,12 +299,12 @@ GameObject:
   - component: {fileID: 1244103997}
   - component: {fileID: 1244103996}
   m_Layer: 0
-  m_Name: Text (TMP) (3)
+  m_Name: CitrusText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1244103995
 RectTransform:
   m_ObjectHideFlags: 0
@@ -434,12 +434,12 @@ GameObject:
   - component: {fileID: 1465143276}
   - component: {fileID: 1465143275}
   m_Layer: 0
-  m_Name: Text (TMP) (1)
+  m_Name: FloralText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1465143274
 RectTransform:
   m_ObjectHideFlags: 0
@@ -771,12 +771,12 @@ GameObject:
   - component: {fileID: 1832047996}
   - component: {fileID: 1832047995}
   m_Layer: 0
-  m_Name: Text (TMP) (2)
+  m_Name: GreenText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1832047994
 RectTransform:
   m_ObjectHideFlags: 0
@@ -906,12 +906,12 @@ GameObject:
   - component: {fileID: 2056345471}
   - component: {fileID: 2056345470}
   m_Layer: 0
-  m_Name: Text (TMP) (4)
+  m_Name: WoodyText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2056345469
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2589,6 +2589,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cfa8a26898960b43b10c8016eff9534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  texts:
+  - {fileID: 791918126}
+  - {fileID: 1465143275}
+  - {fileID: 1832047995}
+  - {fileID: 1244103996}
+  - {fileID: 2056345470}
   images:
   - {fileID: 2090798723}
   - {fileID: 2141944862}
