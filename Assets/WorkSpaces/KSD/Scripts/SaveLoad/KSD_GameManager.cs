@@ -8,7 +8,7 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using WebSocketSharp;
 
-public class KSD_GameManager : MonoBehaviourPunCallbacks
+public class KSD_GameManager : MonoBehaviourPun
 {
     [Header("싱글톤")]
     public static KSD_GameManager Instance;
@@ -53,15 +53,13 @@ public class KSD_GameManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public override void OnEnable()
+    public void OnEnable()
     {
-        OnExitStage.AddListener(SampleExitStageHandle);
         OnChangeStageInfo.AddListener(UpdateGameData);
     }
 
-    public override void OnDisable()
+    public void OnDisable()
     {
-        OnExitStage.RemoveListener(SampleExitStageHandle);
         OnChangeStageInfo.RemoveListener(UpdateGameData);
     }
 
@@ -169,6 +167,7 @@ public class KSD_GameManager : MonoBehaviourPunCallbacks
 
     public void DontSaveQuitGame()
     {
+        Debug.Log($"{PhotonNetwork.LocalPlayer.NickName} 나감");
         PhotonNetwork.LeaveRoom();
         PhotonNetwork.LoadLevel(returnSceneIndex);
     }
@@ -179,11 +178,6 @@ public class KSD_GameManager : MonoBehaviourPunCallbacks
         {
             environmentManager.ChangeLight(CurrentStageInfo.FinishPlayerCount, maxCustomerCount);
         }
-    }
-
-    public void SampleExitStageHandle()
-    {
-        Debug.Log("<color=green> 스테이지 종료 함수 호출 (추후, 스테이지 종료시 필요한 기능에 따라 상세 구현 필요) </color>");
     }
 
     public void UpdateGameData()
