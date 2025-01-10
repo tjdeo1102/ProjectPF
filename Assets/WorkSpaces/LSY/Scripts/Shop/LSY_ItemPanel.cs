@@ -1,4 +1,5 @@
 using Photon.Pun;
+using System.Collections;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -19,6 +20,10 @@ public class LSY_ItemPanel : MonoBehaviourPun, IPunObservable
     [SerializeField] TextMeshProUGUI itemNameText;
     [SerializeField] TextMeshProUGUI itemPriceText;
     [SerializeField] TextMeshProUGUI itemExplainText;
+
+    [Header("팝업")]
+    public GameObject popUp_Count;
+    public GameObject popUp_OnBasket;
 
     [SerializeField] LSY_ItemManager itemManager;
     public bool isAdded;
@@ -42,9 +47,15 @@ public class LSY_ItemPanel : MonoBehaviourPun, IPunObservable
 
     private void AddItem()
     {
-        if (LSY_ItemManager.basketIndex > 9 || isAdded)
+        if (LSY_ItemManager.basketIndex > 9)
         {
-            Debug.Log("장바구니의 갯수가 10개가 넘었거나 이미 담은 물건입니다.");
+            photonView.RPC("OnPopUp_Count", RpcTarget.All);
+            return;
+        }
+
+        if (isAdded)
+        {
+            photonView.RPC("OnPopUp_OnBasket", RpcTarget.All);
             return;
         }
         OnItemAddedBasket?.Invoke(itemName);
@@ -52,6 +63,43 @@ public class LSY_ItemPanel : MonoBehaviourPun, IPunObservable
         isAdded = true;
         photonView.RPC("RPC_IsAdded", RpcTarget.Others);
     }
+
+    [PunRPC]
+    public void OnPopUp_Count()
+    {
+        if (popUpRoutine == null)
+        {
+            popUpRoutine = StartCoroutine(PopUpRoutine());
+        }
+    }
+
+    Coroutine popUpRoutine;
+    IEnumerator PopUpRoutine()
+    {
+        popUp_Count.SetActive(true);
+        yield return new WaitForSeconds(1);
+        popUp_Count.SetActive(false);
+        popUpRoutine = null;
+    }
+
+    [PunRPC]
+    public void OnPopUp_OnBasket()
+    {
+        if (popUpRoutine_Basket == null)
+        {
+            popUpRoutine_Basket = StartCoroutine(PopUpRoutine_Basket());
+        }
+    }
+
+    Coroutine popUpRoutine_Basket;
+    IEnumerator PopUpRoutine_Basket()
+    {
+        popUp_OnBasket.SetActive(true);
+        yield return new WaitForSeconds(1);
+        popUp_OnBasket.SetActive(false);
+        popUpRoutine_Basket = null;
+    }
+
 
     [PunRPC]
     public void RPC_IsAdded()

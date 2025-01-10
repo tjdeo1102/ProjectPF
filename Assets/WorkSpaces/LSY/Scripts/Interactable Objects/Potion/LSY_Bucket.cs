@@ -80,7 +80,7 @@ public class LSY_Bucket : MonoBehaviourPun, IPunObservable
 
             // 액체가 쏟아지는 방향으로 레이캐스트를 쏴서 LSY_DispensorReceiver컴포넌트를 가진 두 개의 충돌체가 있어야 액체를 받게 함
             RaycastHit[] hits = Physics.RaycastAll(particleSystemLiquid.transform.position, Vector3.down, 50.0f, ~0, QueryTriggerInteraction.Collide);
-
+            Debug.DrawRay(particleSystemLiquid.transform.position, Vector3.down, Color.red); 
 
             Debug.DrawRay(particleSystemLiquid.transform.position, Vector3.down, Color.red);
             int receiverCount = 0;
@@ -88,13 +88,13 @@ public class LSY_Bucket : MonoBehaviourPun, IPunObservable
 
             foreach (RaycastHit hit in hits)
             {
-                LSY_DispensorLiquid receiver = hit.collider.GetComponentInParent<LSY_DispensorLiquid>();
+                if (hit.collider.gameObject.name == "lid") return;
 
+                LSY_DispensorLiquid receiver = hit.collider.GetComponentInParent<LSY_DispensorLiquid>();
                 if (receiver != null)
                 {
                     receivers[receiverCount] = receiver;
                     receiverCount++;
-
                     // 디스펜서의 노트와 양동이의 노트가 같지 않다면 디스펜서는 액체를 받을 수 없음
                     if (receiver.dispensorInfo.noteName != currentPerfumeNote.Name)
                     {
@@ -146,7 +146,6 @@ public class LSY_Bucket : MonoBehaviourPun, IPunObservable
             photonView.RPC("ChangeColor", RpcTarget.All, cauldronName, resultNoteName);
         }
     }
-
 
     [PunRPC]
     public void ChangeColor(string cauldronName, string resultNoteName)

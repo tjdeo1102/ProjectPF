@@ -1,8 +1,6 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Xml.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -43,6 +41,9 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
     [Header("플레이어 돈")]
     [SerializeField] TMP_Text playerMoneyText;
 
+    [SerializeField] GameObject order_PlayerMoney_PopUp;
+    [SerializeField] GameObject order_BasketCount_PopUp;
+
     //[SerializeField] KSD_StageInfo stageInfo;
 
     float totalPrice = 0;
@@ -73,8 +74,18 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
             if (itemPanel != null)
             {
                 itemPanels.Add(itemPanel);
+                itemPanel.gameObject.SetActive(true);
                 itemPanel.OnItemAdded += (float price) => photonView.RPC("RPC_UpdateTotalPrice", RpcTarget.All, price);
                 itemPanel.OnItemAddedBasket += UpdateItemAddBasket;
+
+                foreach (var stageInfo in KSD_GameManager.Instance.CurrentStageInfo.BuyItems)
+                {
+                    if (stageInfo == itemPanel.itemName)
+                    {
+                        itemPanels.Remove(itemPanel);
+                        itemPanel.gameObject.SetActive(false);
+                    }
+                }
             }
         }
     }
@@ -165,8 +176,33 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
     [PunRPC]
     public void RPC_Order()
     {
+        int count = 0;
+        foreach (var basketItem in basketItems)
+        {
+            if (basketItem == null) continue;
+
+            if (basketItem.gameObject.activeSelf)
+            {
+                Debug.Log("카운트");
+                count++;
+            }
+        }
+
+        if (count == 0)
+        {
+            if (orderPopUpRoutine == null)
+            {
+                orderPopUpRoutine = StartCoroutine(OrderPopUpRoutine(order_BasketCount_PopUp));
+            }
+            return;
+        }
+
         if (KSD_GameManager.Instance.CurrentStageInfo.StageMoney < totalPrice)
         {
+            if (orderPopUpRoutine == null)
+            {
+                orderPopUpRoutine = StartCoroutine(OrderPopUpRoutine(order_PlayerMoney_PopUp));
+            }
             return;
         }
 
@@ -176,9 +212,23 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
         }
     }
 
+    Coroutine orderPopUpRoutine;
+    IEnumerator OrderPopUpRoutine(GameObject gameObject)
+    {
+        gameObject.SetActive(true);
+        yield return new WaitForSeconds(1);
+        gameObject.SetActive(false);
+        orderPopUpRoutine = null;
+    }
+
     [PunRPC]
     private void RPC_ClearBasket()
     {
+        foreach (var basketItem in basketNames)
+        {
+            KSD_GameManager.Instance.CurrentStageInfo.BuyItems.Add(basketItem);
+        }
+
         foreach (var item in basketItems)
         {
             if (basketNames.Contains(item.itemName))

@@ -13,4 +13,5 @@ public class KSD_StageInfo
     public int FinishPlayerCount;
     public int StageLevel;
     public int StageMoney;
+    public List<string> BuyItems;
 }

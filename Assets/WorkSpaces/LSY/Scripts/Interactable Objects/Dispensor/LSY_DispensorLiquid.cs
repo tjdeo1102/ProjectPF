@@ -270,7 +270,7 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
                 MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
             }
 
-            Debug.Log($"현재 채워진 양: {fillAmount * 100}%");
+            //Debug.Log($"현재 채워진 양: {fillAmount * 100}%");
         }
     }
 

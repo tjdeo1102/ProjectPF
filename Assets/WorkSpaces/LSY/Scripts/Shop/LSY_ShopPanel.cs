@@ -35,7 +35,6 @@ public class LSY_ShopPanel : MonoBehaviourPun
     public void CloseButton()
     {
         photonView.RPC("SetActivePanel", RpcTarget.All, Panel.Decoration);
-        decorationPanel.SetActive(false);
     }
 
     public void DecorationButton()
