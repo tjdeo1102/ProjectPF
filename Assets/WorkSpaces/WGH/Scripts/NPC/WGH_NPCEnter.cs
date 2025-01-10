@@ -23,7 +23,7 @@ public class WGH_NPCEnter : INPCState
     public void OnUpdate()
     {
         //TODO : 조건에 맞춰서 수정
-        if (agent.remainingDistance < agent.stoppingDistance)
+        if (Vector3.Distance(controller.transform.position, controller.Entrance) < 0.2f)
         {
             if (WGH_NPCCreator.Instance.isExplore == false && WGH_NPCCreator.Instance.isCounter == true)
             {

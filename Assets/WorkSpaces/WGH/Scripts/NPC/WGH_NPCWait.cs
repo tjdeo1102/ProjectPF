@@ -27,6 +27,7 @@ public class WGH_NPCWait : INPCState
 
     public void Enter()
     {
+        controller.SetAnimNetwork("Idle");
         // npc 탐지 영역 true
         controller.InteractionArea.gameObject.SetActive(true);
         // 시향 노트 찾기

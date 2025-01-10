@@ -70,6 +70,8 @@ public class WGH_NPCController : MonoBehaviourPun
     [SerializeField] private ParticleSystem likeEmotion;
     [SerializeField] private ParticleSystem questionEmotion;
     [SerializeField] private ParticleSystem despairEmotion;
+    public ParticleSystem SuccessEmotion;
+    public ParticleSystem FailEmotion;
 
     [Header("UI")]
     [Tooltip("º´ UI ¸ñ·Ï")] public Sprite[] PerfumeUis;
@@ -246,7 +248,7 @@ public class WGH_NPCController : MonoBehaviourPun
                 exploreLeft = true;
                 agent.SetDestination(ExplorePos2);
                 StartCoroutine(CheckDist(ExplorePos2));
-                yield return new WaitForSeconds(randomSec);
+                yield return new WaitForSeconds(randomSec + 5);
                 
             }
             else
@@ -254,7 +256,7 @@ public class WGH_NPCController : MonoBehaviourPun
                 exploreLeft = false;
                 agent.SetDestination(ExplorePos1);
                 StartCoroutine(CheckDist(ExplorePos1));
-                yield return new WaitForSeconds(randomSec2);
+                yield return new WaitForSeconds(randomSec2 + 5);
             }
             SetAnimNetwork("Walk");
             Debug.Log("Walk");
