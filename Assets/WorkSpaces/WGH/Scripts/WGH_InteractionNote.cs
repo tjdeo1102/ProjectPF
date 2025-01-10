@@ -11,6 +11,7 @@ public class WGH_InteractionNote : MonoBehaviourPun
     public WGH_SmellStick SmellStick;
     public XRSocketInteractor Socket;
     public WGH_NPCController Customer;
+    public ParticleSystem PongEffect;
     private void Awake()
     {
         Socket = GetComponent<XRSocketInteractor>();
@@ -29,6 +30,7 @@ public class WGH_InteractionNote : MonoBehaviourPun
     public void SmellStickOff(SelectEnterEventArgs arg)
     {
         SmellStick.OffEffect();
+        photonView.RPC("OnPongEffect", RpcTarget.All);
         photonView.RPC("ChangeNote", RpcTarget.All);
     }
 
@@ -36,5 +38,11 @@ public class WGH_InteractionNote : MonoBehaviourPun
     private void ChangeNote()
     {
         SmellStick.NoteType = this.NoteType;
+    }
+
+    [PunRPC]
+    private void OnPongEffect()
+    {
+        PongEffect.Play();
     }
 }
