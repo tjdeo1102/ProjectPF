@@ -1,8 +1,6 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Xml.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -42,6 +40,9 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
 
     [Header("ÇÃ·¹ÀÌ¾î µ·")]
     [SerializeField] TMP_Text playerMoneyText;
+
+    [SerializeField] GameObject order_PlayerMoney_PopUp;
+    [SerializeField] GameObject order_BasketCount_PopUp;
 
     //[SerializeField] KSD_StageInfo stageInfo;
 
@@ -165,8 +166,30 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
     [PunRPC]
     public void RPC_Order()
     {
+        int count = 0;
+        foreach (var basketItem in basketItems)
+        {
+            if (basketItem.gameObject.activeSelf)
+            {
+                count++;
+            }
+        }
+
+        if (count == 0)
+        {
+            if (orderPopUpRoutine == null)
+            {
+                orderPopUpRoutine = StartCoroutine(OrderPopUpRoutine(order_BasketCount_PopUp));
+            }
+            return;
+        }
+
         if (KSD_GameManager.Instance.CurrentStageInfo.StageMoney < totalPrice)
         {
+            if (orderPopUpRoutine == null)
+            {
+                orderPopUpRoutine = StartCoroutine(OrderPopUpRoutine(order_PlayerMoney_PopUp));
+            }
             return;
         }
 
@@ -174,6 +197,15 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
         {
             StartCoroutine(BuyRoutine());
         }
+    }
+
+    Coroutine orderPopUpRoutine;
+    IEnumerator OrderPopUpRoutine(GameObject gameObject)
+    {
+        gameObject.SetActive(true);
+        yield return new WaitForSeconds(1);
+        gameObject.SetActive(false);
+        orderPopUpRoutine = null;
     }
 
     [PunRPC]
