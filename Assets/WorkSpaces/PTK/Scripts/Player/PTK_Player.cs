@@ -12,6 +12,8 @@ public class PTK_Player : MonoBehaviourPun
     [SerializeField] Camera camera;
     [SerializeField] AudioListener audioListener;
     [SerializeField] TrackedPoseDriver trackedPoseDriver;
+    [SerializeField] GameObject locomotonObject;
+    [SerializeField] SkinnedMeshRenderer skinRenderer;
 
     [SerializeField] ActionBasedController leftController;
     [SerializeField] ActionBasedController rightController;
@@ -35,6 +37,8 @@ public class PTK_Player : MonoBehaviourPun
             rightController.enabled = false;
             leftControllerManager.enabled = false;
             rightControllerManager.enabled = false;
+            locomotonObject.SetActive(false);
+            skinRenderer.enabled = true;
         }
     }
 
