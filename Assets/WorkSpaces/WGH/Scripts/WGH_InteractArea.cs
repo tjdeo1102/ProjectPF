@@ -56,7 +56,7 @@ public class WGH_InteractArea : MonoBehaviour
     IEnumerator PurchaseRoutine(LSY_PotionReceiver potion)
     {
         isCheck = true;
-        controller.SelectReactUINetwork((int)E_ReactUiType.BEST);
+        controller.SelectReactUINetwork((int)E_ReactUiType.SUCCESS);
 
         KSD_GameManager.Instance.AddFinishPlayerCount(1);
         yield return new WaitForSeconds(2);
@@ -87,7 +87,7 @@ public class WGH_InteractArea : MonoBehaviour
     {
         isCheck = true;
         curCount++;
-        controller.SelectReactUINetwork((int)E_ReactUiType.DESPAIR);
+        controller.SelectReactUINetwork((int)E_ReactUiType.FAIL);
         yield return new WaitForSeconds(2);
         if (curCount >= maxCount)
         {

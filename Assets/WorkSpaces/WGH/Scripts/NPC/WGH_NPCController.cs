@@ -191,6 +191,12 @@ public class WGH_NPCController : MonoBehaviourPun
             case 3:
                 StartCoroutine(FloatDespairEmotionRoutine());
                 break;
+            case 4:
+                SuccessEmotion.Play();
+                break;
+            case 5:
+                FailEmotion.Play();
+                break;
         }
     }
 

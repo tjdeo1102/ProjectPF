@@ -10,7 +10,9 @@ public enum E_ReactUiType
     BEST,
     LIKE,
     QUESTION,
-    DESPAIR
+    DESPAIR,
+    SUCCESS,
+    FAIL
 }
 
 
