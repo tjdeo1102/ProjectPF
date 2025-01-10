@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Unity.VisualScripting;
 using Unity.XR.CoreUtils.Bindings.Variables;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Filtering;
@@ -39,9 +40,10 @@ public class LSY_Elevator : MonoBehaviourPun
             return;
         }
 
+
         if (playerIn) return;
 
-        if (upButtonPokeStateData.Value.interactionStrength > pressForce)
+        if (upButtonPokeStateData.Value.interactionStrength > pressForce || Input.GetKey(KeyCode.UpArrow))
         {
             if (transform.position.y > maxHeight)
             {

@@ -74,8 +74,18 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
             if (itemPanel != null)
             {
                 itemPanels.Add(itemPanel);
+                itemPanel.gameObject.SetActive(true);
                 itemPanel.OnItemAdded += (float price) => photonView.RPC("RPC_UpdateTotalPrice", RpcTarget.All, price);
                 itemPanel.OnItemAddedBasket += UpdateItemAddBasket;
+
+                foreach (var stageInfo in KSD_GameManager.Instance.CurrentStageInfo.BuyItems)
+                {
+                    if (stageInfo == itemPanel.itemName)
+                    {
+                        itemPanels.Remove(itemPanel);
+                        itemPanel.gameObject.SetActive(false);
+                    }
+                }
             }
         }
     }
@@ -169,8 +179,11 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
         int count = 0;
         foreach (var basketItem in basketItems)
         {
+            if (basketItem == null) continue;
+
             if (basketItem.gameObject.activeSelf)
             {
+                Debug.Log("Ä«¿îÆ®");
                 count++;
             }
         }
@@ -211,6 +224,11 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
     [PunRPC]
     private void RPC_ClearBasket()
     {
+        foreach (var basketItem in basketNames)
+        {
+            KSD_GameManager.Instance.CurrentStageInfo.BuyItems.Add(basketItem);
+        }
+
         foreach (var item in basketItems)
         {
             if (basketNames.Contains(item.itemName))

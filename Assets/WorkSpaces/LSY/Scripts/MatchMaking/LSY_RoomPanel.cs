@@ -2,6 +2,7 @@ using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using PhotonHashtable = ExitGames.Client.Photon.Hashtable;
@@ -37,6 +38,7 @@ public class LSY_RoomPanel : MonoBehaviour
             selectStageInfo.StageMoney = 0;
             selectStageInfo.FinishPlayerCount = 0;
             addTool.UpdateList();
+            selectStageInfo.BuyItems = new List<string>();
         }
     }
 
