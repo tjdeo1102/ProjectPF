@@ -9,6 +9,7 @@ public class LSY_RayInteractor : XRRayInteractor
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
         base.OnSelectEntered(args);
+        if (args.interactableObject.transform.TryGetComponent<KSD_NetworkGrabInteractable>(out var com)) return;
 
         // 잡은 사실을 네트워크를 통해서 전달
         // 잡은 플레이어가 잡은 사실을 네트워크를 통해 전달
@@ -20,6 +21,7 @@ public class LSY_RayInteractor : XRRayInteractor
     protected override void OnSelectExited(SelectExitEventArgs args)
     {
         base.OnSelectExited(args);
+        if (args.interactableObject.transform.TryGetComponent<KSD_NetworkGrabInteractable>(out var com)) return;
 
         // 놓은 플레이어가 잡은 물체의 소유권을 방장에게 다시 주기
         PhotonView interactablePV = args.interactableObject.transform.GetComponent<PhotonView>();

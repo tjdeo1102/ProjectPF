@@ -147,12 +147,12 @@ public class KSD_CauldronController : MonoBehaviourPun
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent<LSY_Bucket>(out var note))
-        {
-            print("양동이에 담음");
-            ResetState();
-        }
-        else if(other.CompareTag("Erase"))
+        //if (other.TryGetComponent<LSY_Bucket>(out var note))
+        //{
+        //    print("양동이에 담음");
+        //    ResetState();
+        //}
+        if(other.CompareTag("Erase"))
         {
             //print("가마솥 리셋");
             if (PhotonNetwork.IsMasterClient) PhotonNetwork.Destroy(other.gameObject);
