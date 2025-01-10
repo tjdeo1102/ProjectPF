@@ -12,7 +12,7 @@ public class LSY_DespensorLever : MonoBehaviourPun, IPunObservable
     private Quaternion originalRotation;
     public float resetDuration = 1f;
 
-    private bool isLeverEnabled = true; 
+    public bool isLeverEnabled = true; 
 
     private void Start()
     {

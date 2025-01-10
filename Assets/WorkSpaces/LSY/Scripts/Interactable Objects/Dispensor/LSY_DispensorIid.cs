@@ -14,14 +14,12 @@ public class LSY_DispensorIid : XRBaseInteractable
         PhotonView interactablePV = args.interactableObject.transform.GetComponent<PhotonView>();
         if (dispensorLiquid.isLitOpen == false)
         {
-            dispensorLiquid.isLitOpen = true;
-            dispensorLiquid.photonView.RPC("RPC_LitAnimation", RpcTarget.All, "LidOn");
+            dispensorLiquid.photonView.RPC("RPC_LitAnimation", RpcTarget.All, "LidOn", true);
         }
         else
         {
-            dispensorLiquid.isLitOpen = false;
-            dispensorLiquid.photonView.RPC("RPC_LitAnimation", RpcTarget.All, "LidOff");
-            dispensorLiquid.photonView.RPC("RPC_LitAnimation", RpcTarget.All, "LidIdle");
+            dispensorLiquid.photonView.RPC("RPC_LitAnimation", RpcTarget.All, "LidOff", false);
+            dispensorLiquid.photonView.RPC("RPC_LitAnimation", RpcTarget.All, "LidIdle", false);
         }
 
         interactablePV.RequestOwnership();
