@@ -21,7 +21,7 @@ public class WGH_NPCExit : INPCState
 
     public void OnUpdate()
     {
-        if (agent.remainingDistance < 3)
+        if (Vector3.Distance(controller.transform.position, controller.PassPos) < 1.5f)
         {
             if (PhotonNetwork.IsMasterClient == true)
             {

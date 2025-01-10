@@ -30,9 +30,12 @@ public class WGH_NPCPass : INPCState
 
     public void OnUpdate()
     {
-        if(PhotonNetwork.IsMasterClient && agent.remainingDistance < 3)
+        if (Vector3.Distance(controller.transform.position, controller.PassPos) < 1.5f)
         {
-            PhotonNetwork.Destroy(agent.gameObject);
+            if (PhotonNetwork.IsMasterClient == true)
+            {
+                PhotonNetwork.Destroy(controller.gameObject);
+            }
         }
     }
 
