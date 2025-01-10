@@ -17,7 +17,7 @@ public class WGH_NPCPass : INPCState
 
     public void Enter()
     {
-        controller.anim.SetTrigger("Walk");
+        controller.SetAnimNetwork("Walk");
         if((WGH_NPCCreator.Instance.isExplore == false || WGH_NPCCreator.Instance.isCounter == false) && controller.isOnlyPassNpc == false)
         {
             controller.ChangeStateNetwork((int)E_StateType.ENTER);

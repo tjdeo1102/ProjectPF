@@ -37,7 +37,7 @@ public class WGH_NPCExplore : INPCState
 
     public void Exit() 
     {
-        controller.anim.SetTrigger("Walk");
+        controller.SetAnimNetwork("Walk");
         WGH_NPCCreator.Instance.isExplore = false;
     }
 }

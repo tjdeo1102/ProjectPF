@@ -32,6 +32,6 @@ public class WGH_NPCGoToCounter : INPCState
 
     public void Exit() 
     {
-        controller.anim.SetTrigger("Idle");
+        controller.SetAnimNetwork("Idle");
     }
 }
