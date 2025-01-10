@@ -17,13 +17,30 @@ public class PTK_HandleElec : MonoBehaviourPun, IPunObservable
 
     public bool isSecondHandleActive = false;
 
+    public bool isCheatModeActive = false;
+
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            CheatModeOn();
+            Debug.Log("CheatOn!");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            CheatModeOff();
+            Debug.Log("CheatOff!");
+        }
+
         CheckSecondKnob();
     }
 
     private void CheckSecondKnob()
     {
+        if (isCheatModeActive)
+            return;
+
         if (photonView.IsMine == false)
             return;
 
@@ -60,5 +77,16 @@ public class PTK_HandleElec : MonoBehaviourPun, IPunObservable
             Knob.value = (float)stream.ReceiveNext();
             isSecondHandleActive = (bool)stream.ReceiveNext();
         }
+    }
+
+    public void CheatModeOn()
+    {
+        isCheatModeActive = true;
+        isSecondHandleActive = true;
+    }
+
+    public void CheatModeOff()
+    {
+        isCheatModeActive = false;
     }
 }
