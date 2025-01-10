@@ -106,5 +106,5 @@ public class KSH_EffectManager : MonoBehaviour
 }
 
 // 사용 방법
-// EffectManager.Instance.PlayEffect(EffectManager.Effect.Fire, mousePosition);
-// EffectManager.Instance.PlayEffect(EffectManager.이펙트이름, 이펙트 나올 위치)
+// KSH_EffectManager.Instance.PlayEffect(KSH_EffectManager.Effect.Fire, mousePosition);
+// KSH_EffectManager.Instance.PlayEffect(KSH_EffectManager.이펙트이름, 이펙트 나올 위치)
