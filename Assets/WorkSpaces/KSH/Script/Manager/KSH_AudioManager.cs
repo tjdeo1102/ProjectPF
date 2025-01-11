@@ -1,8 +1,14 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class KSH_AudioManager : MonoBehaviour
 {
     public static KSH_AudioManager Instance;
+
+    [Header("Audio Mixer")]
+    public AudioMixer audioMixer;          // 마스터 mixer 참조
+    public AudioMixerGroup bgmMixer;  // BGM용 Mixer Group
+    public AudioMixerGroup sfxMixer;  // SFX용 Mixer Group
 
     [Header("BGM")]
     public AudioClip[] bgmClips; // 배경음악 클립 배열
@@ -43,7 +49,7 @@ public class KSH_AudioManager : MonoBehaviour
         }
     }
 
-    void Init()
+    void Init()             // outputAudioMixerGroup 특정 AudioMixerGroup 연결 할때 사용
     {
         // 배경음악 플레이어 초기화
         GameObject bgmObject = new GameObject("BgmPlayer");
@@ -51,6 +57,7 @@ public class KSH_AudioManager : MonoBehaviour
         bgmPlayer = bgmObject.AddComponent<AudioSource>();
         bgmPlayer.playOnAwake = false;
         bgmPlayer.loop = true;
+        bgmPlayer.outputAudioMixerGroup = bgmMixer; // BGM Mixer Group 설정
         //bgmPlayer.volume = bgmVolume;
 
         // 효과음 플레이어 초기화
@@ -62,6 +69,7 @@ public class KSH_AudioManager : MonoBehaviour
         {
             sfxPlayers[index] = sfxObject.AddComponent<AudioSource>();
             sfxPlayers[index].playOnAwake = false;
+            sfxPlayers[index].outputAudioMixerGroup = sfxMixer; // SFX Mixer Group 설정
             //sfxPlayers[index].volume = sfxVolume;
         }
     }
@@ -126,27 +134,42 @@ public class KSH_AudioManager : MonoBehaviour
         }
     }
 
-    // 배경음악 볼륨 조절 메소드
-    public void SetBgmVolume(float volume)
+    // AudioMixer를 통한 볼륨 조절
+    public void SetMasterVolume(float volume)
     {
-        bgmVolume = Mathf.Clamp(volume, 0f, 1f); // 볼륨을 0에서 1 사이로 제한
-        if (bgmPlayer != null)
-        {
-            bgmPlayer.volume = bgmVolume; // BGM 플레이어 볼륨 설정
-        }
+        float dB = Mathf.Log10(Mathf.Max(volume, 0.0001f)) * 20; // dB로 변환
+        audioMixer.SetFloat("MasterVolume", dB);
     }
 
-    // 효과음 볼륨 조절 메소드
+    public void SetBgmVolume(float volume)
+    {
+        float dB = Mathf.Log10(Mathf.Max(volume, 0.0001f)) * 20;
+        audioMixer.SetFloat("BGMVolume", dB);
+    }
+
     public void SetSfxVolume(float volume)
     {
-        sfxVolume = Mathf.Clamp(volume, 0f, 1f); // 볼륨을 0에서 1 사이로 제한
-        for (int i = 0; i < sfxPlayers.Length; i++)
-        {
-            if (sfxPlayers[i] != null)
-            {
-                sfxPlayers[i].volume = sfxVolume; // 각 SFX 플레이어 볼륨 설정
-            }
-        }
+        float dB = Mathf.Log10(Mathf.Max(volume, 0.0001f)) * 20;
+        audioMixer.SetFloat("SFXVolume", dB);
+    }
+
+    // AudioMixer에서 볼륨 가져오기
+    public float GetMasterVolume()
+    {
+        audioMixer.GetFloat("MasterVolume", out float value);
+        return value;
+    }
+
+    public float GetBgmVolume()
+    {
+        audioMixer.GetFloat("BGMVolume", out float value);
+        return value;
+    }
+
+    public float GetSfxVolume()
+    {
+        audioMixer.GetFloat("SFXVolume", out float value);
+        return value;
     }
 }
 
