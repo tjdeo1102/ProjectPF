@@ -16,7 +16,10 @@ public class KSD_GameManager : MonoBehaviourPun
     [Header("기본 설정")]
     [SerializeField] public int maxCustomerCount;
     [SerializeField] private int currentStageID;
-    [SerializeField] private int returnSceneIndex;
+
+    [Header("게임 씬 설정")]
+    [SerializeField] private int returnSceneNum;
+    [SerializeField] private int gameSceneNum;
 
     [Header("네트워크 안정화")]
     [SerializeField] private float networkDelay;
@@ -33,12 +36,13 @@ public class KSD_GameManager : MonoBehaviourPun
     private GameObject player;
 
     [Header("게임 매니저 구성 요소")]
-    [SerializeField] KSD_EnvironmentManager environmentManager;
+    public KSD_EnvironmentManager environmentManager;
+    public KSD_FadeManager fadeManager;
 
     [Header("현재 스테이지 정보 설정 및 갱신")]
     public KSD_StageInfo CurrentStageInfo;
     public UnityEvent OnChangeStageInfo;                            // 스테이지 정보가 바뀔 때 호출할 이벤트
-    public UnityEvent OnExitStage;                                  // 스테이지가 종료되었을 때(손님 카운트가 다 채워졌을 때), 호출할 이벤트
+    public UnityEvent OnCanExitStage;                                  // 스테이지가 종료되었을 때(손님 카운트가 다 채워졌을 때), 호출할 이벤트
 
     private void Awake()
     {
@@ -112,14 +116,15 @@ public class KSD_GameManager : MonoBehaviourPun
 
         CurrentStageInfo.FinishPlayerCount += addCount;
 
-        if (CurrentStageInfo.FinishPlayerCount >= maxCustomerCount)
-        {
-            // 스테이지 상승
-            CurrentStageInfo.StageLevel++;
-            CurrentStageInfo.FinishPlayerCount = CurrentStageInfo.FinishPlayerCount - maxCustomerCount;
-            // 스테이지 종료 관련 이벤트 호출
-            OnExitStage?.Invoke();
-        }
+        if (CurrentStageInfo.FinishPlayerCount >= maxCustomerCount) OnCanExitStage?.Invoke();
+        //{
+        //    // 스테이지 상승
+        //    CurrentStageInfo.StageLevel++;
+        //    CurrentStageInfo.FinishPlayerCount = CurrentStageInfo.FinishPlayerCount - maxCustomerCount;
+        //    CurrentStageInfo.FinishPlayerCount = 0;
+        //    // 스테이지 종료 가능 관련 이벤트 호출
+        //    OnCanExitStage?.Invoke();
+        //}
         if (gameDatas.Length >= CurrentStageInfo.StageLevel)
         {
             currentGameData = gameDatas[CurrentStageInfo.StageLevel - 1];
@@ -139,37 +144,47 @@ public class KSD_GameManager : MonoBehaviourPun
     }
 
 
-    public void SaveAndQuitGame()
+    public void Quit(bool isLeaveRoom, bool isReturnLobby, bool isSave)
     {
-        PhotonNetwork.LeaveRoom();
-        KSD_SaveLoad.Instance.SaveToDatabase(PhotonNetwork.LocalPlayer.NickName, CurrentStageInfo).ContinueWithOnMainThread(task =>
+        if (isSave)
         {
-            if (task.IsFaulted)
+            // 끝내기 전에, 목표 손님 수에 도달한 경우는 데이터 갱신 (상위 스테이지로)
+            if (CurrentStageInfo.FinishPlayerCount >= maxCustomerCount)
             {
-                Debug.LogError("맵을 저장하는 데 문제가 발생했습니다. 로비로 복귀합니다.");
-                PhotonNetwork.LoadLevel(returnSceneIndex);
+                CurrentStageInfo.FinishPlayerCount = 0;
+                CurrentStageInfo.StageLevel++;
             }
-            else
+
+            KSD_SaveLoad.Instance.SaveToDatabase(PhotonNetwork.LocalPlayer.NickName, CurrentStageInfo).ContinueWithOnMainThread(task =>
             {
-                if (task.Result == true)
+                if (task.IsFaulted)
                 {
-                    Debug.Log("정상적으로 맵 저장 성공, 로비로 복귀합니다.");
-                    PhotonNetwork.LoadLevel(returnSceneIndex);
+                    Debug.LogError("맵을 저장하는 데 문제가 발생했습니다. 로비로 복귀합니다.");
+                    if (isReturnLobby) StartCoroutine(LoadLevelWithFadeOut(isLeaveRoom,returnSceneNum));
+                    else StartCoroutine(LoadLevelWithFadeOut(isLeaveRoom, returnSceneNum));
                 }
                 else
                 {
-                    Debug.LogError("맵을 저장하는 데 문제가 발생했습니다. 로비로 복귀합니다.");
-                    PhotonNetwork.LoadLevel(returnSceneIndex);
+                    if (task.Result == true)
+                    {
+                        Debug.Log("정상적으로 맵 저장 성공, 로비로 복귀합니다.");
+                        if (isReturnLobby) StartCoroutine(LoadLevelWithFadeOut(isLeaveRoom, returnSceneNum));
+                        else StartCoroutine(LoadLevelWithFadeOut(isLeaveRoom, returnSceneNum));
+                    }
+                    else
+                    {
+                        Debug.LogError("맵을 저장하는 데 문제가 발생했습니다. 로비로 복귀합니다.");
+                        if (isReturnLobby) StartCoroutine(LoadLevelWithFadeOut(isLeaveRoom, returnSceneNum));
+                        else StartCoroutine(LoadLevelWithFadeOut(isLeaveRoom, returnSceneNum));
+                    }
                 }
-            }
-        });
-    }
-
-    public void DontSaveQuitGame()
-    {
-        Debug.Log($"{PhotonNetwork.LocalPlayer.NickName} 나감");
-        PhotonNetwork.LeaveRoom();
-        PhotonNetwork.LoadLevel(returnSceneIndex);
+            });
+        }
+        else
+        {
+            if (isReturnLobby) StartCoroutine(LoadLevelWithFadeOut(isLeaveRoom, returnSceneNum));
+            else StartCoroutine(LoadLevelWithFadeOut(isLeaveRoom, returnSceneNum));
+        }
     }
 
     public void UpdateEnvironment()
@@ -183,5 +198,17 @@ public class KSD_GameManager : MonoBehaviourPun
     public void UpdateGameData()
     {
         maxCustomerCount = currentGameData.TargetNPCCount;
+    }
+
+    // Fade 효과를 위해 코루틴 구현
+    public IEnumerator LoadLevelWithFadeOut(bool isLeaveRoom,int sceneNum)
+    {
+        // Fade Out 구현
+        fadeManager.FadeOut();
+        // Fade Out 효과시간 동안 대기
+        yield return new WaitForSeconds(fadeManager.fadeDuration);
+        if (isLeaveRoom) PhotonNetwork.LeaveRoom();
+
+        PhotonNetwork.LoadLevel(sceneNum);
     }
 }

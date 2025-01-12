@@ -10,6 +10,6 @@ public class KSD_PunCallbacks : MonoBehaviourPunCallbacks
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         base.OnPlayerLeftRoom(otherPlayer);
-        KSD_GameManager.Instance.DontSaveQuitGame();
+        KSD_GameManager.Instance.Quit(true,true,false);
     }
 }
