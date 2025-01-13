@@ -22,11 +22,14 @@ public class KSD_CheatUI : MonoBehaviour
     [Header("일반 설정")]
     [SerializeField] Button alwaysFire;
     [SerializeField] Button alwaysShake;
-    [SerializeField] Button addDay;
+    [SerializeField] Button alwaysElect;
+    [SerializeField] Button liftingBucket;
 
     [Header("NPC")]
     [SerializeField] Button comeCounter;
     [SerializeField] Button addFinishNPC;
+    [SerializeField] Button addDay;
+    [SerializeField] Button addHundredMoney;
 
     [Header("텔레포트")]
     [SerializeField] Transform playerObject;
@@ -88,11 +91,14 @@ public class KSD_CheatUI : MonoBehaviour
         // 일반 설정 버튼
         alwaysFire.onClick.AddListener(() => KSD_CheatManager.Instance.IsAlwaysFire = !KSD_CheatManager.Instance.IsAlwaysFire);
         alwaysShake.onClick.AddListener(() => KSD_CheatManager.Instance.IsAlwaysShake = !KSD_CheatManager.Instance.IsAlwaysShake);
-        addDay.onClick.AddListener(() => KSD_CheatManager.Instance.AddDay());
+        alwaysElect.onClick.AddListener(() => KSD_CheatManager.Instance.AlwaysElecToggle());
+        liftingBucket.onClick.AddListener(() => KSD_CheatManager.Instance.IsLiftBucket = !KSD_CheatManager.Instance.IsLiftBucket);
 
-        // NPC 버튼
+        // NPC 및 상점 버튼
         comeCounter.onClick.AddListener(() => KSD_CheatManager.Instance.GoCounter());
         addFinishNPC.onClick.AddListener(() => KSD_CheatManager.Instance.AddFinishNPC());
+        addDay.onClick.AddListener(() => KSD_CheatManager.Instance.AddDay());
+        addHundredMoney.onClick.AddListener(() => KSD_CheatManager.Instance.AddHundredMoney());
 
         // 텔레포트 버튼
         goMaterial.onClick.AddListener(() => KSD_CheatManager.Instance.Teleport(playerObject, KSD_CheatManager.TeleportSpot.PerfumeMaterial));
@@ -101,7 +107,7 @@ public class KSD_CheatUI : MonoBehaviour
 
         // 리셋 버튼
         returnLobby.onClick.AddListener(() => KSD_CheatManager.Instance.ReturnLobby());
-        refreshGame.onClick.AddListener(() => KSD_CheatManager.Instance.ReturnGame());
+        refreshGame.onClick.AddListener(() => KSD_CheatManager.Instance.ReloadGame());
     }
 
     private void OnDisable()
@@ -116,11 +122,14 @@ public class KSD_CheatUI : MonoBehaviour
         // 일반 설정 버튼
         alwaysFire.onClick.RemoveAllListeners();
         alwaysShake.onClick.RemoveAllListeners();
-        addDay.onClick.RemoveAllListeners();
+        alwaysElect.onClick.RemoveAllListeners();
+        liftingBucket.onClick.RemoveAllListeners();
 
-        // NPC 버튼
+        // NPC 및 상점 버튼
         comeCounter.onClick.RemoveAllListeners();
         addFinishNPC.onClick.RemoveAllListeners();
+        addDay.onClick.RemoveAllListeners();
+        addHundredMoney.onClick.RemoveAllListeners();
 
         // 텔레포트 버튼
         goMaterial.onClick.RemoveAllListeners();

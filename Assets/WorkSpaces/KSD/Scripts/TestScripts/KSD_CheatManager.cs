@@ -32,11 +32,10 @@ public class KSD_CheatManager : MonoBehaviourPunCallbacks
             teleportObject.position = new Vector3(newPos.x, teleportObject.position.y, newPos.z);
         }
     }
-
-    // 3. 돈 무한 (현재 적용 중)
     
-    [Header("무한 모드")]
+    [Header("손님 및 상점 설정")]
     [SerializeField] private KSD_GameManager gameManager;
+    [SerializeField] private LSY_ItemManager itemManager;
     public void AddDay()
     {
         gameManager.AddFinishPlayerCount(gameManager.maxCustomerCount);
@@ -47,9 +46,17 @@ public class KSD_CheatManager : MonoBehaviourPunCallbacks
         gameManager.AddFinishPlayerCount(1);
     }
 
+    public void AddHundredMoney()
+    {
+        gameManager.CurrentStageInfo.StageMoney += 100;
+        itemManager.UpdateMoney();
+    }
+
 
     [Header("더미 캐릭터 (협동 요소를 싱글로 하기)")]
     [SerializeField] private KSD_CauldronController cauldronManager;
+    [SerializeField] private PTK_HandleElec handleElecManager;
+    [SerializeField] private LSY_Elevator liftManager;
     public bool IsAlwaysFire
     {
         get { return cauldronManager.AlwaysFire; }
@@ -61,17 +68,26 @@ public class KSD_CheatManager : MonoBehaviourPunCallbacks
         set { cauldronManager.AlwaysShake = value; }
     }
 
-    [Header("게임 초기화 기능")]
-    [SerializeField] private int gameSceneNum;
-    public void ReturnLobby()
+    public bool IsLiftBucket
     {
-        gameManager.DontSaveQuitGame();
+        get { return liftManager.isLiftUp; }
+        set { liftManager.isLiftUp = value; }
     }
 
-    public void ReturnGame()
+    public void AlwaysElecToggle()
     {
-        PhotonNetwork.LoadLevel(gameSceneNum);
-        // 씬만 리로드 하면, 게임 매니저 재생성에 의해 맵 초기화
+        if (handleElecManager.isCheatModeActive) handleElecManager.CheatModeOff();
+        else handleElecManager.CheatModeOn();
+    }
+
+    public void ReturnLobby()
+    {
+        gameManager.Quit(true, true, false);
+    }
+
+    public void ReloadGame()
+    {
+        gameManager.Quit(false, false, false);
     }
 
 

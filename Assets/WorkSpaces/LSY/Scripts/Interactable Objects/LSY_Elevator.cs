@@ -16,6 +16,10 @@ public class LSY_Elevator : MonoBehaviourPun
     [Header("엘리베이터 최대 높이")]
     [SerializeField] float maxHeight;
 
+    // 치트모드 추가
+    [Header("치트 모드 설정")]
+    public bool isLiftUp;
+
     private bool playerIn;
 
     private Vector3 initialPosition;
@@ -43,7 +47,7 @@ public class LSY_Elevator : MonoBehaviourPun
 
         if (playerIn) return;
 
-        if (upButtonPokeStateData.Value.interactionStrength > pressForce || Input.GetKey(KeyCode.UpArrow))
+        if (upButtonPokeStateData.Value.interactionStrength > pressForce || isLiftUp)
         {
             if (transform.position.y > maxHeight)
             {
