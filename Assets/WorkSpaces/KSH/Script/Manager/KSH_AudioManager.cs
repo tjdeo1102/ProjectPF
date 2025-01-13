@@ -42,11 +42,21 @@ public class KSH_AudioManager : MonoBehaviour
             Instance = this;
             Init();
             DontDestroyOnLoad(gameObject);
+            KSH_PlayerData.LoadPlayerData(); // 플레이어 데이터 로드
+            ApplyLoadedVolumeSettings(); // 로드된 볼륨 설정 적용
         }
         else
         {
             Destroy(gameObject);
         }
+    }
+
+    private void ApplyLoadedVolumeSettings()    // 로드된 볼륨 설정 적용 (테스트용)
+    {
+        var data = KSH_PlayerData.PlayerSaveData;
+        SetMasterVolume(data.AudioVolume);
+        SetBgmVolume(data.BGMVolume);
+        SetSfxVolume(data.EffectVolume);
     }
 
     void Init()             // outputAudioMixerGroup 특정 AudioMixerGroup 연결 할때 사용
@@ -139,18 +149,24 @@ public class KSH_AudioManager : MonoBehaviour
     {
         float dB = Mathf.Log10(Mathf.Max(volume, 0.0001f)) * 20; // dB로 변환
         audioMixer.SetFloat("MasterVolume", dB);
+        KSH_PlayerData.PlayerSaveData.AudioVolume = volume; // 플레이어 데이터에 저장(테스트용)
+        KSH_PlayerData.SavePlayerData(); // 플레이어 데이터 저장(테스트용)
     }
 
     public void SetBgmVolume(float volume)
     {
         float dB = Mathf.Log10(Mathf.Max(volume, 0.0001f)) * 20;
         audioMixer.SetFloat("BGMVolume", dB);
+        KSH_PlayerData.PlayerSaveData.BGMVolume = volume; //(테스트용)
+        KSH_PlayerData.SavePlayerData(); //(테스트용)
     }
 
     public void SetSfxVolume(float volume)
     {
         float dB = Mathf.Log10(Mathf.Max(volume, 0.0001f)) * 20;
         audioMixer.SetFloat("SFXVolume", dB);
+        KSH_PlayerData.PlayerSaveData.EffectVolume = volume; //(테스트용)
+        KSH_PlayerData.SavePlayerData(); //(테스트용)
     }
 
     // AudioMixer에서 볼륨 가져오기
