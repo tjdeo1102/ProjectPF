@@ -18,6 +18,8 @@ public class WGH_NPCEnter : INPCState
     {
         //Debug.Log("Enter 상태 진입");
         agent.SetDestination(controller.Entrance);
+        // 방문 손님 카운트
+        KSD_GameManager.Instance.CurrentStageInfo.VisitPlayerCount++;
     }
 
     public void OnUpdate()
