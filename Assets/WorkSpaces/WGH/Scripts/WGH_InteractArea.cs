@@ -89,14 +89,13 @@ public class WGH_InteractArea : MonoBehaviour
         curCount++;
         controller.SelectReactUINetwork((int)E_ReactUiType.FAIL);
         yield return new WaitForSeconds(2);
+        PhotonNetwork.Destroy(potion.photonView);
         if (curCount >= maxCount)
         {
             // 실패횟수가 설정된 수에 도달하면 퇴장
             WGH_NPCCreator.Instance.isCounter = false;
             curCount = 0;
             controller.ChangeStateNetwork((int)E_StateType.EXIT);
-            yield return null;
-            PhotonNetwork.Destroy(potion.photonView);
             yield return null;
             isCheck = false;
         }
