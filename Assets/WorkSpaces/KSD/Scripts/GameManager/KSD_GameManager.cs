@@ -151,6 +151,7 @@ public class KSD_GameManager : MonoBehaviourPun
             // 끝내기 전에, 목표 손님 수에 도달한 경우는 데이터 갱신 (상위 스테이지로)
             if (CurrentStageInfo.FinishPlayerCount >= maxCustomerCount)
             {
+                CurrentStageInfo.VisitPlayerCount = 0;
                 CurrentStageInfo.FinishPlayerCount = 0;
                 CurrentStageInfo.StageLevel++;
             }

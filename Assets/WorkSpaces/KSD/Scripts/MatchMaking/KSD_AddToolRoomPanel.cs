@@ -55,6 +55,7 @@ public class KSD_AddToolRoomPanel : MonoBehaviour
                             // 해당 엔트리에 맞는 정보로 갱신
                             entrys[i].StageInfo = new KSD_StageInfo
                             {
+                                VisitPlayerCount = res[i].VisitPlayerCount,
                                 FinishPlayerCount = res[i].FinishPlayerCount,
                                 StageDate = res[i].StageDate,
                                 StageID = res[i].StageID,
