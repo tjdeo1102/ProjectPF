@@ -48,11 +48,18 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
 
     float totalPrice = 0;
 
-
+    //---------------------- 01.11 KSD 수정 --------------------- //
     private void Start()
     {
         if (KSD_GameManager.Instance == null) return;
 
+        // 초기화 되는 타이밍을 OnChangeStageInfo으로 받아야 됨. (네트워크 안정화 이슈)
+        KSD_GameManager.Instance.OnChangeStageInfo.AddListener(Initialize);
+    }
+
+    
+    private void Initialize()
+    {
         InitializeItemPanels(decorationContent);
         InitializeItemPanels(furnitureContent);
         InitializeBasketPanels();
@@ -64,7 +71,16 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
         basketCount.text = basketIndex.ToString();
 
         OrderButton.onClick.AddListener(Order);
+
+        KSD_GameManager.Instance.OnChangeStageInfo.RemoveListener(Initialize);
     }
+
+    // 치트 모드용 돈 업데이트 UI 적용
+    public void UpdateMoney()
+    {
+        playerMoneyText.text = "$" + KSD_GameManager.Instance.CurrentStageInfo.StageMoney;
+    }
+    //---------------------- 수정 --------------------- //
 
     private void InitializeItemPanels(Transform content)
     {

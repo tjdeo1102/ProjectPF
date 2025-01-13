@@ -10,6 +10,7 @@ public class KSD_StageInfo
 {
     public int StageID;
     public string StageDate;
+    public int VisitPlayerCount;
     public int FinishPlayerCount;
     public int StageLevel;
     public int StageMoney;

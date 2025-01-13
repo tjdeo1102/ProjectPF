@@ -55,6 +55,6 @@ public class LSY_Kiosk : MonoBehaviourPun
     private void QuitGame()
     {
         if (KSD_GameManager.Instance != null)
-            KSD_GameManager.Instance.DontSaveQuitGame();
+            KSD_GameManager.Instance.Quit(true,true,false);
     }
 }
