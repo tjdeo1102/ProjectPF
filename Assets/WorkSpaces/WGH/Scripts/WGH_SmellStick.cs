@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using Photon.Pun;
 using Unity.VisualScripting;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class WGH_SmellStick : MonoBehaviourPun
 {
@@ -59,7 +60,7 @@ public class WGH_SmellStick : MonoBehaviourPun
             contactNote = note;
             lastPos = transform.position;
         }
-        if (other.gameObject.TryGetComponent(out WGH_InteractArea interactArea) && isAbsorbed == true && isRoutine == false)
+        else if (other.gameObject.TryGetComponent(out WGH_InteractArea interactArea) && isAbsorbed == true && isRoutine == false)
         {
             customer = interactArea.GetComponentInParent<WGH_NPCController>().gameObject;
             judgeCurLate = 0f;
