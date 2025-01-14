@@ -42,6 +42,7 @@ public class LSY_Kiosk : MonoBehaviourPun
         {
             case Panel.shopPanel:
                 shopPanel.SetActive(on);
+                KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Tablet_on);
                 break;
             case Panel.optionPanel:
                 optionPanel.SetActive(on);

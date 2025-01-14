@@ -33,6 +33,7 @@ public class LSY_Receipt : MonoBehaviourPun
     [PunRPC]
     public void RPC_GameEnd()
     {
+        KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Bill2);
         endPanel.SetActive(true);
         if (receiptRoutine == null)
         {

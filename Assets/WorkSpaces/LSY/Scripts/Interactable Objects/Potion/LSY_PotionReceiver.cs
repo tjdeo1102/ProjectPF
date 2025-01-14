@@ -333,4 +333,9 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
         m_Breakable = breakable;
     }
 
+    public void PlaySFX()
+    {
+        KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Pick_Bottle);
+    }
+
 }

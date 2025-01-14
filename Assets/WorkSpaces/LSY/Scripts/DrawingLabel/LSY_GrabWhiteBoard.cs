@@ -52,6 +52,7 @@ public class LSY_GrabWhiteBoard : XRGrabInteractable
         if (isGrabInNetwork == true)
         {
             interactablePV.RPC("ChangeRigidbodySetting2", RpcTarget.All);
+            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Label_on);
         }
         interactablePV.TransferOwnership(PhotonNetwork.MasterClient);
     }

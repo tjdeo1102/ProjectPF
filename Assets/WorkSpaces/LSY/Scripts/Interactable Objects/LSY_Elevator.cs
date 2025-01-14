@@ -24,6 +24,8 @@ public class LSY_Elevator : MonoBehaviourPun
 
     private Vector3 initialPosition;
 
+    bool isButtonOn = false;
+
     private IReadOnlyBindableVariable<PokeStateData> upButtonPokeStateData;
 
     void Start()
@@ -51,20 +53,31 @@ public class LSY_Elevator : MonoBehaviourPun
         {
             if (transform.position.y > maxHeight)
             {
+                KSH_AudioManager.Instance.StopSfxLoop(KSH_AudioManager.Sfx.elevator_play);
                 return; 
             }
-
+            if (!isButtonOn)
+            {
+                KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.elevator_button);
+                isButtonOn = true;
+            }
             MoveElevator(Vector3.up);
         }
         else
         {
-            if (transform.position.y <= initialPosition.y + 0.01f) return; 
+            isButtonOn = false;
+            if (transform.position.y <= initialPosition.y + 0.01f)
+            {
+                KSH_AudioManager.Instance.StopSfxLoop(KSH_AudioManager.Sfx.elevator_play);
+                return; 
+            }
             MoveElevator(Vector3.down);
         }
     }
 
     private void MoveElevator(Vector3 direction)
     {
+        KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.elevator_play);
         transform.position += direction * moveSpeed * Time.deltaTime;
     }
 
@@ -77,22 +90,12 @@ public class LSY_Elevator : MonoBehaviourPun
             playerIn = true;
             return;
         }
-        if (other.GetComponent<Rigidbody>() != null)
+        if (other.gameObject.CompareTag("Bucket") && other.GetComponent<Rigidbody>() != null)
+        {
             other.GetComponent<Rigidbody>().useGravity = true;
+            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.elevator_on);
+        }
     }
-
-    //private void OnTriggerStay(Collider other)
-    //{
-    //    if (transform.position.y > maxHeight)
-    //    {
-    //        other.GetComponent<Rigidbody>().useGravity = false;
-    //        other.GetComponent<Rigidbody>().velocity = Vector3.zero;
-    //    }
-    //    else
-    //    {
-    //        other.GetComponent<Rigidbody>().useGravity = true;
-    //    }
-    //}
 
     private void OnTriggerExit(Collider other)
     {
@@ -103,7 +106,7 @@ public class LSY_Elevator : MonoBehaviourPun
             playerIn = false;
             return;
         }
-        if (other.GetComponent<Rigidbody>() != null)
+        if (other.gameObject.CompareTag("Bucket") && other.GetComponent<Rigidbody>() != null)
             other.GetComponent<Rigidbody>().useGravity = true;
     }
 }
