@@ -3,11 +3,12 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using WebSocketSharp;
-
+using PhotonHashtable = ExitGames.Client.Photon.Hashtable;
 public class KSD_GameManager : MonoBehaviourPun
 {
     [Header("싱글톤")]
@@ -146,6 +147,12 @@ public class KSD_GameManager : MonoBehaviourPun
 
     public void Quit(bool isLeaveRoom, bool isReturnLobby, bool isSave)
     {
+        photonView.RPC("QuitRPC",RpcTarget.All, isLeaveRoom, isReturnLobby, isSave);
+    }
+
+    [PunRPC]
+    public void QuitRPC(bool isLeaveRoom, bool isReturnLobby, bool isSave)
+    {
         if (isSave)
         {
             // 끝내기 전에, 목표 손님 수에 도달한 경우는 데이터 갱신 (상위 스테이지로)
@@ -158,11 +165,17 @@ public class KSD_GameManager : MonoBehaviourPun
 
             KSD_SaveLoad.Instance.SaveToDatabase(PhotonNetwork.LocalPlayer.NickName, CurrentStageInfo).ContinueWithOnMainThread(task =>
             {
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    PhotonHashtable property = new PhotonHashtable();
+                    property["CurrentMapData"] = JsonUtility.ToJson(CurrentStageInfo);
+                    PhotonNetwork.CurrentRoom.SetCustomProperties(property);
+                }
                 if (task.IsFaulted)
                 {
                     Debug.LogError("맵을 저장하는 데 문제가 발생했습니다. 로비로 복귀합니다.");
-                    if (isReturnLobby) StartCoroutine(LoadLevelWithFadeOut(isLeaveRoom,returnSceneNum));
-                    else StartCoroutine(LoadLevelWithFadeOut(isLeaveRoom, returnSceneNum));
+                    if (isReturnLobby) StartCoroutine(LoadLevelWithFadeOut(isLeaveRoom, returnSceneNum));
+                    else StartCoroutine(LoadLevelWithFadeOut(isLeaveRoom, gameSceneNum));
                 }
                 else
                 {
@@ -170,13 +183,13 @@ public class KSD_GameManager : MonoBehaviourPun
                     {
                         Debug.Log("정상적으로 맵 저장 성공, 로비로 복귀합니다.");
                         if (isReturnLobby) StartCoroutine(LoadLevelWithFadeOut(isLeaveRoom, returnSceneNum));
-                        else StartCoroutine(LoadLevelWithFadeOut(isLeaveRoom, returnSceneNum));
+                        else StartCoroutine(LoadLevelWithFadeOut(isLeaveRoom, gameSceneNum));
                     }
                     else
                     {
                         Debug.LogError("맵을 저장하는 데 문제가 발생했습니다. 로비로 복귀합니다.");
                         if (isReturnLobby) StartCoroutine(LoadLevelWithFadeOut(isLeaveRoom, returnSceneNum));
-                        else StartCoroutine(LoadLevelWithFadeOut(isLeaveRoom, returnSceneNum));
+                        else StartCoroutine(LoadLevelWithFadeOut(isLeaveRoom, gameSceneNum));
                     }
                 }
             });
@@ -184,7 +197,7 @@ public class KSD_GameManager : MonoBehaviourPun
         else
         {
             if (isReturnLobby) StartCoroutine(LoadLevelWithFadeOut(isLeaveRoom, returnSceneNum));
-            else StartCoroutine(LoadLevelWithFadeOut(isLeaveRoom, returnSceneNum));
+            else StartCoroutine(LoadLevelWithFadeOut(isLeaveRoom, gameSceneNum));
         }
     }
 

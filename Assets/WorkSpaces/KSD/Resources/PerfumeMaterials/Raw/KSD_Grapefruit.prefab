@@ -124,7 +124,7 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
   - {fileID: -1785082233317924405}
@@ -359,7 +359,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sliceOptions:
     enableReslicing: 1
-    maxResliceCount: 1
+    maxResliceCount: 10
     detectFloatingFragments: 0
     insideMaterial: {fileID: 0}
     textureScale: {x: 1, y: 1}

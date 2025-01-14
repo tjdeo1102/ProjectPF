@@ -50,29 +50,6 @@ public class KSD_MixerReceiver : MonoBehaviour
         }
     }
 
-    //2-1. 액체가 나오는 동안, 지속적인 바닥 콜리전과 포션병과 물리 충돌 확인을 통해, 병 상태 업데이트
-    private void OnCollisionEnter(Collision collision)
-    {
-        var trans = collision.transform;
-        
-        // 받고 있는 도중에 새로운 병이 추가되도, 기존병이 없어지지 않으면 반응 없음
-        if (currentBottle == null)
-        {
-            overlapBottleCount++;
-            trans.TryGetComponent<KSD_ConcentrateBottle>(out currentBottle);
-        }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        var trans = collision.transform;
-        if (trans.TryGetComponent<KSD_ConcentrateBottle>(out currentBottle) && overlapBottleCount <= 1)
-        {
-            overlapBottleCount--;
-            currentBottle = null;
-        }
-    }
-
     //2-2. 액체의 FillAmount가 임계치를 넘어서면 1로 다 채워지도록 수정
     private void Update()
     {
@@ -85,10 +62,19 @@ public class KSD_MixerReceiver : MonoBehaviour
             if (outputParticle != null) outputParticle.Stop();
         }
 
-        if (currentBottle != null)
+        //3. 받았던 완성된 재료액의 Info의 정보를 업데이트
+        Debug.DrawRay(outputParticle.transform.position, Vector3.down, Color.red);
+        if (Physics.Raycast(outputParticle.transform.position, Vector3.down, out var hit, 50.0f, ~0, QueryTriggerInteraction.Collide))
         {
-            //3. 받았던 완성된 재료액의 Info의 정보를 업데이트
-            currentBottle.ReceiveLiquidMaterial(resultMixInfo, Time.deltaTime / outputLiquidTimer);
+            if (hit.collider.transform.parent.TryGetComponent<KSD_LiquidMaterialBottle>(out var receiver))
+            {
+                receiver.ReceiveLiquidMaterial(resultMixInfo, Time.deltaTime / outputLiquidTimer);
+                Debug.Log("받을 KSD_LiquidMaterialBottle를 찾음");
+            }
+            else
+            {
+                Debug.Log("PotionReceiver를 찾지 못함");
+            }
         }
 
         // 액체가 나오는 타이머 카운트 (해당 타이머가 끝나면 액체가 안나옴)
