@@ -2194,7 +2194,7 @@ GameObject:
   - component: {fileID: 3649628747025632744}
   - component: {fileID: 3649628747025632749}
   - component: {fileID: 3649628747025632737}
-  - component: {fileID: 3649628747025632739}
+  - component: {fileID: 6920024693811502421}
   - component: {fileID: 3649628747025632751}
   - component: {fileID: 3649628747025632741}
   - component: {fileID: 3649628747025632743}
@@ -2263,7 +2263,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3649628747025632739
+--- !u!114 &6920024693811502421
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2272,7 +2272,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3649628747025600968}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ad34abafad169848a38072baa96cdb2, type: 3}
+  m_Script: {fileID: 11500000, guid: a941d80bd3983494c90c09be99f54176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -2281,7 +2281,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 4294967295
+    m_Bits: 512
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_FocusMode: 1
@@ -2458,7 +2458,7 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
   - {fileID: 3649628747025632743}
