@@ -8,18 +8,15 @@ public class LSY_ShopPanel : MonoBehaviourPun
 {
     public enum Panel { Decoration, Furniture, Basket }
     [SerializeField] GameObject decorationPanel;
-    [SerializeField] GameObject furniturePanel;
     [SerializeField] GameObject basketPanel;
 
     [SerializeField] Button decorationButton;
-    [SerializeField] Button furnitureButton;
     [SerializeField] Button basketButton;
     [SerializeField] Button closeButton;
 
     private void Start()
     { 
         decorationButton.onClick.AddListener(DecorationButton);
-        furnitureButton.onClick.AddListener(FurnitureButton);
         basketButton.onClick.AddListener(BasketButton);
         closeButton.onClick.AddListener(CloseButton);
     }
@@ -28,7 +25,6 @@ public class LSY_ShopPanel : MonoBehaviourPun
     private void SetActivePanel(Panel panel)
     {
         decorationPanel.SetActive(panel == Panel.Decoration);
-        furniturePanel.SetActive(panel == Panel.Furniture);
         basketPanel.SetActive(panel == Panel.Basket);
     }
 
@@ -40,11 +36,6 @@ public class LSY_ShopPanel : MonoBehaviourPun
     public void DecorationButton()
     {
         photonView.RPC("SetActivePanel", RpcTarget.All, Panel.Decoration);
-    }
-
-    public void FurnitureButton()
-    {
-        photonView.RPC("SetActivePanel", RpcTarget.All, Panel.Furniture);
     }
 
     public void BasketButton()
