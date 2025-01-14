@@ -3,9 +3,12 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class WGH_NPCCreator : MonoBehaviour
+public class WGH_NPCCreator : MonoBehaviourPun
 {
     public static WGH_NPCCreator Instance;
+
+    public WGH_NPCPause pause;
+
     [Header("방문 손님 생성 시간")]
     [SerializeField] private float storeNpcSpawnTime;
     [SerializeField] private float storeNpcCurTime;
@@ -51,7 +54,47 @@ public class WGH_NPCCreator : MonoBehaviour
         // 스테이지 레벨
         stageLevel = KSD_GameManager.Instance.CurrentStageInfo.StageLevel;
         KSD_GameManager.Instance.OnChangeStageInfo.AddListener(StageChange);
+        // 퍼즈 이벤트 등록
+        pause = GameObject.FindGameObjectWithTag("Pause").GetComponentInChildren<WGH_NPCPause>();
+        pause.OnPause.AddListener(ChangePauseState);
+        pause.OffPause.AddListener(PauseCancle);
     }
+
+    /// <summary>
+    /// Pause 메서드
+    /// </summary>
+    public void ChangePauseState()
+    {
+        photonView.RPC("PauseRPC", RpcTarget.All);
+    }
+    [PunRPC]
+    private void PauseRPC()
+    {
+        if (isPause == false)
+        {
+            isPause = true;
+            isExplore = false;
+            isCounter = false;
+            storeNpcCurTime = 0;
+            passNpcCurTime = 0;
+        }
+    }
+    /// <summary>
+    /// Pause 취소 메서드
+    /// </summary>
+    private void PauseCancle()
+    {
+        photonView.RPC("CancleRPC", RpcTarget.All);
+    }
+    [PunRPC]
+    private void CancleRPC()
+    {
+        if (isPause == true)
+        {
+            isPause = false;
+        }
+    }
+
 
     public void StageChange()
     {
@@ -92,15 +135,13 @@ public class WGH_NPCCreator : MonoBehaviour
     }
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Alpha1))
-        //    isPause = !isPause;
         if (PhotonNetwork.IsMasterClient == false && !isCheat)
             return;
-        //if(isPause == false)
-        //{
+        if(isPause == false)
+        {
             PassNpcSpawn();
             CountTime();
-        //}
+        }
     }
 
     public void PassNpcSpawn()
