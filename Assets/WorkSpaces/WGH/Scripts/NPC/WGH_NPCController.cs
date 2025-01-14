@@ -34,6 +34,7 @@ public class WGH_NPCController : MonoBehaviourPun
     [HideInInspector] public Animator anim;
     [HideInInspector] public NavMeshAgent Agent { get { return agent; } }
     [HideInInspector] public WGH_SmellStick SmellStick;
+    [HideInInspector] public WGH_NPCPause pause;
     public GameObject TestNote;
     public Button SmellTestStartButton;
     public Button SmellTestEndButton;
@@ -100,6 +101,10 @@ public class WGH_NPCController : MonoBehaviourPun
 
     private void Start()
     {
+        // Pause 이벤트 등록
+        pause = GameObject.FindGameObjectWithTag("Pause").GetComponentInChildren<WGH_NPCPause>();
+        pause.OnPause.AddListener(StartPauseBehaviour);
+
         if (PhotonNetwork.IsMasterClient)
             ChangeStateNetwork((int)E_StateType.PASS);
     }
@@ -108,12 +113,18 @@ public class WGH_NPCController : MonoBehaviourPun
     {
         if (PhotonNetwork.IsMasterClient)
             curState?.OnUpdate();
-        //if(WGH_NPCCreator.Instance.isPause)
-        //{
-        //    agent.SetDestination(PassPos);
-        //}
     }
 
+    /// <summary>
+    /// Pause 상태 전환 시 Exit 상태로 변경
+    /// </summary>
+    public void StartPauseBehaviour()
+    {
+        if(WGH_NPCCreator.Instance.isPause == true)
+        {
+            ChangeStateNetwork((int)E_StateType.EXIT);
+        }
+    }
 
     /// <summary>
     /// RPC 함수(npc 상태 동기화)
