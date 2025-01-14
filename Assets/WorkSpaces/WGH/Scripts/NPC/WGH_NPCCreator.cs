@@ -1,6 +1,7 @@
 using Photon.Pun;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class WGH_NPCCreator : MonoBehaviour
 {
@@ -30,6 +31,8 @@ public class WGH_NPCCreator : MonoBehaviour
     public bool isCounter;
     public bool isExplore;
     public bool isCheat;
+
+    public bool isPause;                    // 일시정지용
     private void Awake()
     {
         if (Instance == null)
@@ -89,10 +92,15 @@ public class WGH_NPCCreator : MonoBehaviour
     }
     private void Update()
     {
+        //if (Input.GetKeyDown(KeyCode.Alpha1))
+        //    isPause = !isPause;
         if (PhotonNetwork.IsMasterClient == false && !isCheat)
             return;
-        PassNpcSpawn();
-        CountTime();
+        //if(isPause == false)
+        //{
+            PassNpcSpawn();
+            CountTime();
+        //}
     }
 
     public void PassNpcSpawn()

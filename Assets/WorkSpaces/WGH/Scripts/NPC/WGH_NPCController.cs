@@ -108,6 +108,10 @@ public class WGH_NPCController : MonoBehaviourPun
     {
         if (PhotonNetwork.IsMasterClient)
             curState?.OnUpdate();
+        //if(WGH_NPCCreator.Instance.isPause)
+        //{
+        //    agent.SetDestination(PassPos);
+        //}
     }
 
 

@@ -18,6 +18,8 @@ public class WGH_XRGrabInteractable : XRGrabInteractable
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
+        if (args.interactorObject is XRSocketInteractor)
+            return;
         var interactable = args.interactableObject.transform.GetComponent<PhotonView>();
 
         // 소유자가 없는 경우에만 물건을 잡도록 설정
@@ -33,6 +35,8 @@ public class WGH_XRGrabInteractable : XRGrabInteractable
 
     protected override void OnSelectExited(SelectExitEventArgs args)
     {
+        if (args.interactorObject is XRSocketInteractor)
+            return;
         var interactable = args.interactableObject.transform.GetComponent<PhotonView>();
 
         // 본인이 잡고있던 물체인 경우에만 놓도록 설정

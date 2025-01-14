@@ -25,6 +25,7 @@ public class WGH_SmellStick : MonoBehaviourPun
     
     private bool isAbsorbed;                            // 이펙트 On인지 아닌지(상호작용 가능한 상태인지)
     private bool isRoutine;
+    private bool isGrab;
     private Rigidbody rigid;
     private Vector3 startPos;
     private Coroutine shakeRoutine;
@@ -43,14 +44,10 @@ public class WGH_SmellStick : MonoBehaviourPun
     {
         startPos = transform.position;
     }
-    private void LateUpdate()
+    private void OnCollisionEnter(Collision collision)
     {
-        //// "Dynamic Attach"라는 이름을 가진 자식 오브젝트 삭제
-        //Transform dynamicAttach = transform.Find("[Ray Interactor] Dynamic Attach");
-        //if (dynamicAttach != null)
-        //{
-        //    Destroy(dynamicAttach.gameObject);
-        //}
+        if(isGrab == false)
+        transform.position = startPos;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -163,5 +160,31 @@ public class WGH_SmellStick : MonoBehaviourPun
     {
         aura[(int)NoteType - 1].gameObject.SetActive(enable);
         isAbsorbed = enable;
+    }
+
+    /// <summary>
+    /// 물체를 잡았을 때 호출
+    /// </summary>
+    public void OnGrab()
+    {
+        photonView.RPC("IsGrabRPC", RpcTarget.All, true);
+    }
+
+    /// <summary>
+    /// 물체를 놓았을 때 호출
+    /// </summary>
+    public void OnRelease()
+    {
+        photonView.RPC("IsGrabRPC", RpcTarget.All, false);
+    }
+
+
+    /// <summary>
+    /// 중력 상태 동기화
+    /// </summary>
+    [PunRPC]
+    public void IsGrabRPC(bool isGrabbed)
+    {
+        isGrab = isGrabbed;
     }
 }
