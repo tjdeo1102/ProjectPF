@@ -7,11 +7,13 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class LSY_GrabWhiteBoard : XRGrabInteractable
 {
     Rigidbody rb;
+    [SerializeField] GameObject labelPrefab;
     public BoxCollider boxCollider;
     public MeshCollider meshCollider;
     Vector3 originPosition;
     Quaternion originRotation;
     private bool isGrabInNetwork;
+    [SerializeField] public Transform spawnTransform;
 
     bool setLabel = false;
 
@@ -32,6 +34,7 @@ public class LSY_GrabWhiteBoard : XRGrabInteractable
             boxCollider.enabled = true;
             meshCollider.enabled = false;
             setLabel = true;
+            PhotonNetwork.Instantiate("Label", spawnTransform.position, spawnTransform.rotation);
         }
         if (isGrabInNetwork == false)
         {
