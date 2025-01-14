@@ -7,7 +7,6 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class LSY_GrabWhiteBoard : XRGrabInteractable
 {
     Rigidbody rb;
-    [SerializeField] GameObject labelPrefab;
     public BoxCollider boxCollider;
     public MeshCollider meshCollider;
     Vector3 originPosition;
@@ -27,7 +26,10 @@ public class LSY_GrabWhiteBoard : XRGrabInteractable
     {
         base.OnSelectEntering(args);
         if (args.interactorObject is XRSocketInteractor)
+        {
+            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Label_on);
             return;
+        }
         PhotonView interactablePV = args.interactableObject.transform.GetComponent<PhotonView>();
         if (setLabel == false)
         {
@@ -52,7 +54,6 @@ public class LSY_GrabWhiteBoard : XRGrabInteractable
         if (isGrabInNetwork == true)
         {
             interactablePV.RPC("ChangeRigidbodySetting2", RpcTarget.All);
-            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Label_on);
         }
         interactablePV.TransferOwnership(PhotonNetwork.MasterClient);
     }
