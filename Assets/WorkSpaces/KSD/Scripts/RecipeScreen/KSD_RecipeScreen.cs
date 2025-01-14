@@ -12,14 +12,16 @@ public class KSD_RecipeScreen : XRBaseInteractable, IPunObservable
     [Header("기본 설정")]
     public float OriginSize;
     public float TargetSize;
+    public Vector3 OriginHandlePosition;
+    public Vector3 TargetHandlePosition;
     public float DeltaSize;
     public float MoveDirectionY;
-    [SerializeField] Image screen;
+    [SerializeField] private Image screen;
+    [SerializeField] private Transform screenTransform;
+    [SerializeField] private Transform handleTransform;
 
-    [Header("움직이는 범위 제한 (월드 좌표 기준)")]
-    public Transform MinTransform;
-    public Transform MaxTrasnform;
     [Range(0f, 1f)] public float Value;
+
 
     [Header("원래 위치 복귀 속도 설정")]
     public float ReturnVelocity;
@@ -34,7 +36,8 @@ public class KSD_RecipeScreen : XRBaseInteractable, IPunObservable
     {
         photonView = GetComponent<PhotonView>();
         originLayer = interactionLayers;
-        transform.localScale = new Vector3(transform.localScale.x, OriginSize, transform.localScale.z);
+        screenTransform.localScale = new Vector3(screenTransform.localScale.x, OriginSize, screenTransform.localScale.z);
+        handleTransform.localPosition = OriginHandlePosition;
     }
 
     private void Update()
@@ -43,7 +46,7 @@ public class KSD_RecipeScreen : XRBaseInteractable, IPunObservable
         var dif = TargetSize - OriginSize;
         if (photonView.IsMine)
         {
-            var newSize = transform.localScale.y;
+            var newSize = screenTransform.localScale.y;
             if (isGrabInNetwork && selectInteractor != null)
             {
                 // 1. 컨트롤러의 위치 추적
@@ -51,14 +54,17 @@ public class KSD_RecipeScreen : XRBaseInteractable, IPunObservable
                 lastPositionY = selectInteractor.position.y;
                 // 2. 추가할 사이즈 계산
                 // 2-1. 같은 방향으로 증가한 경우, 사이즈값 추가
+                var y = MoveDirectionY;
+                if (y < 0) y = -y;
+
                 if (moveY * MoveDirectionY > 0)
                 {
-                    newSize += DeltaSize * Time.deltaTime * MoveDirectionY;
+                    newSize += DeltaSize * Time.deltaTime * y;
                 }
                 // 2-2. 다른 방향으로 증가한 경우, 사이즈값 감소
                 else if (moveY * MoveDirectionY < 0)
                 {
-                    newSize -= DeltaSize * Time.deltaTime * MoveDirectionY;
+                    newSize -= DeltaSize * Time.deltaTime * y;
                 }
                 if (OriginSize < TargetSize) newSize = Mathf.Clamp(newSize, OriginSize, TargetSize);
                 else newSize = Mathf.Clamp(newSize, TargetSize, OriginSize);
@@ -66,7 +72,10 @@ public class KSD_RecipeScreen : XRBaseInteractable, IPunObservable
             else
             {
                 // 1. 감소할 사이즈량 계산
-                newSize -= (MoveDirectionY * Time.deltaTime * ReturnVelocity);
+                var y = MoveDirectionY;
+                if (y < 0) y = -y;
+                y *= dif / Mathf.Abs(dif);
+                newSize -= (y * Time.deltaTime * ReturnVelocity);
                 if (OriginSize < TargetSize) newSize = Mathf.Clamp(newSize, OriginSize, TargetSize);
                 else newSize = Mathf.Clamp(newSize, TargetSize, OriginSize);
             }
@@ -74,14 +83,15 @@ public class KSD_RecipeScreen : XRBaseInteractable, IPunObservable
             Value = Mathf.Abs((newSize - OriginSize) / dif);
         }
 
-        transform.localScale = new Vector3(transform.localScale.x, Value * dif + OriginSize, transform.localScale.z);
-
-        // 펼치고 있는 사람은 보이지 않고, 펴는 사람만 보이도록 구현
-        if (photonView.IsMine == false)
-        {
-            screen.fillAmount = Value;
-        }
-        else screen.fillAmount = 0;
+        screenTransform.localScale = new Vector3(screenTransform.localScale.x, Value * dif + OriginSize, screenTransform.localScale.z);
+        handleTransform.localPosition = OriginHandlePosition + (TargetHandlePosition - OriginHandlePosition) * Value;
+        //// 펼치고 있는 사람은 보이지 않고, 펴는 사람만 보이도록 구현
+        //if (photonView.IsMine == false)
+        //{
+        //    screen.fillAmount = Value;
+        //}
+        //else screen.fillAmount = 0;
+        screen.fillAmount = Value;
     }
 
 
