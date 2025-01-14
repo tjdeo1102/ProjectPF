@@ -37,12 +37,17 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     public ParticleSystem particleSystemSplash;
     public float SplashSpeed;
 
+    [Header("Mix Success Particle")]
+    [SerializeField] ParticleSystem particleMixSuccess;
+
     int receiveCount = 0;
 
     private Color potionColor;
     private Color linePotionColor;
 
     public bool m_Breakable = true;
+    private int done = 0;
+
     Rigidbody m_RbPotion;
 
     bool perfumeClear = false;
@@ -138,10 +143,12 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
             int perfumeValue = (int)resInfo.Name;
 
             perfumeName = (E_WGH_PerfumeType)perfumeValue;
+            done = 1;
+            StartCoroutine(MixSuccessRoutine());
         }
         else
         {
-            photonView.RPC("FusionFail", RpcTarget.All);
+            FusionFail();
         }
 
         perfumeNoteInfoLists.Clear();
@@ -150,9 +157,16 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
         m_RbPotion.velocity = Vector3.zero;
     }
 
-    [PunRPC]
+    IEnumerator MixSuccessRoutine()
+    {
+        particleMixSuccess.Play();
+        yield return new WaitForSeconds(3);
+        particleMixSuccess.Stop();
+    }
+
     private void FusionFail()
     {
+        done = 2;
         perfumeClear = true;
         resInfo = new KSD_PerfumeInfo();
         resInfo.Name = PerfumeName.Null;
@@ -275,7 +289,7 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     {
         if (m_RbPotion == null) return;
 
-        if (m_RbPotion.velocity.magnitude > SplashSpeed && m_Breakable)
+        if (m_RbPotion.velocity.magnitude > SplashSpeed && m_Breakable && done == 2)
         {
             if (particleSystemSplash != null)
             {
@@ -317,6 +331,11 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     public void ToggleBreakable(bool breakable)
     {
         m_Breakable = breakable;
+    }
+
+    public void PlaySFX()
+    {
+        KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Pick_Bottle);
     }
 
 }
