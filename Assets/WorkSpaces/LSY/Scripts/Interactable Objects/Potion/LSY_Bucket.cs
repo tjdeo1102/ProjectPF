@@ -66,14 +66,11 @@ public class LSY_Bucket : MonoBehaviourPun, IPunObservable
             resetCauldron = true;
             Debug.Log("가마솥 리셋");
             cauldronController.ResetState();
-            KSH_AudioManager.Instance.StopSfxLoop(KSH_AudioManager.Sfx.Cauldron_pop);
         }
 
         // 양동이가 기울어져 있고 & 액체가 들어있어야 하고 & 현재 노트가 Null이 아니여야 함
         if (Vector3.Dot(transform.up, Vector3.down) > 0 && fillAmount > 0 && currentPerfumeNote.Name != PerfumeNoteName.Null)
         {
-            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Dispenser_in);
-
             if (particleSystemLiquid.isStopped)
             {
                 particleSystemLiquid.Play();
@@ -121,7 +118,6 @@ public class LSY_Bucket : MonoBehaviourPun, IPunObservable
         else
         {
             particleSystemLiquid.Stop();
-            KSH_AudioManager.Instance.StopSfxLoop(KSH_AudioManager.Sfx.Dispenser_in);
         }
 
         if (fillAmount < 0)
@@ -179,7 +175,6 @@ public class LSY_Bucket : MonoBehaviourPun, IPunObservable
         if (fillBucketRoutine == null)
         {
             resetCauldron = false;
-            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Cauldron_pop);
             fillBucketRoutine = StartCoroutine(FillBucket());
         }
     }
@@ -191,7 +186,6 @@ public class LSY_Bucket : MonoBehaviourPun, IPunObservable
         {
             if (fillBucketRoutine != null)
             {
-                KSH_AudioManager.Instance.StopSfxLoop(KSH_AudioManager.Sfx.Cauldron_pop);
                 StopCoroutine(fillBucketRoutine);
                 isFilling = false;
                 fillBucketRoutine = null;
@@ -214,7 +208,6 @@ public class LSY_Bucket : MonoBehaviourPun, IPunObservable
             fillAmount = Mathf.Lerp(initialFillAmount, targetFillAmount, (Time.time - startTime) / 2f);
             m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
             MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
-
             yield return null;  
         }
 

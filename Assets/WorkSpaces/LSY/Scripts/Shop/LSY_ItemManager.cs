@@ -208,7 +208,6 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
         {
             if (orderPopUpRoutine == null)
             {
-                KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Tablet_fall);
                 orderPopUpRoutine = StartCoroutine(OrderPopUpRoutine(order_BasketCount_PopUp));
             }
             return;
@@ -218,7 +217,6 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
         {
             if (orderPopUpRoutine == null)
             {
-                KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Tablet_fall);
                 orderPopUpRoutine = StartCoroutine(OrderPopUpRoutine(order_PlayerMoney_PopUp));
             }
             return;
@@ -226,7 +224,6 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
 
         if (basketItems.Count > 0)
         {
-            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Tablet_success);
             StartCoroutine(BuyRoutine());
         }
     }

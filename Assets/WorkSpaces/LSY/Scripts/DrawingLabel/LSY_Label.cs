@@ -1,10 +1,9 @@
-using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LSY_Label : MonoBehaviourPun
+public class LSY_Label : MonoBehaviour
 {
     [SerializeField] Button doneButton;
     [SerializeField] Transform setPoint;
@@ -22,6 +21,14 @@ public class LSY_Label : MonoBehaviourPun
         doneButton.gameObject.SetActive(true);
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            OnWhiteBoard();
+        }
+    }
+
     public void OnWhiteBoard()
     {
         gameObject.transform.localScale = new Vector3(1, 1, 1);
@@ -29,12 +36,6 @@ public class LSY_Label : MonoBehaviourPun
     }
 
     public void DoneButton()
-    {
-        photonView.RPC("RPC_DoneButton", RpcTarget.All);
-    }
-
-    [PunRPC]
-    public void RPC_DoneButton()
     {
         gameObject.transform.localScale = new Vector3(0.3038756f, 0.3038756f, 0.3038756f);
         gameObject.transform.rotation = Quaternion.Euler(0, 0, 90);
