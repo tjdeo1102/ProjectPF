@@ -28,6 +28,10 @@ public class KSD_CauldronController : MonoBehaviourPun
 
     [Header("참조 설정")]
     [SerializeField] private WGH_FanTest fire;
+    [SerializeField] private ParticleSystem fireSmoke;
+    [SerializeField] private ParticleSystem successMake;
+    [SerializeField] private ParticleSystem successSmell;
+    [SerializeField] private ParticleSystem failMake;
     [SerializeField] private KSD_CauldronUI ui;
 
     private float cookTime;
@@ -37,6 +41,16 @@ public class KSD_CauldronController : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
+        // 화력이 충분할 때, 연기 이펙트 활성화
+        if (fire.isActiveFire || AlwaysFire)
+        {
+            fireSmoke.Play();
+        }
+        else
+        {
+            fireSmoke.Stop();
+        }
+
         // 이미 가공이 끝난 경우는 리턴
         if (fire == null || IsFinish) return;
 
@@ -67,8 +81,6 @@ public class KSD_CauldronController : MonoBehaviourPun
                 IsFinish = true;
             }
         }
-
-        
     }
     [PunRPC]
     public void NoteFusionRPC()
@@ -79,7 +91,22 @@ public class KSD_CauldronController : MonoBehaviourPun
         {
             IsFinish = true;
             // 성공한 경우에 해당 정보를 가진 결과물을 갖고 있어야함.
-            manager.IsValidNoteRecipe(ConcentrateInfoList, out ResultNoteInfo);
+            if (manager.IsValidNoteRecipe(ConcentrateInfoList, out ResultNoteInfo))
+            {
+                var a = successSmell.main.startColor.color.a;
+                var col = ResultNoteInfo.GetColorByName(ResultNoteInfo.Name);
+                var mainSmell = successSmell.main;
+                var mainMake = successMake.main;
+                mainSmell.startColor = new ParticleSystem.MinMaxGradient(new Color(col.r, col.g, col.b, a));
+                mainMake.startColor = col;
+                successSmell.Play();
+                successMake.Play();
+            }
+            else
+            {
+                failMake.Play();
+            }
+            
             ConcentrateInfoList.Clear();
             ConcentrateAmountList.Clear();
         }
@@ -101,6 +128,7 @@ public class KSD_CauldronController : MonoBehaviourPun
         // 이전 시간 상태 초기화
         noShakeTime = 0f;
         cookTime = 0f;
+        successSmell.Stop();
     }
 
     public void ReceiveConcentrate(KSD_PerfumeNoteInfo con, float getAmount)
@@ -147,11 +175,6 @@ public class KSD_CauldronController : MonoBehaviourPun
 
     private void OnTriggerEnter(Collider other)
     {
-        //if (other.TryGetComponent<LSY_Bucket>(out var note))
-        //{
-        //    print("양동이에 담음");
-        //    ResetState();
-        //}
         if(other.CompareTag("Erase"))
         {
             //print("가마솥 리셋");
