@@ -98,6 +98,15 @@ public class WGH_FanTest : MonoBehaviour
         var main = fireParticle.main;
 
         emission.rateOverTime = Mathf.Lerp(emission.rateOverTime.constant, 0f, Time.deltaTime);
-        main.startSize = Mathf.Lerp(main.startSize.constant, 0.3f, Time.deltaTime);
+        //main.startSize = Mathf.Lerp(main.startSize.constant, 0.3f, Time.deltaTime);
+
+        // 치트모드
+        if (AlwaysFire) isActiveFire = true;
+        else
+        {
+            if (emission.rateOverTime.constant / 100f >= fullFirePercentage)
+                isActiveFire = true;
+            else isActiveFire = false;
+        }
     }
 }

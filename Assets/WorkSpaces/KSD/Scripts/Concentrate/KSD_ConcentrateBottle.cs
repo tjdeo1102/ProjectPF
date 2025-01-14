@@ -28,6 +28,8 @@ public class KSD_ConcentrateBottle : MonoBehaviourPun
     [Header("참조 설정")]
     [SerializeField] private ParticleSystem particleSystemLiquid;
     [SerializeField] private ParticleSystem particleSystemSplash;
+    [SerializeField] private ParticleSystem particleSuccess;
+    [SerializeField] private ParticleSystem particleFail;
     public MeshRenderer LiquidRenderer;
 
     private float lastShakeTime;       
@@ -116,6 +118,8 @@ public class KSD_ConcentrateBottle : MonoBehaviourPun
         resInfo.Name = PerfumeNoteName.Null;
         resInfo.State = PerfumeNoteState.Null;
 
+        particleSuccess.Stop();
+
         if (perfumeMaterialList.Count > 0) perfumeMaterialList.Clear();
     }
 
@@ -177,6 +181,10 @@ public class KSD_ConcentrateBottle : MonoBehaviourPun
 
             potionColor = resInfo.GetColorByName(res.Name);
             linePotionColor = resInfo.GetColorByName(res.Name);
+
+            var main = particleSuccess.main;
+            main.startColor = potionColor;
+            particleSuccess.Play();
         }
         else FusionFail();
         perfumeMaterialList.Clear();
@@ -192,6 +200,7 @@ public class KSD_ConcentrateBottle : MonoBehaviourPun
 
         potionColor = Color.black;
         linePotionColor = Color.black;
+        particleFail.Play();
     }
 
     void UpdateDropLiquid()
@@ -201,9 +210,16 @@ public class KSD_ConcentrateBottle : MonoBehaviourPun
             if (particleSystemLiquid.isStopped)
             {
                 // 쏟는 액체의 색 변경
-                particleSystemLiquid.GetComponent<ParticleSystemRenderer>().material.SetColor("_BaseColor", potionColor);
+                var mat = particleSystemLiquid.GetComponent<ParticleSystemRenderer>().material;
+                mat.SetColor("_BaseColor", potionColor);
+                mat.SetColor("_EmissionColor", potionColor);
                 // 깨지는 액체의 색 변경
-                if (m_Breakable) particleSystemSplash.GetComponent<ParticleSystemRenderer>().material.SetColor("_BaseColor", potionColor);
+                if (m_Breakable)
+                {
+                    var mat2 = particleSystemSplash.GetComponent<ParticleSystemRenderer>().material;
+                    mat2.SetColor("_BaseColor", potionColor);
+                    mat2.SetColor("_EmissionColor", potionColor);
+                }
 
                 particleSystemLiquid.Play();
             }
@@ -341,7 +357,6 @@ public class KSD_ConcentrateBottle : MonoBehaviourPun
             resInfo.NoteCount = 1;
         }
     }
-
 
     private void OnSelectEntered(SelectEnterEventArgs args)
     {
