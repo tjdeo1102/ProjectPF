@@ -43,6 +43,8 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     private Color linePotionColor;
 
     public bool m_Breakable = true;
+    private int done = 0;
+
     Rigidbody m_RbPotion;
 
     bool perfumeClear = false;
@@ -138,6 +140,7 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
             int perfumeValue = (int)resInfo.Name;
 
             perfumeName = (E_WGH_PerfumeType)perfumeValue;
+            done = 1;
         }
         else
         {
@@ -153,6 +156,7 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     [PunRPC]
     private void FusionFail()
     {
+        done = 2;
         perfumeClear = true;
         resInfo = new KSD_PerfumeInfo();
         resInfo.Name = PerfumeName.Null;
@@ -275,7 +279,7 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     {
         if (m_RbPotion == null) return;
 
-        if (m_RbPotion.velocity.magnitude > SplashSpeed && m_Breakable)
+        if (m_RbPotion.velocity.magnitude > SplashSpeed && m_Breakable && done == 2)
         {
             if (particleSystemSplash != null)
             {

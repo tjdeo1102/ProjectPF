@@ -1,7 +1,8 @@
+using Photon.Pun;
 using System.Linq;
 using UnityEngine;
 
-public class LSY_Marker : MonoBehaviour
+public class LSY_Marker : MonoBehaviourPun
 {
     [SerializeField] Transform tip;
     [SerializeField] int penSize = 5;
@@ -72,6 +73,14 @@ public class LSY_Marker : MonoBehaviour
                 lastTouchPos = new Vector2(x, y);
                 lastTouchRot = transform.rotation;
                 touchLastFrame = true;
+
+                float[] colorValues = new float[] {
+                    renderer.material.color.r,
+                    renderer.material.color.g,
+                    renderer.material.color.b,
+                    renderer.material.color.a
+                };
+                whiteBoard.photonView.RPC("Pun_UpdateTexture", RpcTarget.All, (int)x, (int)y, penSize, penSize, colorValues);
                 return;
 
             }

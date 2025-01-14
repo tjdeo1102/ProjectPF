@@ -11,6 +11,7 @@ public class LSY_GrabWhiteBoard : XRGrabInteractable
     public MeshCollider meshCollider;
     Vector3 originPosition;
     Quaternion originRotation;
+    private bool isGrabInNetwork;
 
     bool setLabel = false;
 
@@ -23,20 +24,50 @@ public class LSY_GrabWhiteBoard : XRGrabInteractable
     protected override void OnSelectEntering(SelectEnterEventArgs args)
     {
         base.OnSelectEntering(args);
+        if (args.interactorObject is XRSocketInteractor)
+            return;
+        PhotonView interactablePV = args.interactableObject.transform.GetComponent<PhotonView>();
         if (setLabel == false)
         {
             boxCollider.enabled = true;
             meshCollider.enabled = false;
             setLabel = true;
         }
-        PhotonView interactablePV = args.interactableObject.transform.GetComponent<PhotonView>();
+        if (isGrabInNetwork == false)
+        {
+             interactablePV.RPC("ChangeRigidbodySetting", RpcTarget.All);
+        }
         interactablePV.RequestOwnership();
     }
 
     protected override void OnSelectExited(SelectExitEventArgs args)
     {
+        if (args.interactorObject is XRSocketInteractor)
+            return;
         base.OnSelectExited(args);
         PhotonView interactablePV = args.interactableObject.transform.GetComponent<PhotonView>();
+        if (isGrabInNetwork == true)
+        {
+            interactablePV.RPC("ChangeRigidbodySetting2", RpcTarget.All);
+        }
         interactablePV.TransferOwnership(PhotonNetwork.MasterClient);
     }
+
+    [PunRPC]
+    public void ChangeRigidbodySetting(PhotonMessageInfo info)
+    {
+        isGrabInNetwork = true; 
+        interactionLayers = InteractionLayerMask.GetMask("Default") | InteractionLayerMask.GetMask("Label");
+        if (info.Sender.IsLocal) return;
+        interactionLayers = InteractionLayerMask.GetMask("Default");
+        interactionLayers &= ~InteractionLayerMask.GetMask("Label");
+    }
+
+    [PunRPC]
+    public void ChangeRigidbodySetting2(PhotonMessageInfo info)
+    {
+        isGrabInNetwork = false;
+        interactionLayers = InteractionLayerMask.GetMask("Default") | InteractionLayerMask.GetMask("Label");
+    }
+
 }
