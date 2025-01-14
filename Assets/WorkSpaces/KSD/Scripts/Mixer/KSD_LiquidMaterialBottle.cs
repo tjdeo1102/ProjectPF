@@ -89,9 +89,16 @@ public class KSD_LiquidMaterialBottle : MonoBehaviour
             if (particleSystemLiquid.isStopped)
             {
                 // 쏟는 액체의 색 변경
-                particleSystemLiquid.GetComponent<ParticleSystemRenderer>().material.SetColor("_BaseColor", potionColor);
+                var mat = particleSystemLiquid.GetComponent<ParticleSystemRenderer>().material;
+                mat.SetColor("_BaseColor", potionColor);
+                mat.SetColor("_EmissionColor", potionColor);
                 // 깨지는 액체의 색 변경
-                if (m_Breakable) particleSystemSplash.GetComponent<ParticleSystemRenderer>().material.SetColor("_BaseColor", potionColor);
+                if (m_Breakable)
+                {
+                    var mat2 = particleSystemSplash.GetComponent<ParticleSystemRenderer>().material;
+                    mat2.SetColor("_BaseColor", potionColor);
+                    mat2.SetColor("_EmissionColor", potionColor);
+                }
 
                 particleSystemLiquid.Play();
             }
@@ -112,12 +119,12 @@ public class KSD_LiquidMaterialBottle : MonoBehaviour
             gameObject.layer = 8;
             if (Physics.Raycast(particleSystemLiquid.transform.position, Vector3.down, out var hit, 50.0f, ~(1 << 8), QueryTriggerInteraction.Collide))
             {
-                if (hit.collider.TryGetComponent<KSD_ConcentrateBottle>(out var receiver))
+                if (hit.collider.transform.parent.TryGetComponent<KSD_ConcentrateBottle>(out var receiver))
                 {
                     receiver.ReceiveLiquidMaterial(Info, delta);
                     Debug.Log("받을 KSD_ConcentrateBottle를 찾음");
                 }
-                else if (hit.collider.TryGetComponent<KSD_LiquidMaterialBottle>(out var receiver2))
+                else if (hit.collider.transform.parent.TryGetComponent<KSD_LiquidMaterialBottle>(out var receiver2))
                 {
                     receiver2.ReceiveLiquidMaterial(Info, delta);
                     Debug.Log("받을 KSD_LiquidMaterialBottle를 찾음");
