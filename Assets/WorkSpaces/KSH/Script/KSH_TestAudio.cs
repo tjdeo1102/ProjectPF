@@ -4,20 +4,12 @@ using UnityEngine;
 
 public class KSH_TestAudio : MonoBehaviour
 {
-    private void Start()
+    private void Update()
     {
-        KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Button1);
-    }
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.A))
-        {
-            KSH_AudioManager.Instance.StopSfxLoop(KSH_AudioManager.Sfx.Button1);
-        }
-
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Button1);
+            KSH_EffectManager.Instance.PlayEffect(KSH_EffectManager.Effect.Fire_small, transform.position);
         }
     }
 }

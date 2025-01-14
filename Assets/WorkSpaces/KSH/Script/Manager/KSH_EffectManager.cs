@@ -12,7 +12,12 @@ public class KSH_EffectManager : MonoBehaviour
     private Dictionary<int, Queue<GameObject>> effectPools; // 오브젝트 풀
 
     // 이펙트 종류를 열거형 표시 추가 가능
-    public enum Effect { Fire }
+    public enum Effect 
+    {   Fire_small, Fire_big, Fire_small_smoke, Fire_big_smoke, Cauldron_smoke, Small_success,
+        Cauldron_fall, Make_success, Small_01, Small_02, Small_03, Small_04, Pong, Small_end,
+        Guest_feedback0, Guest_feedback1, Guest_feedback2, Guest_feedback3, Guest_success,
+        Guest_fail
+    }
     // 예시, 다른 이펙트 추가 가능
 
     private void Awake()

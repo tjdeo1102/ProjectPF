@@ -25,14 +25,13 @@ public class KSH_AudioManager : MonoBehaviour
 
     public enum Sfx
     {
-        Button1, Button2, Button3, Button4, Button5, Pick_fruit, Pick_scoop, Pick_clamp, Cut1, Knife, Cut2, 
-        Blender_in, Blender_Lid1, Blender_Lid2, Blender_handle, Blender_play, Blender_out, Mortar_in, Mortar_play,
-        Mortar_end, Mortar_out, Cauldron_in1, Cauldron_in2, Cauldron_change, Cauldron_fall,
-        Cauldron_coal, Pick_coal, Cauldron_fire1, Cauldron_fire2, Cauldron_fire3, Cauldron_boils, Cauldron_water,
-        Cauldron_clear, Cauldron_out, Tank_out, Tank_button, Dispenser_in, Dispenser_out, Perfume_success,
-        Perfume_fall, Guest_wait, Test1, Test2, Guest_feedback3, Guest_feedback2, Guest_feedback1, Guest_feedback0,
-        Pick_Bottle, Label_sign, Label_on, Guest_success, Guest_fall, Bill1, Bill2, Tablet_on, Tablet_click,
-        Tablet_cansel, Tablet_success, Tablet_fall, Furniture_on, Next_Stage
+        Button1, Button2, Button3, Button4, Button5, Pick_up, Pick_scoop, Pick_clamp, Cut, 
+        Blender_in, Blender_handle, Blender_play, Blender_out, Mortar_in, Mortar_play, Mortar_out,
+        Mix, Mix_success, Mix_fall, Scroll_on, Scroll_off, Cauldron_in, Cauldron_on, Cauldron_fire, Cauldron_boils,
+        Tank_out, Cauldron_success, Cauldron_fall, elevator_on, elevator_button, elevator_play, Cauldron_pop,
+        Dispenser_in, Dispenser_out, Test1, Test2, Guest_feedback, Pick_Bottle, Label_sign, Label_on,
+        Guest_success, Guest_fall, Bill1, Bill2, Tablet_on, Tablet_click, Tablet_success, Tablet_fall,
+        Furniture_on, Next_Stage
     } // 예시 효과음 종류 설정
 
     private void Awake()
