@@ -48,9 +48,19 @@ public class KSH_FragmentMaterial : MonoBehaviour
         position = transform.position;
     }
 
+    [PunRPC]
+    public void OnAudio()
+    {
+        KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Cut);
+    }
+
     public void OnSlices()
     {
         SliceCount++;
+        if (PhotonNetwork.IsMasterClient) // MasterClient만 RPC 호출
+        {
+            photonView.RPC(nameof(OnAudio), RpcTarget.All);
+        }
         // 모든 자식 오브젝트의 MeshRenderer 배열을 가져옵니다.
         meshRenderers = GetComponentsInChildren<MeshRenderer>(true);
         // 자식 MeshRenderer의 모든 Material을 부모 Material로 설정
@@ -65,7 +75,10 @@ public class KSH_FragmentMaterial : MonoBehaviour
         }
         if (SliceCount >= 3)
         {
-            photonView.RPC(nameof(FragmentMaterial), RpcTarget.All, position);
+            if (PhotonNetwork.IsMasterClient) // MasterClient만 RPC 호출
+            {
+                photonView.RPC(nameof(FragmentMaterial), RpcTarget.All, position);
+            }
         }
     }
 
@@ -74,12 +87,21 @@ public class KSH_FragmentMaterial : MonoBehaviour
     {
         material.DOFade(0, fadeDuration).OnComplete(() =>
         {
-            // KSH_EffectManager.Instance.PlayEffect(KSH_EffectManager.Effect.Fire, transform.position);
-            PhotonNetwork.Instantiate(fragmentMaterialName, pos, Quaternion.identity);
-
+            if (PhotonNetwork.IsMasterClient)
+            {
+                // KSH_EffectManager.Instance.PlayEffect(KSH_EffectManager.Effect.Fire, transform.position);
+                PhotonNetwork.Instantiate(fragmentMaterialName, pos, Quaternion.identity);
+            }
             DOVirtual.DelayedCall(1f, () =>
             {
-                PhotonNetwork.Destroy(gameObject);
+                if (photonView.IsMine)
+                {
+                    PhotonNetwork.Destroy(gameObject);
+                }
+                else if (PhotonNetwork.IsMasterClient)
+                {
+                    PhotonNetwork.Destroy(gameObject);
+                }
             });
         });
     }

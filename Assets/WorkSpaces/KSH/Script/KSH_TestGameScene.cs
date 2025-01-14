@@ -25,6 +25,6 @@ public class KSH_TestGameScene : MonoBehaviourPunCallbacks
 
     public void PlayerSpawn()
     {
-        PhotonNetwork.Instantiate("KSH_Player", Vector3.zero, Quaternion.identity);
+        PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
     }
 }

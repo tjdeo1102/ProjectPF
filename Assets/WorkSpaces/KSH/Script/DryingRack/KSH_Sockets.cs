@@ -1,8 +1,9 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using Photon.Pun;
 
-public class KSH_Sockets : MonoBehaviour
+public class KSH_Sockets : MonoBehaviourPun
 {
     [Header("건조 시간")]
     [SerializeField] private int duration;
@@ -68,13 +69,30 @@ public class KSH_Sockets : MonoBehaviour
             if (dryingRacks.Iscolor == false)
             {
                 other.gameObject.layer = 9;
-                FragmentMaterial(other.gameObject, dryingRacks);
+                int viewID = other.GetComponent<PhotonView>().ViewID;
+                Debug.Log(viewID);
+                photonView.RPC("RPC_FragmentMaterial", RpcTarget.All, viewID);
             }
         }
     }
-
-    private void FragmentMaterial(GameObject other, KSH_DryingRacks dryingRacks)
+    [PunRPC]
+    private void RPC_FragmentMaterial(int objectViewID) //GameObject other, KSH_DryingRacks dryingRacks)
     {
+        GameObject other = PhotonView.Find(objectViewID).gameObject;
+        Debug.Log(other);
+        if (other == null)
+        {
+            Debug.Log("오브젝트를 찾을 수 없습니다.");
+            return;
+        }
+
+        KSH_DryingRacks dryingRacks = other.GetComponent<KSH_DryingRacks>();
+        if (dryingRacks == null)
+        {
+            Debug.Log($"dryingRacks가 없는 오브젝트: {other.gameObject.name}");
+            return;
+        }
+
         // 부모 오브젝트의 모든 자식 순회
         Renderer[] childRenderers = other.GetComponentsInChildren<Renderer>();
 
