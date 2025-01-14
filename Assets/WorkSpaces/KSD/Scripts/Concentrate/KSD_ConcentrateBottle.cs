@@ -200,6 +200,11 @@ public class KSD_ConcentrateBottle : MonoBehaviourPun
         {
             if (particleSystemLiquid.isStopped)
             {
+                // 쏟는 액체의 색 변경
+                particleSystemLiquid.GetComponent<ParticleSystemRenderer>().material.SetColor("_BaseColor", potionColor);
+                // 깨지는 액체의 색 변경
+                if (m_Breakable) particleSystemSplash.GetComponent<ParticleSystemRenderer>().material.SetColor("_BaseColor", potionColor);
+
                 particleSystemLiquid.Play();
             }
 
