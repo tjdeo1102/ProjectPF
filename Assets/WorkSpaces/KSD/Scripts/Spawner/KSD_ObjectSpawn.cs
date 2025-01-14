@@ -12,7 +12,7 @@ public class KSD_ObjectSpawn : MonoBehaviour
     [SerializeField] private Collider spawnArea;
     [SerializeField] private int objectMaxCount = 3;
 
-    private string objectName;
+    private GameObject exitObject;
     private Coroutine exitObjectRoutine;
     private float spawnDelay = 1f;
     private float timer;
@@ -24,7 +24,11 @@ public class KSD_ObjectSpawn : MonoBehaviour
         if (PhotonNetwork.IsMasterClient == false) return;
 
         objects = new List<GameObject>();
-        SpawnObject();
+        // 최대치만큼 오브젝트 생성
+        for (int i = 0; i < objectMaxCount; i++)
+        {
+            SpawnObject();
+        }
     }
 
     private void Update()
@@ -43,11 +47,11 @@ public class KSD_ObjectSpawn : MonoBehaviour
         // 방장이 스폰 여부 체크 (서버)
         if (PhotonNetwork.InRoom == false || PhotonNetwork.IsMasterClient == false) return;
 
-        // 태그 비교보다는 이름 비교를 통해 판단 (태그 수 관리)
-        if (objectName == other.name && exitObjectRoutine == null)
+        if (objects.Contains(other.gameObject) && exitObjectRoutine == null)
         {
             // 나간 직후부터 코루틴 실행
             exitObjectRoutine = StartCoroutine(ExitObjectRoutine());
+            exitObject = other.gameObject;
             timer = spawnDelay;
         }
     }
@@ -56,11 +60,12 @@ public class KSD_ObjectSpawn : MonoBehaviour
     {
         // 나가고 일정 시간안에 다시 원래 재료가 들어온 경우에는 코루틴 종료
         if (exitObjectRoutine != null 
-            && other.name == objectName
+            && other.gameObject == exitObject
             && timer > 0f)
         {
             StopCoroutine(exitObjectRoutine);
             exitObjectRoutine = null;
+            exitObject = null;
         }
     }
 
@@ -81,7 +86,6 @@ public class KSD_ObjectSpawn : MonoBehaviour
             PhotonNetwork.Destroy(objects[0]);
             objects.RemoveAt(0);
         }
-        objectName = obj.name;
     }
 
     private IEnumerator ExitObjectRoutine()

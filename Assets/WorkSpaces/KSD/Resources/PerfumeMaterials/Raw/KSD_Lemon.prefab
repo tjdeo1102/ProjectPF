@@ -125,7 +125,7 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
   - {fileID: 3694484390344212197}
@@ -328,7 +328,8 @@ MonoBehaviour:
   fragmentMaterial: {fileID: 512128997002121614, guid: 9eb17d95998bf2e428511017014a2e92, type: 3}
   fragmentMaterialName: 
   material: {fileID: 2100000, guid: 8a87a3521873741428438ff9ad64100f, type: 2}
-  meshRenderers: []
+  meshRenderers:
+  - {fileID: 3293876135781663288}
   fadeDuration: 2
 --- !u!114 &3235253007954369001
 MonoBehaviour:
@@ -344,7 +345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sliceOptions:
     enableReslicing: 1
-    maxResliceCount: 1
+    maxResliceCount: 10
     detectFloatingFragments: 0
     insideMaterial: {fileID: 0}
     textureScale: {x: 1, y: 1}
