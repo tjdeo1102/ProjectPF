@@ -58,7 +58,7 @@ public class KSD_AlcholController : MonoBehaviourPun
         gameObject.layer = 8;
         if (Physics.Raycast(outputParticle.transform.position, Vector3.down, out var hit, 50.0f, ~(1 << 8), QueryTriggerInteraction.Collide))
         {
-            if (hit.collider.TryGetComponent<KSD_ConcentrateBottle>(out var receiver))
+            if (hit.collider.transform.parent.TryGetComponent<KSD_ConcentrateBottle>(out var receiver))
             {
                 receiver.ReceiveConcentrate(alcholInfo, Time.deltaTime / outputLiquidTimer);
                 Debug.Log("받을 KSD_ConcentrateBottle를 찾음");
