@@ -237,8 +237,7 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
         orderPopUpRoutine = null;
     }
 
-    [PunRPC]
-    private void RPC_ClearBasket()
+    private void ClearBasket()
     {
         foreach (var basketItem in basketNames)
         {
@@ -293,7 +292,7 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
         yield return new WaitForSeconds(5);
 
         buyPopUp.gameObject.SetActive(false);
-        photonView.RPC("RPC_ClearBasket", RpcTarget.All);
+        ClearBasket();
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
