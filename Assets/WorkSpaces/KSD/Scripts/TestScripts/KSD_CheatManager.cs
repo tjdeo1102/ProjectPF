@@ -87,7 +87,7 @@ public class KSD_CheatManager : MonoBehaviourPunCallbacks
 
     public void ReloadGame()
     {
-        gameManager.Quit(false, false, false);
+        gameManager.Quit(false, false, true);
     }
 
 
