@@ -179,7 +179,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
@@ -958,7 +958,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1557261607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2363,7 +2363,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &682406174380329682
 Transform:
   m_ObjectHideFlags: 0
@@ -2713,7 +2713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd014363788775a4582c3b2b666fa4e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sourceHandleElec: {fileID: 5642844177934635734}
+  handleElec: {fileID: 5642844177934635734}
   targetKnob: {fileID: 835925791139432849}
 --- !u!1 &865691439139228326
 GameObject:
@@ -4198,6 +4198,8 @@ MonoBehaviour:
   camera: {fileID: 2210988548421931915}
   audioListener: {fileID: 2210988548421931913}
   trackedPoseDriver: {fileID: 5246740454465095791}
+  locomotonObject: {fileID: 0}
+  skinRenderer: {fileID: 0}
   leftController: {fileID: 2210988547807097832}
   rightController: {fileID: 2210988548536824584}
   leftControllerManager: {fileID: 6692521010093735837}
@@ -9825,6 +9827,7 @@ MonoBehaviour:
   secondaryKnobThreshold: 5
   knobMaxValue: 30
   isSecondHandleActive: 0
+  isCheatModeActive: 0
 --- !u!33 &5649226429636123081
 MeshFilter:
   m_ObjectHideFlags: 0
