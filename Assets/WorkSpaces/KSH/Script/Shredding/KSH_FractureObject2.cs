@@ -98,37 +98,14 @@ public class KSH_FractureObject2 : MonoBehaviour
 
         if (!isfrags)
         {
-            // 모든 메인 MeshRenderer를 비활성화
-            foreach (var renderer in meshRenderer)
-            {
-                renderer.enabled = false;
-            }
-
-            // 모든 파편 오브젝트 활성화
-            foreach (var frag in frags)
-            {
-                frag.SetActive(true);
-            }
-
-            // 자식 MeshRenderer의 모든 Material을 부모 Material로 설정
-            foreach (var childRenderer in meshRenderers)
-            {
-                Material[] childMaterials = childRenderer.materials;
-                for (int i = 0; i < childMaterials.Length; i++)
-                {
-                    // 공유된 mainMaterial 사용
-                    childMaterials[i] = copiedMaterial;
-                }
-                childRenderer.materials = childMaterials;
-            }
+            photonView.RPC(nameof(RPC_SetGameObject), RpcTarget.All);
             isfrags = true;
         }
 
         // 충돌 횟수가 각 단계(2, 4, 6)에 도달할 때마다 새로운 파편 활성화
         if (collisionCount >= (currentFragIndex + 1) * collisionThreshold && currentFragIndex < frags.Length)
         {
-            ActivateFragment(currentFragIndex);
-            currentFragIndex++; // 다음 파편 활성화를 위해 인덱스 증가
+            photonView.RPC(nameof(RPC_ActivateFragment), RpcTarget.All, currentFragIndex);
 
             // 모든 파괴 오브젝트가 활성화되었는지 확인하고 페이드아웃 시작
             if (currentFragIndex == frags.Length && !isFadingOut)
@@ -145,18 +122,28 @@ public class KSH_FractureObject2 : MonoBehaviour
         isFadingOut = true;
         copiedMaterial.DOFade(0, fadeDuration).OnComplete(() =>
         {
-            // 사라진 위치에 새로운 오브젝트 생성
-            PhotonNetwork.Instantiate(powderRawMaterialsName, pos, Quaternion.identity);
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.Instantiate(powderRawMaterialsName, pos, Quaternion.identity);
+            }
 
             // 일정 시간 후 오브젝트 삭제
             DOVirtual.DelayedCall(1f, () => {
-                PhotonNetwork.Destroy(gameObject);
+                if (photonView.IsMine)
+                {
+                    PhotonNetwork.Destroy(gameObject);
+                }
+                else if (PhotonNetwork.IsMasterClient)
+                {
+                    PhotonNetwork.Destroy(gameObject);
+                }
             });
         });
     }
 
     // 특정 파편 오브젝트를 활성화하고 자식 Rigidbody들의 isKinematic을 false로 설정
-    private void ActivateFragment(int index)
+    [PunRPC]
+    private void RPC_ActivateFragment(int index)
     {
         if (index >= frags.Length) return;
 
@@ -166,30 +153,59 @@ public class KSH_FractureObject2 : MonoBehaviour
         {
             rb.isKinematic = false; // 물리 효과 적용 가능
         }
+        currentFragIndex++; // 다음 파편 활성화를 위해 인덱스 증가
     }
 
-//    // 페이드아웃 효과를 처리하는 코루틴
-//    IEnumerator FadeOut()
-//    {
-//        float alpha = 1; // 시작 알파 값
-//        Color color = meshRenderers[0].material.color; // 첫 번째 Material의 초기 색상
+    [PunRPC]
+    private void RPC_SetGameObject()
+    {
+        // 모든 메인 MeshRenderer를 비활성화
+        foreach (var renderer in meshRenderer)
+        {
+            renderer.enabled = false;
+        }
 
-//        // 알파 값이 0이 될 때까지 반복
-//        while (alpha > 0)
-//        {
-//            color.a = alpha; // 알파 값을 업데이트
+        // 모든 파편 오브젝트 활성화
+        foreach (var frag in frags)
+        {
+            frag.SetActive(true);
+        }
 
-//            // 모든 자식 MeshRenderer의 Material 색상을 업데이트
-//            foreach (MeshRenderer renderer in meshRenderers)
-//            {
-//                foreach (Material mat in renderer.materials)
-//                {
-//                    mat.color = color;
-//                }
-//            }
+        // 자식 MeshRenderer의 모든 Material을 부모 Material로 설정
+        foreach (var childRenderer in meshRenderers)
+        {
+            Material[] childMaterials = childRenderer.materials;
+            for (int i = 0; i < childMaterials.Length; i++)
+            {
+                // 공유된 mainMaterial 사용
+                childMaterials[i] = copiedMaterial;
+            }
+            childRenderer.materials = childMaterials;
+        }
+    }
 
-//            alpha -= 0.04f; // 알파 값을 감소
-//            yield return fadeDelay; // 대기
-//        }
-//    }
+    //    // 페이드아웃 효과를 처리하는 코루틴
+    //    IEnumerator FadeOut()
+    //    {
+    //        float alpha = 1; // 시작 알파 값
+    //        Color color = meshRenderers[0].material.color; // 첫 번째 Material의 초기 색상
+
+    //        // 알파 값이 0이 될 때까지 반복
+    //        while (alpha > 0)
+    //        {
+    //            color.a = alpha; // 알파 값을 업데이트
+
+    //            // 모든 자식 MeshRenderer의 Material 색상을 업데이트
+    //            foreach (MeshRenderer renderer in meshRenderers)
+    //            {
+    //                foreach (Material mat in renderer.materials)
+    //                {
+    //                    mat.color = color;
+    //                }
+    //            }
+
+    //            alpha -= 0.04f; // 알파 값을 감소
+    //            yield return fadeDelay; // 대기
+    //        }
+    //    }
 }
