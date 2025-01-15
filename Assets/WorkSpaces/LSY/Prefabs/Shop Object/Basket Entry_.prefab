@@ -829,7 +829,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 196, y: -51}
+  m_AnchoredPosition: {x: 270.2, y: -51}
   m_SizeDelta: {x: 128, y: 36.45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5408613276620350890
@@ -894,7 +894,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 4
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -962,8 +962,6 @@ GameObject:
   - component: {fileID: 2806077793070464204}
   - component: {fileID: 5695158733877360650}
   - component: {fileID: 3223019515821475393}
-  - component: {fileID: 8205992371374252152}
-  - component: {fileID: 7172730151752618265}
   m_Layer: 5
   m_Name: Item Explain Image
   m_TagString: Untagged
@@ -1034,50 +1032,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8205992371374252152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8648882694363671740}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!114 &7172730151752618265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8648882694363671740}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6bc09891af034f48b3b087735a49a3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  deleteButton: {fileID: 0}
-  itemName: 
-  itemPrice: 0
-  itemExplain: 
-  item: {fileID: 0}
-  itemGameObekct: {fileID: 0}
-  itemImage: {fileID: 1360502836008328724}
-  itemNameText: {fileID: 4164962019436366278}
-  itemPriceText: {fileID: 2893790687106566675}
-  itemExplainText: {fileID: 2030481535903784326}
 --- !u!1 &8912043098708292340
 GameObject:
   m_ObjectHideFlags: 0

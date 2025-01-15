@@ -22,7 +22,6 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
 
     [Header("Content")]
     [SerializeField] Transform decorationContent;
-    [SerializeField] Transform furnitureContent;
     [SerializeField] Transform basketContent;
 
     [Header("패널 및 최종가격 텍스트")]
@@ -61,7 +60,6 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
     private void Initialize()
     {
         InitializeItemPanels(decorationContent);
-        InitializeItemPanels(furnitureContent);
         InitializeBasketPanels();
 
         playerMoneyText.text = "$" + KSD_GameManager.Instance.CurrentStageInfo.StageMoney;
