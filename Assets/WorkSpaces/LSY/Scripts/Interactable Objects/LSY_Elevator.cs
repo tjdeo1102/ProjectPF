@@ -77,6 +77,7 @@ public class LSY_Elevator : MonoBehaviourPun
 
     private void MoveElevator(Vector3 direction)
     {
+        Debug.Log("aa");
         KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.elevator_play);
         transform.position += direction * moveSpeed * Time.deltaTime;
     }

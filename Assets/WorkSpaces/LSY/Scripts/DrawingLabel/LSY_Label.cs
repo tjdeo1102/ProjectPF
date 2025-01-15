@@ -37,8 +37,8 @@ public class LSY_Label : MonoBehaviourPun
     public void RPC_DoneButton()
     {
         gameObject.transform.localScale = new Vector3(0.3038756f, 0.3038756f, 0.3038756f);
-        gameObject.transform.rotation = Quaternion.Euler(0, 0, 90);
         gameObject.transform.position = setPoint.position;
+        gameObject.transform.rotation = setPoint.rotation;
 
         doneButton.gameObject.SetActive(false);
         grabWhiteBoard.enabled = true;

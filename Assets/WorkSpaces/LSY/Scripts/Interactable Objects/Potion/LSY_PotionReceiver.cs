@@ -129,6 +129,7 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
 
         if (KSD_PerfumeManager.Instance.IsValidPerfumeRecipe(perfumeNoteInfoLists, out var res))
         {
+            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Success);
             resInfo = new KSD_PerfumeInfo();
             resInfo.Name = res.Name;
 
@@ -166,6 +167,7 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
 
     private void FusionFail()
     {
+        KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Fail);
         done = 2;
         perfumeClear = true;
         resInfo = new KSD_PerfumeInfo();
@@ -293,6 +295,7 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
         {
             if (particleSystemSplash != null)
             {
+                KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Break);
                 fillAmount = 0f;
                 particleSystemSplash.gameObject.SetActive(true);
                 photonView.RPC("PlaySplashParticle", RpcTarget.All);

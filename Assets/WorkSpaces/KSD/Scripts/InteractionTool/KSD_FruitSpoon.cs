@@ -65,12 +65,14 @@ public class KSD_FruitSpoon : MonoBehaviour
             if (fruit.fruitInfo.State == PerfumeMaterialState.Raw
                 && fruit.fruitInfo.Type == PerfumeMaterialType.Small)
             {
+                KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Pick_scoop);
                 grabObject = fruit;
             }
             // 허브 가루들도 가져갈 수 있도록 만들기
             else if (fruit.fruitInfo.State == PerfumeMaterialState.Process
                 && fruit.fruitInfo.Type == PerfumeMaterialType.Hub)
             {
+                KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Mortar_out);
                 grabObject = fruit;
             }
         }
