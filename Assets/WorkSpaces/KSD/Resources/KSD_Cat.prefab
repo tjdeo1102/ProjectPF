@@ -10617,6 +10617,8 @@ GameObject:
   - component: {fileID: 6740189216449284842}
   - component: {fileID: 2556458129812958399}
   - component: {fileID: 6734725076637859922}
+  - component: {fileID: 727601224379134440}
+  - component: {fileID: 3781593999792890908}
   m_Layer: 2
   m_Name: KSD_Cat
   m_TagString: Untagged
@@ -10813,6 +10815,31 @@ MonoBehaviour:
   leftControllerManager: {fileID: 2289632193391694217}
   rightControllerManager: {fileID: 1374661301692702114}
   animator: {fileID: 7223559393348098225}
+--- !u!114 &727601224379134440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5358879984052708549}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 126494ae2a10a34499272ed97a6c9f5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3781593999792890908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5358879984052708549}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05c3476f13b3dab4db444aed65ad00b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speaker: {fileID: 0}
 --- !u!1 &5393572137306777763
 GameObject:
   m_ObjectHideFlags: 0
@@ -13907,7 +13934,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.01
-  far clip plane: 1000
+  far clip plane: 400
   field of view: 60
   orthographic: 0
   orthographic size: 5
