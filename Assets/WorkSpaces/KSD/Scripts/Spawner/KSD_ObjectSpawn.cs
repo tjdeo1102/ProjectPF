@@ -9,7 +9,7 @@ public class KSD_ObjectSpawn : MonoBehaviour
 {
     [SerializeField] private float respawnCoolTime = 1f;
     [SerializeField] private string objectPath = "";
-    [SerializeField] private Collider spawnArea;
+    [SerializeField] private Transform spawnPosition;
     [SerializeField] private int objectMaxCount = 3;
     [SerializeField] private bool isMaxSpawn = true;
 
@@ -79,15 +79,15 @@ public class KSD_ObjectSpawn : MonoBehaviour
 
     private void SpawnObject()
     {
-        // 랜덤 위치 계산
-        Vector3 randomPosition = new Vector3(
-            Random.Range(spawnArea.bounds.min.x, spawnArea.bounds.max.x),
-            spawnArea.transform.position.y,
-            Random.Range(spawnArea.bounds.min.z, spawnArea.bounds.max.z)
-        );
+        //// 랜덤 위치 계산
+        //Vector3 randomPosition = new Vector3(
+        //    Random.Range(spawnArea.bounds.min.x, spawnArea.bounds.max.x),
+        //    spawnArea.transform.position.y,
+        //    Random.Range(spawnArea.bounds.min.z, spawnArea.bounds.max.z)
+        //);
 
         // 재료 생성
-        var obj = PhotonNetwork.Instantiate(objectPath, randomPosition, Quaternion.identity);
+        var obj = PhotonNetwork.Instantiate(objectPath, spawnPosition.position, Quaternion.identity);
         objects.Add(obj);
         if (objects.Count > objectMaxCount)
         {
