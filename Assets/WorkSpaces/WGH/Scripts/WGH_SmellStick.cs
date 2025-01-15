@@ -62,6 +62,7 @@ public class WGH_SmellStick : MonoBehaviourPun
             customer = interactArea.GetComponentInParent<WGH_NPCController>().gameObject;
             judgeCurLate = 0f;
             shakeRoutine = StartCoroutine(ShakeRoutine());
+            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Test2);
         }
     }
 
@@ -93,6 +94,7 @@ public class WGH_SmellStick : MonoBehaviourPun
             }
             if (judgeCurLate >= judgeAmount)
             {
+                KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Guest_feedback);
                 React();
                 judgeCurLate = 0;
                 OffEffect();

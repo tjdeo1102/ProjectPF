@@ -30,6 +30,7 @@ public class WGH_InteractionNote : MonoBehaviourPun
     public void SmellStickOff(SelectEnterEventArgs arg)
     {
         SmellStick.OffEffect();
+        KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Test1);
         photonView.RPC("OnPongEffect", RpcTarget.All);
         photonView.RPC("ChangeNote", RpcTarget.All);
     }
