@@ -36,7 +36,7 @@ public class LSY_GrabWhiteBoard : XRGrabInteractable
             boxCollider.enabled = true;
             meshCollider.enabled = false;
             setLabel = true;
-            PhotonNetwork.Instantiate("Label", spawnTransform.position, spawnTransform.rotation);
+            PhotonNetwork.Instantiate("Label_", spawnTransform.position,  new Quaternion(0, -0.611637473f, 0, 0.791138232f));
         }
         if (isGrabInNetwork == false)
         {
