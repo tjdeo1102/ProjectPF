@@ -2,6 +2,7 @@ using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LSY_Bucket : MonoBehaviourPun, IPunObservable
@@ -36,6 +37,8 @@ public class LSY_Bucket : MonoBehaviourPun, IPunObservable
     Color potionColor;
     Color linePotionColor;
 
+    bool isSoundPlaying = false;
+
     void OnEnable()
     {
         particleSystemLiquid.Stop();
@@ -59,6 +62,26 @@ public class LSY_Bucket : MonoBehaviourPun, IPunObservable
         cauldronController.ResetState();
     }
 
+    [PunRPC]
+    public void SoundPlay(int num)
+    {
+        KSH_AudioManager.Instance.PlaySfx((KSH_AudioManager.Sfx)num);
+    }
+
+    [PunRPC]
+    public void SoundStop(int num)
+    {
+        KSH_AudioManager.Instance.StopSfxLoop((KSH_AudioManager.Sfx)num);
+    }
+
+    Coroutine bucketSoundRoutine;
+    IEnumerator BucketSoundRoutine()
+    {
+        photonView.RPC("SoundPlay", RpcTarget.All, 32);
+        bucketSoundRoutine = null;
+        yield return new WaitForSeconds(1f);
+    }
+
     void Update()
     {
         if (fillAmount == 1 && resetCauldron == false)
@@ -66,14 +89,20 @@ public class LSY_Bucket : MonoBehaviourPun, IPunObservable
             resetCauldron = true;
             Debug.Log("가마솥 리셋");
             cauldronController.ResetState();
-            KSH_AudioManager.Instance.StopSfxLoop(KSH_AudioManager.Sfx.Cauldron_pop);
+            photonView.RPC("SoundStop", RpcTarget.All, 31);
         }
 
         // 양동이가 기울어져 있고 & 액체가 들어있어야 하고 & 현재 노트가 Null이 아니여야 함
         if (Vector3.Dot(transform.up, Vector3.down) > 0 && fillAmount > 0 && currentPerfumeNote.Name != PerfumeNoteName.Null)
         {
-            // 소리가 아예 안나옴
-            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Dispenser_in);
+            if (!isSoundPlaying)
+            {
+                if (bucketSoundRoutine == null)
+                {
+                    bucketSoundRoutine = StartCoroutine(BucketSoundRoutine());
+                    isSoundPlaying = true; 
+                }
+            }
 
             if (particleSystemLiquid.isStopped)
             {
@@ -121,11 +150,21 @@ public class LSY_Bucket : MonoBehaviourPun, IPunObservable
         }
         else
         {
+            if (isSoundPlaying)
+            {
+                Debug.Log("소리 멈춤");
+                if (bucketSoundRoutine != null)
+                {
+                    photonView.RPC("SoundStop", RpcTarget.All, 32);
+                    StopCoroutine(bucketSoundRoutine);
+                    bucketSoundRoutine = null;
+                }
+                isSoundPlaying = false; 
+            }
             particleSystemLiquid.Stop();
-            KSH_AudioManager.Instance.StopSfxLoop(KSH_AudioManager.Sfx.Dispenser_in);
         }
 
-        if (fillAmount < 0)
+        if (fillAmount <= 0)
         {
             fillAmount = 0;
             m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
@@ -192,7 +231,7 @@ public class LSY_Bucket : MonoBehaviourPun, IPunObservable
         {
             if (fillBucketRoutine != null)
             {
-                KSH_AudioManager.Instance.StopSfxLoop(KSH_AudioManager.Sfx.Cauldron_pop);
+                photonView.RPC("SoundStop", RpcTarget.All, 31);
                 StopCoroutine(fillBucketRoutine);
                 isFilling = false;
                 fillBucketRoutine = null;

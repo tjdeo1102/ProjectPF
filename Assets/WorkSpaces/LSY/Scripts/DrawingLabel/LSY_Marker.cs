@@ -18,6 +18,8 @@ public class LSY_Marker : MonoBehaviourPun
     Vector2 lastTouchPos;
     Quaternion lastTouchRot;
 
+    bool soundSent = false;
+
     private void Start()
     {
         renderer = tip.GetComponent<Renderer>();
@@ -52,10 +54,19 @@ public class LSY_Marker : MonoBehaviourPun
 
                 if (y < 0 || whiteBoard.textureSize.y < y || x < 0 || whiteBoard.textureSize.x < x)
                 {
-                  //  KSH_AudioManager.Instance.StopSfxLoop(KSH_AudioManager.Sfx.Label_sign);
+                    if (touchLastFrame && soundSent)
+                    {
+                        photonView.RPC("Sound", RpcTarget.All, false);
+                        soundSent = false; 
+                    }
                     return;
                 }
 
+                if (!touchLastFrame && !soundSent)
+                {
+                    photonView.RPC("Sound", RpcTarget.All, true);
+                    soundSent = true; 
+                }
 
                 if (touchLastFrame)
                 {
@@ -71,18 +82,11 @@ public class LSY_Marker : MonoBehaviourPun
                     transform.rotation = lastTouchRot;
 
                     whiteBoard.texture.Apply();
-
-                }
-                else
-                {
-                  //  KSH_AudioManager.Instance.StopSfxLoop(KSH_AudioManager.Sfx.Label_sign);
                 }
 
                 lastTouchPos = new Vector2(x, y);
                 lastTouchRot = transform.rotation;
                 touchLastFrame = true;
-
-              //  KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Label_sign);
 
                 float[] colorValues = new float[] {
                     renderer.material.color.r,
@@ -92,15 +96,39 @@ public class LSY_Marker : MonoBehaviourPun
                 };
                 whiteBoard.photonView.RPC("Pun_UpdateTexture", RpcTarget.All, (int)x, (int)y, penSize, penSize, colorValues);
                 return;
-
             }
             else
             {
-              //  KSH_AudioManager.Instance.StopSfxLoop(KSH_AudioManager.Sfx.Label_sign);
+                if (touchLastFrame && soundSent)
+                {
+                    photonView.RPC("Sound", RpcTarget.All, false);
+                    soundSent = false;  
+                }
+            }
+        }
+        else
+        {
+            if (touchLastFrame && soundSent)
+            {
+                photonView.RPC("Sound", RpcTarget.All, false);
+                soundSent = false;  
             }
         }
 
         whiteBoard = null;
         touchLastFrame = false;
+    }
+
+    [PunRPC]
+    public void Sound(bool on)
+    {
+        if (on)
+        {
+            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Label_sign);
+        }
+        else
+        {
+            KSH_AudioManager.Instance.StopSfxLoop(KSH_AudioManager.Sfx.Label_sign);
+        }
     }
 }

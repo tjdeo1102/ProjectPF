@@ -206,7 +206,7 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
         {
             if (orderPopUpRoutine == null)
             {
-                KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Tablet_fall);
+                photonView.RPC("Sound", RpcTarget.All, 47);
                 orderPopUpRoutine = StartCoroutine(OrderPopUpRoutine(order_BasketCount_PopUp));
             }
             return;
@@ -216,7 +216,7 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
         {
             if (orderPopUpRoutine == null)
             {
-                KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Tablet_fall);
+                photonView.RPC("Sound", RpcTarget.All, 47);
                 orderPopUpRoutine = StartCoroutine(OrderPopUpRoutine(order_PlayerMoney_PopUp));
             }
             return;
@@ -224,9 +224,15 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
 
         if (basketItems.Count > 0)
         {
-            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Tablet_success);
+            photonView.RPC("Sound", RpcTarget.All, 46);
             StartCoroutine(BuyRoutine());
         }
+    }
+
+    [PunRPC]
+    public void Sound(int sound)
+    {
+        KSH_AudioManager.Instance.PlaySfx((KSH_AudioManager.Sfx)sound);
     }
 
     Coroutine orderPopUpRoutine;

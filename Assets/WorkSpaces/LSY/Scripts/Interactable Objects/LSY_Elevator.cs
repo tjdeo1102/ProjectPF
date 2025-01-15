@@ -28,6 +28,9 @@ public class LSY_Elevator : MonoBehaviourPun
 
     private IReadOnlyBindableVariable<PokeStateData> upButtonPokeStateData;
 
+    private bool isElevatorMovingUp = false;
+    private bool isElevatorMovingDown = false;
+
     void Start()
     {
         playerIn = false;
@@ -46,45 +49,58 @@ public class LSY_Elevator : MonoBehaviourPun
             return;
         }
 
-
         if (playerIn) return;
 
         if (upButtonPokeStateData.Value.interactionStrength > pressForce || isLiftUp)
         {
             if (transform.position.y > maxHeight)
             {
-                KSH_AudioManager.Instance.StopSfxLoop(KSH_AudioManager.Sfx.elevator_play);
-                return; 
+                photonView.RPC("SoundStop", RpcTarget.All, 30);
+                return;
             }
+
             if (!isButtonOn)
             {
-                KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.elevator_button);
+                photonView.RPC("SoundPlay", RpcTarget.All, 29);
                 isButtonOn = true;
             }
+
             MoveElevator(Vector3.up);
         }
         else
         {
             isButtonOn = false;
+
             if (transform.position.y <= initialPosition.y + 0.01f)
             {
-                KSH_AudioManager.Instance.StopSfxLoop(KSH_AudioManager.Sfx.elevator_play);
-                return; 
+                photonView.RPC("SoundStop", RpcTarget.All, 30);
+                return;
             }
+
             MoveElevator(Vector3.down);
         }
     }
 
     private void MoveElevator(Vector3 direction)
     {
-        Debug.Log("aa");
-        KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.elevator_play);
+        if (direction == Vector3.up && !isElevatorMovingUp)
+        {
+            photonView.RPC("SoundPlay", RpcTarget.All, 30);
+            isElevatorMovingUp = true;
+            isElevatorMovingDown = false;
+        }
+        else if (direction == Vector3.down && !isElevatorMovingDown)
+        {
+            photonView.RPC("SoundPlay", RpcTarget.All, 30);
+            isElevatorMovingUp = false;
+            isElevatorMovingDown = true;
+        }
+
         transform.position += direction * moveSpeed * Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-
         Debug.Log("물체 들어옴");
         if (other.gameObject.CompareTag("Player"))
         {
@@ -100,7 +116,6 @@ public class LSY_Elevator : MonoBehaviourPun
 
     private void OnTriggerExit(Collider other)
     {
-
         Debug.Log("물체 나감");
         if (other.gameObject.CompareTag("Player"))
         {
@@ -109,5 +124,23 @@ public class LSY_Elevator : MonoBehaviourPun
         }
         if (other.gameObject.CompareTag("Bucket") && other.GetComponent<Rigidbody>() != null)
             other.GetComponent<Rigidbody>().useGravity = true;
+    }
+
+    [PunRPC]
+    public void SoundPlay(int num)
+    {
+        KSH_AudioManager.Instance.PlaySfx((KSH_AudioManager.Sfx)num);
+    }
+
+    [PunRPC]
+    public void SoundStop(int num)
+    {
+        KSH_AudioManager.Instance.StopSfxLoop((KSH_AudioManager.Sfx)num);
+
+        if (num == 30)
+        {
+            isElevatorMovingUp = false;
+            isElevatorMovingDown = false;
+        }
     }
 }

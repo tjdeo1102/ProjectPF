@@ -13,6 +13,7 @@ public class LSY_GrabWhiteBoard : XRGrabInteractable
     Quaternion originRotation;
     private bool isGrabInNetwork;
     [SerializeField] public Transform spawnTransform;
+    PhotonView photonView;
 
     bool setLabel = false;
 
@@ -20,14 +21,22 @@ public class LSY_GrabWhiteBoard : XRGrabInteractable
     {
         enabled = false;
         rb = GetComponent<Rigidbody>();
+        photonView = GetComponent<PhotonView>();
     }
+
+    [PunRPC]
+    public void RPC_Sound()
+    {
+        KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Label_on);
+    }
+
 
     protected override void OnSelectEntering(SelectEnterEventArgs args)
     {
         base.OnSelectEntering(args);
         if (args.interactorObject is XRSocketInteractor)
         {
-            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Label_on);
+            photonView.RPC("RPC_Sound", RpcTarget.All);
             return;
         }
         PhotonView interactablePV = args.interactableObject.transform.GetComponent<PhotonView>();
