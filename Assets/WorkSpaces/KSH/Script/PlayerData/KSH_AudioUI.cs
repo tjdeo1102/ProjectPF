@@ -13,9 +13,9 @@ public class KSH_AudioUI : MonoBehaviour
     void Start()
     {
         // AudioManager에서 초기값 가져와 슬라이더에 설정
-        masterVolumeSlider.value = Mathf.Pow(10, KSH_AudioManager.Instance.GetMasterVolume() / 20f);
-        bgmVolumeSlider.value = Mathf.Pow(10, KSH_AudioManager.Instance.GetBgmVolume() / 20f);
-        sfxVolumeSlider.value = Mathf.Pow(10, KSH_AudioManager.Instance.GetSfxVolume() / 20f);
+        masterVolumeSlider.value = KSH_PlayerData.PlayerSaveData.AudioVolume;
+        bgmVolumeSlider.value = KSH_PlayerData.PlayerSaveData.BGMVolume;
+        sfxVolumeSlider.value = KSH_PlayerData.PlayerSaveData.EffectVolume;
 
         // 슬라이더 값 변경 이벤트 등록
         masterVolumeSlider.onValueChanged.AddListener(OnMasterVolumeChanged);
