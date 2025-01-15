@@ -11,6 +11,7 @@ public class KSD_ObjectSpawn : MonoBehaviour
     [SerializeField] private string objectPath = "";
     [SerializeField] private Collider spawnArea;
     [SerializeField] private int objectMaxCount = 3;
+    [SerializeField] private bool isMaxSpawn = true;
 
     private GameObject exitObject;
     private Coroutine exitObjectRoutine;
@@ -24,8 +25,15 @@ public class KSD_ObjectSpawn : MonoBehaviour
         if (PhotonNetwork.IsMasterClient == false) return;
 
         objects = new List<GameObject>();
-        // 최대치만큼 오브젝트 생성
-        for (int i = 0; i < objectMaxCount; i++)
+        if (isMaxSpawn == true)
+        {
+            // 최대치만큼 오브젝트 생성
+            for (int i = 0; i < objectMaxCount; i++)
+            {
+                SpawnObject();
+            }
+        }
+        else
         {
             SpawnObject();
         }
