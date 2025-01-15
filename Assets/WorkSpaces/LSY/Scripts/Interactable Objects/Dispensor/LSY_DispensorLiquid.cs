@@ -178,6 +178,7 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
                 LSY_PotionReceiver receiver = receivers[0];
                 if (potionReceiverRoutine == null)
                 {
+                    KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.PourWater);
                     potionReceiverRoutine = StartCoroutine(PotionReceiverRoutine(receiver));
                 }
             }

@@ -14,10 +14,12 @@ public class LSY_DispensorIid : XRBaseInteractable
         PhotonView interactablePV = args.interactableObject.transform.GetComponent<PhotonView>();
         if (dispensorLiquid.isLitOpen == false)
         {
+            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.OpenDispenser);
             dispensorLiquid.photonView.RPC("RPC_LitAnimation", RpcTarget.All, "LidOn", true);
         }
         else
         {
+            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.CloseDispenser);
             dispensorLiquid.photonView.RPC("RPC_LitAnimation", RpcTarget.All, "LidOff", false);
             dispensorLiquid.photonView.RPC("RPC_LitAnimation", RpcTarget.All, "LidIdle", false);
         }
