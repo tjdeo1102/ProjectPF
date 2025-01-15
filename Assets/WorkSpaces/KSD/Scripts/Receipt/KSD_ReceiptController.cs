@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class KSD_ReceiptController : MonoBehaviour
 {
@@ -21,11 +21,14 @@ public class KSD_ReceiptController : MonoBehaviour
     {
         KSD_GameManager.Instance.OnCanExitStage.AddListener(OnExitStageHandler);
         KSD_GameManager.Instance.OnChangeStageInfo.AddListener(Init);
+
+        nextButton.onClick.AddListener(NextStage);
     }
 
     private void OnDisable()
     {
         KSD_GameManager.Instance.OnCanExitStage.RemoveListener(OnExitStageHandler);
+        nextButton.onClick.RemoveListener(NextStage);
     }
 
     public void Init()
@@ -43,7 +46,13 @@ public class KSD_ReceiptController : MonoBehaviour
         visitCountText.SetText($"{info.VisitPlayerCount}");
         saleCountText.SetText($"{info.FinishPlayerCount}");
         IncomeText.SetText($"{info.StageMoney - startMoney}");
-        endTimeText.SetText($"{Time.time - startMoney}");
+        endTimeText.SetText($"{Time.time - startMoney}:F2 √ ");
 
+        endPanel.SetActive( true );
+    }
+
+    public void NextStage()
+    {
+        KSD_GameManager.Instance.Quit(false,false,true);
     }
 }
