@@ -102,6 +102,8 @@ public class KSH_FractureObject2 : MonoBehaviour
             isfrags = true;
         }
 
+        photonView.RPC(nameof(RPC_AuidoPlay), RpcTarget.All);
+
         // 충돌 횟수가 각 단계(2, 4, 6)에 도달할 때마다 새로운 파편 활성화
         if (collisionCount >= (currentFragIndex + 1) * collisionThreshold && currentFragIndex < frags.Length)
         {
@@ -182,6 +184,12 @@ public class KSH_FractureObject2 : MonoBehaviour
             }
             childRenderer.materials = childMaterials;
         }
+    }
+
+    [PunRPC]
+    private void RPC_AuidoPlay()
+    {
+        KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Mortar_play);
     }
 
     //    // 페이드아웃 효과를 처리하는 코루틴

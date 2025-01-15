@@ -31,7 +31,8 @@ public class KSH_AudioManager : MonoBehaviour
         Tank_out, Cauldron_success, Cauldron_fall, elevator_on, elevator_button, elevator_play, Cauldron_pop,
         Dispenser_in, Dispenser_out, Test1, Test2, Guest_feedback, Pick_Bottle, Label_sign, Label_on,
         Guest_success, Guest_fall, Bill1, Bill2, Tablet_on, Tablet_click, Tablet_success, Tablet_fall,
-        Furniture_on, Next_Stage
+        Furniture_on, Next_Stage, Break, DispenserLever1, DispenserLever2, OpenDispenser, CloseDispenser,
+        Success, Fail, PourWater
     } // 예시 효과음 종류 설정
 
     private void Awake()
@@ -143,6 +144,18 @@ public class KSH_AudioManager : MonoBehaviour
         }
     }
 
+    // 효과음만 중지 메소드
+    public void StopInputSfx(Sfx sfx)
+    {
+        for (int i = 0; i < sfxPlayers.Length; i++)
+        {
+            if (sfxPlayers[i].clip == sfxClips[(int)sfx] && sfxPlayers[i].isPlaying)
+            {
+                sfxPlayers[i].Stop(); // 특정 효과음 정지
+            }
+        }
+    }
+
     // AudioMixer를 통한 볼륨 조절
     public void SetMasterVolume(float volume)
     {
@@ -196,9 +209,7 @@ public class KSH_AudioManager : MonoBehaviour
 
 // 효과음
 // KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Clicks); 선택한 효과음 재생 및 종료
+// KSH_AudioManager.Instance.StopInputSfx(KSH_AudioManager.Sfx.Clicks); 선택한 효과음 중지
 
-// 배경음 볼륨을 50%로 설정
-// KSH_AudioManager.Instance.SetBgmVolume(0.5f);
-
-// SFX 볼륨을 70%로 설정
-// KSH_AudioManager.Instance.SetSfxVolume(0.7f);
+// KSH_AudioManager.Instance.StopSfxLoop(KSH_AudioManager.Sfx.Clicks); 선택한 효과음 반복 중지
+// KSH_AudioManager.Instance.StopSfx(); 모든 효과음 중지
