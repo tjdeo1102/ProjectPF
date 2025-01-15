@@ -70,7 +70,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cd9af45277c5d534a8bd9a2dbea4c048, type: 2}
+  - {fileID: 2100000, guid: 7cb5e5526110fae439dd3acc33b32a6a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -178,7 +178,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 1024
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_FocusMode: 1
@@ -214,7 +214,7 @@ MonoBehaviour:
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 6394494926871430755}
         m_TargetAssemblyTypeName: KSH_FragmentMaterial, Assembly-CSharp
         m_MethodName: OnPositon
         m_Mode: 1
@@ -338,7 +338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fragmentMaterial: {fileID: 1700526524186401101, guid: e5214a8fa1c6c254bac3ecc046f90b42, type: 3}
   fragmentMaterialName: 
-  material: {fileID: 2100000, guid: cd9af45277c5d534a8bd9a2dbea4c048, type: 2}
+  material: {fileID: 0}
   meshRenderers: []
   fadeDuration: 2
 --- !u!114 &6394494926871430756
