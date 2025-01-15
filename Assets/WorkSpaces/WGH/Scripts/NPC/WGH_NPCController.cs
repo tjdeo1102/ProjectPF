@@ -298,6 +298,7 @@ public class WGH_NPCController : MonoBehaviourPun
     }
     IEnumerator FloatBestEmotionRoutine()
     {
+        SetAnimNetwork("Yes");
         bestEmotion.gameObject.SetActive(true);
         yield return new WaitForSeconds(2);
         bestEmotion.gameObject.SetActive(false);
@@ -306,6 +307,7 @@ public class WGH_NPCController : MonoBehaviourPun
 
     IEnumerator FloatLikeEmotionRoutine()
     {
+        SetAnimNetwork("Yes");
         likeEmotion.gameObject.SetActive(true);
         yield return new WaitForSeconds(2);
         likeEmotion.gameObject.SetActive(false);
@@ -314,6 +316,7 @@ public class WGH_NPCController : MonoBehaviourPun
 
     IEnumerator FloatQuestionEmotionRoutine()
     {
+        SetAnimNetwork("Question");
         questionEmotion.gameObject.SetActive(true);
         yield return new WaitForSeconds(2);
         questionEmotion.gameObject.SetActive(false);
@@ -322,6 +325,7 @@ public class WGH_NPCController : MonoBehaviourPun
 
     IEnumerator FloatDespairEmotionRoutine()
     {
+        SetAnimNetwork("No");
         despairEmotion.gameObject.SetActive(true);
         yield return new WaitForSeconds(2);
         despairEmotion.gameObject.SetActive(false);

@@ -57,6 +57,7 @@ public class WGH_InteractArea : MonoBehaviour
     {
         isCheck = true;
         controller.SelectReactUINetwork((int)E_ReactUiType.SUCCESS);
+        controller.SetAnimNetwork("Perfume");
 
         KSD_GameManager.Instance.AddFinishPlayerCount(1);
         yield return new WaitForSeconds(2);
