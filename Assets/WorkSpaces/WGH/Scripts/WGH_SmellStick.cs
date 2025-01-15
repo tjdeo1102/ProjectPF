@@ -24,6 +24,7 @@ public class WGH_SmellStick : MonoBehaviourPun
     public event Action OnDespairInteract;
     
     private bool isAbsorbed;                            // 이펙트 On인지 아닌지(상호작용 가능한 상태인지)
+    private bool isSmell;
     private bool isRoutine;
     private bool isGrab;
     private Rigidbody rigid;
@@ -57,12 +58,13 @@ public class WGH_SmellStick : MonoBehaviourPun
             contactNote = note;
             lastPos = transform.position;
         }
-        else if (other.gameObject.TryGetComponent(out WGH_InteractArea interactArea) && isAbsorbed == true && isRoutine == false)
+        if (other.gameObject.TryGetComponent(out WGH_InteractArea interactArea) && isAbsorbed == true && isRoutine == false)
         {
+            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Test2);
+            print("테스트");
             customer = interactArea.GetComponentInParent<WGH_NPCController>().gameObject;
             judgeCurLate = 0f;
             shakeRoutine = StartCoroutine(ShakeRoutine());
-            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Test2);
         }
     }
 
@@ -84,6 +86,8 @@ public class WGH_SmellStick : MonoBehaviourPun
     IEnumerator ShakeRoutine()
     {
         isRoutine = true;
+        
+        print("테스트2");
         while (true)
         {
             float dist = Vector3.Distance(transform.position, lastPos);
@@ -94,7 +98,6 @@ public class WGH_SmellStick : MonoBehaviourPun
             }
             if (judgeCurLate >= judgeAmount)
             {
-                KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Guest_feedback);
                 React();
                 judgeCurLate = 0;
                 OffEffect();
@@ -104,40 +107,26 @@ public class WGH_SmellStick : MonoBehaviourPun
             yield return null;
         }
     }
-    IEnumerator TimeRoutine()
-    {
-        isRoutine = true;
-        while (true)
-        {
-            curTime += Time.deltaTime;
-            if(curTime >= needTime)
-            {
-                React();
-                curTime = 0f;
-                OffEffect();
-                isRoutine = false;
-                yield break;
-            }
-            yield return null;
-        }
-    }
-
     private void React()
     {
         if (NoteType == customer.GetComponent<WGH_NPCController>().BestMaterial)
         {
+            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Guest_feedback);
             OnBestInteract?.Invoke();
         }
         else if (NoteType == customer.GetComponent<WGH_NPCController>().LikeMaterial || NoteType == customer.GetComponent<WGH_NPCController>().LikeMaterial2)
         {
+            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Guest_feedback);
             OnLikeInteract?.Invoke();
         }
         else if (NoteType == customer.GetComponent<WGH_NPCController>().QuestionMaterial || NoteType == customer.GetComponent<WGH_NPCController>().QuestionMaterial2)
         {
+            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Guest_feedback);
             OnQuestionInteract?.Invoke();
         }
         else
         {
+            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Guest_feedback);
             OnDespairInteract?.Invoke();
         }
     }
