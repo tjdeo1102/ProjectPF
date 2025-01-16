@@ -298,7 +298,7 @@ public class WGH_NPCController : MonoBehaviourPun
     }
     IEnumerator FloatBestEmotionRoutine()
     {
-        SetAnimNetwork("Yes");
+        SetAnimNetwork("Best");
         bestEmotion.gameObject.SetActive(true);
         yield return new WaitForSeconds(2);
         bestEmotion.gameObject.SetActive(false);

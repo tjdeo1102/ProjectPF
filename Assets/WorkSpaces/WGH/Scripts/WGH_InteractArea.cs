@@ -58,6 +58,7 @@ public class WGH_InteractArea : MonoBehaviour
         isCheck = true;
         controller.SelectReactUINetwork((int)E_ReactUiType.SUCCESS);
         controller.SetAnimNetwork("Perfume");
+        KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Guest_success);
 
         KSD_GameManager.Instance.AddFinishPlayerCount(1);
         yield return new WaitForSeconds(2);
@@ -89,6 +90,7 @@ public class WGH_InteractArea : MonoBehaviour
         isCheck = true;
         curCount++;
         controller.SelectReactUINetwork((int)E_ReactUiType.FAIL);
+        KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Guest_fall);
         yield return new WaitForSeconds(2);
         PhotonNetwork.Destroy(potion.photonView);
         if (curCount >= maxCount)
