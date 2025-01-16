@@ -65,7 +65,6 @@ public class WGH_SmellStick : MonoBehaviourPun
         if (other.gameObject.TryGetComponent(out WGH_InteractArea interactArea) && isAbsorbed == true && isRoutine == false)
         {
             KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Test2);
-            print("테스트");
             customer = interactArea.GetComponentInParent<WGH_NPCController>().gameObject;
             judgeCurLate = 0f;
             shakeRoutine = StartCoroutine(ShakeRoutine());
@@ -90,8 +89,6 @@ public class WGH_SmellStick : MonoBehaviourPun
     IEnumerator ShakeRoutine()
     {
         isRoutine = true;
-        
-        print("테스트2");
         while (true)
         {
             float dist = Vector3.Distance(transform.position, lastPos);
