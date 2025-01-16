@@ -15,7 +15,6 @@ public class KSD_RecipeScreen : XRBaseInteractable, IPunObservable
     public Vector3 OriginHandlePosition;
     public Vector3 TargetHandlePosition;
     public float DeltaSize;
-    public float MoveDirectionY;
     [SerializeField] private Image screen;
     [SerializeField] private Transform screenTransform;
     [SerializeField] private Transform handleTransform;
@@ -53,18 +52,14 @@ public class KSD_RecipeScreen : XRBaseInteractable, IPunObservable
                 var moveY = selectInteractor.position.y - lastPositionY;
                 lastPositionY = selectInteractor.position.y;
                 // 2. 추가할 사이즈 계산
-                // 2-1. 같은 방향으로 증가한 경우, 사이즈값 추가
-                var y = MoveDirectionY;
-                if (y < 0) y = -y;
-
-                if (moveY * MoveDirectionY > 0)
+                // 2-1. y값 감소하는 무빙인 경우, 사이즈값 추가
+                if (moveY < 0)
                 {
-                    newSize += DeltaSize * Time.deltaTime * y;
+                    newSize += DeltaSize * Time.deltaTime;
                 }
-                // 2-2. 다른 방향으로 증가한 경우, 사이즈값 감소
-                else if (moveY * MoveDirectionY < 0)
+                else if (moveY > 0)
                 {
-                    newSize -= DeltaSize * Time.deltaTime * y;
+                    newSize -= DeltaSize * Time.deltaTime;
                 }
                 if (OriginSize < TargetSize) newSize = Mathf.Clamp(newSize, OriginSize, TargetSize);
                 else newSize = Mathf.Clamp(newSize, TargetSize, OriginSize);
@@ -72,10 +67,7 @@ public class KSD_RecipeScreen : XRBaseInteractable, IPunObservable
             else
             {
                 // 1. 감소할 사이즈량 계산
-                var y = MoveDirectionY;
-                if (y < 0) y = -y;
-                y *= dif / Mathf.Abs(dif);
-                newSize -= (y * Time.deltaTime * ReturnVelocity);
+                newSize -= (Time.deltaTime * ReturnVelocity);
                 if (OriginSize < TargetSize) newSize = Mathf.Clamp(newSize, OriginSize, TargetSize);
                 else newSize = Mathf.Clamp(newSize, TargetSize, OriginSize);
             }
@@ -134,7 +126,7 @@ public class KSD_RecipeScreen : XRBaseInteractable, IPunObservable
         // 다른 유저가 상호작용 못하도록 레이어 변경
         if (isSelect)
         {
-            interactionLayers = 2;
+            interactionLayers = InteractionLayerMask.GetMask("DontInteract");
         }
         else
         {
