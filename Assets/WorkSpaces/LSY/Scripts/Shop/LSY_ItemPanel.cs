@@ -45,6 +45,17 @@ public class LSY_ItemPanel : MonoBehaviourPun, IPunObservable
         itemExplainText.text = itemExplain;
     }
 
+    public void ButtonClick()
+    {
+        photonView.RPC("RPC_ButtonClick", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void RPC_ButtonClick()
+    {
+        KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Button1);
+    }
+
     private void AddItem()
     {
         if (LSY_ItemManager.basketIndex > 9)

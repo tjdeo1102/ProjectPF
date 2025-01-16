@@ -278,7 +278,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4011150688149286594}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7027292006920019612}
+        m_TargetAssemblyTypeName: LSY_ItemPanel, Assembly-CSharp
+        m_MethodName: ButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4554201381532684544
 GameObject:
   m_ObjectHideFlags: 0
@@ -573,7 +585,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 196, y: -51}
+  m_AnchoredPosition: {x: 269.2, y: -51}
   m_SizeDelta: {x: 128, y: 36.45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5408613276620350890
@@ -638,7 +650,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 4
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0

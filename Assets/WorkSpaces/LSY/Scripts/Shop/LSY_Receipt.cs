@@ -17,14 +17,6 @@ public class LSY_Receipt : MonoBehaviourPun
 
     WaitForSeconds delay = new WaitForSeconds(0.5f);
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            GameEnd();
-        }
-    }
-
     public void GameEnd()
     {
         photonView.RPC("RPC_GameEnd", RpcTarget.All);

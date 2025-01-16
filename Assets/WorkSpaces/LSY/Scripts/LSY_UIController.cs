@@ -15,21 +15,6 @@ public class LSY_UIController : MonoBehaviour
         itemCount = 0;
     }
 
-    private void Update()
-    {
-        var input = inputActions.actionMaps[0].actions[0].ReadValue<Vector2>().x;
-
-        if (Mathf.Abs(input) > 0)
-        {
-            // ¹°°ÇÀÇ °¹¼ö ´Ã¾î³²
-            itemCount++;
-        }
-        else
-        {
-            // ¹°°Ç °¹¼ö ÁÙ¾îµë
-                itemCount--;
-        }
-    }
     private void OnEnable()
     {
         rightJoystickInput.action.performed += MoveJoystick;
