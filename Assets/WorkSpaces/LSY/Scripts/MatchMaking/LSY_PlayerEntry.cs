@@ -25,6 +25,8 @@ public class LSY_PlayerEntry : LSY_BaseUI
     [Header("추방&방장위임 팝업")]
     [SerializeField] private LSY_RoomPopUp roomPopUp;
 
+    [SerializeField] Image characterImgae;
+
     Color normalColor;    
     Color pressedColor;   
     
@@ -52,6 +54,7 @@ public class LSY_PlayerEntry : LSY_BaseUI
 
     private void Start()
     {
+        characterImgae.gameObject.SetActive(false);
         hostImage.SetActive(false);
         pressedColor = new Color(0.372549f, 0.7137255f, 0.2509804f, 1);
         normalColor = new Color(0.8490566f, 0.8490566f, 0.8490566f, 1);
@@ -96,6 +99,7 @@ public class LSY_PlayerEntry : LSY_BaseUI
             nameText.color = Color.white;
         }
 
+        characterImgae.gameObject.SetActive(true);
         readyButton.gameObject.SetActive(true);
         readyButton.interactable = player == PhotonNetwork.LocalPlayer;
 
@@ -116,6 +120,7 @@ public class LSY_PlayerEntry : LSY_BaseUI
         nameText.text = "";
         readyText.text = "";
         readyButton.gameObject.SetActive(false);
+        characterImgae.gameObject.SetActive(false);
         hostImage.SetActive(false);
     }
 

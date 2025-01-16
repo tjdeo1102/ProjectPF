@@ -39,7 +39,10 @@ public class LSY_LobbyPanel : LSY_BaseUI
 
         isPasswordProtected = false;
 
-        PhotonNetwork.LocalPlayer.NickName = $"Player{Random.Range(1000, 10000)}";
+        if (PhotonNetwork.NetworkClientState != Photon.Realtime.ClientState.Leaving)
+        {
+            PhotonNetwork.LocalPlayer.NickName = $"Player{Random.Range(1000, 10000)}";
+        }
         nickName.text = PhotonNetwork.LocalPlayer.NickName;
 
         PhotonNetwork.ConnectUsingSettings();
