@@ -35,6 +35,17 @@ public class LSY_Kiosk : MonoBehaviourPun
         quitgGameButton.onClick.AddListener(QuitGame);
     }
 
+    public void ButtonClick()
+    {
+        photonView.RPC("RPC_ButtonClick", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void RPC_ButtonClick()
+    {
+        KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Button1);
+    }
+
     [PunRPC]
     public void ActivePanel(Panel panel, bool on)
     {
