@@ -8,8 +8,7 @@ public class KSH_TestAudio : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Button1);
-            KSH_EffectManager.Instance.PlayEffect(KSH_EffectManager.Effect.Fire_small, transform.position);
+            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Cauldron_pop);
         }
     }
 }
