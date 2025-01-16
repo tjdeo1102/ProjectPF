@@ -19,20 +19,10 @@ public class PTK_HandleElec : MonoBehaviourPun, IPunObservable
 
     public bool isCheatModeActive = false;
 
+    private float previousKnobValue;
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            CheatModeOn();
-            Debug.Log("CheatOn!");
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            CheatModeOff();
-            Debug.Log("CheatOff!");
-        }
-
         CheckSecondKnob();
     }
 
@@ -44,9 +34,12 @@ public class PTK_HandleElec : MonoBehaviourPun, IPunObservable
         if (photonView.IsMine == false)
             return;
 
-        //KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Blender_handle);
-
         Knob.value = Mathf.Clamp(Knob.value, 0, knobMaxValue);
+
+        if (!Mathf.Approximately(Knob.value, previousKnobValue))
+        {
+            photonView.RPC("RPC_PlaySfx", RpcTarget.All, 10);
+        }
 
         if (Knob.value > 0)
         {
@@ -59,8 +52,10 @@ public class PTK_HandleElec : MonoBehaviourPun, IPunObservable
         if (newState != isSecondHandleActive)
         {
             isSecondHandleActive = newState;
-            //KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Blender_play);
+            photonView.RPC("RPC_PlaySfx", RpcTarget.All, 11);
         }
+
+        previousKnobValue = Knob.value;
     }
 
     public float GetKnobValue()
@@ -91,5 +86,11 @@ public class PTK_HandleElec : MonoBehaviourPun, IPunObservable
     public void CheatModeOff()
     {
         isCheatModeActive = false;
+    }
+
+    [PunRPC]
+    private void RPC_PlaySfx(int sfx)
+    {
+        KSH_AudioManager.Instance.PlaySfx((KSH_AudioManager.Sfx)sfx);
     }
 }

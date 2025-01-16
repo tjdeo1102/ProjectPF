@@ -36,7 +36,10 @@ public class PTK_HandleMix : MonoBehaviourPun
             float currentValue = Knob.value;
             float delta = Mathf.Abs(currentValue - lastValue);
 
-            //KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Blender_handle);
+            if (currentValue > lastValue)
+            {
+                photonView.RPC("RPC_PlaySfx", RpcTarget.All, 10);
+            }
 
             if (delta >= turnResult)
             {
@@ -51,5 +54,11 @@ public class PTK_HandleMix : MonoBehaviourPun
     private void RPC_MixDone()
     {
         mixDone.Invoke();
+    }
+
+    [PunRPC]
+    private void RPC_PlaySfx(int sfx)
+    {
+        KSH_AudioManager.Instance.PlaySfx((KSH_AudioManager.Sfx)sfx);
     }
 }
