@@ -13,10 +13,8 @@ public class KSH_EffectManager : MonoBehaviour
 
     // 이펙트 종류를 열거형 표시 추가 가능
     public enum Effect 
-    {   Fire_small, Fire_big, Fire_small_smoke, Fire_big_smoke, Cauldron_smoke, Small_success,
-        Cauldron_fall, Make_success, Small_01, Small_02, Small_03, Small_04, Pong, Small_end,
-        Guest_feedback0, Guest_feedback1, Guest_feedback2, Guest_feedback3, Guest_success,
-        Guest_fail
+    {
+        Mortar_play
     }
     // 예시, 다른 이펙트 추가 가능
 
@@ -44,7 +42,7 @@ public class KSH_EffectManager : MonoBehaviour
         for (int i = 0; i < effectPrefabs.Length; i++)
         {
             Queue<GameObject> pool = new Queue<GameObject>();
-            for (int j = 0; j < 10; j++) // 각 이펙트에 대해 5개의 인스턴스를 미리 생성
+            for (int j = 0; j < 5; j++) // 각 이펙트에 대해 5개의 인스턴스를 미리 생성
             {
                 GameObject obj = Instantiate(effectPrefabs[i]);
                 obj.SetActive(false); // 초기에는 비활성화

@@ -26,6 +26,9 @@ public class KSH_FractureObject2 : MonoBehaviour
     // 건조 확인
     [SerializeField] private KSH_DryingRacks dryingRacks;
 
+    // 막자 확인
+    [SerializeField] private KSH_Plate plate;
+
     // 자식 오브젝트들의 MeshRenderer 배열
     [SerializeField] private MeshRenderer[] meshRenderers;
 
@@ -62,6 +65,16 @@ public class KSH_FractureObject2 : MonoBehaviour
 
     private void Awake()
     {
+        GameObject plates = GameObject.FindWithTag("Plate");
+        if (plates != null)
+        {
+            plate = plates.GetComponent<KSH_Plate>();
+        }
+        else
+        {
+            Debug.LogWarning("태그 'Plate'를 가진 오브젝트가 없습니다!");
+        }
+
         photonView = GetComponent<PhotonView>();
 
         // 메인 오브젝트의 MeshRenderer를 가져옵니다.
@@ -92,6 +105,8 @@ public class KSH_FractureObject2 : MonoBehaviour
 
         if (!dryingRacks.Isdry) return;
 
+        if (!plate.IsFlower) return;
+
         other.gameObject.layer = 9;
         collisionCount++; // 충돌 횟수 증가
         lastSliceTime = Time.time;
@@ -103,6 +118,7 @@ public class KSH_FractureObject2 : MonoBehaviour
         }
 
         photonView.RPC(nameof(RPC_AuidoPlay), RpcTarget.All);
+        photonView.RPC(nameof(RPC_EffectPlay), RpcTarget.All);
 
         // 충돌 횟수가 각 단계(2, 4, 6)에 도달할 때마다 새로운 파편 활성화
         if (collisionCount >= (currentFragIndex + 1) * collisionThreshold && currentFragIndex < frags.Length)
@@ -190,6 +206,12 @@ public class KSH_FractureObject2 : MonoBehaviour
     private void RPC_AuidoPlay()
     {
         KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Mortar_play);
+    }
+
+    [PunRPC]
+    private void RPC_EffectPlay()
+    {
+        KSH_EffectManager.Instance.PlayEffect(KSH_EffectManager.Effect.Mortar_play, transform.position);
     }
 
     //    // 페이드아웃 효과를 처리하는 코루틴
