@@ -12,6 +12,7 @@ public class WGH_SmellStick : MonoBehaviourPun
     [SerializeField] private GameObject customer;
     [SerializeField] private float interactionDist;     // 상호작용 거리
     [SerializeField] private ParticleSystem[] aura;
+    [SerializeField] WGH_XRGrabInteractable interactable;
 
     private float curTime;                              // 현재 시간
     [SerializeField] private float needTime;            // 시향에 필요한 시간
@@ -39,11 +40,14 @@ public class WGH_SmellStick : MonoBehaviourPun
     {
         judgeAmount = 3;
         rigid = GetComponent<Rigidbody>();
+        interactable = GetComponent<WGH_XRGrabInteractable>();
     }
 
     private void Start()
     {
         startPos = transform.position;
+        interactable.firstSelectEntered.AddListener(OnGrab);
+        interactable.lastSelectExited.AddListener(OnRelease);
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -156,16 +160,20 @@ public class WGH_SmellStick : MonoBehaviourPun
     /// <summary>
     /// 물체를 잡았을 때 호출
     /// </summary>
-    public void OnGrab()
+    public void OnGrab(SelectEnterEventArgs args)
     {
+        if (args.interactorObject is XRSocketInteractor)
+            return;
         photonView.RPC("IsGrabRPC", RpcTarget.All, true);
     }
 
     /// <summary>
     /// 물체를 놓았을 때 호출
     /// </summary>
-    public void OnRelease()
+    public void OnRelease(SelectExitEventArgs args)
     {
+        if (args.interactorObject is XRSocketInteractor)
+            return;
         photonView.RPC("IsGrabRPC", RpcTarget.All, false);
     }
 
