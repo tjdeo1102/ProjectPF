@@ -25,9 +25,15 @@ public class LSY_DespensorLever : MonoBehaviourPun, IPunObservable
         {
             isPlay = true;
             dispensorLiquid.OnSelectEnter();
-            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.DispenserLever2);
+            photonView.RPC("Sound", RpcTarget.All);
             photonView.RPC("LeverState", RpcTarget.All, false);
         }
+    }
+
+    [PunRPC]
+    public void Sound()
+    {
+        KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.DispenserLever2);
     }
 
     public void StartRoutine()
@@ -39,7 +45,7 @@ public class LSY_DespensorLever : MonoBehaviourPun, IPunObservable
     {
         float time = 0f;
         Quaternion startRotation = lever.transform.rotation;
-        KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.DispenserLever2);
+        photonView.RPC("Sound", RpcTarget.All);
         while (time < resetDuration)
         {
             lever.transform.rotation = Quaternion.Lerp(startRotation, originalRotation, time / resetDuration);

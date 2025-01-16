@@ -46,7 +46,6 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     private Color linePotionColor;
 
     public bool m_Breakable = true;
-    private int done = 0;
 
     Rigidbody m_RbPotion;
 
@@ -57,6 +56,8 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     private Vector3 lastSpoonPosition;
 
     private Coroutine shakeRoutine;
+
+    bool shakeDone = false;
 
     void Start()
     {
@@ -87,6 +88,8 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
 
     private void CheckShake()
     {
+        if (shakeDone) return;
+
         var pos = transform.position;
         bool isShakingNow = Vector3.Distance(lastSpoonPosition, pos) > distancePerFrame;
 
@@ -144,7 +147,6 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
             int perfumeValue = (int)resInfo.Name;
 
             perfumeName = (E_WGH_PerfumeType)perfumeValue;
-            done = 1;
             StartCoroutine(MixSuccessRoutine());
         }
         else
@@ -156,6 +158,7 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
         shakeRoutine = null;
         Debug.Log("Èçµé±â¿Ï·á");
         m_RbPotion.velocity = Vector3.zero;
+        shakeDone = true;
     }
 
     IEnumerator MixSuccessRoutine()
@@ -168,7 +171,6 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     private void FusionFail()
     {
         KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Fail);
-        done = 2;
         perfumeClear = true;
         resInfo = new KSD_PerfumeInfo();
         resInfo.Name = PerfumeName.Null;
@@ -266,6 +268,7 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     {
         perfumeClear = false;
         fillAmount = 0f; 
+        shakeDone = false;
     }
 
 
@@ -291,11 +294,10 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     {
         if (m_RbPotion == null) return;
 
-        if (m_RbPotion.velocity.magnitude > SplashSpeed && m_Breakable && done == 2)
+        if (m_RbPotion.velocity.magnitude > SplashSpeed && m_Breakable && collision.gameObject.CompareTag("Floor"))
         {
             if (particleSystemSplash != null)
             {
-                KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Break);
                 fillAmount = 0f;
                 particleSystemSplash.gameObject.SetActive(true);
                 photonView.RPC("PlaySplashParticle", RpcTarget.All);
@@ -308,6 +310,7 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     public void PlaySplashParticle()
     {
         particleSystemSplash.Play();
+        KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Break);
     }
 
     [PunRPC]
@@ -337,6 +340,12 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     }
 
     public void PlaySFX()
+    {
+        photonView.RPC("RPC_PlaySFX", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void RPC_PlaySFX()
     {
         KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Pick_Bottle);
     }
