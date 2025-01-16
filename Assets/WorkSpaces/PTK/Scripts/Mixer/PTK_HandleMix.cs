@@ -36,7 +36,7 @@ public class PTK_HandleMix : MonoBehaviourPun
             float currentValue = Knob.value;
             float delta = Mathf.Abs(currentValue - lastValue);
 
-            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Blender_handle);
+            //KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Blender_handle);
 
             if (delta >= turnResult)
             {

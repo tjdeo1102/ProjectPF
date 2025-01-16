@@ -50,7 +50,7 @@ public class PTK_Box : MonoBehaviourPun
             currentFruit = fruit;
             isReadyForMix = true;
 
-            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Blender_in);
+            //KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Blender_in);
 
             Debug.Log("Fruit is ready");
         }
@@ -86,7 +86,7 @@ public class PTK_Box : MonoBehaviourPun
                 (byte)currentFruit.fruitInfo.Type,
                 (byte)currentFruit.fruitInfo.State);
 
-                KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Blender_out);
+                //KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Blender_out);
 
                 isReadyForMix = false;
             }        

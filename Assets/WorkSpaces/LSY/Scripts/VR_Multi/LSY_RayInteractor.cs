@@ -14,7 +14,7 @@ public class LSY_RayInteractor : XRRayInteractor
         if (animator != null)
         {
             animator.SetTrigger("Grab");
-            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Pick_up);
+            //KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Pick_up);
         }
         if (args.interactableObject.transform.TryGetComponent<KSD_NetworkGrabInteractable>(out var com)) return;
 
