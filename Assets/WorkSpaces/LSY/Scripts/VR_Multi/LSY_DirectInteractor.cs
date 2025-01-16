@@ -7,6 +7,12 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class LSY_DirectInteractor : XRDirectInteractor
 {
     [SerializeField] private Animator animator;
+    PhotonView photonView;
+
+    protected override void Start()
+    {
+        photonView = GetComponent<PhotonView>();
+    }
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
@@ -14,7 +20,7 @@ public class LSY_DirectInteractor : XRDirectInteractor
         if (animator != null)
         {
             animator.SetTrigger("Grab");
-            //KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Pick_up);
+            photonView.RPC("RPC_PlaySfx", RpcTarget.All, 5);
         }
         if (args.interactableObject.transform.TryGetComponent<KSD_NetworkGrabInteractable>(out var com)) return;
 
@@ -39,5 +45,11 @@ public class LSY_DirectInteractor : XRDirectInteractor
         if (interactablePV != null)
             interactablePV.TransferOwnership(PhotonNetwork.MasterClient);
 
+    }
+
+    [PunRPC]
+    private void RPC_PlaySfx(int sfx)
+    {
+        KSH_AudioManager.Instance.PlaySfx((KSH_AudioManager.Sfx)sfx);
     }
 }
