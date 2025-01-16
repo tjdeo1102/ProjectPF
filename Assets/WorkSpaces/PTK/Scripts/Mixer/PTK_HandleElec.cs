@@ -44,7 +44,7 @@ public class PTK_HandleElec : MonoBehaviourPun, IPunObservable
         if (photonView.IsMine == false)
             return;
 
-        KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Blender_handle);
+        //KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Blender_handle);
 
         Knob.value = Mathf.Clamp(Knob.value, 0, knobMaxValue);
 
@@ -59,7 +59,7 @@ public class PTK_HandleElec : MonoBehaviourPun, IPunObservable
         if (newState != isSecondHandleActive)
         {
             isSecondHandleActive = newState;
-            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Blender_play);
+            //KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Blender_play);
         }
     }
 
