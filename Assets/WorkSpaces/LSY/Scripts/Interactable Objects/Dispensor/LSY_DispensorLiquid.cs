@@ -75,11 +75,6 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            OnSelectEnter();
-        }
-
         m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
         MeshRenderer.SetPropertyBlock(m_MaterialPropertyBlock);
     }
