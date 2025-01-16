@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using static KSH_AudioManager;
 
 [RequireComponent(typeof(PhotonView))]
 public class KSD_CauldronController : MonoBehaviourPun
@@ -45,6 +46,7 @@ public class KSD_CauldronController : MonoBehaviourPun
         if (fire.isActiveFire || AlwaysFire)
         {
             fireSmoke.Play();
+            photonView.RPC("RPC_PlaySfx", RpcTarget.All, 29);
         }
         else
         {
@@ -101,10 +103,12 @@ public class KSD_CauldronController : MonoBehaviourPun
                 mainMake.startColor = col;
                 successSmell.Play();
                 successMake.Play();
+                KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Cauldron_success);
             }
             else
             {
                 failMake.Play();
+                KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Cauldron_fall);
             }
             
             ConcentrateInfoList.Clear();
@@ -155,6 +159,8 @@ public class KSD_CauldronController : MonoBehaviourPun
                 index = ConcentrateInfoList.Count;
                 ConcentrateInfoList.Add(newCon);
                 ConcentrateAmountList.Add(0);
+
+                photonView.RPC("RPC_PlaySfx", RpcTarget.All, 24);
             }
         }
 
@@ -192,5 +198,11 @@ public class KSD_CauldronController : MonoBehaviourPun
             IsActiveShake = Vector3.Distance(lastSpoonPosition, pos) > distancePerFrame;
             lastSpoonPosition = other.gameObject.transform.position;
         }
+    }
+
+    [PunRPC]
+    private void RPC_PlaySfx(int sfx)
+    {
+        KSH_AudioManager.Instance.PlaySfx((KSH_AudioManager.Sfx)sfx);
     }
 }
