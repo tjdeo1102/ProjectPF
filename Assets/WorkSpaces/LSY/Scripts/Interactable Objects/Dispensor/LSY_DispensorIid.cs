@@ -4,51 +4,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class LSY_DispensorIid : XRBaseInteractable
+public class LSY_DispensorIid : MonoBehaviour
 {
     public LSY_DispensorLiquid dispensorLiquid;
-    PhotonView photonView;
 
-    private void Start()
+    public void Open()
     {
-        photonView = GetComponent<PhotonView>();
-    }
-
-    protected override void OnSelectEntering(SelectEnterEventArgs args)
-    {
-        base.OnSelectEntering(args);
-        PhotonView interactablePV = args.interactableObject.transform.GetComponent<PhotonView>();
         if (dispensorLiquid.isLitOpen == false)
         {
-            photonView.RPC("OpenSound", RpcTarget.All);
-            dispensorLiquid.photonView.RPC("RPC_LitAnimation", RpcTarget.All, "LidOn", true);
+            OpenSound();
+            dispensorLiquid.LitAnimation("LidOn", true);
+
         }
         else
         {
-            photonView.RPC("CloseSound", RpcTarget.All);
-            dispensorLiquid.photonView.RPC("RPC_LitAnimation", RpcTarget.All, "LidOff", false);
-            dispensorLiquid.photonView.RPC("RPC_LitAnimation", RpcTarget.All, "LidIdle", false);
-        }
+            CloseSound();
+            dispensorLiquid.LitAnimation("LidOff", false);
+            dispensorLiquid.LitAnimation("LidIdle", false);
 
-        interactablePV.RequestOwnership();
+        }
     }
 
-    [PunRPC]
     public void OpenSound()
     {
         KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.OpenDispenser);
     }
 
-    [PunRPC]
     public void CloseSound()
     {
         KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.CloseDispenser);
-    }
-
-    protected override void OnSelectExited(SelectExitEventArgs args)
-    {
-        base.OnSelectExited(args);
-        PhotonView interactablePV = args.interactableObject.transform.GetComponent<PhotonView>();
-        interactablePV.TransferOwnership(PhotonNetwork.MasterClient);
     }
 }

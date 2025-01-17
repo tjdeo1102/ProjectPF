@@ -18,7 +18,6 @@ public class LSY_Bucket : MonoBehaviourPun, IPunObservable
 
     [Header("양동이 액체 렌더러 & 게임오브젝트")]
     public MeshRenderer MeshRenderer;
-    public GameObject fillGameObject;
 
     [Header("현재 양동이가 가진 PerfumeNote")]
     public KSD_PerfumeNoteInfo currentPerfumeNote;
@@ -42,8 +41,7 @@ public class LSY_Bucket : MonoBehaviourPun, IPunObservable
     void OnEnable()
     {
         particleSystemLiquid.Stop();
-        
-        fillGameObject.gameObject.SetActive(false);
+       
 
         m_MaterialPropertyBlock = new MaterialPropertyBlock();
 
@@ -168,7 +166,6 @@ public class LSY_Bucket : MonoBehaviourPun, IPunObservable
         {
             fillAmount = 0;
             m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
-            fillGameObject.gameObject.SetActive(false);
         }
 
         m_MaterialPropertyBlock.SetFloat("LiquidFill", fillAmount);
@@ -213,7 +210,7 @@ public class LSY_Bucket : MonoBehaviourPun, IPunObservable
             }
         }
 
-        fillGameObject.gameObject.SetActive(true);
+        Debug.Log("양동이");
 
         // 양동이를 채우는 코루틴 시작
         if (fillBucketRoutine == null)
