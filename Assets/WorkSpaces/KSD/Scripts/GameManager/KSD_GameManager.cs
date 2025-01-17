@@ -109,6 +109,9 @@ public class KSD_GameManager : MonoBehaviourPun
                                    spawnPosition.position.y,
                                    Random.Range(-randomSpawnLength, randomSpawnLength) + spawnPosition.position.z);
         player = PhotonNetwork.Instantiate(playerPrefabPath, spawnPos, Quaternion.identity);
+
+        // 배경 음악 설정
+        KSH_AudioManager.Instance.PlayBgm(1);
     }
 
     [PunRPC]
