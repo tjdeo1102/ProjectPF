@@ -66,8 +66,7 @@ public class WGH_NPCController : MonoBehaviourPun
     [SerializeField, Tooltip("시향 콜라이더")] private Collider interactionArea;                         // 시향 콜라이더
     public Collider InteractionArea { get { return interactionArea; } }
     
-    [Header("표정 매터리얼")]
-    public Material[] faceMaterials;
+    [Header("표정 텍스쳐")]
     public Texture[] faceTextures;
 
     [Header("리액션 이펙트")]
@@ -302,10 +301,10 @@ public class WGH_NPCController : MonoBehaviourPun
     IEnumerator FloatBestEmotionRoutine()
     {
         SetAnimNetwork("Best");
-        //SetEmotion(4);
+        SetEmotion(4);
         bestEmotion.gameObject.SetActive(true);
         yield return new WaitForSeconds(2);
-        //SetEmotion(0);
+        SetEmotion(0);
         bestEmotion.gameObject.SetActive(false);
         yield break;
     }
@@ -313,10 +312,10 @@ public class WGH_NPCController : MonoBehaviourPun
     IEnumerator FloatLikeEmotionRoutine()
     {
         SetAnimNetwork("Yes");
-        //SetEmotion(3);
+        SetEmotion(3);
         likeEmotion.gameObject.SetActive(true);
         yield return new WaitForSeconds(2);
-        //SetEmotion(0);
+        SetEmotion(0);
         likeEmotion.gameObject.SetActive(false);
         yield break;
     }
@@ -324,10 +323,10 @@ public class WGH_NPCController : MonoBehaviourPun
     IEnumerator FloatQuestionEmotionRoutine()
     {
         SetAnimNetwork("Question");
-        //SetEmotion(2);
+        SetEmotion(2);
         questionEmotion.gameObject.SetActive(true);
         yield return new WaitForSeconds(2);
-        //SetEmotion(0);
+        SetEmotion(0);
         questionEmotion.gameObject.SetActive(false);
         yield break;
     }
@@ -335,22 +334,22 @@ public class WGH_NPCController : MonoBehaviourPun
     IEnumerator FloatDespairEmotionRoutine()
     {
         SetAnimNetwork("No");
-        //SetEmotion(1);
+        SetEmotion(1);
         despairEmotion.gameObject.SetActive(true);
         yield return new WaitForSeconds(2);
-        //SetEmotion(0);
+        SetEmotion(0);
         despairEmotion.gameObject.SetActive(false);
         yield break;
     }
 
-    //public void SetEmotion(int num)
-    //{
-    //    photonView.RPC("SetEmotionRPC", RpcTarget.All, num);
-    //}
+    public void SetEmotion(int num)
+    {
+        photonView.RPC("SetEmotionRPC", RpcTarget.All, num);
+    }
 
-    //[PunRPC]
-    //public void SetEmotionRPC(int num)
-    //{
-    //    SkinnedMeshRenderer.materials[1].mainTexture = faceTextures[num];
-    //}
+    [PunRPC]
+    public void SetEmotionRPC(int num)
+    {
+        SkinnedMeshRenderer.materials[1].mainTexture = faceTextures[num];
+    }
 }
