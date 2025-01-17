@@ -29,7 +29,7 @@ public class WGH_XRGrabInteractable : XRGrabInteractable
             base.OnSelectEntered(args);
             view.TransferOwnership(PhotonNetwork.LocalPlayer);
             //print("소유권 양도");
-            view.RPC("OnChangeRigidbodySetting", RpcTarget.All, OriginLayer);
+            view.RPC("OnChangeRigidbodySetting", RpcTarget.AllViaServer, OriginLayer);
         }
     }
     protected override void OnSelectExited(SelectExitEventArgs args)
@@ -40,7 +40,7 @@ public class WGH_XRGrabInteractable : XRGrabInteractable
             // 본인이 잡고있던 물체인 경우에만 놓도록 설정
             if (view.Owner == PhotonNetwork.LocalPlayer)
             {
-                view.RPC("OffChangeRigidbodySetting", RpcTarget.All, OriginLayer);
+                view.RPC("OffChangeRigidbodySetting", RpcTarget.AllViaServer, OriginLayer);
             }
         }
     }
@@ -58,6 +58,7 @@ public class WGH_XRGrabInteractable : XRGrabInteractable
         else
         {
             interactionLayers = new InteractionLayerMask { value = originLayer };
+            OriginTransform.isKinematic = false;
         }
     }
     [PunRPC]
