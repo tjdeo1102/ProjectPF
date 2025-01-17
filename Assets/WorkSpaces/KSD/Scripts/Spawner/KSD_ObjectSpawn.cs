@@ -61,6 +61,10 @@ public class KSD_ObjectSpawn : MonoBehaviour
             exitObjectRoutine = StartCoroutine(ExitObjectRoutine());
             exitObject = other.gameObject;
             timer = spawnDelay;
+
+            // 맨 뒤로 추가
+            objects.Remove(other.gameObject); 
+            objects.Add(other.gameObject);    
         }
     }
 
@@ -79,13 +83,6 @@ public class KSD_ObjectSpawn : MonoBehaviour
 
     private void SpawnObject()
     {
-        //// 랜덤 위치 계산
-        //Vector3 randomPosition = new Vector3(
-        //    Random.Range(spawnArea.bounds.min.x, spawnArea.bounds.max.x),
-        //    spawnArea.transform.position.y,
-        //    Random.Range(spawnArea.bounds.min.z, spawnArea.bounds.max.z)
-        //);
-
         // 재료 생성
         var obj = PhotonNetwork.Instantiate(objectPath, spawnPosition.position, Quaternion.identity);
         objects.Add(obj);
