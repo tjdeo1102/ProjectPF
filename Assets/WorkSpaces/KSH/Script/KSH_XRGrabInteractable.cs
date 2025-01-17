@@ -20,31 +20,31 @@ public class KSH_XRGrabInteractable : XRGrabInteractable
         }
     }
 
-    protected override void OnSelectEntering(SelectEnterEventArgs args)
-    {
-        // base.OnSelectEntering(args);
+    //protected override void OnSelectEntering(SelectEnterEventArgs args)
+    //{
+    //    // base.OnSelectEntering(args);
 
-        if (args.interactorObject is XRSocketInteractor)
-        {
-            base.OnSelectEntering(args);
-        }
-        else
-        {
-            PhotonView interactorPV = args.interactorObject.transform.GetComponent<PhotonView>();
-            photonView.RPC(nameof(RPC_SelectEntering), RpcTarget.AllViaServer, interactorPV.ViewID);
-        }
-    }
+    //    if (args.interactorObject is XRSocketInteractor)
+    //    {
+    //        base.OnSelectEntering(args);
+    //    }
+    //    else
+    //    {
+    //        PhotonView interactorPV = args.interactorObject.transform.GetComponent<PhotonView>();
+    //        photonView.RPC(nameof(RPC_SelectEntering), RpcTarget.AllViaServer, interactorPV.ViewID);
+    //    }
+    //}
 
-    [PunRPC]
-    public void RPC_SelectEntering(int interactorID)
-    {
-        SelectEnterEventArgs args = new SelectEnterEventArgs();
-        args.interactorObject = PhotonView.Find(interactorID).GetComponent<IXRSelectInteractor>();
-        args.interactableObject = this;
-        args.manager = interactionManager;
+    //[PunRPC]
+    //public void RPC_SelectEntering(int interactorID)
+    //{
+    //    SelectEnterEventArgs args = new SelectEnterEventArgs();
+    //    args.interactorObject = PhotonView.Find(interactorID).GetComponent<IXRSelectInteractor>();
+    //    args.interactableObject = this;
+    //    args.manager = interactionManager;
 
-        base.OnSelectEntering(args);
-    }
+    //    base.OnSelectEntering(args);
+    //}
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
@@ -108,32 +108,32 @@ public class KSH_XRGrabInteractable : XRGrabInteractable
         base.OnSelectExiting(args);
     }
 
-    protected override void OnSelectExited(SelectExitEventArgs args)
-    {
-        // base.OnSelectExited(args);
+    //protected override void OnSelectExited(SelectExitEventArgs args)
+    //{
+    //    // base.OnSelectExited(args);
 
-        if (args.interactorObject is XRSocketInteractor)
-        {
-            base.OnSelectExited(args);
-        }
-        else
-        {
-            PhotonView interactorPV = args.interactorObject.transform.GetComponent<PhotonView>();
-            photonView.RPC(nameof(RPC_SelectExited), RpcTarget.AllViaServer, interactorPV.ViewID, args.isCanceled);
-        }
-    }
+    //    if (args.interactorObject is XRSocketInteractor)
+    //    {
+    //        base.OnSelectExited(args);
+    //    }
+    //    else
+    //    {
+    //        PhotonView interactorPV = args.interactorObject.transform.GetComponent<PhotonView>();
+    //        photonView.RPC(nameof(RPC_SelectExited), RpcTarget.AllViaServer, interactorPV.ViewID, args.isCanceled);
+    //    }
+    //}
 
-    [PunRPC]
-    public void RPC_SelectExited(int interactorID, bool isCanceled)
-    {
-        SelectExitEventArgs args = new SelectExitEventArgs();
-        args.interactorObject = PhotonView.Find(interactorID).GetComponent<IXRSelectInteractor>();
-        args.interactableObject = this;
-        args.manager = interactionManager;
-        args.isCanceled = isCanceled;
+    //[PunRPC]
+    //public void RPC_SelectExited(int interactorID, bool isCanceled)
+    //{
+    //    SelectExitEventArgs args = new SelectExitEventArgs();
+    //    args.interactorObject = PhotonView.Find(interactorID).GetComponent<IXRSelectInteractor>();
+    //    args.interactableObject = this;
+    //    args.manager = interactionManager;
+    //    args.isCanceled = isCanceled;
 
-        base.OnSelectExited(args);
-    }
+    //    base.OnSelectExited(args);
+    //}
 }
 
 
