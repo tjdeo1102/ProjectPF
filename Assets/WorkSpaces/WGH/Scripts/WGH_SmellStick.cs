@@ -182,5 +182,9 @@ public class WGH_SmellStick : MonoBehaviourPun
     public void IsGrabRPC(bool isGrabbed)
     {
         isGrab = isGrabbed;
+        if(photonView.IsMine == false)
+        {
+            rigid.useGravity = false;
+        }
     }
 }

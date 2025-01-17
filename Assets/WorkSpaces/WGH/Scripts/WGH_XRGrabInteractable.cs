@@ -8,59 +8,77 @@ using UnityEngine.XR.Interaction.Toolkit;
 [RequireComponent(typeof(PhotonView))]
 public class WGH_XRGrabInteractable : XRGrabInteractable
 {
-    private bool isGrabInNetwork;
-
+    private PhotonView view;
+    public int OriginLayer;
+    public Rigidbody OriginTransform;
     protected override void Awake()
     {
         base.Awake();
         movementType = MovementType.VelocityTracking;
+        view = GetComponent<PhotonView>();
+        OriginTransform = GetComponent<Rigidbody>();
+        if (view.IsMine)
+        { // 내가 소유한 물체인 경우
+            OriginLayer = interactionLayers.value;
+        }
     }
-
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
-        if (args.interactorObject is XRSocketInteractor)
-            return;
-        var interactable = args.interactableObject.transform.GetComponent<PhotonView>();
-
-        // 소유자가 없는 경우에만 물건을 잡도록 설정
-        if (isGrabInNetwork == false)
+        if (args.interactorObject is XRSocketInteractor == false)
         {
             base.OnSelectEntered(args);
-
-            interactable.TransferOwnership(PhotonNetwork.LocalPlayer);
+            view.TransferOwnership(PhotonNetwork.LocalPlayer);
             //print("소유권 양도");
-            interactable.RPC("ChangeRigidbodySetting", RpcTarget.All, true);
+            view.RPC("OnChangeRigidbodySetting", RpcTarget.All, OriginLayer);
         }
     }
-
     protected override void OnSelectExited(SelectExitEventArgs args)
     {
-        if (args.interactorObject is XRSocketInteractor)
-            return;
-        var interactable = args.interactableObject.transform.GetComponent<PhotonView>();
-
-        // 본인이 잡고있던 물체인 경우에만 놓도록 설정
-        if (interactable.Owner == PhotonNetwork.LocalPlayer
-            && isGrabInNetwork == true)
+        if (args.interactorObject is XRSocketInteractor == false)
         {
             base.OnSelectExited(args);
+            // 본인이 잡고있던 물체인 경우에만 놓도록 설정
+            if (view.Owner == PhotonNetwork.LocalPlayer)
+            {
+                view.RPC("OffChangeRigidbodySetting", RpcTarget.All, OriginLayer);
+            }
+        }
+    }
+    [PunRPC]
+    public void OnChangeRigidbodySetting(int originLayer, PhotonMessageInfo info)
+    {
+        OriginTransform.useGravity = false;
+        StartCoroutine(gravityRoutine());
+        // 다른 유저가 상호작용 못하도록 레이어 변경
+        if (!view.IsMine)
+        {
+            interactionLayers = InteractionLayerMask.GetMask("DontInteract");
 
-            interactable.TransferOwnership(PhotonNetwork.MasterClient);
-            interactable.RPC("ChangeRigidbodySetting", RpcTarget.All, false);
+        }
+        else
+        {
+            interactionLayers = new InteractionLayerMask { value = originLayer };
+        }
+    }
+    [PunRPC]
+    public void OffChangeRigidbodySetting(int originLayer, PhotonMessageInfo info)
+    {
+        if (!view.IsMine)
+        {
+            interactionLayers = new InteractionLayerMask { value = originLayer };
+
+        }
+        else
+        {
+            interactionLayers = new InteractionLayerMask { value = originLayer };
+            OriginTransform.useGravity = true;
         }
     }
 
-    [PunRPC]
-    public void ChangeRigidbodySetting(bool isSelect, PhotonMessageInfo info)
+    IEnumerator gravityRoutine()
     {
-        isGrabInNetwork = isSelect;
-        interactionLayers = InteractionLayerMask.GetMask("SmellStick");
-        // 잡은 경우에, 잡은 사람 빼고, 물리 비활성화
-        if (info.Sender.IsLocal) return;
-        var rigid = GetComponent<Rigidbody>();
-        rigid.isKinematic = isSelect;
-        rigid.useGravity = isSelect;
-        interactionLayers = InteractionLayerMask.GetMask("Default");
-        interactionLayers &= ~InteractionLayerMask.GetMask("SmellStick");
+        yield return new WaitForSeconds(0.1f);
+        OriginTransform.useGravity = false;
+        yield break;
     }
 }
