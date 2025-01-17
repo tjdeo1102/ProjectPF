@@ -2,6 +2,7 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -206,7 +207,7 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
         {
             if (orderPopUpRoutine == null)
             {
-                photonView.RPC("Sound", RpcTarget.All, 47);
+                KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Tablet_fall);
                 orderPopUpRoutine = StartCoroutine(OrderPopUpRoutine(order_BasketCount_PopUp));
             }
             return;
@@ -216,7 +217,7 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
         {
             if (orderPopUpRoutine == null)
             {
-                photonView.RPC("Sound", RpcTarget.All, 47);
+                KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Tablet_fall);
                 orderPopUpRoutine = StartCoroutine(OrderPopUpRoutine(order_PlayerMoney_PopUp));
             }
             return;
@@ -224,7 +225,7 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
 
         if (basketItems.Count > 0)
         {
-            photonView.RPC("Sound", RpcTarget.All, 46);
+            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Tablet_success);
             StartCoroutine(BuyRoutine());
         }
     }
@@ -259,6 +260,7 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
                 Destroy(item.gameObject);
             }
         }
+        KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Furniture_on);
 
         foreach (var item in itemPanels)
         {

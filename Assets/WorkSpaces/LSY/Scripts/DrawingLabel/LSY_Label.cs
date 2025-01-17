@@ -8,7 +8,7 @@ public class LSY_Label : MonoBehaviourPun
 {
     [SerializeField] Button doneButton;
     [SerializeField] Transform setPoint;
-    [SerializeField] LSY_GrabWhiteBoard grabWhiteBoard;
+    [SerializeField] LSY_NetworkGrabInteractable interactable;
 
     void Start()
     {
@@ -20,6 +20,7 @@ public class LSY_Label : MonoBehaviourPun
         gameObject.transform.localScale = new Vector3(1, 1, 1);
         doneButton.onClick.AddListener(DoneButton);
         doneButton.gameObject.SetActive(true);
+        interactable.enabled = false;
     }
 
     public void OnWhiteBoard()
@@ -41,7 +42,7 @@ public class LSY_Label : MonoBehaviourPun
         gameObject.transform.rotation = setPoint.rotation;
 
         doneButton.gameObject.SetActive(false);
-        grabWhiteBoard.enabled = true;
+        interactable.enabled = true;
     }
 
 }

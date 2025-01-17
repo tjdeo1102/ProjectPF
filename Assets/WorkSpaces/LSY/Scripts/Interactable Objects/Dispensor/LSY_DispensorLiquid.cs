@@ -113,8 +113,7 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
         }
     }
 
-    [PunRPC]
-    public void RPC_LitAnimation(string name, bool on)
+    public void LitAnimation(string name, bool on)
     {
         litAnimator.SetTrigger(name);
         isLitOpen = on;

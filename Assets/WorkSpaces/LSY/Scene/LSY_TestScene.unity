@@ -571,6 +571,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CauldronGroup
       objectReference: {fileID: 0}
+    - target: {fileID: 3073268496326192367, guid: db617dc034bfb35449fc7ed6522189b1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3073268496725645433, guid: db617dc034bfb35449fc7ed6522189b1, type: 3}
       propertyPath: sceneViewId
       value: 162
@@ -7359,7 +7363,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5561765741229111065, guid: cbd9aae6a9efd3e42a7c65e0099e1923, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5561765741229111070, guid: cbd9aae6a9efd3e42a7c65e0099e1923, type: 3}
       propertyPath: sceneViewId
@@ -8482,6 +8486,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 661723178}
   m_Mesh: {fileID: -5741174448488666723, guid: 7744a4b32bc8bb54c937dbd287fe9843, type: 3}
+--- !u!114 &742243080 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3575234689084016232, guid: 9cc05c3ca6399cd46b2803b9234e2132, type: 3}
+  m_PrefabInstance: {fileID: 961934730}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a065a1bfb5b88fd4fad43325aaec822b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &798839569
 GameObject:
   m_ObjectHideFlags: 0
@@ -14095,6 +14110,34 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 306
       objectReference: {fileID: 0}
+    - target: {fileID: 3154159579721508067, guid: 9cc05c3ca6399cd46b2803b9234e2132, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3154159579721508067, guid: 9cc05c3ca6399cd46b2803b9234e2132, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3154159579721508067, guid: 9cc05c3ca6399cd46b2803b9234e2132, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 742243080}
+    - target: {fileID: 3154159579721508067, guid: 9cc05c3ca6399cd46b2803b9234e2132, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3154159579721508067, guid: 9cc05c3ca6399cd46b2803b9234e2132, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ShopOpenSound
+      objectReference: {fileID: 0}
+    - target: {fileID: 3154159579721508067, guid: 9cc05c3ca6399cd46b2803b9234e2132, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: LSY_Kiosk, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3154159579721508067, guid: 9cc05c3ca6399cd46b2803b9234e2132, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3154159579769307532, guid: 9cc05c3ca6399cd46b2803b9234e2132, type: 3}
       propertyPath: sceneViewId
       value: 308
@@ -14478,6 +14521,10 @@ PrefabInstance:
     - target: {fileID: 3989657486138965442, guid: 9cc05c3ca6399cd46b2803b9234e2132, type: 3}
       propertyPath: m_Name
       value: Kiosk
+      objectReference: {fileID: 0}
+    - target: {fileID: 3989657486138965442, guid: 9cc05c3ca6399cd46b2803b9234e2132, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4002692470867162634, guid: 9cc05c3ca6399cd46b2803b9234e2132, type: 3}
       propertyPath: sceneViewId
@@ -26200,6 +26247,8 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+  OriginLayer: 0
+  OriginTransform: {fileID: 0}
 --- !u!54 &1239793080
 Rigidbody:
   m_ObjectHideFlags: 0
