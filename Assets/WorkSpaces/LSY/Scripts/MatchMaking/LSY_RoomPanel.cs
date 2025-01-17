@@ -37,8 +37,10 @@ public class LSY_RoomPanel : MonoBehaviour
             selectStageInfo.StageLevel = 1;
             selectStageInfo.StageMoney = 0;
             selectStageInfo.FinishPlayerCount = 0;
-            addTool.UpdateList();
             selectStageInfo.BuyItems = new List<string>();
+            selectStageInfo.ActiveNotes = new List<bool>(new bool[(int)PerfumeNoteName.Null + 1]);
+            selectStageInfo.ActivePerfumes = new List<bool>(new bool[(int)PerfumeName.LightNavy + 1]);
+            addTool.UpdateList();
         }
     }
 
