@@ -20,7 +20,7 @@ public class LSY_Label : MonoBehaviourPun
         gameObject.transform.localScale = new Vector3(1, 1, 1);
         doneButton.onClick.AddListener(DoneButton);
         doneButton.gameObject.SetActive(true);
-        interactable.enabled = false;
+     //   interactable.enabled = false;
     }
 
     public void OnWhiteBoard()
@@ -42,7 +42,7 @@ public class LSY_Label : MonoBehaviourPun
         gameObject.transform.rotation = setPoint.rotation;
 
         doneButton.gameObject.SetActive(false);
-        interactable.enabled = true;
+      //  interactable.enabled = true;
     }
 
 }

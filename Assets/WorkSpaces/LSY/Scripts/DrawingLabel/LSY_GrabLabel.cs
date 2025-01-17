@@ -13,7 +13,7 @@ public class LSY_GrabLabel : MonoBehaviourPun
     IEnumerator Routine()
     {
         yield return new WaitForSeconds(0.3f);
-        label.SetActive(false);
+       // label.SetActive(false);
         whiteBoard.SetActive(true);
         doneLabel = true;
     }
