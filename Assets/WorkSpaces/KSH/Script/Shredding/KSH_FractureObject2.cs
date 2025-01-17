@@ -103,6 +103,8 @@ public class KSH_FractureObject2 : MonoBehaviour
         // 쿨타임 검사: 쿨타임이 지나지 않으면 충돌을 실행하지 않음
         if (Time.time - lastSliceTime < sliceCooldown) return;
 
+        if (collisionCount == 6) return;
+
         if (!dryingRacks.Isdry) return;
 
         if (!plate.IsFlower) return;
