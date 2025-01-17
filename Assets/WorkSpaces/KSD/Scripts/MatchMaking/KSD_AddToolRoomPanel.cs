@@ -62,6 +62,8 @@ public class KSD_AddToolRoomPanel : MonoBehaviour
                                 StageLevel = res[i].StageLevel,
                                 StageMoney = res[i].StageMoney,
                                 BuyItems = res[i].BuyItems,
+                                ActiveNotes = res[i].ActiveNotes,
+                                ActivePerfumes = res[i].ActivePerfumes
                             };
                         }
                         entrys[i].UpdateStageInfo();

@@ -18,9 +18,10 @@ public class KSD_FadeObject : MonoBehaviour
 
     public void SetFade(float duration, float alpha)
     {
+        if (fadeRenderer == null || fadeRenderer.material == null) return;
         playDuration = duration;
         targetAlpha = alpha;
-
+        
         var originCol = fadeRenderer.material.color;
         fadeRenderer.material.DOColor(new Color(originCol.r, originCol.g, originCol.b, targetAlpha), playDuration);
     }

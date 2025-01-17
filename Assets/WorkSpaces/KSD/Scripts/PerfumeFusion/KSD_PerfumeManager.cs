@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public enum MakeType
-{
-    MakeConcentrate, MakeNote, MakePerfume
-}
 public class KSD_PerfumeManager : MonoBehaviour
 {
     public static KSD_PerfumeManager Instance { get; private set; }
@@ -128,6 +124,10 @@ public class KSD_PerfumeManager : MonoBehaviour
             {
                 noteInfo = recipe.ResultNote;
                 Debug.Log($"일치하는 레시피 발견: {recipe} ");
+                // 발견된 레시피는 현재 스테이지정보에 포함
+                // 스테이지 정보 업데이트
+                KSD_GameManager.Instance.CurrentStageInfo.ActiveNotes[(int)noteInfo.Name] = true;
+                KSD_GameManager.Instance.OnChangeStageInfo?.Invoke();
                 return true;
             }
         }
@@ -185,6 +185,10 @@ public class KSD_PerfumeManager : MonoBehaviour
             {
                 perfumeInfo = recipe.ResultPerfume;
                 Debug.Log($"일치하는 레시피 발견: {recipe} ");
+                // 발견된 레시피는 현재 스테이지정보에 포함
+                // 스테이지 정보 업데이트
+                KSD_GameManager.Instance.CurrentStageInfo.ActivePerfumes[(int)perfumeInfo.Name] = true;
+                KSD_GameManager.Instance.OnChangeStageInfo?.Invoke();
                 return true;
             }
         }
