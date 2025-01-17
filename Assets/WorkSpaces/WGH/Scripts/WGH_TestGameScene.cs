@@ -31,7 +31,7 @@ public class WGH_TestGameScene : MonoBehaviourPunCallbacks
 
     void SpawnPlayer()
     {
-        PhotonNetwork.Instantiate("Player", spawnPos, Quaternion.identity);
+        PhotonNetwork.Instantiate("KSH_Player1", spawnPos, Quaternion.identity);
     }
 }
 

@@ -27,6 +27,7 @@ public class WGH_NPCEnter : INPCState
         //TODO : 조건에 맞춰서 수정
         if (Vector3.Distance(controller.transform.position, controller.Entrance) < 0.5f)
         {
+            Debug.Log("엔터전환");
             if (WGH_NPCCreator.Instance.isExplore == false && WGH_NPCCreator.Instance.isCounter == true)
             {
                 controller.ChangeStateNetwork((int)E_StateType.EXPLORE);

@@ -2,6 +2,7 @@ using Photon.Pun;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public enum E_StateType
@@ -35,9 +36,8 @@ public class WGH_NPCController : MonoBehaviourPun
     [HideInInspector] public NavMeshAgent Agent { get { return agent; } }
     [HideInInspector] public WGH_SmellStick SmellStick;
     [HideInInspector] public WGH_NPCPause pause;
+    [HideInInspector] public Renderer SkinnedMeshRenderer;
     public GameObject TestNote;
-    public Button SmellTestStartButton;
-    public Button SmellTestEndButton;
 
     [Header("선호도")]
     private WGH_NPCNote npcNote;
@@ -65,6 +65,10 @@ public class WGH_NPCController : MonoBehaviourPun
     [Header("NPC 상호작용 콜라이더")]
     [SerializeField, Tooltip("시향 콜라이더")] private Collider interactionArea;                         // 시향 콜라이더
     public Collider InteractionArea { get { return interactionArea; } }
+    
+    [Header("표정 매터리얼")]
+    public Material[] faceMaterials;
+    public Texture[] faceTextures;
 
     [Header("리액션 이펙트")]
     [SerializeField] private ParticleSystem bestEmotion;
@@ -75,9 +79,7 @@ public class WGH_NPCController : MonoBehaviourPun
     public ParticleSystem FailEmotion;
 
     [Header("UI")]
-    [Tooltip("병 UI 목록")] public Sprite[] PerfumeUis;
     [Tooltip("병 UI 목록")] public Sprite[] BottleUis;
-    [Tooltip("병 UI")] public Image PerfumeUI;
     [Tooltip("병 UI")] public Image BottleUI;
 
     private Coroutine exploreRoutine;
@@ -87,8 +89,7 @@ public class WGH_NPCController : MonoBehaviourPun
     {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
-        PerfumeUI = transform.GetChild(0).GetChild(0).GetComponent<Image>();
-        BottleUI = transform.GetChild(0).GetChild(1).GetComponent<Image>();
+        BottleUI = transform.GetChild(0).GetChild(0).GetComponent<Image>();
 
         passState = new WGH_NPCPass(this, agent);
         enterState = new WGH_NPCEnter(this, agent);
@@ -101,6 +102,10 @@ public class WGH_NPCController : MonoBehaviourPun
 
     private void Start()
     {
+        if(transform.GetComponentInChildren<SkinnedMeshRenderer>() != null)
+        {
+            SkinnedMeshRenderer = transform.GetComponentInChildren<SkinnedMeshRenderer>();
+        }
         // Pause 이벤트 등록
         pause = GameObject.FindGameObjectWithTag("Pause").GetComponentInChildren<WGH_NPCPause>();
         pause.OnPause.AddListener(StartPauseBehaviour);
@@ -226,11 +231,9 @@ public class WGH_NPCController : MonoBehaviourPun
         if (BottleUI.gameObject.activeSelf == false)
         {
             BottleUI.gameObject.SetActive(true);
-            PerfumeUI.gameObject.SetActive(true);
         }
 
         BottleUI.sprite = BottleUis[bottleType];
-        PerfumeUI.sprite = PerfumeUis[perfumeType];
         BottleType = (E_BottleType)bottleType;
     }
 
@@ -299,8 +302,10 @@ public class WGH_NPCController : MonoBehaviourPun
     IEnumerator FloatBestEmotionRoutine()
     {
         SetAnimNetwork("Best");
+        //SetEmotion(4);
         bestEmotion.gameObject.SetActive(true);
         yield return new WaitForSeconds(2);
+        //SetEmotion(0);
         bestEmotion.gameObject.SetActive(false);
         yield break;
     }
@@ -308,8 +313,10 @@ public class WGH_NPCController : MonoBehaviourPun
     IEnumerator FloatLikeEmotionRoutine()
     {
         SetAnimNetwork("Yes");
+        //SetEmotion(3);
         likeEmotion.gameObject.SetActive(true);
         yield return new WaitForSeconds(2);
+        //SetEmotion(0);
         likeEmotion.gameObject.SetActive(false);
         yield break;
     }
@@ -317,8 +324,10 @@ public class WGH_NPCController : MonoBehaviourPun
     IEnumerator FloatQuestionEmotionRoutine()
     {
         SetAnimNetwork("Question");
+        //SetEmotion(2);
         questionEmotion.gameObject.SetActive(true);
         yield return new WaitForSeconds(2);
+        //SetEmotion(0);
         questionEmotion.gameObject.SetActive(false);
         yield break;
     }
@@ -326,9 +335,22 @@ public class WGH_NPCController : MonoBehaviourPun
     IEnumerator FloatDespairEmotionRoutine()
     {
         SetAnimNetwork("No");
+        //SetEmotion(1);
         despairEmotion.gameObject.SetActive(true);
         yield return new WaitForSeconds(2);
+        //SetEmotion(0);
         despairEmotion.gameObject.SetActive(false);
         yield break;
     }
+
+    //public void SetEmotion(int num)
+    //{
+    //    photonView.RPC("SetEmotionRPC", RpcTarget.All, num);
+    //}
+
+    //[PunRPC]
+    //public void SetEmotionRPC(int num)
+    //{
+    //    SkinnedMeshRenderer.materials[1].mainTexture = faceTextures[num];
+    //}
 }
