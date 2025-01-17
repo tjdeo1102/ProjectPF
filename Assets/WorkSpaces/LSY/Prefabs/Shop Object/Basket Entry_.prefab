@@ -278,7 +278,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8641270789737294502}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4444071205278412733}
+        m_TargetAssemblyTypeName: LSY_BasketPanel, Assembly-CSharp
+        m_MethodName: ButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3109224509640168486
 GameObject:
   m_ObjectHideFlags: 0

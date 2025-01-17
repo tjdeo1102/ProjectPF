@@ -1,10 +1,11 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LSY_BasketPanel : MonoBehaviour
+public class LSY_BasketPanel : MonoBehaviourPun
 {
     [Header("¹öÆ°")]
     [SerializeField] Button deleteButton;
@@ -35,6 +36,17 @@ public class LSY_BasketPanel : MonoBehaviour
         itemExplainText.text = itemExplain;
 
         deleteButton.onClick.AddListener(Delete);
+    }
+
+    public void ButtonClick()
+    {
+        photonView.RPC("RPC_ButtonClick", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void RPC_ButtonClick()
+    {
+        KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Button1);
     }
 
     private void TotalPrice()

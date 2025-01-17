@@ -6275,7 +6275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &574734968
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8902,6 +8902,7 @@ MonoBehaviour:
   playerButton: {fileID: 1732096062}
   hostImage: {fileID: 1496401172}
   roomPopUp: {fileID: 2007139420}
+  characterImgae: {fileID: 574734969}
   _isReady: 0
 --- !u!1 &799425377
 GameObject:
@@ -10396,6 +10397,10 @@ PrefabInstance:
     - target: {fileID: 1114847883221221242, guid: 07b4c96ead0132e4d9bd1538c02faf5f, type: 3}
       propertyPath: m_Name
       value: Voice
+      objectReference: {fileID: 0}
+    - target: {fileID: 1114847883221221242, guid: 07b4c96ead0132e4d9bd1538c02faf5f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1114847883221221247, guid: 07b4c96ead0132e4d9bd1538c02faf5f, type: 3}
       propertyPath: m_RootOrder
@@ -20392,7 +20397,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1623626071
 RectTransform:
   m_ObjectHideFlags: 0
@@ -27225,6 +27230,7 @@ MonoBehaviour:
   playerButton: {fileID: 1703910169}
   hostImage: {fileID: 2765207205438555493}
   roomPopUp: {fileID: 1017096537}
+  characterImgae: {fileID: 1623626072}
   _isReady: 0
 --- !u!222 &2765207203600324943
 CanvasRenderer:
