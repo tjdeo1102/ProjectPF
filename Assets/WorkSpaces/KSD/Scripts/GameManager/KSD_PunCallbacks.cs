@@ -1,4 +1,6 @@
+using DG.Tweening.Core.Easing;
 using Photon.Pun;
+using Photon.Pun.Demo.PunBasics;
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,5 +13,13 @@ public class KSD_PunCallbacks : MonoBehaviourPunCallbacks
     {
         base.OnPlayerLeftRoom(otherPlayer);
         KSD_GameManager.Instance.Quit(true,true,false);
+    }
+
+    public override void OnLeftRoom()
+    {
+        base.OnLeftRoom();
+        // 방을 나간 경우는 무조건 씬 전환하게 되는 부분
+        var gameManager = KSD_GameManager.Instance;
+        PhotonNetwork.LoadLevel(gameManager.returnSceneNum);
     }
 }

@@ -19,8 +19,8 @@ public class KSD_GameManager : MonoBehaviourPun
     [SerializeField] private int currentStageID;
 
     [Header("게임 씬 설정")]
-    [SerializeField] private int returnSceneNum;
-    [SerializeField] private int gameSceneNum;
+    public int returnSceneNum;
+    public int gameSceneNum;
 
     [Header("네트워크 안정화")]
     [SerializeField] private float networkDelay;
@@ -224,8 +224,8 @@ public class KSD_GameManager : MonoBehaviourPun
         fadeManager.FadeOut();
         // Fade Out 효과시간 동안 대기
         yield return new WaitForSeconds(fadeManager.fadeDuration);
+        // 방 떠나는 경우, 콜백에서 처리
         if (isLeaveRoom) PhotonNetwork.LeaveRoom();
-
-        PhotonNetwork.LoadLevel(sceneNum);
+        else PhotonNetwork.LoadLevel(sceneNum);
     }
 }

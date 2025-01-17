@@ -1,6 +1,7 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Device;
@@ -8,7 +9,7 @@ using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
 
 [RequireComponent(typeof(PhotonView))]
-public class KSD_RecipeScreen : XRBaseInteractable, IPunObservable
+public class KSD_RecipeScreenInteractable : XRBaseInteractable, IPunObservable
 {
     [Header("기본 설정")]
     public float OriginSize;
@@ -26,16 +27,15 @@ public class KSD_RecipeScreen : XRBaseInteractable, IPunObservable
     [Header("원래 위치 복귀 속도 설정")]
     public float ReturnVelocity;
 
-    private bool isGrabInNetwork;
     private Transform selectInteractor;
     private PhotonView photonView;
     private float lastPositionY;
-    private InteractionLayerMask originLayer;
+    private int originLayer;
 
     private void Start()
     {
         photonView = GetComponent<PhotonView>();
-        originLayer = interactionLayers;
+        originLayer = interactionLayers.value;
         screenTransform.localScale = new Vector3(screenTransform.localScale.x, OriginSize, screenTransform.localScale.z);
         handleTransform.localPosition = OriginHandlePosition;
     }
@@ -84,6 +84,49 @@ public class KSD_RecipeScreen : XRBaseInteractable, IPunObservable
         }
     }
 
+
+    protected override void OnSelectEntered(SelectEnterEventArgs args)
+    {
+        // 소유자가 없는 경우에만 물건을 잡도록 설정
+        base.OnSelectEntered(args);
+        selectInteractor = args.interactorObject.transform;
+        lastPositionY = selectInteractor.position.y;
+        photonView.TransferOwnership(PhotonNetwork.LocalPlayer);
+        //print("소유권 양도");
+        photonView.RPC("OnChangeRigidbodySetting", RpcTarget.AllViaServer, originLayer);
+    }
+
+    protected override void OnSelectExited(SelectExitEventArgs args)
+    {
+        // 본인이 잡고있던 물체인 경우에만 놓도록 설정
+        if (photonView.Owner == PhotonNetwork.LocalPlayer)
+        {
+            base.OnSelectExited(args);
+            selectInteractor = null;
+            photonView.RPC("OffChangeRigidbodySetting", RpcTarget.AllViaServer, originLayer);
+        }
+    }
+
+    [PunRPC]
+    public void OnChangeRigidbodySetting(int originLayer, PhotonMessageInfo info)
+    {
+        // 다른 유저가 상호작용 못하도록 레이어 변경
+        if (!photonView.IsMine)
+        {
+            interactionLayers = InteractionLayerMask.GetMask("DontInteract");
+        }
+        else
+        {
+            interactionLayers = new InteractionLayerMask { value = originLayer };
+        }
+    }
+
+    [PunRPC]
+    public void OffChangeRigidbodySetting(int originLayer, PhotonMessageInfo info)
+    {
+        interactionLayers = new InteractionLayerMask { value = originLayer };
+    }
+
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         // 소유권 있는 자신은 Value를 보내기만 하기
@@ -96,39 +139,5 @@ public class KSD_RecipeScreen : XRBaseInteractable, IPunObservable
         {
             Value = (float)stream.ReceiveNext();
         }
-    }
-
-    protected override void OnSelectEntered(SelectEnterEventArgs args)
-    {
-        PhotonView interactorPV = args.interactorObject.transform.GetComponent<PhotonView>();
-        photonView.RPC("SetDisableLayer", RpcTarget.AllViaServer, interactorPV.ViewID);
-    }
-
-    protected override void OnSelectExited(SelectExitEventArgs args)
-    {
-        selectInteractor = null;
-        photonView.RPC("SetEnableLayer", RpcTarget.AllViaServer);
-    }
-
-    [PunRPC]
-    public void SetDisableLayer(int interactorID)
-    {
-        SelectEnterEventArgs args = new SelectEnterEventArgs();
-        selectInteractor = PhotonView.Find(interactorID).GetComponent<IXRSelectInteractor>().transform;
-        base.OnSelectEntered(args);
-
-        if (photonView.IsMine) return;
-        print("다른 사람 것이므로 비활성화");
-        interactionLayers = InteractionLayerMask.GetMask("DontInteract");
-    }
-
-    [PunRPC]
-    public void SetEnableLayer()
-    {
-        SelectExitEventArgs args = new SelectExitEventArgs();
-        selectInteractor = null;
-        base.OnSelectExited(args);
-        print("활성화");
-        interactionLayers = new InteractionLayerMask() { value = originLayer };
     }
 }
