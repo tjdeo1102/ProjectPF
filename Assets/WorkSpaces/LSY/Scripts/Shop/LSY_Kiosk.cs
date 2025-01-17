@@ -37,13 +37,18 @@ public class LSY_Kiosk : MonoBehaviourPun
 
     public void ButtonClick()
     {
-        photonView.RPC("RPC_ButtonClick", RpcTarget.All);
+        photonView.RPC("RPC_ButtonClick", RpcTarget.All, 0);
+    }
+
+    public void ShopOpenSound()
+    {
+        photonView.RPC("RPC_ButtonClick", RpcTarget.All, 44);
     }
 
     [PunRPC]
-    public void RPC_ButtonClick()
+    public void RPC_ButtonClick(int sound)
     {
-        KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Button1);
+        KSH_AudioManager.Instance.PlaySfx((KSH_AudioManager.Sfx)sound);
     }
 
     [PunRPC]

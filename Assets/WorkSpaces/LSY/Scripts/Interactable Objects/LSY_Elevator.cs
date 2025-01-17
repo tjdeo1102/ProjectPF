@@ -42,6 +42,8 @@ public class LSY_Elevator : MonoBehaviourPun
         }
     }
 
+    private bool isSoundPlaying = false;
+
     void Update()
     {
         if (photonView.IsMine == false)
@@ -55,7 +57,11 @@ public class LSY_Elevator : MonoBehaviourPun
         {
             if (transform.position.y > maxHeight)
             {
-                photonView.RPC("SoundStop", RpcTarget.All, 30);
+                if (isSoundPlaying)
+                {
+                    photonView.RPC("SoundStop", RpcTarget.All, 30);
+                    isSoundPlaying = false;
+                }
                 return;
             }
 
@@ -73,7 +79,11 @@ public class LSY_Elevator : MonoBehaviourPun
 
             if (transform.position.y <= initialPosition.y + 0.01f)
             {
-                photonView.RPC("SoundStop", RpcTarget.All, 30);
+                if (isSoundPlaying)
+                {
+                    photonView.RPC("SoundStop", RpcTarget.All, 30);
+                    isSoundPlaying = false;
+                }
                 return;
             }
 
@@ -86,12 +96,14 @@ public class LSY_Elevator : MonoBehaviourPun
         if (direction == Vector3.up && !isElevatorMovingUp)
         {
             photonView.RPC("SoundPlay", RpcTarget.All, 30);
+            isSoundPlaying = true; 
             isElevatorMovingUp = true;
             isElevatorMovingDown = false;
         }
         else if (direction == Vector3.down && !isElevatorMovingDown)
         {
             photonView.RPC("SoundPlay", RpcTarget.All, 30);
+            isSoundPlaying = true; 
             isElevatorMovingUp = false;
             isElevatorMovingDown = true;
         }
@@ -99,48 +111,24 @@ public class LSY_Elevator : MonoBehaviourPun
         transform.position += direction * moveSpeed * Time.deltaTime;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("물체 들어옴");
-        if (other.gameObject.CompareTag("Player"))
-        {
-            playerIn = true;
-            return;
-        }
-        if (other.gameObject.CompareTag("Bucket") && other.GetComponent<Rigidbody>() != null)
-        {
-            other.GetComponent<Rigidbody>().useGravity = true;
-            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.elevator_on);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        Debug.Log("물체 나감");
-        if (other.gameObject.CompareTag("Player"))
-        {
-            playerIn = false;
-            return;
-        }
-        if (other.gameObject.CompareTag("Bucket") && other.GetComponent<Rigidbody>() != null)
-            other.GetComponent<Rigidbody>().useGravity = true;
-    }
-
     [PunRPC]
     public void SoundPlay(int num)
     {
+        Debug.Log("엘리베이터 사운드 시작");
         KSH_AudioManager.Instance.PlaySfx((KSH_AudioManager.Sfx)num);
     }
 
     [PunRPC]
     public void SoundStop(int num)
     {
+        Debug.Log("엘리베이터 사운드 스탑");
         KSH_AudioManager.Instance.StopSfxLoop((KSH_AudioManager.Sfx)num);
 
         if (num == 30)
         {
             isElevatorMovingUp = false;
             isElevatorMovingDown = false;
+            isSoundPlaying = false;
         }
     }
 }
