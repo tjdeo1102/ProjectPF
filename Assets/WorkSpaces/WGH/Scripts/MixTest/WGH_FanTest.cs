@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,8 @@ public class WGH_FanTest : MonoBehaviour
     public float maxDistance = 5f; // 최대 작동 거리
     public bool isActiveFire = false;
 
+    PhotonView photonView;
+
     [Header("치트 모드")]
     public bool AlwaysFire;
 
@@ -28,6 +31,7 @@ public class WGH_FanTest : MonoBehaviour
     void Start()
     {
         lastPosition = fan.position; // 부채 초기 위치 저장
+        photonView = GetComponent<PhotonView>();
     }
 
     void Update()
@@ -71,6 +75,8 @@ public class WGH_FanTest : MonoBehaviour
         var emission = fireParticle.emission;
         var main = fireParticle.main;
 
+        bool previousActiveState = isActiveFire;
+
         if (speed > activeShakeSpeed || AlwaysFire) // 부채가 흔들릴 때
         {
             emission.rateOverTime = Mathf.Lerp(emission.rateOverTime.constant, 100f, Time.deltaTime);   // 파티클 증가
@@ -80,6 +86,21 @@ public class WGH_FanTest : MonoBehaviour
         {
             emission.rateOverTime = Mathf.Lerp(emission.rateOverTime.constant, 0f, Time.deltaTime);     // 파티클 감소
             //main.startSize = Mathf.Lerp(main.startSize.constant, 0.5f, Time.deltaTime);                 // 크기 감소
+        }
+
+        if (emission.rateOverTime.constant / 100f >= fullFirePercentage)
+        {
+            isActiveFire = true;
+            photonView.RPC("RPC_PlaySfx", RpcTarget.All, 28);
+        }
+        else
+        {
+            isActiveFire = false;
+        }         
+
+        if (previousActiveState == false && isActiveFire)
+        {
+            photonView.RPC("RPC_PlaySfx", RpcTarget.All, 27);
         }
 
         // 치트모드
@@ -108,5 +129,11 @@ public class WGH_FanTest : MonoBehaviour
                 isActiveFire = true;
             else isActiveFire = false;
         }
+    }
+
+    [PunRPC]
+    private void RPC_PlaySfx(int sfx)
+    {
+        KSH_AudioManager.Instance.PlaySfx((KSH_AudioManager.Sfx)sfx);
     }
 }

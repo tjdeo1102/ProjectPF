@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ public class KSD_FruitSpoon : MonoBehaviour
     private Collider[] cols;
     private bool isActive;
     private PTK_Fruit grabObject;
+    PhotonView photonView;
 
     private void Awake()
     {
@@ -22,6 +24,11 @@ public class KSD_FruitSpoon : MonoBehaviour
         grapInteractable.selectExited.AddListener(OnSelectExited);
         grapInteractable.activated.AddListener(OnActivated);
         grapInteractable.deactivated.AddListener(OnDeactivated);
+    }
+
+    private void Start()
+    {
+        photonView = GetComponent<PhotonView>();
     }
 
     private void OnDisable()
@@ -65,14 +72,14 @@ public class KSD_FruitSpoon : MonoBehaviour
             if (fruit.fruitInfo.State == PerfumeMaterialState.Raw
                 && fruit.fruitInfo.Type == PerfumeMaterialType.Small)
             {
-                //KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Pick_scoop);
+                photonView.RPC("RPC_PlaySfx", RpcTarget.All, 6);
                 grabObject = fruit;
             }
             // 허브 가루들도 가져갈 수 있도록 만들기
             else if (fruit.fruitInfo.State == PerfumeMaterialState.Process
                 && fruit.fruitInfo.Type == PerfumeMaterialType.Hub)
             {
-                //KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Mortar_out);
+                photonView.RPC("RPC_PlaySfx", RpcTarget.All, 15);
                 grabObject = fruit;
             }
         }
@@ -82,5 +89,11 @@ public class KSD_FruitSpoon : MonoBehaviour
     {
         if (grabObject == null) return;
         grabObject.transform.position = attachTransform.position;
+    }
+
+    [PunRPC]
+    private void RPC_PlaySfx(int sfx)
+    {
+        KSH_AudioManager.Instance.PlaySfx((KSH_AudioManager.Sfx)sfx);
     }
 }

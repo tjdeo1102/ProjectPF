@@ -50,7 +50,7 @@ public class PTK_Box : MonoBehaviourPun
             currentFruit = fruit;
             isReadyForMix = true;
 
-            //KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Blender_in);
+            photonView.RPC("RPC_PlaySfx", RpcTarget.All, 9);
 
             Debug.Log("Fruit is ready");
         }
@@ -86,7 +86,7 @@ public class PTK_Box : MonoBehaviourPun
                 (byte)currentFruit.fruitInfo.Type,
                 (byte)currentFruit.fruitInfo.State);
 
-                //KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Blender_out);
+                photonView.RPC("RPC_PlaySfx", RpcTarget.All, 12);
 
                 isReadyForMix = false;
             }        
@@ -142,5 +142,11 @@ public class PTK_Box : MonoBehaviourPun
         Transform objTransform = targetPhotonView.transform;
         objTransform.position = returnSpawnPoint.position;
         objTransform.rotation = returnSpawnPoint.rotation;
+    }
+
+    [PunRPC]
+    private void RPC_PlaySfx(int sfx)
+    {
+        KSH_AudioManager.Instance.PlaySfx((KSH_AudioManager.Sfx)sfx);
     }
 }
