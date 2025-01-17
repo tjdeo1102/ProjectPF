@@ -70,7 +70,6 @@ public class KSH_Sockets : MonoBehaviourPun
             {
                 other.gameObject.layer = 9;
                 int viewID = other.GetComponent<PhotonView>().ViewID;
-                Debug.Log(viewID);
                 photonView.RPC("RPC_FragmentMaterial", RpcTarget.All, viewID);
             }
         }
@@ -79,7 +78,6 @@ public class KSH_Sockets : MonoBehaviourPun
     private void RPC_FragmentMaterial(int objectViewID) //GameObject other, KSH_DryingRacks dryingRacks)
     {
         GameObject other = PhotonView.Find(objectViewID).gameObject;
-        Debug.Log(other);
         if (other == null)
         {
             Debug.Log("오브젝트를 찾을 수 없습니다.");
@@ -107,7 +105,6 @@ public class KSH_Sockets : MonoBehaviourPun
 
             // 목표 밝기 값(V) 설정
             float targetV = targetValue;
-            Debug.Log(targetV);
 
             // HSV를 RGB로 변환하여 새로운 색상 생성
             Color updatedColor = Color.HSVToRGB(h, s, targetV);
