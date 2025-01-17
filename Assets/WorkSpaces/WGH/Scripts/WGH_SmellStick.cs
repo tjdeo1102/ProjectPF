@@ -161,7 +161,8 @@ public class WGH_SmellStick : MonoBehaviourPun
     {
         if (args.interactorObject is XRSocketInteractor)
             return;
-        photonView.RPC("IsGrabRPC", RpcTarget.All, true);
+        //photonView.RPC("IsGrabRPC", RpcTarget.All, true);
+        isGrab = true;
     }
 
     /// <summary>
@@ -171,7 +172,8 @@ public class WGH_SmellStick : MonoBehaviourPun
     {
         if (args.interactorObject is XRSocketInteractor)
             return;
-        photonView.RPC("IsGrabRPC", RpcTarget.All, false);
+        //photonView.RPC("IsGrabRPC", RpcTarget.All, false);
+        isGrab = false;
     }
 
 

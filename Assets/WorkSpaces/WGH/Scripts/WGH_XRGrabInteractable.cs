@@ -8,78 +8,119 @@ using UnityEngine.XR.Interaction.Toolkit;
 [RequireComponent(typeof(PhotonView))]
 public class WGH_XRGrabInteractable : XRGrabInteractable
 {
-    private PhotonView view;
-    public int OriginLayer;
-    public Rigidbody OriginTransform;
+    [SerializeField] PhotonView photonView;
+
     protected override void Awake()
     {
         base.Awake();
-        movementType = MovementType.VelocityTracking;
-        view = GetComponent<PhotonView>();
-        OriginTransform = GetComponent<Rigidbody>();
-        if (view.IsMine)
-        { // 내가 소유한 물체인 경우
-            OriginLayer = interactionLayers.value;
+
+        photonView = GetComponent<PhotonView>();
+    }
+
+    protected override void OnSelectEntering(SelectEnterEventArgs args)
+    {
+        // base.OnSelectEntering(args);
+        if (args.interactorObject is XRSocketInteractor)
+        {
+            base.OnSelectEntering(args);
+        }
+        else
+        {
+            PhotonView interactorPV = args.interactorObject.transform.GetComponent<PhotonView>();
+            photonView.RPC(nameof(RPC_SelectEntering), RpcTarget.AllViaServer, interactorPV.ViewID);
         }
     }
+    
+    [PunRPC]
+    public void RPC_SelectEntering(int interactorID)
+    {
+        SelectEnterEventArgs args = new SelectEnterEventArgs();
+        args.interactorObject = PhotonView.Find(interactorID).GetComponent<IXRSelectInteractor>();
+        args.interactableObject = this;
+        args.manager = interactionManager;
+    
+        base.OnSelectEntering(args);
+        Debug.Log($"{photonView.Owner} {gameObject.name} Select Entering -> {args.interactorObject.transform.gameObject.name}");
+    }
+
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
-        if (args.interactorObject is XRSocketInteractor == false)
+        // base.OnSelectEntered(args);
+        if (args.interactorObject is XRSocketInteractor)
         {
             base.OnSelectEntered(args);
-            view.TransferOwnership(PhotonNetwork.LocalPlayer);
-            //print("소유권 양도");
-            view.RPC("OnChangeRigidbodySetting", RpcTarget.AllViaServer, OriginLayer);
+        }
+        else
+        {
+            PhotonView interactorPV = args.interactorObject.transform.GetComponent<PhotonView>();
+            photonView.RPC(nameof(RPC_SelectEntered), RpcTarget.AllViaServer, interactorPV.ViewID);
         }
     }
+
+    [PunRPC]
+    public void RPC_SelectEntered(int interactorID)
+    {
+        SelectEnterEventArgs args = new SelectEnterEventArgs();
+        args.interactorObject = PhotonView.Find(interactorID).GetComponent<IXRSelectInteractor>();
+        args.interactableObject = this;
+        args.manager = interactionManager;
+
+        base.OnSelectEntered(args);
+        Debug.Log($"{photonView.Owner} {gameObject.name} Select Entered -> {args.interactorObject.transform.gameObject.name}");
+    }
+
+    protected override void OnSelectExiting(SelectExitEventArgs args)
+    {
+        // base.OnSelectExiting(args);
+        if (args.interactorObject is XRSocketInteractor)
+        {
+            base.OnSelectExiting(args);
+        }
+        else
+        {
+            PhotonView interactorPV = args.interactorObject.transform.GetComponent<PhotonView>();
+            photonView.RPC(nameof(RPC_SelectExiting), RpcTarget.AllViaServer, interactorPV.ViewID, args.isCanceled);
+        }
+    }
+    
+    [PunRPC]
+    public void RPC_SelectExiting(int interactorID, bool isCanceled)
+    {
+        SelectExitEventArgs args = new SelectExitEventArgs();
+        args.interactorObject = PhotonView.Find(interactorID).GetComponent<IXRSelectInteractor>();
+        args.interactableObject = this;
+        args.manager = interactionManager;
+        args.isCanceled = isCanceled;
+    
+        base.OnSelectExiting(args);
+        Debug.Log($"{photonView.Owner} {gameObject.name} Select Exiting -> {args.interactorObject.transform.gameObject.name}");
+    }
+
     protected override void OnSelectExited(SelectExitEventArgs args)
     {
-        if (args.interactorObject is XRSocketInteractor == false)
+        // base.OnSelectExited(args);
+
+        if (args.interactorObject is XRSocketInteractor)
         {
             base.OnSelectExited(args);
-            // 본인이 잡고있던 물체인 경우에만 놓도록 설정
-            if (view.Owner == PhotonNetwork.LocalPlayer)
-            {
-                view.RPC("OffChangeRigidbodySetting", RpcTarget.AllViaServer, OriginLayer);
-            }
-        }
-    }
-    [PunRPC]
-    public void OnChangeRigidbodySetting(int originLayer, PhotonMessageInfo info)
-    {
-        OriginTransform.useGravity = false;
-        StartCoroutine(gravityRoutine());
-        // 다른 유저가 상호작용 못하도록 레이어 변경
-        if (!view.IsMine)
-        {
-            interactionLayers = InteractionLayerMask.GetMask("DontInteract");
-
         }
         else
         {
-            interactionLayers = new InteractionLayerMask { value = originLayer };
-            OriginTransform.isKinematic = false;
+            PhotonView interactorPV = args.interactorObject.transform.GetComponent<PhotonView>();
+            photonView.RPC(nameof(RPC_SelectExited), RpcTarget.AllViaServer, interactorPV.ViewID, args.isCanceled);
         }
     }
+
     [PunRPC]
-    public void OffChangeRigidbodySetting(int originLayer, PhotonMessageInfo info)
+    public void RPC_SelectExited(int interactorID, bool isCanceled)
     {
-        if (!view.IsMine)
-        {
-            interactionLayers = new InteractionLayerMask { value = originLayer };
+        SelectExitEventArgs args = new SelectExitEventArgs();
+        args.interactorObject = PhotonView.Find(interactorID).GetComponent<IXRSelectInteractor>();
+        args.interactableObject = this;
+        args.manager = interactionManager;
+        args.isCanceled = isCanceled;
 
-        }
-        else
-        {
-            interactionLayers = new InteractionLayerMask { value = originLayer };
-            OriginTransform.useGravity = true;
-        }
-    }
-
-    IEnumerator gravityRoutine()
-    {
-        yield return new WaitForSeconds(0.1f);
-        OriginTransform.useGravity = false;
-        yield break;
+        base.OnSelectExited(args);
+        Debug.Log($"{photonView.Owner} {gameObject.name} Select Exited -> {args.interactorObject.transform.gameObject.name}");
     }
 }
