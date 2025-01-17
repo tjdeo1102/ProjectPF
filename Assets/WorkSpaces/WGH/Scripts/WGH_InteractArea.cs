@@ -58,6 +58,7 @@ public class WGH_InteractArea : MonoBehaviour
         isCheck = true;
         controller.SelectReactUINetwork((int)E_ReactUiType.SUCCESS);
         controller.SetAnimNetwork("Perfume");
+        controller.SetEmotion(5);
         KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Guest_success);
 
         KSD_GameManager.Instance.AddFinishPlayerCount(1);
@@ -71,7 +72,7 @@ public class WGH_InteractArea : MonoBehaviour
             KSD_GameManager.Instance.CurrentStageInfo.StageMoney += 80;
         }
         Debug.Log(KSD_GameManager.Instance.CurrentStageInfo.StageMoney);
-
+        controller.SetEmotion(0);
         curCount = 0;
         controller.ChangeStateNetwork((int)E_StateType.EXIT);
         WGH_NPCCreator.Instance.isCounter = false;
@@ -79,7 +80,7 @@ public class WGH_InteractArea : MonoBehaviour
 
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.Destroy(potion.photonView);
+            PhotonNetwork.Destroy(potion.gameObject);
         }
         yield return null;
         isCheck = false;
@@ -89,10 +90,13 @@ public class WGH_InteractArea : MonoBehaviour
     {
         isCheck = true;
         curCount++;
+        controller.SetAnimNetwork("No");
         controller.SelectReactUINetwork((int)E_ReactUiType.FAIL);
+        controller.SetEmotion(6);
         KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Guest_fall);
         yield return new WaitForSeconds(2);
-        PhotonNetwork.Destroy(potion.photonView);
+        controller.SetEmotion(0);
+        PhotonNetwork.Destroy(potion.gameObject);
         if (curCount >= maxCount)
         {
             // 실패횟수가 설정된 수에 도달하면 퇴장
