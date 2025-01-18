@@ -31,8 +31,8 @@ Transform:
   m_GameObject: {fileID: 533774655145952150}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 540326177245406190}
   - {fileID: 539937421632666574}
@@ -232,6 +232,7 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+  photonView: {fileID: 0}
 --- !u!114 &531865128121043405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,6 +258,8 @@ MonoBehaviour:
     NoteCount: 0
   particleSystemLiquid: {fileID: 535721049085792514}
   particleSystemSplash: {fileID: 535721050289185490}
+  particleSuccess: {fileID: 0}
+  particleFail: {fileID: 0}
   LiquidRenderer: {fileID: 521526879118912114}
   potionColor: {r: 0, g: 0, b: 0, a: 0}
   linePotionColor: {r: 0, g: 0, b: 0, a: 0}

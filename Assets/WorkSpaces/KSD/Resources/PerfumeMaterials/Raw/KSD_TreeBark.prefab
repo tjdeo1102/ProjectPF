@@ -35,8 +35,8 @@ Transform:
   m_GameObject: {fileID: 8615396109800974782}
   m_LocalRotation: {x: -0.038253885, y: -0.70430607, z: -0.7060713, w: -0.06287236}
   m_LocalPosition: {x: -0.519109, y: -0.10800171, z: 1.472135}
-  m_LocalScale: {x: 60, y: 60, z: 3.2}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 48, y: 48, z: 2.5600002}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -208,6 +208,7 @@ MonoBehaviour:
   mainMaterial: {fileID: 2100000, guid: c352ea13210a31f48922e535c253d8de, type: 2}
   meshRenderer: []
   dryingRacks: {fileID: 5436973005115194523}
+  plate: {fileID: 0}
   meshRenderers: []
   rigidbodies: []
   frags:
@@ -370,3 +371,4 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+  photonView: {fileID: 0}

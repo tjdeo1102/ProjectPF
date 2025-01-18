@@ -427,8 +427,8 @@ Transform:
   m_GameObject: {fileID: 7629278880034697364}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 987669658093853939}
   - {fileID: 486715139167430356}
@@ -641,6 +641,7 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+  photonView: {fileID: 0}
 --- !u!114 &-545417024249044913
 MonoBehaviour:
   m_ObjectHideFlags: 0
