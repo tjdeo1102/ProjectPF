@@ -248,7 +248,6 @@ public class WGH_NPCController : MonoBehaviourPun
             if(agent.remainingDistance < 0.2f && agent.pathPending == false)
             {
                 SetAnimNetwork("Explore");
-                Debug.Log("Explore");
                 yield break;
             }
             yield return null;
@@ -282,7 +281,6 @@ public class WGH_NPCController : MonoBehaviourPun
                 yield return new WaitForSeconds(randomSec2 + 5);
             }
             SetAnimNetwork("Walk");
-            Debug.Log("Walk");
         }
         isExplore = false;
         yield break;
