@@ -18,7 +18,7 @@ public class LSY_NetworkRayInteractor : XRRayInteractor
 
     protected override void OnSelectEntering(SelectEnterEventArgs args)
     {
-        base.OnSelectEntering(args);
+       // base.OnSelectEntering(args);
 
         PhotonView interactablePV = args.interactableObject.transform.GetComponent<PhotonView>();
         photonView.RPC(nameof(RPC_SelectEntering), RpcTarget.AllViaServer, interactablePV.ViewID);
