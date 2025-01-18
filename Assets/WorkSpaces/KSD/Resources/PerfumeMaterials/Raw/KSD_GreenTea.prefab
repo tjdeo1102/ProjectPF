@@ -17,8 +17,8 @@ GameObject:
   - component: {fileID: 3445909517643891894}
   - component: {fileID: 3445909517643891895}
   - component: {fileID: 3445909517643891888}
-  - component: {fileID: 3445909517643891889}
   - component: {fileID: 3445909517643891890}
+  - component: {fileID: 532196572621839438}
   m_Layer: 0
   m_Name: KSD_GreenTea
   m_TagString: Ingredient
@@ -190,7 +190,7 @@ MonoBehaviour:
     Type: 0
     State: 0
     MaterialAmount: 0
---- !u!114 &3445909517643891889
+--- !u!114 &3445909517643891890
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -199,7 +199,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 3445909517643891900}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3541f75f44f65642a6f943909453d7c, type: 3}
+  m_Script: {fileID: 11500000, guid: e423890d5cc7037459659b869450ee05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powderRawMaterials: {fileID: 4024117276561346119, guid: 70e2a25400a3d28469e7562787bc1ba1, type: 3}
+  powderRawMaterialsName: 
+  mainMaterial: {fileID: 2100000, guid: b7c6500f2320cde48987afd502d15557, type: 2}
+  meshRenderer: []
+  dryingRacks: {fileID: 3445909517643891895}
+  plate: {fileID: 0}
+  meshRenderers: []
+  rigidbodies: []
+  frags:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  forcePower: 0
+  collisionThreshold: 2
+  sliceCooldown: 0.7
+  fadeDuration: 2
+--- !u!114 &532196572621839438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3445909517643891900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 534a9774097967d4da7969f4b8d22c2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -343,31 +371,3 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   photonView: {fileID: 0}
---- !u!114 &3445909517643891890
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3445909517643891900}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e423890d5cc7037459659b869450ee05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  powderRawMaterials: {fileID: 4024117276561346119, guid: 70e2a25400a3d28469e7562787bc1ba1, type: 3}
-  powderRawMaterialsName: 
-  mainMaterial: {fileID: 2100000, guid: b7c6500f2320cde48987afd502d15557, type: 2}
-  meshRenderer: []
-  dryingRacks: {fileID: 3445909517643891895}
-  plate: {fileID: 0}
-  meshRenderers: []
-  rigidbodies: []
-  frags:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  forcePower: 0
-  collisionThreshold: 2
-  sliceCooldown: 0.3
-  fadeDuration: 2
