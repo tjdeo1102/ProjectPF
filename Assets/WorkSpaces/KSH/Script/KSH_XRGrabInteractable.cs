@@ -6,7 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class KSH_XRGrabInteractable : XRGrabInteractable
 {
     [SerializeField] PhotonView photonView;
-    private int originLayer;
+    // private int originLayer;
 
     protected override void Awake()
     {
@@ -14,10 +14,10 @@ public class KSH_XRGrabInteractable : XRGrabInteractable
         movementType = MovementType.VelocityTracking;
         photonView = GetComponent<PhotonView>();
 
-        if (photonView.IsMine)
-        { // 내가 소유한 물체인 경우
-            originLayer = interactionLayers.value;
-        }
+        //if (photonView.IsMine)
+        //{ // 내가 소유한 물체인 경우
+        //    originLayer = interactionLayers.value;
+        //}
     }
 
     protected override void OnSelectEntering(SelectEnterEventArgs args)
@@ -67,11 +67,11 @@ public class KSH_XRGrabInteractable : XRGrabInteractable
         args.interactorObject = PhotonView.Find(interactorID).GetComponent<IXRSelectInteractor>();
         args.interactableObject = this;
         args.manager = interactionManager;
-        if (!photonView.Controller.IsLocal)
-        {
-            // 상호작용 레이어 변경
-            interactionLayers = InteractionLayerMask.GetMask("DontInteract");
-        }
+        //if (!photonView.Controller.IsLocal)
+        //{
+        //    // 상호작용 레이어 변경
+        //    interactionLayers = InteractionLayerMask.GetMask("DontInteract");
+        //}
 
         base.OnSelectEntered(args);
     }
@@ -83,15 +83,15 @@ public class KSH_XRGrabInteractable : XRGrabInteractable
         {
             base.OnSelectExiting(args);
         }
-        else if (isSelected)
+        else
         {
             PhotonView interactorPV = args.interactorObject.transform.GetComponent<PhotonView>();
-            photonView.RPC(nameof(RPC_SelectExiting), RpcTarget.AllViaServer, interactorPV.ViewID, args.isCanceled, originLayer);
+            photonView.RPC(nameof(RPC_SelectExiting), RpcTarget.AllViaServer, interactorPV.ViewID, args.isCanceled);
         }
     }
 
     [PunRPC]
-    public void RPC_SelectExiting(int interactorID, bool isCanceled, int originLayer)
+    public void RPC_SelectExiting(int interactorID, bool isCanceled)
     {
         SelectExitEventArgs args = new SelectExitEventArgs();
         args.interactorObject = PhotonView.Find(interactorID).GetComponent<IXRSelectInteractor>();
@@ -99,11 +99,11 @@ public class KSH_XRGrabInteractable : XRGrabInteractable
         args.manager = interactionManager;
         args.isCanceled = isCanceled;
 
-        if (!photonView.Controller.IsLocal)
-        {
-            // 레이어 변경
-            interactionLayers = new InteractionLayerMask { value = originLayer };
-        }
+        //if (!photonView.Controller.IsLocal)
+        //{
+        //    // 레이어 변경
+        //    interactionLayers = new InteractionLayerMask { value = originLayer };
+        //}
 
         base.OnSelectExiting(args);
     }

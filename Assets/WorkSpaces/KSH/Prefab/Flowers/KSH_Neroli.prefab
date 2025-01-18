@@ -990,7 +990,7 @@ MonoBehaviour:
   m_SnapToColliderVolume: 1
   m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
-  m_MovementType: 2
+  m_MovementType: 0
   m_VelocityDamping: 1
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
@@ -1032,6 +1032,7 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+  photonView: {fileID: 0}
 --- !u!114 &1091039243723101410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1049,6 +1050,7 @@ MonoBehaviour:
   mainMaterial: {fileID: 2100000, guid: db2b0e9fb9d8f1948907bf3922cdf45c, type: 2}
   meshRenderer: []
   dryingRacks: {fileID: 0}
+  plate: {fileID: 0}
   meshRenderers: []
   rigidbodies: []
   frags:
@@ -1057,7 +1059,7 @@ MonoBehaviour:
   - {fileID: 1091039244211715914}
   forcePower: 0
   collisionThreshold: 2
-  sliceCooldown: 0.3
+  sliceCooldown: 0.7
   fadeDuration: 2
 --- !u!114 &1091039243723101419
 MonoBehaviour:
