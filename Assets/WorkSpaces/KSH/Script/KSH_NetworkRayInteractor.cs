@@ -16,24 +16,24 @@ public class KSH_NetworkRayInteractor : XRRayInteractor
         photonView = GetComponent<PhotonView>();
     }
 
-    //protected override void OnSelectEntering(SelectEnterEventArgs args)
-    //{
-    //    // base.OnSelectEntering(args);
-    //    // 접촉한 물체의 photonView 값 찾아오기
-    //    PhotonView interactablePV = args.interactableObject.transform.GetComponent<PhotonView>();
-    //    photonView.RPC(nameof(RPC_SelectEntering), RpcTarget.AllViaServer, interactablePV.ViewID);
-    //}
+    protected override void OnSelectEntering(SelectEnterEventArgs args)
+    {
+        // base.OnSelectEntering(args);
+        // 접촉한 물체의 photonView 값 찾아오기
+        PhotonView interactablePV = args.interactableObject.transform.GetComponent<PhotonView>();
+        photonView.RPC(nameof(RPC_SelectEntering), RpcTarget.AllViaServer, interactablePV.ViewID);
+    }
 
-    //[PunRPC]
-    //public void RPC_SelectEntering(int interactableID)
-    //{
-    //    SelectEnterEventArgs args = new SelectEnterEventArgs();
-    //    args.interactorObject = this;
-    //    args.interactableObject = PhotonView.Find(interactableID).GetComponent<IXRSelectInteractable>();
-    //    args.manager = interactionManager;
+    [PunRPC]
+    public void RPC_SelectEntering(int interactableID)
+    {
+        SelectEnterEventArgs args = new SelectEnterEventArgs();
+        args.interactorObject = this;
+        args.interactableObject = PhotonView.Find(interactableID).GetComponent<IXRSelectInteractable>();
+        args.manager = interactionManager;
 
-    //    base.OnSelectEntering(args);
-    //}
+        base.OnSelectEntering(args);
+    }
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
@@ -75,23 +75,23 @@ public class KSH_NetworkRayInteractor : XRRayInteractor
         base.OnSelectExiting(args);
     }
 
-    //protected override void OnSelectExited(SelectExitEventArgs args)
-    //{
-    //    // base.OnSelectExited(args);
+    protected override void OnSelectExited(SelectExitEventArgs args)
+    {
+        // base.OnSelectExited(args);
 
-    //    PhotonView interactablePV = args.interactableObject.transform.GetComponent<PhotonView>();
-    //    photonView.RPC(nameof(RPC_SelectExited), RpcTarget.AllViaServer, interactablePV.ViewID, args.isCanceled);
-    //}
+        PhotonView interactablePV = args.interactableObject.transform.GetComponent<PhotonView>();
+        photonView.RPC(nameof(RPC_SelectExited), RpcTarget.AllViaServer, interactablePV.ViewID, args.isCanceled);
+    }
 
-    //[PunRPC]
-    //public void RPC_SelectExited(int interactableID, bool isCanceled)
-    //{
-    //    SelectExitEventArgs args = new SelectExitEventArgs();
-    //    args.interactorObject = this;
-    //    args.interactableObject = PhotonView.Find(interactableID).GetComponent<IXRSelectInteractable>();
-    //    args.manager = interactionManager;
-    //    args.isCanceled = isCanceled;
+    [PunRPC]
+    public void RPC_SelectExited(int interactableID, bool isCanceled)
+    {
+        SelectExitEventArgs args = new SelectExitEventArgs();
+        args.interactorObject = this;
+        args.interactableObject = PhotonView.Find(interactableID).GetComponent<IXRSelectInteractable>();
+        args.manager = interactionManager;
+        args.isCanceled = isCanceled;
 
-    //    base.OnSelectExited(args);
-    //}
+        base.OnSelectExited(args);
+    }
 }
