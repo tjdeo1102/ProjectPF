@@ -6,12 +6,32 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class LSY_NetworkGrabInteractable : XRGrabInteractable
 {
     [SerializeField] PhotonView photonView;
-
+    private float originMass;
+    private float originDrag;
+    private float originAngularDrag;
+    private Rigidbody rb;
     protected override void Awake()
     {
         base.Awake();
 
         photonView = GetComponent<PhotonView>();
+        rb = GetComponent<Rigidbody>();
+        originMass = rb.mass;
+        originDrag = rb.drag;
+        originAngularDrag = rb.angularDrag;
+    }
+
+    private void Update()
+    {
+        // 놓은 상태일 때, 지속적으로 물리버그 픽스
+        if (isSelected == false)
+        {
+            rb.mass = originMass;
+            rb.drag = originDrag;
+            rb.angularDrag = originAngularDrag;
+            rb.useGravity = true;
+            rb.isKinematic = false;
+        }
     }
 
     protected override void OnSelectEntering(SelectEnterEventArgs args)
