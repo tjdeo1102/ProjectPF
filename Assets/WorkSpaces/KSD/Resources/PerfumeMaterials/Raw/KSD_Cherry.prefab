@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6399987454480204873}
-  - component: {fileID: 5341880120662798019}
   - component: {fileID: 3408850165693149524}
   - component: {fileID: 7440085402504335320}
   m_Layer: 0
@@ -34,19 +33,6 @@ Transform:
   m_Father: {fileID: 3985608505127508387}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5341880120662798019
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3456677701789160090}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.3, y: 0.15, z: 0.18838392}
-  m_Center: {x: 0, y: -0.11, z: 0}
 --- !u!33 &3408850165693149524
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -111,6 +97,7 @@ GameObject:
   - component: {fileID: 3985608505125215047}
   - component: {fileID: 3985608505125215044}
   - component: {fileID: -6089331618080597832}
+  - component: {fileID: 1680918794058361253}
   m_Layer: 0
   m_Name: KSD_Cherry
   m_TagString: Fruit
@@ -359,3 +346,16 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   photonView: {fileID: 0}
+--- !u!65 &1680918794058361253
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3985608505127142787}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3, y: 0.15, z: 0.18838392}
+  m_Center: {x: 0, y: 0.02, z: 0}

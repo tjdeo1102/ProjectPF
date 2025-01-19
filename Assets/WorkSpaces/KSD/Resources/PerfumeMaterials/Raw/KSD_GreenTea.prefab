@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3445909517643891888}
   - component: {fileID: 3445909517643891890}
   - component: {fileID: 532196572621839438}
+  - component: {fileID: 165088135355469353}
   m_Layer: 0
   m_Name: KSD_GreenTea
   m_TagString: Ingredient
@@ -141,7 +142,7 @@ MonoBehaviour:
   powderRawMaterialsName: 
   mainMaterial: {fileID: 2100000, guid: b7c6500f2320cde48987afd502d15557, type: 2}
   meshRenderer: []
-  dryingRacks: {fileID: 3445909517643891895}
+  dryingRacks: {fileID: 0}
   plate: {fileID: 0}
   meshRenderers: []
   rigidbodies: []
@@ -306,6 +307,19 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   photonView: {fileID: 0}
+--- !u!65 &165088135355469353
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3445909517643891900}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.4, y: 0.4, z: 0.4}
+  m_Center: {x: -0.05, y: 0, z: 0}
 --- !u!1 &8983320420849690059
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,7 +331,6 @@ GameObject:
   - component: {fileID: 1791446396390673100}
   - component: {fileID: 1618276805464540830}
   - component: {fileID: 7702141535499486680}
-  - component: {fileID: 4100012150124788653}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -390,16 +403,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4100012150124788653
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8983320420849690059}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.4, y: 0.4, z: 0.4}
-  m_Center: {x: 0, y: 0.8, z: 0}
