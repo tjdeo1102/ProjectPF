@@ -22,29 +22,25 @@ public class KSD_Tooltip : MonoBehaviour
         targetCam = Camera.main.transform;
         interactable = GetComponent<XRBaseInteractable>();
         tooltipCanvas.SetActive(false);
-        interactable.hoverEntered.AddListener(OnTooltip);
-        interactable.hoverExited.AddListener(OffTooltip);
-    }
-
-    private void OnDisable()
-    {
-        interactable.hoverEntered.RemoveListener(OnTooltip);
-        interactable.hoverExited.RemoveListener(OffTooltip);
-    }
-
-    public void OnTooltip(HoverEnterEventArgs args)
-    {
-        tooltipCanvas.SetActive(true);
-    }
-    public void OffTooltip(HoverExitEventArgs args)
-    {
-        tooltipCanvas.SetActive(false);
     }
 
     private void Update()
     {
         // 툴팁이 활성화된 동안에는 메인카메라로 텍스트가 바라보도록 설정
         if (targetCam == null) return;
+
+        // 인터렉터가 호버면서 선택하지 않을 때만 툴팁 표시
+        if (interactable.isHovered == true
+            && interactable.isSelected == false)
+        {
+            tooltipCanvas.SetActive(true);
+        }
+        else
+        {
+            tooltipCanvas.SetActive(false);
+            // 툴팁 위치 계산 필요없으므로 리턴
+            return;
+        }
 
         if (tooltipCanvas.activeSelf)
         {

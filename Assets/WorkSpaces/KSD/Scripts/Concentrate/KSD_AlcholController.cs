@@ -2,6 +2,7 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 [RequireComponent(typeof(PhotonView))]
 public class KSD_AlcholController : MonoBehaviourPun
@@ -16,13 +17,22 @@ public class KSD_AlcholController : MonoBehaviourPun
     private float outputTimer;
 
     private KSD_PerfumeNoteInfo alcholInfo;
+    private XRBaseInteractable interactable;
 
     private void Awake()
     {
         alcholInfo = new KSD_PerfumeNoteInfo() { Name = PerfumeNoteName.Alcohol, NoteCount = 1, State = PerfumeNoteState.Concentrate};
+
+        interactable = GetComponent<XRBaseInteractable>();
+        interactable.selectEntered.AddListener(TakeAlchol);
     }
 
-    public void TakeAlchol()
+    private void OnDisable()
+    {
+        interactable.selectEntered.AddListener(TakeAlchol);
+    }
+
+    public void TakeAlchol(SelectEnterEventArgs args)
     {
         photonView.RPC("TakeAlcholRPC", RpcTarget.All);
     }
