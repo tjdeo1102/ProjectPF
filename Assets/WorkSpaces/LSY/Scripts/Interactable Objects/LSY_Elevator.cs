@@ -53,7 +53,7 @@ public class LSY_Elevator : MonoBehaviourPun
 
         if (playerIn) return;
 
-        if (upButtonPokeStateData.Value.interactionStrength > pressForce || isLiftUp)
+        if (upButtonPokeStateData.Value.interactionStrength > pressForce)
         {
             if (transform.position.y > maxHeight)
             {
@@ -73,22 +73,22 @@ public class LSY_Elevator : MonoBehaviourPun
 
             MoveElevator(Vector3.up);
         }
-        else
-        {
-            isButtonOn = false;
+        //else
+        //{
+        //    isButtonOn = false;
 
-            if (transform.position.y <= initialPosition.y + 0.01f)
-            {
-                if (isSoundPlaying)
-                {
-                    photonView.RPC("SoundStop", RpcTarget.All, 30);
-                    isSoundPlaying = false;
-                }
-                return;
-            }
+        //    if (transform.position.y <= initialPosition.y + 0.01f)
+        //    {
+        //        if (isSoundPlaying)
+        //        {
+        //            photonView.RPC("SoundStop", RpcTarget.All, 30);
+        //            isSoundPlaying = false;
+        //        }
+        //        return;
+        //    }
 
-            MoveElevator(Vector3.down);
-        }
+        //    MoveElevator(Vector3.down);
+        //}
     }
 
     private void MoveElevator(Vector3 direction)
