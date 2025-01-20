@@ -11951,6 +11951,8 @@ MonoBehaviour:
   trackedPoseDriver: {fileID: 862121132667496059}
   locomotonObject: {fileID: 1887533897455274083}
   skinRenderer: {fileID: 505886992488381281}
+  skinRendererLHand: {fileID: 1519720077592206176}
+  skinRendererRHand: {fileID: 5463526656302432213}
   leftController: {fileID: 6740189216248897020}
   rightController: {fileID: 6740189218085985564}
   leftControllerManager: {fileID: 2289632193391694217}
@@ -21422,6 +21424,11 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!137 &1519720077592206176 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 137728501658012328, guid: 06e37abe288ce6b41b91e0438782d45b, type: 3}
+  m_PrefabInstance: {fileID: 1512767524375908808}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5348895214768321917
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21432,6 +21439,10 @@ PrefabInstance:
     - target: {fileID: 1424049869624082, guid: 06e37abe288ce6b41b91e0438782d45b, type: 3}
       propertyPath: m_Name
       value: LowPolyHand_Ghost
+      objectReference: {fileID: 0}
+    - target: {fileID: 1424049869624082, guid: 06e37abe288ce6b41b91e0438782d45b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4117030790059296, guid: 06e37abe288ce6b41b91e0438782d45b, type: 3}
       propertyPath: m_RootOrder
@@ -21477,6 +21488,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 137728501658012328, guid: 06e37abe288ce6b41b91e0438782d45b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06e37abe288ce6b41b91e0438782d45b, type: 3}
 --- !u!4 &5347382104966045789 stripped
@@ -21510,3 +21525,8 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!137 &5463526656302432213 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 137728501658012328, guid: 06e37abe288ce6b41b91e0438782d45b, type: 3}
+  m_PrefabInstance: {fileID: 5348895214768321917}
+  m_PrefabAsset: {fileID: 0}

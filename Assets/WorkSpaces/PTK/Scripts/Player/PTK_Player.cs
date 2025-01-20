@@ -15,6 +15,9 @@ public class PTK_Player : MonoBehaviourPun
     [SerializeField] GameObject locomotonObject;
     [SerializeField] SkinnedMeshRenderer skinRenderer;
 
+    [SerializeField] SkinnedMeshRenderer skinRendererLHand;
+    [SerializeField] SkinnedMeshRenderer skinRendererRHand;
+
     [SerializeField] ActionBasedController leftController;
     [SerializeField] ActionBasedController rightController;
     [SerializeField] ActionBasedControllerManager leftControllerManager;
@@ -40,6 +43,8 @@ public class PTK_Player : MonoBehaviourPun
             rightControllerManager.enabled = false;
             locomotonObject.SetActive(false);
             skinRenderer.enabled = true;
+            skinRendererLHand.enabled = false;
+            skinRendererRHand.enabled = false;
             soundUI.SetActive(false);
         }
     }
