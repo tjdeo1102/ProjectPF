@@ -345,8 +345,8 @@ GameObject:
   - component: {fileID: 2303372816329743486}
   - component: {fileID: 2303372816329743481}
   - component: {fileID: 2303372816329743482}
-  - component: {fileID: 1154269170124466994}
   - component: {fileID: -4236073137460686864}
+  - component: {fileID: 4535315141692451587}
   m_Layer: 0
   m_Name: KSD_GreenTeaPowder
   m_TagString: Ingredient
@@ -442,7 +442,7 @@ MonoBehaviour:
   m_SynchronizeAngularVelocity: 1
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
---- !u!114 &1154269170124466994
+--- !u!114 &-4236073137460686864
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -451,7 +451,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 2303372816329743476}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3541f75f44f65642a6f943909453d7c, type: 3}
+  m_Script: {fileID: 11500000, guid: 42c1087edf12d2641b383e2e37058561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fruitInfo:
+    Name: 8
+    Type: 2
+    State: 1
+    MaterialAmount: 1
+--- !u!114 &4535315141692451587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2303372816329743476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 534a9774097967d4da7969f4b8d22c2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -594,23 +611,7 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
---- !u!114 &-4236073137460686864
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2303372816329743476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42c1087edf12d2641b383e2e37058561, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fruitInfo:
-    Name: 8
-    Type: 2
-    State: 1
-    MaterialAmount: 1
+  photonView: {fileID: 0}
 --- !u!1 &2303372816369985620
 GameObject:
   m_ObjectHideFlags: 0

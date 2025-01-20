@@ -50,7 +50,7 @@ public class KSH_FractureObject2 : MonoBehaviour
     private int currentFragIndex = 0; // 현재 활성화된 파편 인덱스
 
     private bool isfrags = false;
-    private float lastSliceTime = 0f; // 마지막 충돌 시간
+    private double lastSliceTime = 0f; // 마지막 충돌 시간
     [SerializeField] private float sliceCooldown = 0.3f; // 쿨타임 (초)
 
     [Header("소멸 시간")]
@@ -101,7 +101,7 @@ public class KSH_FractureObject2 : MonoBehaviour
         if (!other.gameObject.CompareTag("TestBat")) return;
 
         // 쿨타임 검사: 쿨타임이 지나지 않으면 충돌을 실행하지 않음
-        if (Time.time - lastSliceTime < sliceCooldown) return;
+        if (PhotonNetwork.Time - lastSliceTime < sliceCooldown) return;
 
         if (collisionCount == 6) return;
 
@@ -111,7 +111,7 @@ public class KSH_FractureObject2 : MonoBehaviour
 
         other.gameObject.layer = 9;
         collisionCount++; // 충돌 횟수 증가
-        lastSliceTime = Time.time;
+        lastSliceTime = PhotonNetwork.Time;
 
         if (!isfrags)
         {

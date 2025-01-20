@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.XR.Content.Interaction;
 using UnityEngine.XR.Interaction.Toolkit;
 
-[RequireComponent(typeof(PhotonView),typeof(KSD_NetworkGrabInteractable))]
+[RequireComponent(typeof(PhotonView))]
 public class KSD_ConcentrateBottle : MonoBehaviourPun
 {
     static private int NextFreeUniqueId = 3000;
@@ -72,14 +72,14 @@ public class KSD_ConcentrateBottle : MonoBehaviourPun
 
         perfumeMaterialList = new List<KSD_PerfumeMaterialInfo>();
 
-        var grab = GetComponent<KSD_NetworkGrabInteractable>();
+        var grab = GetComponent<XRGrabInteractable>();
         grab.selectEntered.AddListener(OnSelectEntered);
         grab.selectExited.AddListener(OnSelectExited);
     }
 
     private void OnDisable()
     {
-        var grab = GetComponent<KSD_NetworkGrabInteractable>();
+        var grab = GetComponent<XRGrabInteractable>();
         grab.selectEntered.RemoveListener(OnSelectEntered);
         grab.selectExited.RemoveListener(OnSelectExited);
     }

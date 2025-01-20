@@ -31,18 +31,12 @@ public class WGH_InteractionNote : MonoBehaviourPun
     {
         SmellStick.OffEffect();
         photonView.RPC("OnPongEffect", RpcTarget.All);
-        photonView.RPC("ChangeNote", RpcTarget.All);
-    }
-
-    [PunRPC]
-    private void ChangeNote()
-    {
-        SmellStick.NoteType = this.NoteType;
     }
 
     [PunRPC]
     private void OnPongEffect()
     {
+        SmellStick.NoteType = this.NoteType;
         PongEffect.Play();
         KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Test1);
     }

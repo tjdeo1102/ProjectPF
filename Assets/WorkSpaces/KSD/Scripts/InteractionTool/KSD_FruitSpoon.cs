@@ -6,11 +6,10 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-[RequireComponent(typeof(KSD_NetworkGrabInteractable))]
 public class KSD_FruitSpoon : MonoBehaviour
 {
     [SerializeField] private Transform attachTransform;
-    private KSD_NetworkGrabInteractable grapInteractable;
+    private XRGrabInteractable grapInteractable;
     private Collider[] cols;
     private bool isActive;
     private PTK_Fruit grabObject;
@@ -19,7 +18,7 @@ public class KSD_FruitSpoon : MonoBehaviour
     private void Awake()
     {
         cols = GetComponentsInChildren<Collider>();
-        grapInteractable = GetComponent<KSD_NetworkGrabInteractable>();
+        grapInteractable = GetComponent<XRGrabInteractable>();
         grapInteractable.selectEntered.AddListener(OnSelectEntered);
         grapInteractable.selectExited.AddListener(OnSelectExited);
         grapInteractable.activated.AddListener(OnActivated);

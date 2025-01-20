@@ -179,8 +179,8 @@ GameObject:
   - component: {fileID: 4024117276561346125}
   - component: {fileID: 4024117276561346112}
   - component: {fileID: 4024117276561346113}
-  - component: {fileID: 6088498553081995762}
   - component: {fileID: -4355058070576574599}
+  - component: {fileID: 4837472576697232459}
   m_Layer: 0
   m_Name: KSD_NeroliPowder
   m_TagString: Ingredient
@@ -279,7 +279,7 @@ MonoBehaviour:
   m_SynchronizeAngularVelocity: 1
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
---- !u!114 &6088498553081995762
+--- !u!114 &-4355058070576574599
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -288,7 +288,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 4024117276561346119}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3541f75f44f65642a6f943909453d7c, type: 3}
+  m_Script: {fileID: 11500000, guid: 42c1087edf12d2641b383e2e37058561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fruitInfo:
+    Name: 5
+    Type: 2
+    State: 1
+    MaterialAmount: 1
+--- !u!114 &4837472576697232459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4024117276561346119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 534a9774097967d4da7969f4b8d22c2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -431,23 +448,7 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
---- !u!114 &-4355058070576574599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4024117276561346119}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42c1087edf12d2641b383e2e37058561, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fruitInfo:
-    Name: 5
-    Type: 2
-    State: 1
-    MaterialAmount: 1
+  photonView: {fileID: 0}
 --- !u!1 &4024117276928792901
 GameObject:
   m_ObjectHideFlags: 0

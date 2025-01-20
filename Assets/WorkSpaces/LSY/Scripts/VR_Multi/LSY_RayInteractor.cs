@@ -22,7 +22,6 @@ public class LSY_RayInteractor : XRRayInteractor
             animator.SetTrigger("Grab");
             photonView.RPC("RPC_PlaySfx", RpcTarget.All, 5);
         }
-        if (args.interactableObject.transform.TryGetComponent<KSD_NetworkGrabInteractable>(out var com)) return;
 
         // 잡은 사실을 네트워크를 통해서 전달
         // 잡은 플레이어가 잡은 사실을 네트워크를 통해 전달
@@ -38,7 +37,6 @@ public class LSY_RayInteractor : XRRayInteractor
         {
             animator.SetTrigger("Release");
         }
-        if (args.interactableObject.transform.TryGetComponent<KSD_NetworkGrabInteractable>(out var com)) return;
 
         // 놓은 플레이어가 잡은 물체의 소유권을 방장에게 다시 주기
         PhotonView interactablePV = args.interactableObject.transform.GetComponent<PhotonView>();

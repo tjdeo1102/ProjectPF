@@ -27,7 +27,7 @@ public class KSD_RecipeScreenInteractable : XRBaseInteractable, IPunObservable
     [Header("원래 위치 복귀 속도 설정")]
     public float ReturnVelocity;
 
-    private Transform selectInteractor;
+
     private PhotonView photonView;
     private float lastPositionY;
     private int originLayer;
@@ -47,11 +47,12 @@ public class KSD_RecipeScreenInteractable : XRBaseInteractable, IPunObservable
         if (photonView.IsMine)
         {
             var newSize = screenTransform.localScale.y;
-            if (selectInteractor != null)
+            if (firstInteractorSelecting != null)
             {
+                var interactor = firstInteractorSelecting.transform;
                 // 1. 컨트롤러의 위치 추적
-                var moveY = selectInteractor.position.y - lastPositionY;
-                lastPositionY = selectInteractor.position.y;
+                var moveY = interactor.position.y - lastPositionY;
+                lastPositionY = interactor.position.y;
                 // 2. 추가할 사이즈 계산
                 // 2-1. y값 감소하는 무빙인 경우, 사이즈값 추가
                 if (moveY < 0)
@@ -85,46 +86,112 @@ public class KSD_RecipeScreenInteractable : XRBaseInteractable, IPunObservable
     }
 
 
+    //protected override void OnSelectEntered(SelectEnterEventArgs args)
+    //{
+    //    // 소유자가 없는 경우에만 물건을 잡도록 설정
+    //    base.OnSelectEntered(args);
+    //    selectInteractor = args.interactorObject.transform;
+    //    lastPositionY = selectInteractor.position.y;
+    //    //photonView.TransferOwnership(PhotonNetwork.LocalPlayer);
+    //    ////print("소유권 양도");
+    //    //photonView.RPC("OnChangeRigidbodySetting", RpcTarget.AllViaServer, originLayer);
+    //}
+
+    //protected override void OnSelectExited(SelectExitEventArgs args)
+    //{
+    //    base.OnSelectExited(args);
+    //    selectInteractor = null;
+
+    //    //// 본인이 잡고있던 물체인 경우에만 놓도록 설정
+    //    //if (photonView.Owner == PhotonNetwork.LocalPlayer)
+    //    //{
+    //    //    base.OnSelectExited(args);
+    //    //    selectInteractor = null;
+    //    //    photonView.RPC("OffChangeRigidbodySetting", RpcTarget.AllViaServer, originLayer);
+    //    //}
+    //}
+
+    protected override void OnSelectEntering(SelectEnterEventArgs args)
+    {
+        // base.OnSelectEntering(args);
+
+        PhotonView interactorPV = args.interactorObject.transform.GetComponent<PhotonView>();
+        photonView.RPC(nameof(RPC_SelectEntering), RpcTarget.AllViaServer, interactorPV.ViewID);
+    }
+
+    [PunRPC]
+    public void RPC_SelectEntering(int interactorID)
+    {
+        SelectEnterEventArgs args = new SelectEnterEventArgs();
+        args.interactorObject = PhotonView.Find(interactorID).GetComponent<IXRSelectInteractor>();
+        args.interactableObject = this;
+        args.manager = interactionManager;
+        lastPositionY = args.interactorObject.transform.position.y;
+
+        base.OnSelectEntering(args);
+        Debug.Log($"{photonView.Owner} {gameObject.name} Select Entering -> {args.interactorObject.transform.gameObject.name}");
+    }
+
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
-        // 소유자가 없는 경우에만 물건을 잡도록 설정
+        // base.OnSelectEntered(args);
+
+        PhotonView interactorPV = args.interactorObject.transform.GetComponent<PhotonView>();
+        photonView.RPC(nameof(RPC_SelectEntered), RpcTarget.AllViaServer, interactorPV.ViewID);
+    }
+
+    [PunRPC]
+    public void RPC_SelectEntered(int interactorID)
+    {
+        SelectEnterEventArgs args = new SelectEnterEventArgs();
+        args.interactorObject = PhotonView.Find(interactorID).GetComponent<IXRSelectInteractor>();
+        args.interactableObject = this;
+        args.manager = interactionManager;
+        lastPositionY = args.interactorObject.transform.position.y;
+
         base.OnSelectEntered(args);
-        selectInteractor = args.interactorObject.transform;
-        lastPositionY = selectInteractor.position.y;
-        photonView.TransferOwnership(PhotonNetwork.LocalPlayer);
-        //print("소유권 양도");
-        photonView.RPC("OnChangeRigidbodySetting", RpcTarget.AllViaServer, originLayer);
+        Debug.Log($"{photonView.Owner} {gameObject.name} Select Entered -> {args.interactorObject.transform.gameObject.name}");
+    }
+
+    protected override void OnSelectExiting(SelectExitEventArgs args)
+    {
+        // base.OnSelectExiting(args);
+        PhotonView interactorPV = args.interactorObject.transform.GetComponent<PhotonView>();
+        photonView.RPC(nameof(RPC_SelectExiting), RpcTarget.AllViaServer, interactorPV.ViewID, args.isCanceled);
+    }
+
+    [PunRPC]
+    public void RPC_SelectExiting(int interactorID, bool isCanceled)
+    {
+        SelectExitEventArgs args = new SelectExitEventArgs();
+        args.interactorObject = PhotonView.Find(interactorID).GetComponent<IXRSelectInteractor>();
+        args.interactableObject = this;
+        args.manager = interactionManager;
+        args.isCanceled = isCanceled;
+
+        base.OnSelectExiting(args);
+        Debug.Log($"{photonView.Owner} {gameObject.name} Select Exiting -> {args.interactorObject.transform.gameObject.name}");
     }
 
     protected override void OnSelectExited(SelectExitEventArgs args)
     {
-        // 본인이 잡고있던 물체인 경우에만 놓도록 설정
-        if (photonView.Owner == PhotonNetwork.LocalPlayer)
-        {
-            base.OnSelectExited(args);
-            selectInteractor = null;
-            photonView.RPC("OffChangeRigidbodySetting", RpcTarget.AllViaServer, originLayer);
-        }
+        // base.OnSelectExited(args);
+
+        PhotonView interactorPV = args.interactorObject.transform.GetComponent<PhotonView>();
+        photonView.RPC(nameof(RPC_SelectExited), RpcTarget.AllViaServer, interactorPV.ViewID, args.isCanceled);
     }
 
     [PunRPC]
-    public void OnChangeRigidbodySetting(int originLayer, PhotonMessageInfo info)
+    public void RPC_SelectExited(int interactorID, bool isCanceled)
     {
-        // 다른 유저가 상호작용 못하도록 레이어 변경
-        if (!photonView.IsMine)
-        {
-            interactionLayers = InteractionLayerMask.GetMask("DontInteract");
-        }
-        else
-        {
-            interactionLayers = new InteractionLayerMask { value = originLayer };
-        }
-    }
+        SelectExitEventArgs args = new SelectExitEventArgs();
+        args.interactorObject = PhotonView.Find(interactorID).GetComponent<IXRSelectInteractor>();
+        args.interactableObject = this;
+        args.manager = interactionManager;
+        args.isCanceled = isCanceled;
 
-    [PunRPC]
-    public void OffChangeRigidbodySetting(int originLayer, PhotonMessageInfo info)
-    {
-        interactionLayers = new InteractionLayerMask { value = originLayer };
+        base.OnSelectExited(args);
+        Debug.Log($"{photonView.Owner} {gameObject.name} Select Exited -> {args.interactorObject.transform.gameObject.name}");
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

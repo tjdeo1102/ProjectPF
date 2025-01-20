@@ -1,10 +1,7 @@
+using Photon.Pun;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
-using Photon.Pun;
-using Unity.VisualScripting;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class WGH_SmellStick : MonoBehaviourPun
@@ -14,8 +11,8 @@ public class WGH_SmellStick : MonoBehaviourPun
     [SerializeField] private ParticleSystem[] aura;
     [SerializeField] WGH_XRGrabInteractable interactable;
 
-    private float curTime;                              // 현재 시간
-    [SerializeField] private float needTime;            // 시향에 필요한 시간
+    private float curTestTime;                              // 현재 시간
+    [SerializeField] private float needTestTime;            // 시향에 필요한 시간
     [SerializeField] private float returnDistance;      // 멀어졌을 때 원래위치로 돌아오는 거리
     public E_WGH_NoteType NoteType;
     [SerializeField] WGH_InteractionNote contactNote;
@@ -23,22 +20,29 @@ public class WGH_SmellStick : MonoBehaviourPun
     public event Action OnLikeInteract;
     public event Action OnQuestionInteract;
     public event Action OnDespairInteract;
-    
+
     private bool isAbsorbed;                            // 이펙트 On인지 아닌지(상호작용 가능한 상태인지)
     private bool isSmell;
     private bool isRoutine;
+    private bool isReturnRoutine;
     private bool isGrab;
+
+    
+    private float returnTime;
+    private float curReturnTime;
+
     private Rigidbody rigid;
     private Vector3 startPos;
     private Coroutine shakeRoutine;
 
     private float judgeAmount;
-    [SerializeField] private float judgeCurLate;
+    private float judgeCurLate;
     private Vector3 lastPos;
 
     private void Awake()
     {
-        judgeAmount = 3;
+        returnTime = 3f;
+        judgeAmount = 2;
         rigid = GetComponent<Rigidbody>();
         interactable = GetComponent<WGH_XRGrabInteractable>();
     }
@@ -51,8 +55,35 @@ public class WGH_SmellStick : MonoBehaviourPun
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(isGrab == false)
-        transform.position = startPos;
+        if (isGrab == false && isReturnRoutine == false)
+        {
+            StartCoroutine(ReturnRoutine());
+        }
+    }
+
+    IEnumerator ReturnRoutine()
+    {
+        isReturnRoutine = true;
+        while (true)
+        {
+            if (isGrab == true)
+            {
+                curReturnTime = 0;
+                isReturnRoutine = false;
+                yield break;
+            }
+
+            curReturnTime += Time.deltaTime;
+            if (curReturnTime >= returnTime && isGrab == false)
+            {
+                transform.position = startPos;
+                curReturnTime = 0;
+                isReturnRoutine = false;
+                yield break;
+            }
+
+            yield return null;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -79,7 +110,7 @@ public class WGH_SmellStick : MonoBehaviourPun
             OnLikeInteract = null;
             OnQuestionInteract = null;
             OnDespairInteract = null;
-            if(isRoutine)
+            if (isRoutine)
             {
                 StopCoroutine(shakeRoutine);
                 isRoutine = false;
@@ -159,10 +190,9 @@ public class WGH_SmellStick : MonoBehaviourPun
     /// </summary>
     public void OnGrab(SelectEnterEventArgs args)
     {
-        if (args.interactorObject is XRSocketInteractor)
-            return;
-        //photonView.RPC("IsGrabRPC", RpcTarget.All, true);
-        isGrab = true;
+
+        photonView.RPC("IsGrabRPC", RpcTarget.AllViaServer, true);
+
     }
 
     /// <summary>
@@ -170,10 +200,9 @@ public class WGH_SmellStick : MonoBehaviourPun
     /// </summary>
     public void OnRelease(SelectExitEventArgs args)
     {
-        if (args.interactorObject is XRSocketInteractor)
-            return;
-        //photonView.RPC("IsGrabRPC", RpcTarget.All, false);
-        isGrab = false;
+
+        photonView.RPC("IsGrabRPC", RpcTarget.AllViaServer, false);
+
     }
 
 
