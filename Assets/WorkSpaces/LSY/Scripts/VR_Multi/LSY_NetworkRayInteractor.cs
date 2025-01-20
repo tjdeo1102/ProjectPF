@@ -9,6 +9,8 @@ public class LSY_NetworkRayInteractor : XRRayInteractor
 {
     [SerializeField] PhotonView photonView;
 
+    [SerializeField] private Animator animator;
+
     protected override void Awake()
     {
         base.Awake();
@@ -39,6 +41,11 @@ public class LSY_NetworkRayInteractor : XRRayInteractor
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
         // base.OnSelectEntered(args);
+        if (animator != null)
+        {
+            animator.SetTrigger("Grab");
+            photonView.RPC("RPC_PlaySfx", RpcTarget.All, 5);
+        }
 
         PhotonView interactablePV = args.interactableObject.transform.GetComponent<PhotonView>();
         photonView.RPC(nameof(RPC_SelectEntered), RpcTarget.AllViaServer, interactablePV.ViewID);
@@ -60,6 +67,10 @@ public class LSY_NetworkRayInteractor : XRRayInteractor
     protected override void OnSelectExiting(SelectExitEventArgs args)
     {
         // base.OnSelectExiting(args);
+        if (animator != null)
+        {
+            animator.SetTrigger("Release");
+        }
 
         PhotonView interactablePV = args.interactableObject.transform.GetComponent<PhotonView>();
         photonView.RPC(nameof(RPC_SelectExiting), RpcTarget.AllViaServer, interactablePV.ViewID, args.isCanceled);
