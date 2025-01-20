@@ -15,6 +15,7 @@ public class WGH_FanTest : MonoBehaviour
 
     public float maxDistance = 5f; // 최대 작동 거리
     public bool isActiveFire = false;
+    public bool wasActiveFire = false;
 
     PhotonView photonView;
 
@@ -47,6 +48,24 @@ public class WGH_FanTest : MonoBehaviour
         // 부채와 불 사이의 거리 계산
         float distance = Vector3.Distance(fan.position, fireSource.position);
 
+        var emission = fireParticle.emission;
+
+        if (emission.rateOverTime.constant > 5f)
+        {
+            isActiveFire = true;
+        }
+        else
+        {
+            isActiveFire = false;
+        }
+
+        if (isActiveFire == true && wasActiveFire == false)
+        {
+            photonView.RPC("RPC_PlaySfx", RpcTarget.All, 22);
+        }
+
+        wasActiveFire = isActiveFire;
+
         if (distance <= maxDistance || AlwaysFire)
         {
             AdjustFire(shakeSpeed); // 거리가 조건에 충족되면 파티클 조정
@@ -55,6 +74,7 @@ public class WGH_FanTest : MonoBehaviour
         {
             ResetFire(); // 거리가 멀어지면 불 파티클을 최소 상태로 유지
         }
+        
     }
 
     //// XR Grab Interactable의 Select Entered 이벤트
@@ -87,22 +107,7 @@ public class WGH_FanTest : MonoBehaviour
             emission.rateOverTime = Mathf.Lerp(emission.rateOverTime.constant, 0f, Time.deltaTime);     // 파티클 감소
             //main.startSize = Mathf.Lerp(main.startSize.constant, 0.5f, Time.deltaTime);                 // 크기 감소
         }
-
-        if (emission.rateOverTime.constant / 100f >= fullFirePercentage)
-        {
-            isActiveFire = true;
-            photonView.RPC("RPC_PlaySfx", RpcTarget.All, 28);
-        }
-        else
-        {
-            isActiveFire = false;
-        }         
-
-        if (previousActiveState == false && isActiveFire)
-        {
-            photonView.RPC("RPC_PlaySfx", RpcTarget.All, 27);
-        }
-
+        
         // 치트모드
         if (AlwaysFire) isActiveFire = true;
         else
