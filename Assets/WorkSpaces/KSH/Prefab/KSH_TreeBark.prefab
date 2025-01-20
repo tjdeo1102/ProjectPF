@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6394494926868339303
+--- !u!1 &8615396109800974782
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,55 +8,54 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6394494926868039239}
-  - component: {fileID: 6394494926871430759}
-  - component: {fileID: 6394494926870332583}
-  - component: {fileID: 2933696825498350850}
-  - component: {fileID: 6394494926871430767}
-  - component: {fileID: 6394494926871430752}
-  - component: {fileID: 6394494926871430753}
-  - component: {fileID: 6394494926871430755}
-  - component: {fileID: 6394494926871430756}
-  - component: {fileID: 6394494926871430757}
-  - component: {fileID: 6394494926871430758}
-  - component: {fileID: -6216986310053379972}
+  - component: {fileID: 8997024034990879492}
+  - component: {fileID: 5436973005115194529}
+  - component: {fileID: 7823022404016769131}
+  - component: {fileID: 5436973005115194526}
+  - component: {fileID: 5436973005115194527}
+  - component: {fileID: 5436973005115194524}
+  - component: {fileID: 5436973005115194525}
+  - component: {fileID: 5436973005115194522}
+  - component: {fileID: 5436973005115194523}
+  - component: {fileID: 5436973005115194520}
+  - component: {fileID: 5497765581814839777}
   m_Layer: 0
-  m_Name: KSD_Grapefruit
+  m_Name: KSH_TreeBark
   m_TagString: Ingredient
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6394494926868039239
+--- !u!4 &8997024034990879492
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6394494926868339303}
-  m_LocalRotation: {x: -0, y: 0.034896765, z: -0, w: -0.99939096}
-  m_LocalPosition: {x: 3.2292702, y: -3.288639, z: -1.7909554}
-  m_LocalScale: {x: 0.96, y: 0.96, z: 0.96}
+  m_GameObject: {fileID: 8615396109800974782}
+  m_LocalRotation: {x: -0.038253885, y: -0.70430607, z: -0.7060713, w: -0.06287236}
+  m_LocalPosition: {x: -0.519109, y: -0.10800171, z: 1.472135}
+  m_LocalScale: {x: 23.04, y: 23.04, z: 1.2288002}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &6394494926871430759
+  m_LocalEulerAnglesHint: {x: -81.798, y: -75, z: 90}
+--- !u!33 &5436973005115194529
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6394494926868339303}
-  m_Mesh: {fileID: 4300000, guid: f889d6e3d71e9c54eaf07783b7e5348c, type: 3}
---- !u!23 &6394494926870332583
+  m_GameObject: {fileID: 8615396109800974782}
+  m_Mesh: {fileID: 2534964839176971238, guid: dbbc05a399423eb409a2e1cce0ddc0a1, type: 3}
+--- !u!23 &7823022404016769131
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6394494926868339303}
+  m_GameObject: {fileID: 8615396109800974782}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -70,7 +69,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7cb5e5526110fae439dd3acc33b32a6a, type: 2}
+  - {fileID: -3846018093981099296, guid: dbbc05a399423eb409a2e1cce0ddc0a1, type: 3}
+  - {fileID: 4874126678125670354, guid: dbbc05a399423eb409a2e1cce0ddc0a1, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -92,42 +92,42 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2933696825498350850
+--- !u!65 &5436973005115194526
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6394494926868339303}
+  m_GameObject: {fileID: 8615396109800974782}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.33848652, y: 0.33907276, z: 0.33848652}
-  m_Center: {x: -0.0000019073486, y: 0, z: 0}
---- !u!54 &6394494926871430767
+  m_Size: {x: 0.019257972, y: 0.0222954, z: 0.020000037}
+  m_Center: {x: -0.0013141655, y: 0, z: 0.000000002095526}
+--- !u!54 &5436973005115194527
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6394494926868339303}
+  m_GameObject: {fileID: 8615396109800974782}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 10
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6394494926871430752
+--- !u!114 &5436973005115194524
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6394494926868339303}
+  m_GameObject: {fileID: 8615396109800974782}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
@@ -140,17 +140,17 @@ MonoBehaviour:
   OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 6394494926871430753}
+  - {fileID: 5436973005115194525}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &6394494926871430753
+--- !u!114 &5436973005115194525
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6394494926868339303}
+  m_GameObject: {fileID: 8615396109800974782}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
@@ -160,100 +160,72 @@ MonoBehaviour:
   m_SynchronizeAngularVelocity: 1
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
---- !u!114 &6394494926871430755
+--- !u!114 &5436973005115194522
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6394494926868339303}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08c19f568285ebe4eb127627553bb64c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fragmentMaterial: {fileID: 1700526524186401101, guid: e5214a8fa1c6c254bac3ecc046f90b42, type: 3}
-  fragmentMaterialName: 
-  material: {fileID: 0}
-  meshRenderers: []
-  fadeDuration: 0.8
---- !u!114 &6394494926871430756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6394494926868339303}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc1ac885d6b125f44935bf90b4e492a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sliceOptions:
-    enableReslicing: 1
-    maxResliceCount: 10
-    detectFloatingFragments: 0
-    insideMaterial: {fileID: 0}
-    textureScale: {x: 1, y: 1}
-    textureOffset: {x: 0, y: 0}
-    invokeCallbacks: 1
-  callbackOptions:
-    onFracture:
-      m_PersistentCalls:
-        m_Calls: []
-    onCompleted:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 6394494926871430755}
-          m_TargetAssemblyTypeName: KSH_FragmentMaterial, Assembly-CSharp
-          m_MethodName: OnSlices
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  currentSliceCount: 0
---- !u!114 &6394494926871430757
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6394494926868339303}
+  m_GameObject: {fileID: 8615396109800974782}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42c1087edf12d2641b383e2e37058561, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fruitInfo:
-    Name: 3
-    Type: 1
+    Name: 7
+    Type: 2
     State: 0
     MaterialAmount: 0
---- !u!114 &6394494926871430758
+--- !u!114 &5436973005115194523
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6394494926868339303}
+  m_GameObject: {fileID: 8615396109800974782}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ea12e166bea0454b8e531179ce725c0, type: 3}
+  m_Script: {fileID: 11500000, guid: 02fad47ef72964544a83476db245b2cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsSlices: 0
---- !u!114 &-6216986310053379972
+  Iscolor: 0
+  Isdry: 0
+--- !u!114 &5436973005115194520
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6394494926868339303}
+  m_GameObject: {fileID: 8615396109800974782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e423890d5cc7037459659b869450ee05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powderRawMaterials: {fileID: 5481307442420036365, guid: 53a96064da90d5c4cad79fbd8c3ba365, type: 3}
+  powderRawMaterialsName: 
+  mainMaterial: {fileID: 2100000, guid: c352ea13210a31f48922e535c253d8de, type: 2}
+  meshRenderer: []
+  dryingRacks: {fileID: 5436973005115194523}
+  plate: {fileID: 0}
+  meshRenderers: []
+  rigidbodies: []
+  frags:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  forcePower: 0
+  collisionThreshold: 2
+  sliceCooldown: 0.7
+  fadeDuration: 2
+--- !u!114 &5497765581814839777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8615396109800974782}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 534a9774097967d4da7969f4b8d22c2e, type: 3}
@@ -265,7 +237,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 1024
+    m_Bits: 512
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_FocusMode: 1
@@ -300,19 +272,7 @@ MonoBehaviour:
       m_Calls: []
   m_SelectExited:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6394494926871430755}
-        m_TargetAssemblyTypeName: KSH_FragmentMaterial, Assembly-CSharp
-        m_MethodName: OnPositon
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_FirstFocusEntered:
     m_PersistentCalls:
       m_Calls: []
