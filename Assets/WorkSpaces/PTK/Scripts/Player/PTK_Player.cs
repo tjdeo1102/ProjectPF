@@ -19,6 +19,7 @@ public class PTK_Player : MonoBehaviourPun
     [SerializeField] ActionBasedController rightController;
     [SerializeField] ActionBasedControllerManager leftControllerManager;
     [SerializeField] ActionBasedControllerManager rightControllerManager;
+    [SerializeField] GameObject soundUI;
 
     [SerializeField] private Animator animator;
 
@@ -39,6 +40,7 @@ public class PTK_Player : MonoBehaviourPun
             rightControllerManager.enabled = false;
             locomotonObject.SetActive(false);
             skinRenderer.enabled = true;
+            soundUI.SetActive(false);
         }
     }
 
