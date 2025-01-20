@@ -43,14 +43,15 @@ public class KSD_CauldronController : MonoBehaviourPun
     void Update()
     {
         // 화력이 충분할 때, 연기 이펙트 활성화
-        if (fire.isActiveFire || AlwaysFire)
+        if (fire.wasActiveFire || AlwaysFire)
         {
             fireSmoke.Play();
-            photonView.RPC("RPC_PlaySfx", RpcTarget.All, 29);
+            photonView.RPC("RPC_PlaySfx", RpcTarget.All, 24);
         }
         else
         {
             fireSmoke.Stop();
+            photonView.RPC("RPC_StopInputSfx", RpcTarget.All, 24);
         }
 
         // 이미 가공이 끝난 경우는 리턴
@@ -160,7 +161,7 @@ public class KSD_CauldronController : MonoBehaviourPun
                 ConcentrateInfoList.Add(newCon);
                 ConcentrateAmountList.Add(0);
 
-                photonView.RPC("RPC_PlaySfx", RpcTarget.All, 24);
+                photonView.RPC("RPC_PlaySfx", RpcTarget.All, 21);
             }
         }
 
@@ -204,5 +205,11 @@ public class KSD_CauldronController : MonoBehaviourPun
     private void RPC_PlaySfx(int sfx)
     {
         KSH_AudioManager.Instance.PlaySfx((KSH_AudioManager.Sfx)sfx);
+    }
+
+    [PunRPC]
+    private void RPC_StopInputSfx(int sfx)
+    {
+        KSH_AudioManager.Instance.StopInputSfx((KSH_AudioManager.Sfx)sfx);
     }
 }

@@ -21,6 +21,8 @@ public class PTK_HandleElec : MonoBehaviourPun, IPunObservable
 
     private float previousKnobValue;
 
+    private bool isSoundPlaying = false;
+
     void Update()
     {
         CheckSecondKnob();
@@ -38,7 +40,19 @@ public class PTK_HandleElec : MonoBehaviourPun, IPunObservable
 
         if (!Mathf.Approximately(Knob.value, previousKnobValue))
         {
-            photonView.RPC("RPC_PlaySfx", RpcTarget.All, 10);
+            if (!isSoundPlaying)
+            {
+                photonView.RPC("RPC_PlaySfx", RpcTarget.All, 10);
+                isSoundPlaying = true;
+            }
+        }
+        else
+        {
+            if (isSoundPlaying)
+            {
+                photonView.RPC("RPC_StopInputSfx", RpcTarget.All, 10);
+                isSoundPlaying = false;
+            }   
         }
 
         if (Knob.value > 0)
@@ -51,8 +65,7 @@ public class PTK_HandleElec : MonoBehaviourPun, IPunObservable
 
         if (newState != isSecondHandleActive)
         {
-            isSecondHandleActive = newState;
-            photonView.RPC("RPC_PlaySfx", RpcTarget.All, 11);
+            isSecondHandleActive = newState;      
         }
 
         previousKnobValue = Knob.value;
@@ -92,5 +105,11 @@ public class PTK_HandleElec : MonoBehaviourPun, IPunObservable
     private void RPC_PlaySfx(int sfx)
     {
         KSH_AudioManager.Instance.PlaySfx((KSH_AudioManager.Sfx)sfx);
+    }
+
+    [PunRPC]
+    private void RPC_StopInputSfx(int sfx)
+    {
+        KSH_AudioManager.Instance.StopInputSfx((KSH_AudioManager.Sfx)sfx);
     }
 }
