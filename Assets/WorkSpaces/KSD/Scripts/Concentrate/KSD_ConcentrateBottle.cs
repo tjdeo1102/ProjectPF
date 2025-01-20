@@ -184,6 +184,7 @@ public class KSD_ConcentrateBottle : MonoBehaviourPun
 
             var main = particleSuccess.main;
             main.startColor = potionColor;
+            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Mix_success);
             particleSuccess.Play();
         }
         else FusionFail();
@@ -200,6 +201,7 @@ public class KSD_ConcentrateBottle : MonoBehaviourPun
 
         potionColor = Color.black;
         linePotionColor = Color.black;
+        KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Mix_fall);
         particleFail.Play();
     }
 
@@ -328,7 +330,12 @@ public class KSD_ConcentrateBottle : MonoBehaviourPun
         newMat.MaterialAmount += getAmount;
 
         // 재료가 임계점을 넘은 경우에는 다 찼다고 판정
-        if (newMat.MaterialAmount > maxFillMateiralThreshold) newMat.MaterialAmount = 1f;
+        if (newMat.MaterialAmount > maxFillMateiralThreshold)
+        {
+            newMat.MaterialAmount = 1f;
+            // 내용물 넣을 때, 나는 소리
+            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Mix);
+        }
 
         // 현재 재료의 Amount에 따라 fillAmount업데이트
         float newAmount = 0f;

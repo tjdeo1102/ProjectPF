@@ -47,6 +47,7 @@ public class KSD_AlcholController : MonoBehaviourPun
             outputTimer = outputLiquidTimer;
 
             if (outputParticle != null) outputParticle.Play();
+            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Tank_out);
         }
     }
 

@@ -34,6 +34,7 @@ public class KSD_SoundUI : MonoBehaviour
             if (isPress)
             {
                 canvas.SetActive(!canvas.activeSelf);
+                KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Button5);
                 timer = delayTimer;
                 isPress = false;
             }
