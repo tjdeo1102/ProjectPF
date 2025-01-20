@@ -15,7 +15,10 @@ public class PTK_HandleMix : MonoBehaviourPun
 
     private float lastValue;
     private bool wasSecondHandleActive = false;
+    private bool isSoundPlaying = false;
     public UnityEvent mixDone;
+
+    private float previousKnobValue;
 
     void Start()
     {
@@ -36,9 +39,21 @@ public class PTK_HandleMix : MonoBehaviourPun
             float currentValue = Knob.value;
             float delta = Mathf.Abs(currentValue - lastValue);
 
-            if (currentValue > lastValue)
+            if (!Mathf.Approximately(Knob.value, previousKnobValue))
             {
-                photonView.RPC("RPC_PlaySfx", RpcTarget.All, 10);
+                if (!isSoundPlaying)
+                {
+                    photonView.RPC("RPC_PlaySfx", RpcTarget.All, 11);
+                    isSoundPlaying = true;
+                }
+            }
+            else
+            {
+                if (isSoundPlaying)
+                {
+                    photonView.RPC("RPC_StopInputSfx", RpcTarget.All, 11);
+                    isSoundPlaying = false;
+                }
             }
 
             if (delta >= turnResult)
@@ -46,6 +61,16 @@ public class PTK_HandleMix : MonoBehaviourPun
                 Debug.Log("RPC_MixDone");
                 photonView.RPC("RPC_MixDone", RpcTarget.All);
                 lastValue = currentValue;
+            }
+
+            previousKnobValue = Knob.value;
+        }
+        else
+        {
+            if (isSoundPlaying)
+            {
+                photonView.RPC("RPC_StopInputSfx", RpcTarget.All, 11);
+                isSoundPlaying = false;
             }
         }
     }
@@ -60,5 +85,11 @@ public class PTK_HandleMix : MonoBehaviourPun
     private void RPC_PlaySfx(int sfx)
     {
         KSH_AudioManager.Instance.PlaySfx((KSH_AudioManager.Sfx)sfx);
+    }
+
+    [PunRPC]
+    private void RPC_StopInputSfx(int sfx)
+    {
+        KSH_AudioManager.Instance.StopInputSfx((KSH_AudioManager.Sfx)sfx);
     }
 }
