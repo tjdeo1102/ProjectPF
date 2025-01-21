@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 4024117276561346112}
   - component: {fileID: 4024117276561346113}
   - component: {fileID: 8620238248659558165}
-  - component: {fileID: -6075949958551044957}
+  - component: {fileID: 3973503713337374001}
   m_Layer: 0
   m_Name: KSH_NeroliPowder
   m_TagString: Ingredient
@@ -296,7 +296,7 @@ MonoBehaviour:
     Type: 2
     State: 1
     MaterialAmount: 1
---- !u!114 &-6075949958551044957
+--- !u!114 &3973503713337374001
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -305,7 +305,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4024117276561346119}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 534a9774097967d4da7969f4b8d22c2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 957b448d60c8afb47b2de37a43377d2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -448,7 +448,8 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
-  photonView: {fileID: 0}
+  OriginLayer: 0
+  OriginTransform: {fileID: 0}
 --- !u!1 &4024117276928792901
 GameObject:
   m_ObjectHideFlags: 0

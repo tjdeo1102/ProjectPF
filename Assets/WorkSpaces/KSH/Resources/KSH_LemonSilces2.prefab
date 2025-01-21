@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 1817364138728311516}
   - component: {fileID: 1817364138728311519}
   - component: {fileID: 7339019069705639098}
-  - component: {fileID: -643203151034874077}
+  - component: {fileID: 544880446015996909}
   m_Layer: 0
   m_Name: KSH_LemonSilces2
   m_TagString: Fruit
@@ -358,7 +358,7 @@ MonoBehaviour:
     Type: 0
     State: 0
     MaterialAmount: 1
---- !u!114 &-643203151034874077
+--- !u!114 &544880446015996909
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -367,7 +367,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1817364138728311518}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 534a9774097967d4da7969f4b8d22c2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 957b448d60c8afb47b2de37a43377d2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -510,7 +510,8 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
-  photonView: {fileID: 0}
+  OriginLayer: 0
+  OriginTransform: {fileID: 0}
 --- !u!1 &1817364138909503091
 GameObject:
   m_ObjectHideFlags: 0
