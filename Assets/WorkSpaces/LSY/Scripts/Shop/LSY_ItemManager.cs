@@ -57,7 +57,12 @@ public class LSY_ItemManager : MonoBehaviourPun, IPunObservable
         KSD_GameManager.Instance.OnChangeStageInfo.AddListener(Initialize);
     }
 
-    
+    private void Update()
+    {
+        playerMoneyText.text = "$" + KSD_GameManager.Instance.CurrentStageInfo.StageMoney;
+    }
+
+
     private void Initialize()
     {
         InitializeItemPanels(decorationContent);

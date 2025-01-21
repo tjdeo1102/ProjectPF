@@ -92,7 +92,7 @@ public class KSH_FragmentMaterial : MonoBehaviour
                 // KSH_EffectManager.Instance.PlayEffect(KSH_EffectManager.Effect.Fire, transform.position);
                 PhotonNetwork.Instantiate(fragmentMaterialName, pos, Quaternion.identity);
             }
-            DOVirtual.DelayedCall(1f, () =>
+            DOVirtual.DelayedCall(0.1f, () =>
             {
                 if (photonView.IsMine)
                 {

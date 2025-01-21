@@ -9,6 +9,9 @@ public class LSY_NetworkGrabInteractable : XRGrabInteractable
     private float originMass;
     private float originDrag;
     private float originAngularDrag;
+    private bool originGravity;
+    private bool originKinematic;
+
     private Rigidbody rb;
     protected override void Awake()
     {
@@ -19,6 +22,8 @@ public class LSY_NetworkGrabInteractable : XRGrabInteractable
         originMass = rb.mass;
         originDrag = rb.drag;
         originAngularDrag = rb.angularDrag;
+        originGravity = rb.useGravity;
+        originKinematic = rb.isKinematic;
     }
 
     private void Update()
@@ -29,8 +34,8 @@ public class LSY_NetworkGrabInteractable : XRGrabInteractable
             rb.mass = originMass;
             rb.drag = originDrag;
             rb.angularDrag = originAngularDrag;
-            rb.useGravity = true;
-            rb.isKinematic = false;
+            rb.useGravity = originGravity;
+            rb.isKinematic = originKinematic;
         }
     }
 

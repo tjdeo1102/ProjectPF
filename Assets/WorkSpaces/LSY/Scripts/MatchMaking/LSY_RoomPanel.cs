@@ -73,6 +73,7 @@ public class LSY_RoomPanel : MonoBehaviour
         if (PhotonNetwork.LocalPlayer.IsMasterClient)
         {
             startButton.interactable = PhotonNetwork.PlayerList.Length > 1 && CheckAllReady();
+            //startButton.interactable = CheckAllReady();
         }
         else
         {

@@ -41,6 +41,7 @@ public class KSD_ReceiptController : MonoBehaviour
 
     public void OnExitStageHandler()
     {
+        KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Bill1);
         var info = KSD_GameManager.Instance.CurrentStageInfo;
         dayText.SetText($"{info.StageLevel}ÀÏÂ÷");
         visitCountText.SetText($"{info.VisitPlayerCount}");

@@ -6,6 +6,7 @@ using Photon.Voice.PUN;
 
 public class KSH_VoiceStatus : MonoBehaviour
 {
+    [SerializeField] private KSH_NetworkVoiceChat networkVoiceChat;
     [SerializeField] private Image voiceStatusImage;
     private PhotonVoiceView photonVoiceView;
 

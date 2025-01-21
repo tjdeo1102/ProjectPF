@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,7 @@ public class KSH_Slices : MonoBehaviour
 
     [SerializeField] private Collider knife;
 
-    private float lastSliceTime = 0f; // 마지막 슬라이싱 시간
+    private double lastSliceTime = 0f; // 마지막 슬라이싱 시간
     private Vector3 lastPosition; // 마지막 프레임의 위치
 
     private void Start()
@@ -23,7 +24,7 @@ public class KSH_Slices : MonoBehaviour
     {
         Debug.Log(other.gameObject.name);
         // 쿨타임 검사: 쿨타임이 지나지 않으면 슬라이싱을 실행하지 않음
-        if (Time.time - lastSliceTime < sliceCooldown)
+        if (PhotonNetwork.Time - lastSliceTime < sliceCooldown)
         {
             Debug.Log("반환");
             return;
@@ -50,7 +51,7 @@ public class KSH_Slices : MonoBehaviour
                 sliceComponent.ComputeSlice(sliceDirection, sliceOrigin);
 
                 // 마지막 슬라이싱 시간 업데이트
-                lastSliceTime = Time.time;
+                lastSliceTime = PhotonNetwork.Time;
 
                 Debug.Log("Object sliced!");
             }

@@ -72,6 +72,9 @@ public class KSD_GameManager : MonoBehaviourPun
     {
         // 각 클라이언트의 맵 로드 대기
         StartCoroutine(NetworkInit());
+
+        // 게임 시작와 함께 나오는 전환 효과음
+        KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Button4);
     }
 
     private IEnumerator NetworkInit()
@@ -120,15 +123,11 @@ public class KSD_GameManager : MonoBehaviourPun
 
         CurrentStageInfo.FinishPlayerCount += addCount;
 
-        if (CurrentStageInfo.FinishPlayerCount >= maxCustomerCount) OnCanExitStage?.Invoke();
-        //{
-        //    // 스테이지 상승
-        //    CurrentStageInfo.StageLevel++;
-        //    CurrentStageInfo.FinishPlayerCount = CurrentStageInfo.FinishPlayerCount - maxCustomerCount;
-        //    CurrentStageInfo.FinishPlayerCount = 0;
-        //    // 스테이지 종료 가능 관련 이벤트 호출
-        //    OnCanExitStage?.Invoke();
-        //}
+        if (CurrentStageInfo.FinishPlayerCount >= maxCustomerCount)
+        {
+            OnCanExitStage?.Invoke();
+            KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Next_Stage);
+        }
         if (gameDatas.Length >= CurrentStageInfo.StageLevel)
         {
             currentGameData = gameDatas[CurrentStageInfo.StageLevel - 1];

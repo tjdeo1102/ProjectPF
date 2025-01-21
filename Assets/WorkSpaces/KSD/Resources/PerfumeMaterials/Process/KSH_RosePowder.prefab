@@ -262,10 +262,10 @@ GameObject:
   - component: {fileID: 4464703049031214036}
   - component: {fileID: 4464703049031214035}
   - component: {fileID: 4464703049031214032}
-  - component: {fileID: -7987720800608521027}
-  - component: {fileID: -7499457929245346539}
+  - component: {fileID: 3655648811335720130}
+  - component: {fileID: -5454225137997477238}
   m_Layer: 0
-  m_Name: KSD_RosePowder
+  m_Name: KSH_RosePowder
   m_TagString: Ingredient
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -279,8 +279,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4464703049031214046}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6, y: 6, z: 6}
+  m_LocalPosition: {x: -0.693, y: 1.111, z: -0.569}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4464703050364619571}
@@ -340,7 +340,7 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 1
+  OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
   - {fileID: 4464703049031214032}
@@ -360,10 +360,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SynchronizeVelocity: 1
-  m_SynchronizeAngularVelocity: 1
+  m_SynchronizeAngularVelocity: 0
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
---- !u!114 &-7987720800608521027
+--- !u!114 &3655648811335720130
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -380,7 +380,7 @@ MonoBehaviour:
     Type: 2
     State: 1
     MaterialAmount: 1
---- !u!114 &-7499457929245346539
+--- !u!114 &-5454225137997477238
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

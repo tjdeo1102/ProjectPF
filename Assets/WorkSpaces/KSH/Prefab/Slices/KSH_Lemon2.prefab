@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 3954506166138037474}
   - component: {fileID: 8569909110693909046}
   m_Layer: 0
-  m_Name: Lemon
+  m_Name: KSH_Lemon2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -242,7 +242,7 @@ MonoBehaviour:
   m_SnapToColliderVolume: 1
   m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
-  m_MovementType: 2
+  m_MovementType: 0
   m_VelocityDamping: 1
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
@@ -336,11 +336,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08c19f568285ebe4eb127627553bb64c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fragmentMaterial: {fileID: 512128997002121614, guid: 23213fea7734af9458029dbfe8a0fc8a, type: 3}
+  fragmentMaterial: {fileID: 1817364138728311518, guid: 3e4eadac363d2b3448afcbe650d3e3fc, type: 3}
   fragmentMaterialName: 
   material: {fileID: 0}
   meshRenderers: []
-  fadeDuration: 2
+  fadeDuration: 0.8
 --- !u!114 &3954506166138037477
 MonoBehaviour:
   m_ObjectHideFlags: 0
