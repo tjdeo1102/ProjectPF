@@ -162,7 +162,7 @@ public class KSD_CauldronController : MonoBehaviourPun
                 ConcentrateInfoList.Add(newCon);
                 ConcentrateAmountList.Add(0);
 
-                photonView.RPC("RPC_PlaySfx", RpcTarget.All, 21);
+                photonView.RPC("RPC_PlayCauldronSfx", RpcTarget.All, 21);
             }
         }
 
