@@ -330,6 +330,7 @@ public class LSY_PotionReceiver : MonoBehaviourPun, IPunObservable
     [PunRPC]
     public void DestroyPotion()
     {
+        fillAmount = 0;
         Destroy(potion);
         Destroy(gameObject, 3f);
     }

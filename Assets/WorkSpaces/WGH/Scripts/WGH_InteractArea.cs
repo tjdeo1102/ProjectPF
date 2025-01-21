@@ -53,6 +53,7 @@ public class WGH_InteractArea : MonoBehaviour
             controller.SmellStick = null;
         }
     }
+
     IEnumerator PurchaseRoutine(LSY_PotionReceiver potion)
     {
         isCheck = true;
@@ -62,7 +63,12 @@ public class WGH_InteractArea : MonoBehaviour
         KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Guest_success);
 
         KSD_GameManager.Instance.AddFinishPlayerCount(1);
+        PhotonView potionView = potion.GetComponent<PhotonView>();
+
         yield return new WaitForSeconds(2);
+
+        potionView.RPC("DestroyPotion", RpcTarget.All);
+        yield return null;
         if (curCount == 0 && KSD_GameManager.Instance != null)
         {
             KSD_GameManager.Instance.CurrentStageInfo.StageMoney += 100;
@@ -76,12 +82,7 @@ public class WGH_InteractArea : MonoBehaviour
         curCount = 0;
         controller.ChangeStateNetwork((int)E_StateType.EXIT);
         WGH_NPCCreator.Instance.isCounter = false;
-        yield return null;
-
-        if (PhotonNetwork.IsMasterClient)
-        {
-            PhotonNetwork.Destroy(potion.gameObject);
-        }
+        
         yield return null;
         isCheck = false;
     }
@@ -94,9 +95,14 @@ public class WGH_InteractArea : MonoBehaviour
         controller.SelectReactUINetwork((int)E_ReactUiType.FAIL);
         controller.SetEmotion(6);
         KSH_AudioManager.Instance.PlaySfx(KSH_AudioManager.Sfx.Guest_fall);
+
+        PhotonView potionView = potion.GetComponent<PhotonView>();
         yield return new WaitForSeconds(2);
         controller.SetEmotion(0);
-        PhotonNetwork.Destroy(potion.gameObject);
+
+        potionView.RPC("DestroyPotion", RpcTarget.All);
+        yield return null;
+
         if (curCount >= maxCount)
         {
             // 실패횟수가 설정된 수에 도달하면 퇴장
