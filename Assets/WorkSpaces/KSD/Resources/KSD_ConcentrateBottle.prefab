@@ -43908,7 +43908,7 @@ GameObject:
   - component: {fileID: 8409491120010443851}
   - component: {fileID: 592829154584094548}
   - component: {fileID: 592829154584094549}
-  - component: {fileID: 592829154584094550}
+  - component: {fileID: -7342316102361932846}
   m_Layer: 0
   m_Name: KSD_ConcentrateBottle
   m_TagString: Untagged
@@ -44036,7 +44036,7 @@ MonoBehaviour:
   m_SynchronizeAngularVelocity: 1
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
---- !u!114 &592829154584094550
+--- !u!114 &-7342316102361932846
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44045,7 +44045,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8411961192611870224}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 534a9774097967d4da7969f4b8d22c2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 957b448d60c8afb47b2de37a43377d2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -44188,7 +44188,8 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
-  photonView: {fileID: 0}
+  OriginLayer: 0
+  OriginTransform: {fileID: 0}
 --- !u!1 &8412504554484106292
 GameObject:
   m_ObjectHideFlags: 0
