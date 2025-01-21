@@ -6,13 +6,14 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 [RequireComponent(typeof(PhotonView))]
-public class KSD_NetworkGrabInteractable : XRGrabInteractable
+public class KSD_NetworkGrabInteractable : XRGrabInteractable, IPunObservable
 {
     private PhotonView view;
     public int OriginLayer;
     public Rigidbody OriginTransform;
     private bool originGravity;
     private bool originKinematic;
+    private bool isSelectCheck;
     protected override void Awake()
     {
         base.Awake();
@@ -26,10 +27,23 @@ public class KSD_NetworkGrabInteractable : XRGrabInteractable
 
     public void Update()
     {
-        if (!isSelected)
+        // 잡고있는 인터렉터가 소켓인 경우에는 제3자의 것이므로 물리 활성화
+        if (firstInteractorSelecting is XRSocketInteractor)
         {
             OriginTransform.useGravity = originGravity;
             OriginTransform.isKinematic = originKinematic;
+            return;
+        }
+        // 잡고 있지 않는 상태면 원래 물리 속성으로 복귀
+        if (!isSelectCheck)
+        {
+            OriginTransform.useGravity = originGravity;
+            OriginTransform.isKinematic = originKinematic;
+        }
+        else
+        {
+            OriginTransform.useGravity = false;
+            OriginTransform.isKinematic = true;
         }
     }
 
@@ -81,6 +95,18 @@ public class KSD_NetworkGrabInteractable : XRGrabInteractable
         else
         {
             interactionLayers = new InteractionLayerMask { value = originLayer };
+        }
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(isSelected);
+        }
+        else
+        {
+            isSelectCheck = (bool)stream.ReceiveNext();
         }
     }
 }
