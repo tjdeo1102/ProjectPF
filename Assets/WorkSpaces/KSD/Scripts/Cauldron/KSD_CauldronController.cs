@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 using static KSH_AudioManager;
 
 [RequireComponent(typeof(PhotonView))]
@@ -184,8 +185,12 @@ public class KSD_CauldronController : MonoBehaviourPun
     {
         if(other.CompareTag("Erase"))
         {
+            if (other.gameObject.TryGetComponent<XRBaseInteractable>(out var a) && a.isSelected == false)
+            {
+                PhotonNetwork.Destroy(other.gameObject);
+            }
             //print("°¡¸¶¼Ü ¸®¼Â");
-            if (PhotonNetwork.IsMasterClient) PhotonNetwork.Destroy(other.gameObject);
+            //if (PhotonNetwork.IsMasterClient) PhotonNetwork.Destroy(other.gameObject);
             ResetState();
         }
     }
