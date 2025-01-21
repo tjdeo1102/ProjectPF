@@ -71,8 +71,7 @@ public class LSY_ItemPanel : MonoBehaviourPun, IPunObservable
         }
         OnItemAddedBasket?.Invoke(itemName);
         OnItemAdded?.Invoke(itemPrice);
-        isAdded = true;
-        photonView.RPC("RPC_IsAdded", RpcTarget.Others);
+        photonView.RPC("RPC_IsAdded", RpcTarget.All);
     }
 
     [PunRPC]

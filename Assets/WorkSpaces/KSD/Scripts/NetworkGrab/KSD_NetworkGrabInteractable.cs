@@ -11,6 +11,8 @@ public class KSD_NetworkGrabInteractable : XRGrabInteractable
     private PhotonView view;
     public int OriginLayer;
     public Rigidbody OriginTransform;
+    private bool originGravity;
+    private bool originKinematic;
     protected override void Awake()
     {
         base.Awake();
@@ -18,7 +20,19 @@ public class KSD_NetworkGrabInteractable : XRGrabInteractable
         view = GetComponent<PhotonView>();
         OriginTransform = GetComponent<Rigidbody>();
         OriginLayer = interactionLayers.value;
+        originGravity = OriginTransform.useGravity;
+        originKinematic = OriginTransform.isKinematic;
     }
+
+    public void Update()
+    {
+        if (!isSelected)
+        {
+            OriginTransform.useGravity = originGravity;
+            OriginTransform.isKinematic = originKinematic;
+        }
+    }
+
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
         if (args.interactorObject is XRSocketInteractor)

@@ -97,6 +97,7 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
             if (fillAmount < 0.1f)
             {
                 Debug.Log("한번 나올 양이 부족함");
+                LSY_DespensorLever.StartRoutine();
                 return;
             }
 
@@ -113,7 +114,8 @@ public class LSY_DispensorLiquid : MonoBehaviourPun, IPunObservable
         }
     }
 
-    public void LitAnimation(string name, bool on)
+    [PunRPC]
+    public void RPC_LitAnimation(string name, bool on)
     {
         litAnimator.SetTrigger(name);
         isLitOpen = on;

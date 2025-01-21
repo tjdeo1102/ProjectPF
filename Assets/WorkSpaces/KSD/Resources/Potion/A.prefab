@@ -5365,8 +5365,8 @@ GameObject:
   - component: {fileID: 8288527317419595039}
   - component: {fileID: 8288527317419595038}
   - component: {fileID: 8288527317419595037}
-  - component: {fileID: 7411781751019799557}
   - component: {fileID: 8755439782067291195}
+  - component: {fileID: 7199459151124370001}
   m_Layer: 18
   m_Name: A
   m_TagString: Potion
@@ -5506,7 +5506,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.4334013, z: 1}
   m_Center: {x: 0, y: 0.4832711, z: 0}
---- !u!114 &7411781751019799557
+--- !u!114 &8755439782067291195
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5515,7 +5515,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 8288527317419595036}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 534a9774097967d4da7969f4b8d22c2e, type: 3}
+  m_Script: {fileID: 11500000, guid: a3c1ade3fd8ef6c469c9475ecad8c67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipCanvas: {fileID: 7618241276965510856}
+--- !u!114 &7199459151124370001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8288527317419595036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957b448d60c8afb47b2de37a43377d2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -5658,20 +5671,8 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
-  photonView: {fileID: 0}
---- !u!114 &8755439782067291195
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8288527317419595036}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3c1ade3fd8ef6c469c9475ecad8c67b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tooltipCanvas: {fileID: 7618241276965510856}
+  OriginLayer: 0
+  OriginTransform: {fileID: 0}
 --- !u!1 &8288527318229413145
 GameObject:
   m_ObjectHideFlags: 0
