@@ -47,12 +47,12 @@ public class KSD_CauldronController : MonoBehaviourPun
         if (fire.wasActiveFire || AlwaysFire)
         {
             fireSmoke.Play();
-            photonView.RPC("RPC_PlaySfx", RpcTarget.All, 24);
+            photonView.RPC("RPC_PlayCauldronSfx", RpcTarget.All, 24);
         }
         else
         {
             fireSmoke.Stop();
-            photonView.RPC("RPC_StopInputSfx", RpcTarget.All, 24);
+            photonView.RPC("RPC_StopCauldronInputSfx", RpcTarget.All, 24);
         }
 
         // 이미 가공이 끝난 경우는 리턴
