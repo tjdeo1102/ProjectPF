@@ -1561,7 +1561,7 @@ GameObject:
   - component: {fileID: 2349775956794058374}
   - component: {fileID: 2405311603326172924}
   - component: {fileID: 481559209055733093}
-  - component: {fileID: 7386979363267617185}
+  - component: {fileID: 2251701579539616513}
   m_Layer: 6
   m_Name: Direct Interactor
   m_TagString: Untagged
@@ -1619,7 +1619,7 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &7386979363267617185
+--- !u!114 &2251701579539616513
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1628,7 +1628,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1138593193836341365}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc3d8478b616da34f8f8efeeca87b539, type: 3}
+  m_Script: {fileID: 11500000, guid: a799064f2658a4f4aa39b13673954fbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -1709,7 +1709,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_PhysicsTriggerInteraction: 1
-  photonView: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!1 &1149607591716111340
 GameObject:
   m_ObjectHideFlags: 0
@@ -4304,7 +4304,7 @@ GameObject:
   - component: {fileID: 9059619143297480557}
   - component: {fileID: 3703875932721461630}
   - component: {fileID: 1597967851842509852}
-  - component: {fileID: 426305573620752097}
+  - component: {fileID: 3808472531792971198}
   m_Layer: 6
   m_Name: Ray Interactor
   m_TagString: Untagged
@@ -4613,7 +4613,7 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &426305573620752097
+--- !u!114 &3808472531792971198
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4622,7 +4622,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2387059122933070769}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e756fed83ca3004ea8af2998f1f081b, type: 3}
+  m_Script: {fileID: 11500000, guid: a91284bee13ff6648873b92f930bfeae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -4700,7 +4700,7 @@ MonoBehaviour:
   m_AllowHoverHapticsWhileSelecting: 1
   m_LineType: 0
   m_BlendVisualLinePoints: 1
-  m_MaxRaycastDistance: 5
+  m_MaxRaycastDistance: 30
   m_RayOriginTransform: {fileID: 0}
   m_ReferenceFrame: {fileID: 0}
   m_Velocity: 16
@@ -4730,7 +4730,7 @@ MonoBehaviour:
   m_AllowAnchorControl: 1
   m_UseForceGrab: 0
   m_RotateSpeed: 180
-  m_TranslateSpeed: 2
+  m_TranslateSpeed: 1
   m_AnchorRotateReferenceFrame: {fileID: 0}
   m_AnchorRotationMode: 0
   m_UIHoverEntered:
@@ -4743,7 +4743,6 @@ MonoBehaviour:
   m_OccludeARHitsWith3DObjects: 0
   m_OccludeARHitsWith2DObjects: 0
   m_ScaleMode: 0
-  photonView: {fileID: 0}
   animator: {fileID: 0}
 --- !u!1 &2403665628722634994
 GameObject:
@@ -4789,7 +4788,7 @@ GameObject:
   - component: {fileID: 9082749927898754022}
   - component: {fileID: 3517483910113273333}
   - component: {fileID: 7441791290397957320}
-  - component: {fileID: 5019933842469025145}
+  - component: {fileID: 9097118400492993744}
   m_Layer: 6
   m_Name: Ray Interactor
   m_TagString: Untagged
@@ -5098,7 +5097,7 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &5019933842469025145
+--- !u!114 &9097118400492993744
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5107,7 +5106,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2492420046535059258}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e756fed83ca3004ea8af2998f1f081b, type: 3}
+  m_Script: {fileID: 11500000, guid: a91284bee13ff6648873b92f930bfeae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -5185,7 +5184,7 @@ MonoBehaviour:
   m_AllowHoverHapticsWhileSelecting: 1
   m_LineType: 0
   m_BlendVisualLinePoints: 1
-  m_MaxRaycastDistance: 5
+  m_MaxRaycastDistance: 30
   m_RayOriginTransform: {fileID: 0}
   m_ReferenceFrame: {fileID: 0}
   m_Velocity: 16
@@ -5215,7 +5214,7 @@ MonoBehaviour:
   m_AllowAnchorControl: 1
   m_UseForceGrab: 0
   m_RotateSpeed: 180
-  m_TranslateSpeed: 2
+  m_TranslateSpeed: 1
   m_AnchorRotateReferenceFrame: {fileID: 0}
   m_AnchorRotationMode: 0
   m_UIHoverEntered:
@@ -5228,7 +5227,6 @@ MonoBehaviour:
   m_OccludeARHitsWith3DObjects: 0
   m_OccludeARHitsWith2DObjects: 0
   m_ScaleMode: 0
-  photonView: {fileID: 0}
   animator: {fileID: 0}
 --- !u!1 &2506061636449570638
 GameObject:
@@ -20985,7 +20983,7 @@ GameObject:
   - component: {fileID: 5958710474888828787}
   - component: {fileID: 6002420324110618377}
   - component: {fileID: 4492232103242320142}
-  - component: {fileID: 8264727333075532390}
+  - component: {fileID: 7876459185573493951}
   m_Layer: 6
   m_Name: Direct Interactor
   m_TagString: Untagged
@@ -21043,7 +21041,7 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &8264727333075532390
+--- !u!114 &7876459185573493951
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -21052,7 +21050,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9070420251784092032}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc3d8478b616da34f8f8efeeca87b539, type: 3}
+  m_Script: {fileID: 11500000, guid: a799064f2658a4f4aa39b13673954fbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -21133,7 +21131,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_PhysicsTriggerInteraction: 1
-  photonView: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!1 &9155580580776270046
 GameObject:
   m_ObjectHideFlags: 0
