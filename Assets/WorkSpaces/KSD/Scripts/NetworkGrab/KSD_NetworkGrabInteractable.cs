@@ -106,6 +106,9 @@ public class KSD_NetworkGrabInteractable : XRGrabInteractable, IPunObservable
         }
         else
         {
+            // stream의 Count가 비어있는 경우에는 ReceiveNext 에러
+            // 해당 에러 예외처리 (1인 이유는 보내는 값이 한개이므로)
+            if (stream.Count < 1) return;
             isSelectCheck = (bool)stream.ReceiveNext();
         }
     }
