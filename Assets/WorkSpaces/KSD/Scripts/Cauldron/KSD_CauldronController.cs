@@ -207,13 +207,13 @@ public class KSD_CauldronController : MonoBehaviourPun
     }
 
     [PunRPC]
-    private void RPC_PlaySfx(int sfx)
+    private void RPC_PlayCauldronSfx(int sfx)
     {
         KSH_AudioManager.Instance.PlaySfx((KSH_AudioManager.Sfx)sfx);
     }
 
     [PunRPC]
-    private void RPC_StopInputSfx(int sfx)
+    private void RPC_StopCauldronInputSfx(int sfx)
     {
         KSH_AudioManager.Instance.StopInputSfx((KSH_AudioManager.Sfx)sfx);
     }
