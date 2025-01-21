@@ -137,7 +137,7 @@ public class KSH_FractureObject2 : MonoBehaviour
 
     // 모든 파괴 오브젝트를 서서히 사라지게 함
     [PunRPC]
-    private void StartFadeOut(Vector3 pos)
+    protected void StartFadeOut(Vector3 pos)
     {
         isFadingOut = true;
         copiedMaterial.DOFade(0, fadeDuration).OnComplete(() =>
