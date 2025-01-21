@@ -61,7 +61,7 @@ public class WGH_FanTest : MonoBehaviour
 
         if (isActiveFire == true && wasActiveFire == false)
         {
-            photonView.RPC("RPC_PlaySfx", RpcTarget.All, 22);
+            photonView.RPC("RPC_PlaySfx_Fan", RpcTarget.All, 22);
         }
 
         wasActiveFire = isActiveFire;
@@ -137,7 +137,7 @@ public class WGH_FanTest : MonoBehaviour
     }
 
     [PunRPC]
-    private void RPC_PlaySfx(int sfx)
+    private void RPC_PlaySfx_Fan(int sfx)
     {
         KSH_AudioManager.Instance.PlaySfx((KSH_AudioManager.Sfx)sfx);
     }
