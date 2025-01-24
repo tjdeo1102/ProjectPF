@@ -190,9 +190,9 @@ public class WGH_SmellStick : MonoBehaviourPun
     /// </summary>
     public void OnGrab(SelectEnterEventArgs args)
     {
-
-        photonView.RPC("IsGrabRPC", RpcTarget.AllViaServer, true);
-
+        if (args.interactorObject is XRSocketInteractor)
+            return;
+        photonView.RPC("IsGrabRPC", RpcTarget.All, true);
     }
 
     /// <summary>
@@ -200,9 +200,9 @@ public class WGH_SmellStick : MonoBehaviourPun
     /// </summary>
     public void OnRelease(SelectExitEventArgs args)
     {
-
-        photonView.RPC("IsGrabRPC", RpcTarget.AllViaServer, false);
-
+        if (args.interactorObject is XRSocketInteractor)
+            return;
+        photonView.RPC("IsGrabRPC", RpcTarget.All, false);
     }
 
 
@@ -213,5 +213,9 @@ public class WGH_SmellStick : MonoBehaviourPun
     public void IsGrabRPC(bool isGrabbed)
     {
         isGrab = isGrabbed;
+        if (photonView.IsMine == false)
+        {
+            rigid.useGravity = false;
+        }
     }
 }

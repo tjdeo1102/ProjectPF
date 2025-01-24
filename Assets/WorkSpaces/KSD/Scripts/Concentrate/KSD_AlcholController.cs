@@ -38,7 +38,7 @@ public class KSD_AlcholController : MonoBehaviourPun
     }
 
     [PunRPC]
-    public void TakeAlcholRPC()
+    protected void TakeAlcholRPC()
     {
         // 액체가 나오지 않은 상태에서만 수행
         if (isPlaying == false)

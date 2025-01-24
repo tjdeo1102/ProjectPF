@@ -1,29 +1,44 @@
 using Photon.Pun;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class LSY_GrabLabel : MonoBehaviourPun
+public class LSY_GrabLabel : XRGrabInteractable
 {
     public LSY_Label lsy_label;
     bool doneLabel = false;
     public GameObject label;
     public GameObject whiteBoard;
+    public Rigidbody rb;
 
-    IEnumerator Routine()
+    public PhotonView photonView;
+
+    private void Start()
     {
-        yield return new WaitForSeconds(0.3f);
-        label.SetActive(false);
-        whiteBoard.SetActive(true);
-        doneLabel = true;
+        rb = GetComponent<Rigidbody>();
+        photonView = GetComponent<PhotonView>();
     }
 
+    protected override void OnSelectEntering(SelectEnterEventArgs args)
+    {
+        base.OnSelectEntering(args);
+        if (!doneLabel)
+        {
+            photonView.RPC("Grab", RpcTarget.All);
+        }
+    }
+
+    protected override void OnSelectExited(SelectExitEventArgs args)
+    {
+        base.OnSelectExited(args);
+    }
+
+    [PunRPC]
     public void Grab()
     {
-        if (doneLabel) return;
-        Debug.Log("grablabelsound");
+        label.SetActive(false);
+        whiteBoard.SetActive(true);
         lsy_label.OnWhiteBoard();
-        StartCoroutine(Routine());
+        doneLabel = true;
     }
 
 }

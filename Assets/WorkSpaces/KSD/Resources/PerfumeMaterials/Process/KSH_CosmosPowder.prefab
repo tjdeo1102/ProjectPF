@@ -678,7 +678,7 @@ GameObject:
   - component: {fileID: 5671178388608727790}
   - component: {fileID: 5671178388608727789}
   - component: {fileID: 429610258173624894}
-  - component: {fileID: 7935191487861910550}
+  - component: {fileID: -5837638518878640087}
   m_Layer: 0
   m_Name: KSH_CosmosPowder
   m_TagString: Ingredient
@@ -754,10 +754,11 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
   - {fileID: 5671178388608727789}
+  - {fileID: -5837638518878640087}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -794,7 +795,7 @@ MonoBehaviour:
     Type: 2
     State: 1
     MaterialAmount: 1
---- !u!114 &7935191487861910550
+--- !u!114 &-5837638518878640087
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -803,7 +804,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5671178388608727787}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 534a9774097967d4da7969f4b8d22c2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 957b448d60c8afb47b2de37a43377d2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -946,4 +947,5 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
-  photonView: {fileID: 0}
+  OriginLayer: 0
+  OriginTransform: {fileID: 0}

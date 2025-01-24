@@ -265,11 +265,15 @@ public class LSY_Bucket : MonoBehaviourPun, IPunObservable
     {
         if (stream.IsWriting)
         {
+            stream.SendNext(transform.position);
+            stream.SendNext(transform.rotation);
             stream.SendNext(fillAmount);
             //stream.SendNext(rb.useGravity);
         }
         else
         {
+            transform.position = (Vector3)stream.ReceiveNext();
+            transform.rotation = (Quaternion)stream.ReceiveNext();
             fillAmount = (float)stream.ReceiveNext();
             //rb.useGravity = (bool)stream.ReceiveNext();
         }

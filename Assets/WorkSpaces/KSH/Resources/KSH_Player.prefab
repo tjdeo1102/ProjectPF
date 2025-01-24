@@ -1492,7 +1492,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2613733709912431469}
-  - component: {fileID: 6176411375017394457}
+  - component: {fileID: 5272123355526601716}
   - component: {fileID: 2613733709912431468}
   - component: {fileID: 2613733709912431467}
   - component: {fileID: 2613733709912431466}
@@ -1519,7 +1519,7 @@ Transform:
   m_Father: {fileID: 1691025611947015171}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6176411375017394457
+--- !u!114 &5272123355526601716
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1528,7 +1528,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2613733709912431464}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9e6ea070653bce4aaafdc4be723033e, type: 3}
+  m_Script: {fileID: 11500000, guid: 6803edce0201f574f923fd9d10e5b30a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -1623,7 +1623,7 @@ MonoBehaviour:
   m_ConeCastAngle: 6
   m_RaycastMask:
     serializedVersion: 2
-    m_Bits: 2148273655
+    m_Bits: 4294967295
   m_RaycastTriggerInteraction: 1
   m_RaycastSnapVolumeInteraction: 1
   m_HitClosestOnly: 0
@@ -1649,7 +1649,6 @@ MonoBehaviour:
   m_OccludeARHitsWith3DObjects: 0
   m_OccludeARHitsWith2DObjects: 0
   m_ScaleMode: 0
-  photonView: {fileID: 0}
 --- !u!120 &2613733709912431468
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -3240,7 +3239,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2613733710970776970}
-  - component: {fileID: 9183359720516587784}
+  - component: {fileID: 210791861442277450}
   - component: {fileID: 2613733710970776969}
   - component: {fileID: 2613733710970776968}
   - component: {fileID: 2613733710970776967}
@@ -3267,7 +3266,7 @@ Transform:
   m_Father: {fileID: 1691025612408470754}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9183359720516587784
+--- !u!114 &210791861442277450
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3276,7 +3275,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2613733710970776965}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9e6ea070653bce4aaafdc4be723033e, type: 3}
+  m_Script: {fileID: 11500000, guid: 6803edce0201f574f923fd9d10e5b30a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -3371,7 +3370,7 @@ MonoBehaviour:
   m_ConeCastAngle: 6
   m_RaycastMask:
     serializedVersion: 2
-    m_Bits: 2148273655
+    m_Bits: 4294967295
   m_RaycastTriggerInteraction: 1
   m_RaycastSnapVolumeInteraction: 1
   m_HitClosestOnly: 0
@@ -3397,7 +3396,6 @@ MonoBehaviour:
   m_OccludeARHitsWith3DObjects: 0
   m_OccludeARHitsWith2DObjects: 0
   m_ScaleMode: 0
-  photonView: {fileID: 0}
 --- !u!120 &2613733710970776969
 LineRenderer:
   m_ObjectHideFlags: 0

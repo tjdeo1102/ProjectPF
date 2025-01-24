@@ -5388,8 +5388,8 @@ GameObject:
   - component: {fileID: 7022644511088454975}
   - component: {fileID: 7022644511088454972}
   - component: {fileID: 7022644511088454973}
-  - component: {fileID: 7367562807340668343}
   - component: {fileID: 3383358998488710951}
+  - component: {fileID: 6804339584041476009}
   m_Layer: 18
   m_Name: E
   m_TagString: Potion
@@ -5472,6 +5472,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 7022644511088454968}
   - {fileID: 7022644511088454975}
+  - {fileID: 6804339584041476009}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -5529,7 +5530,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.3, y: 0.42214277, z: 1.3}
   m_Center: {x: 0, y: 0.26, z: 0}
---- !u!114 &7367562807340668343
+--- !u!114 &3383358998488710951
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5538,7 +5539,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 7022644511088454978}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 534a9774097967d4da7969f4b8d22c2e, type: 3}
+  m_Script: {fileID: 11500000, guid: a3c1ade3fd8ef6c469c9475ecad8c67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipCanvas: {fileID: 1346293346980176253}
+--- !u!114 &6804339584041476009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7022644511088454978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957b448d60c8afb47b2de37a43377d2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -5579,10 +5593,34 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7022644511088454975}
+        m_TargetAssemblyTypeName: LSY_PotionReceiver, Assembly-CSharp
+        m_MethodName: ToggleBreakable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7022644511088454975}
+        m_TargetAssemblyTypeName: LSY_PotionReceiver, Assembly-CSharp
+        m_MethodName: ToggleBreakable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   m_FirstFocusEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -5681,20 +5719,8 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
-  photonView: {fileID: 0}
---- !u!114 &3383358998488710951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7022644511088454978}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3c1ade3fd8ef6c469c9475ecad8c67b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tooltipCanvas: {fileID: 1346293346980176253}
+  OriginLayer: 0
+  OriginTransform: {fileID: 0}
 --- !u!1 &7022644511488859703
 GameObject:
   m_ObjectHideFlags: 0

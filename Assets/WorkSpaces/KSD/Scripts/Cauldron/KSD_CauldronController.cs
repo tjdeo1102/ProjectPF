@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
-using static KSH_AudioManager;
+using UnityEngine.XR.Interaction.Toolkit;
 
 [RequireComponent(typeof(PhotonView))]
 public class KSD_CauldronController : MonoBehaviourPun
@@ -46,12 +46,12 @@ public class KSD_CauldronController : MonoBehaviourPun
         if (fire.wasActiveFire || AlwaysFire)
         {
             fireSmoke.Play();
-            photonView.RPC("RPC_PlaySfx", RpcTarget.All, 24);
+            photonView.RPC("RPC_PlayCauldronSfx", RpcTarget.All, 24);
         }
         else
         {
             fireSmoke.Stop();
-            photonView.RPC("RPC_StopInputSfx", RpcTarget.All, 24);
+            photonView.RPC("RPC_StopCauldronInputSfx", RpcTarget.All, 24);
         }
 
         // 이미 가공이 끝난 경우는 리턴
@@ -161,7 +161,7 @@ public class KSD_CauldronController : MonoBehaviourPun
                 ConcentrateInfoList.Add(newCon);
                 ConcentrateAmountList.Add(0);
 
-                photonView.RPC("RPC_PlaySfx", RpcTarget.All, 21);
+                photonView.RPC("RPC_PlayCauldronSfx", RpcTarget.All, 21);
             }
         }
 
@@ -184,8 +184,12 @@ public class KSD_CauldronController : MonoBehaviourPun
     {
         if(other.CompareTag("Erase"))
         {
+            if (other.gameObject.TryGetComponent<XRBaseInteractable>(out var a) && a.isSelected == false)
+            {
+                PhotonNetwork.Destroy(other.gameObject);
+            }
             //print("가마솥 리셋");
-            if (PhotonNetwork.IsMasterClient) PhotonNetwork.Destroy(other.gameObject);
+            //if (PhotonNetwork.IsMasterClient) PhotonNetwork.Destroy(other.gameObject);
             ResetState();
         }
     }
@@ -202,13 +206,13 @@ public class KSD_CauldronController : MonoBehaviourPun
     }
 
     [PunRPC]
-    private void RPC_PlaySfx(int sfx)
+    protected void RPC_PlayCauldronSfx(int sfx)
     {
         KSH_AudioManager.Instance.PlaySfx((KSH_AudioManager.Sfx)sfx);
     }
 
     [PunRPC]
-    private void RPC_StopInputSfx(int sfx)
+    protected void RPC_StopCauldronInputSfx(int sfx)
     {
         KSH_AudioManager.Instance.StopInputSfx((KSH_AudioManager.Sfx)sfx);
     }

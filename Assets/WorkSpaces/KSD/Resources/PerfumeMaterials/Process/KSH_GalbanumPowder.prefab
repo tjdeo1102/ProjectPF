@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 5190926401544976130}
   - component: {fileID: 5190926401544976129}
   - component: {fileID: -4060576319572502643}
-  - component: {fileID: -345263516652557280}
+  - component: {fileID: -1680802719985245740}
   m_Layer: 0
   m_Name: KSH_GalbanumPowder
   m_TagString: Ingredient
@@ -253,10 +253,11 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
   - {fileID: 5190926401544976129}
+  - {fileID: -1680802719985245740}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -293,7 +294,7 @@ MonoBehaviour:
     Type: 2
     State: 1
     MaterialAmount: 1
---- !u!114 &-345263516652557280
+--- !u!114 &-1680802719985245740
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -302,7 +303,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5190926401544976135}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 534a9774097967d4da7969f4b8d22c2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 957b448d60c8afb47b2de37a43377d2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -445,7 +446,8 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
-  photonView: {fileID: 0}
+  OriginLayer: 0
+  OriginTransform: {fileID: 0}
 --- !u!1 &5190926401914486138
 GameObject:
   m_ObjectHideFlags: 0
