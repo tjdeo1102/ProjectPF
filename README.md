@@ -1,6 +1,6 @@
 # 기업협약프로젝트
 
-해당 프로젝트는 **경일게임아카데미**([KGA](https://www.kiweb.or.kr/smart/?utm_source=google&utm_medium=SA&utm_campaign=january&ACE_REF=adwords_g&ACE_KW=%EA%B2%BD%EC%9D%BC%EA%B2%8C%EC%9E%84%EC%95%84%EC%B9%B4%EB%8D%B0%EB%AF%B8&gad_source=1&gclid=Cj0KCQiA4-y8BhC3ARIsAHmjC_FjejOpjCQL4z7sRRsidSE6QCxjiON6ZZyuKf8SgyUgaqZzVtG5uOoaAsoBEALw_wcB)) x 데브즈 유나이티드([Link](https://www.devsunitedgames.com/))가 함께 진행했습니다.
+해당 프로젝트는 **경일게임아카데미**([KGA](https://www.kiweb.or.kr/smart/?utm_source=google&utm_medium=SA&utm_campaign=january&ACE_REF=adwords_g&ACE_KW=%EA%B2%BD%EC%9D%BC%EA%B2%8C%EC%9E%84%EC%95%84%EC%B9%B4%EB%8D%B0%EB%AF%B8&gad_source=1&gclid=Cj0KCQiA4-y8BhC3ARIsAHmjC_FjejOpjCQL4z7sRRsidSE6QCxjiON6ZZyuKf8SgyUgaqZzVtG5uOoaAsoBEALw_wcB))에서 주관한 기업협약프로젝트로 시작되었습니다. 
 
 ## 냥젤리 조향 공방
 
