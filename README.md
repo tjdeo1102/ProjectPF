@@ -36,7 +36,7 @@
 --- 
 ## 링크
 + [PPT](https://docs.google.com/presentation/d/1wRH48CqcYhFozzb3_UMV5I_77IfeKKlh/edit?usp=drive_link&ouid=113175664884426505050&rtpof=true&sd=true)
-+ [시연영상](https://drive.google.com/file/d/1TAy0KQ36oRiQU9V_HXyoBJcmWw0oV8gZ/view?usp=drive_link)
++ [시연영상](https://youtu.be/3o21pXPUIN0)
 ---
 
 ## 버그 리포트
